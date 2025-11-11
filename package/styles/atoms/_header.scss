@@ -1,0 +1,35 @@
+header {
+  --header-bg: var(--color-surface);
+  --header-fg: var(--color-on-surface);
+  --header-border: var(--color-border);
+  --header-gap: var(--space-3);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--header-gap);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--header-bg);
+  color: var(--header-fg);
+  border-bottom: 1px solid var(--header-border);
+}
+
+header[sticky],
+header[data-sticky="true"],
+header[aria-sticky="true"] {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+header :is(h1, h2) {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}

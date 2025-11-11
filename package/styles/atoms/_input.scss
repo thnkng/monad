@@ -1,0 +1,51 @@
+input,
+select,
+textarea {
+  appearance: none;
+  width: 100%;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  line-height: var(--line-height-normal);
+  transition: 
+    border-color var(--motion-duration-medium) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-medium) var(--motion-ease-standard),
+    background-color var(--motion-duration-medium) var(--motion-ease-standard);
+  outline: none;
+  font: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-muted);
+}
+
+:is(input, select, textarea):focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-primary) 15%, transparent);
+}
+
+:is(input, select, textarea):disabled,
+:is(input, select, textarea)[disabled] {
+  background-color: var(--color-muted-weak);
+  color: var(--color-muted);
+  cursor: not-allowed;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+
+/* Tamanhos opcionais sem classes, via atributo */
+:is(input, select, textarea)[data-size="sm"] {
+  padding: var(--space-xsmall) var(--space-2);
+  font-size: var(--font-size-small);
+}
+
+:is(input, select, textarea)[data-size="lg"] {
+  padding: var(--space-3) var(--space-medium);
+  font-size: var(--font-size-large);
+}

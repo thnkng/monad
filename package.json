@@ -1,0 +1,25 @@
+{
+  "name": "monad",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build:sass": "sass package/styles:dist/styles --style=compressed --no-source-map",
+    "build:js": "node scripts/js-build.mjs",
+    "build": "npm run build:sass && npm run build:js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thnkng/monad.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thnkng/monad/issues"
+  },
+  "homepage": "https://github.com/thnkng/monad#readme",
+  "devDependencies": {
+    "esbuild": "^0.21.5",
+    "glob": "^11.0.3",
+    "sass": "^1.94.0"
+  }
+}

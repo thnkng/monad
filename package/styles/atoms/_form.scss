@@ -1,0 +1,42 @@
+form {
+  display: grid;
+  gap: var(--space-3);
+}
+
+form fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+form legend {
+  font-weight: var(--font-weight-semi-bold);
+  padding: 0;
+  margin-bottom: var(--space-1);
+}
+
+form label {
+  font-weight: var(--font-weight-semi-bold);
+}
+
+form small {
+  font-size: var(--font-size-small);
+  color: var(--color-muted);
+}
+
+/* Erro via atributo/ARIA, sem classes */
+form small[role="alert"],
+form [data-error="true"] {
+  color: var(--color-danger);
+  font-size: var(--font-size-small);
+}
+
+/* Estados inválidos nativos e ARIA */
+form :is(input, select, textarea)[aria-invalid="true"],
+form :is(input, select, textarea):invalid {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 12%, transparent);
+}

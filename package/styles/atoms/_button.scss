@@ -1,0 +1,109 @@
+@use "sass:color";
+@use "../tokens/colors" as c;
+
+// Base button reset/shape
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-medium);
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  padding: var(--space-small) var(--space-medium);
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+  box-shadow: var(--shadow-faint);
+  transition:
+    background-color var(--motion-duration-medium) var(--motion-ease-standard),
+    color var(--motion-duration-medium) var(--motion-ease-standard),
+    border-color var(--motion-duration-medium) var(--motion-ease-standard),
+    transform var(--motion-duration-fast) var(--motion-ease-decelerate);
+}
+
+// Helpers
+@mixin button-variant($value) {
+  background-color: $value;
+  border-color: $value;
+  // Pick readable text color based on lightness (HSL L channel)
+  $l: color.channel($value, "lightness", hsl);
+  color: if($l > 60%, #0D1117, #FFFFFF);
+}
+
+@mixin button-outline($value) {
+  background-color: transparent;
+  color: $value;
+  border-color: $value;
+}
+
+// Generate one class per color token, e.g. .cloud-pure, .graphite-core, and collapse `-default` to base name
+@each $palette, $entries in c.$colors {
+  @each $name, $value in $entries {
+    @if $name == default {
+      .#{"" + $palette} {
+        @include button-variant($value);
+
+        &.outline {
+          @include button-outline($value);
+        }
+
+        // Ghost variant: no background, no border, colored text
+        &.ghost {
+          background-color: transparent;
+          border-color: transparent;
+          color: $value;
+        }
+
+        // Interactive states powered by motion tokens
+        &:hover {
+          transform: translateY(-1px) scale(1.01);
+          box-shadow: var(--shadow-soft);
+        }
+        &:active {
+          transition-timing-function: var(--motion-ease-accelerate);
+          transform: translateY(0) scale(0.99);
+          box-shadow: var(--shadow-faint);
+        }
+        &:focus-visible {
+          outline: none;
+          box-shadow: var(--shadow-soft), 0 0 0 var(--ring-width) var(--ring-color);
+        }
+      }
+    } @else {
+      .#{"" + $palette}-#{$name} {
+        @include button-variant($value);
+
+        &.outline {
+          @include button-outline($value);
+        }
+
+        // Ghost variant: no background, no border, colored text
+        &.ghost {
+          background-color: transparent;
+          border-color: transparent;
+          color: $value;
+        }
+
+        // Interactive states powered by motion tokens
+        &:hover {
+          transform: translateY(-1px) scale(1.01);
+          box-shadow: var(--shadow-soft);
+        }
+        &:active {
+          transition-timing-function: var(--motion-ease-accelerate);
+          transform: translateY(0) scale(0.99);
+          box-shadow: var(--shadow-faint);
+        }
+        &:focus-visible {
+          outline: none;
+          box-shadow: var(--shadow-soft), 0 0 0 var(--ring-width) var(--ring-color);
+        }
+      }
+    }
+  }
+}
+

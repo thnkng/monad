@@ -1,0 +1,32 @@
+@use "sass:map";
+
+// Motion design tokens
+$motion: (
+  durations: (
+    extra-fast: 100ms,
+    fast: 150ms,
+    medium: 200ms,
+    slow: 300ms,
+    extra-slow: 450ms
+  ),
+  easings: (
+    standard: cubic-bezier(0.4, 0, 0.2, 1),
+    accelerate: cubic-bezier(0.4, 0, 1, 1),
+    decelerate: cubic-bezier(0, 0, 0.2, 1),
+    sharp: cubic-bezier(0.4, 0, 0.6, 1),
+    linear: linear
+  )
+) !default;
+
+// Expose as CSS variables
+:root {
+  // Durations
+  @each $name, $value in map.get($motion, durations) {
+    --motion-duration-#{$name}: #{$value};
+  }
+
+  // Easings
+  @each $name, $value in map.get($motion, easings) {
+    --motion-ease-#{$name}: #{$value};
+  }
+}

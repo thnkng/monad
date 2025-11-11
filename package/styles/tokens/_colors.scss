@@ -1,0 +1,61 @@
+$colors: (
+    graphite: (mind: #0D1117, // base fria, quase preta com leve tom azul
+        deep: #1A2430, // azul-grafite escuro
+        core: #2B3A4A, // tom médio metálico
+        light: #F4F7FA // leve azul acinzentado para contraste
+    ), cloud: (pure: #F1F1F1,
+        silent: #F4F4F4,
+        mist: #EAEAEA),
+    thought: (default: #3391ff,
+        focus: #2e77e6,
+        depth: #1e4fb5),
+    ember: (energy: #ff9533,
+        glow: #ffb366,
+        burn: #e67a1a),
+    silver: (line: #DADADA,
+        balance: #B6B6B6,
+        depth: #8A8A8A),
+    sage: (calm: #b7c6b4,
+        leaf: #9fb49f,
+        shadow: #7a9076),
+    rose: (soft: #f7c9ce,
+        bloom: #e8a7b0,
+        depth: #bf6975),
+    sand: (light: #f3ebde,
+        warm: #e6cfae,
+        earth: #ca9f71),
+    aether: (sky: #d1ebff,
+        air: #b6d8fa,
+        light: #8bc2ee),
+    iris: (petal: #c8b6ff,
+        dream: #a58aed,
+        void: #7563b2),
+    state: (flow: #33d469, // success
+        pulse: #ffc14d, // warning
+        break: #ff5c5c // error
+    )) !default;
+
+// Expose color palettes as CSS custom properties
+:root {
+  @each $palette, $entries in $colors {
+    @each $name, $value in $entries {
+      @if $name == default {
+        --#{"" + $palette}: #{$value};
+      } @else {
+        --#{"" + $palette}-#{$name}: #{$value};
+      }
+    }
+  }
+
+  // Semantic color aliases for component usage
+  --color-surface: var(--cloud-pure);
+  --color-on-surface: var(--graphite-mind);
+  --color-border: var(--silver-line);
+  --color-primary: var(--thought);
+  --color-primary-hover: var(--thought-focus);
+  --color-muted: var(--silver-depth);
+  --color-muted-weak: var(--cloud-silent);
+  --color-danger: var(--state-break);
+  --color-success: var(--state-flow);
+  --color-warning: var(--state-pulse);
+}

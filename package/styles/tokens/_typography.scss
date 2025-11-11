@@ -1,0 +1,65 @@
+@use "sass:map";
+
+// Import Inter from Google Fonts
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+// Base font-family list
+$font-family-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, 'Noto Sans', 'Helvetica Neue', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+// Typography design tokens
+$typography: (
+  family: (
+    sans: $font-family-sans
+  ),
+  sizes: (
+    xsmall: 0.75rem,
+    small: 0.875rem,
+    medium: 1rem,
+    large: 1.125rem,
+    xlarge: 1.25rem,
+    "2xlarge": 1.5rem,
+    "3xlarge": 1.875rem,
+    "4xlarge": 2.25rem,
+    "5xlarge": 3rem
+  ),
+  line-heights: (
+    tight: 1.2,
+    snug: 1.35,
+    normal: 1.5,
+    relaxed: 1.65
+  ),
+  weights: (
+    thin: 100,
+    extra-light: 200,
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semi-bold: 600,
+    bold: 700,
+    extra-bold: 800,
+    black: 900
+  )
+) !default;
+
+// Expose as CSS custom properties for easy consumption
+:root {
+  // Font families
+  @each $name, $value in map.get($typography, family) {
+    --font-family-#{$name}: #{$value};
+  }
+
+  // Font sizes
+  @each $name, $value in map.get($typography, sizes) {
+    --font-size-#{$name}: #{$value};
+  }
+
+  // Line heights
+  @each $name, $value in map.get($typography, line-heights) {
+    --line-height-#{$name}: #{$value};
+  }
+
+  // Font weights
+  @each $name, $value in map.get($typography, weights) {
+    --font-weight-#{"" + $name}: #{$value};
+  }
+}

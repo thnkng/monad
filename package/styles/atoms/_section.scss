@@ -1,0 +1,17 @@
+section {
+  padding-block: var(--space-6);
+}
+
+section[data-density="compact"] {
+  padding-block: var(--space-4);
+}
+
+section[data-density="spacious"] {
+  padding-block: var(--space-8);
+}
+
+section > .container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}

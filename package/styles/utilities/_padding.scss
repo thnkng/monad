@@ -1,0 +1,23 @@
+@use "sass:map";
+@use "../tokens/spacing" as s;
+
+// Padding utilities generated from spacing tokens
+// Shorthand utilities
+@each $name, $value in s.$spacing {
+  .p-#{$name} { padding: var(--space-#{$name}); }
+  .px-#{$name} { padding-left: var(--space-#{$name}); padding-right: var(--space-#{$name}); }
+  .py-#{$name} { padding-top: var(--space-#{$name}); padding-bottom: var(--space-#{$name}); }
+  .pt-#{$name} { padding-top: var(--space-#{$name}); }
+  .pr-#{$name} { padding-right: var(--space-#{$name}); }
+  .pb-#{$name} { padding-bottom: var(--space-#{$name}); }
+  .pl-#{$name} { padding-left: var(--space-#{$name}); }
+
+  // Friendly aliases
+  .pad-#{$name} { padding: var(--space-#{$name}); }
+  .pad-inline-#{$name} { padding-left: var(--space-#{$name}); padding-right: var(--space-#{$name}); }
+  .pad-block-#{$name} { padding-top: var(--space-#{$name}); padding-bottom: var(--space-#{$name}); }
+  .pad-top-#{$name} { padding-top: var(--space-#{$name}); }
+  .pad-right-#{$name} { padding-right: var(--space-#{$name}); }
+  .pad-bottom-#{$name} { padding-bottom: var(--space-#{$name}); }
+  .pad-left-#{$name} { padding-left: var(--space-#{$name}); }
+}

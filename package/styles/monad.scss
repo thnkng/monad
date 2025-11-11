@@ -1,0 +1,16 @@
+// Tokens (foundations)
+@use 'tokens/colors' as *;
+@use 'tokens/typography' as *;
+@use 'tokens/motion' as *;
+@use 'tokens/effects' as *;
+@use 'tokens/spacing' as *;
+
+// Utilities
+@use 'utilities/padding' as *;
+@use 'utilities/margin' as *;
+
+// Base styles (semantic tags, minimal normalize)
+@use 'base/base' as *;
+
+// Atoms
+@use 'atoms/index' as *;
