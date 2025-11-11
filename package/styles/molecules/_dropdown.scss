@@ -62,7 +62,7 @@
   transition: background-color var(--motion-duration-fast) var(--motion-ease-standard);
   text-decoration: none;
 
-  &:hover,
+  &.hoverable:hover,
   &:focus-visible {
     background: var(--cloud-silent);
     outline: none;

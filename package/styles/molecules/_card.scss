@@ -15,7 +15,7 @@
     transform var(--motion-duration-fast) var(--motion-ease-decelerate);
 }
 
-.card:hover {
+.card.hoverable:hover {
   box-shadow: var(--shadow-soft);
 }
 

@@ -15,7 +15,7 @@ input[type="radio"] {
   margin: 0;
 }
 
-input[type="radio"]:hover {
+input[type="radio"].hoverable:hover {
   border-color: var(--color-primary);
 }
 

@@ -49,7 +49,7 @@
   line-height: 1;
   transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
 
-  &:hover {
+  &.hoverable:hover {
     opacity: 1;
   }
 }

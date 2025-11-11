@@ -106,11 +106,11 @@ picture[data-shadow="lg"] img {
 /* Grayscale/Filtros */
 img[data-grayscale="true"] {
   filter: grayscale(100%);
+  transition: filter var(--motion-duration-medium) var(--motion-ease-standard);
 }
 
-img[data-grayscale="true"]:hover {
+img[data-grayscale="true"].hoverable:hover {
   filter: grayscale(0%);
-  transition: filter var(--motion-duration-medium) var(--motion-ease-standard);
 }
 
 img[data-blur="true"] {

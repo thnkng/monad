@@ -15,7 +15,7 @@ input[type="checkbox"] {
   margin: 0;
 }
 
-input[type="checkbox"]:hover {
+input[type="checkbox"].hoverable:hover {
   border-color: var(--color-primary);
 }
 

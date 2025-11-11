@@ -76,7 +76,7 @@
   line-height: 1;
   transition: color var(--motion-duration-fast) var(--motion-ease-standard);
 
-  &:hover {
+  &.hoverable:hover {
     color: var(--graphite-mind);
   }
 }

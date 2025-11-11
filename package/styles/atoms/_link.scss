@@ -3,13 +3,13 @@
 
 // Base link
 a {
-  color: var(--thought);
+  color: var(--flow); // Changed from thought to flow for better visibility
   text-decoration: none;
   transition: color var(--motion-duration-medium) var(--motion-ease-standard);
   cursor: pointer;
 }
 
-a:hover {
+a.hoverable:hover {
   text-decoration: underline;
 }
 

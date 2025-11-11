@@ -6,14 +6,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-xsmall) var(--space-2);
-  font-size: var(--font-size-xsmall);
-  font-weight: var(--font-weight-semi-bold);
+  padding: var(--space-xsmall) var(--space-small);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
   line-height: var(--line-height-tight);
   border-radius: var(--radius-pill);
   white-space: nowrap;
   vertical-align: middle;
-  border: 1px solid transparent;
+  border: 1px solid var(--silver-line);
+  background-color: var(--cloud-silent);
+  color: var(--graphite-mind);
   transition:
     background-color var(--motion-duration-medium) var(--motion-ease-standard),
     color var(--motion-duration-medium) var(--motion-ease-standard),

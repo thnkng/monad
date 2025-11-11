@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../tokens/colors" as *;
 @use "../tokens/spacing" as *;
 
@@ -21,7 +22,7 @@ select {
   cursor: pointer;
   transition: all var(--motion-duration-fast) var(--motion-ease-standard);
 
-  &:hover {
+  &.hoverable:hover {
     border-color: var(--silver-balance);
   }
 
@@ -81,7 +82,7 @@ select[multiple] {
         &:focus,
         &:focus-visible {
           border-color: #{$value};
-          box-shadow: 0 0 0 3px rgba(#{red($value)}, #{green($value)}, #{blue($value)}, 0.1);
+          box-shadow: 0 0 0 3px color.change($value, $alpha: 0.1);
         }
       }
     } @else {
@@ -91,7 +92,7 @@ select[multiple] {
         &:focus,
         &:focus-visible {
           border-color: #{$value};
-          box-shadow: 0 0 0 3px rgba(#{red($value)}, #{green($value)}, #{blue($value)}, 0.1);
+          box-shadow: 0 0 0 3px color.change($value, $alpha: 0.1);
         }
       }
     }

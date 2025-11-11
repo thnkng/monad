@@ -3,308 +3,620 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monad Design System</title>
+    <title>Monad — Design System by Thinkng</title>
     <link rel="stylesheet" href="../dist/styles/monad.css">
-    <style>
-        .color-swatch {
-            display: flex;
-            align-items: center;
-            gap: var(--space-medium);
-            padding: var(--space-small) 0;
-        }
-        .color-box {
-            width: 60px;
-            height: 60px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--silver-line);
-        }
-        .color-info {
-            flex: 1;
-        }
-        .color-name {
-            font-weight: var(--font-weight-medium);
-            margin-bottom: var(--space-xsmall);
-        }
-        .color-hex {
-            font-family: monospace;
-            font-size: var(--font-size-small);
-            color: var(--silver-depth);
-        }
-        .font-sample {
-            padding: var(--space-medium) 0;
-            border-bottom: 1px solid var(--silver-line);
-        }
-        .font-sample:last-child {
-            border-bottom: none;
-        }
-        .font-label {
-            font-size: var(--font-size-small);
-            color: var(--silver-depth);
-            margin-bottom: var(--space-xsmall);
-        }
-    </style>
+    <script src="../dist/monad.js" type="module" defer></script>
 </head>
 <body>
-    <div class="container">
-        <header class="section-spacious">
-            <h1>Monad</h1>
-            <p data-text="muted">Minimal Design System</p>
-        </header>
+    <header class="graphite-mind">
+        <div class="container">
+            <div class="flex flex-between items-center">
+                <h2>Monad</h2>
+                <nav class="flex cluster-large">
+                    <a href="#manifesto">Manifesto</a>
+                    <a href="#sobre">Sobre</a>
+                    <a href="#tokens">Tokens</a>
+                    <a href="#componentes">Componentes</a>
+                    <a href="#diretrizes">Diretrizes</a>
+                    <a href="#licenca">Licença</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-        <!-- TOKENS -->
-        <section class="section-comfortable">
-            <h2>Tokens</h2>
-            
-            <h3>Colors</h3>
-            
-            <h4>Graphite — Primary Palette</h4>
-            <div class="color-swatch">
-                <div class="color-box" style="background: #0D1117;"></div>
-                <div class="color-info">
-                    <div class="color-name">Mind</div>
-                    <div class="color-hex">#0D1117</div>
-                </div>
-            </div>
-            <div class="color-swatch">
-                <div class="color-box" style="background: #1A2430;"></div>
-                <div class="color-info">
-                    <div class="color-name">Deep</div>
-                    <div class="color-hex">#1A2430</div>
-                </div>
-            </div>
-            <div class="color-swatch">
-                <div class="color-box" style="background: #2B3A4A;"></div>
-                <div class="color-info">
-                    <div class="color-name">Core</div>
-                    <div class="color-hex">#2B3A4A</div>
-                </div>
-            </div>
-            <div class="color-swatch">
-                <div class="color-box" style="background: #F4F7FA;"></div>
-                <div class="color-info">
-                    <div class="color-name">Light</div>
-                    <div class="color-hex">#F4F7FA</div>
-                </div>
-            </div>
-
-            <h4>Thought — Secondary Palette</h4>
-            <div class="color-swatch">
-                <div class="color-box" style="background: #1e3a5f;"></div>
-                <div class="color-info">
-                    <div class="color-name">Default</div>
-                    <div class="color-hex">#1e3a5f</div>
-                </div>
-            </div>
-            <div class="color-swatch">
-                <div class="color-box" style="background: #152d4a;"></div>
-                <div class="color-info">
-                    <div class="color-name">Focus</div>
-                    <div class="color-hex">#152d4a</div>
-                </div>
-            </div>
-            <div class="color-swatch">
-                <div class="color-box" style="background: #0d1f35;"></div>
-                <div class="color-info">
-                    <div class="color-name">Depth</div>
-                    <div class="color-hex">#0d1f35</div>
-                </div>
-            </div>
-
-            <h4>State Colors</h4>
-            <div class="color-swatch">
-                <div class="color-box" style="background: #33d469;"></div>
-                <div class="color-info">
-                    <div class="color-name">Flow (Success)</div>
-                    <div class="color-hex">#33d469</div>
-                </div>
-            </div>
-            <div class="color-swatch">
-                <div class="color-box" style="background: #ffc14d;"></div>
-                <div class="color-info">
-                    <div class="color-name">Pulse (Warning)</div>
-                    <div class="color-hex">#ffc14d</div>
-                </div>
-            </div>
-            <div class="color-swatch">
-                <div class="color-box" style="background: #ff5c5c;"></div>
-                <div class="color-info">
-                    <div class="color-name">Break (Error)</div>
-                    <div class="color-hex">#ff5c5c</div>
-                </div>
-            </div>
-
-            <h3>Typography</h3>
-            <div class="font-sample">
-                <div class="font-label">Font Family</div>
-                <div style="font-size: var(--font-size-large);">Inter</div>
-            </div>
-            <div class="font-sample">
-                <div class="font-label">Light (300)</div>
-                <div style="font-weight: 300; font-size: var(--font-size-large);">The quick brown fox jumps over the lazy dog</div>
-            </div>
-            <div class="font-sample">
-                <div class="font-label">Regular (400)</div>
-                <div style="font-weight: 400; font-size: var(--font-size-large);">The quick brown fox jumps over the lazy dog</div>
-            </div>
-            <div class="font-sample">
-                <div class="font-label">Medium (500)</div>
-                <div style="font-weight: 500; font-size: var(--font-size-large);">The quick brown fox jumps over the lazy dog</div>
-            </div>
-            <div class="font-sample">
-                <div class="font-label">Semi Bold (600)</div>
-                <div style="font-weight: 600; font-size: var(--font-size-large);">The quick brown fox jumps over the lazy dog</div>
+    <main>
+        <section class="section-spacious">
+            <div class="container-narrow">
+                <h1>Monad</h1>
+                <p>Sistema de design minimalista que revela a essência da tecnologia através da clareza, do silêncio visual e da precisão emocional.</p>
             </div>
         </section>
 
-        <!-- COMPONENTS -->
-        <section class="section-comfortable">
-            <h2>Components</h2>
+        <section id="manifesto" class="section-spacious graphite-light">
+            <div class="container-narrow">
+                <h2>Manifesto</h2>
+                <p>O Monad nasce da ideia de que o design não deve apenas decorar a tecnologia — ele deve revelar sua essência. Cada detalhe é um convite à clareza, à coerência e ao silêncio visual.</p>
+                
+                <div class="stack-large">
+                    <div>
+                        <h3>Clareza antes da forma</h3>
+                        <p>Cada elemento deve existir por um motivo. Nenhum pixel é decorativo; tudo comunica. A beleza está na precisão.</p>
+                    </div>
 
-            <h3>Buttons</h3>
-            <div class="flex cluster-medium">
-                <button class="graphite-core">Primary</button>
-                <button class="thought">Secondary</button>
-                <button class="graphite-core outline">Outline</button>
-                <button class="graphite-core ghost">Ghost</button>
-            </div>
+                    <div>
+                        <h3>Silêncio visual</h3>
+                        <p>O espaço é tão importante quanto o conteúdo. O olhar precisa de respiro para entender, e o usuário, de tempo para sentir.</p>
+                    </div>
 
-            <h3>Form</h3>
-            <div class="max-width-medium">
-                <form>
-                    <input type="text" placeholder="Name">
-                    <input type="email" placeholder="Email">
-                    <button type="submit" class="graphite-core">Submit</button>
-                </form>
-            </div>
+                    <div>
+                        <h3>Precisão emocional</h3>
+                        <p>Interfaces não são neutras. Elas provocam confiança, leveza, calma. Cada curva, cor e ritmo carrega uma intenção emocional.</p>
+                    </div>
 
-            <h3>Table</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>City</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>28</td>
-                        <td>NYC</td>
-                    </tr>
-                    <tr>
-                        <td>Jane Smith</td>
-                        <td>34</td>
-                        <td>LA</td>
-                    </tr>
-                    <tr>
-                        <td>Bob Wilson</td>
-                        <td>45</td>
-                        <td>SF</td>
-                    </tr>
-                </tbody>
-            </table>
+                    <div>
+                        <h3>Escalabilidade sem ruído</h3>
+                        <p>Um sistema só é bom se puder crescer sem perder sua harmonia. O Monad busca padrões universais, não convenções passageiras.</p>
+                    </div>
 
-            <h3>Cards</h3>
-            <div class="grid grid-cols-3 gap-medium">
-                <div class="card">
-                    <h4>Default</h4>
-                    <p>Clean minimal card</p>
+                    <div>
+                        <h3>Humanidade no centro</h3>
+                        <p>Tecnologia invisível é aquela que desaparece para que a experiência humana prevaleça. No fim, tudo é sobre pessoas — não sobre código.</p>
+                    </div>
                 </div>
-                <div class="card graphite-core">
-                    <h4>Primary</h4>
-                    <p>With accent border</p>
-                </div>
-                <div class="card interactive">
-                    <h4>Interactive</h4>
-                    <p>Hover to elevate</p>
-                </div>
-            </div>
-
-            <h3>Alerts</h3>
-            <div class="alert alert-info">
-                <div class="alert-content">
-                    <strong>Info</strong>
-                    Your changes have been saved.
-                </div>
-            </div>
-            <div class="alert alert-success">
-                <div class="alert-content">
-                    <strong>Success</strong>
-                    Operation completed successfully.
-                </div>
-            </div>
-            <div class="alert alert-warning">
-                <div class="alert-content">
-                    <strong>Warning</strong>
-                    Please review your input.
-                </div>
-            </div>
-            <div class="alert alert-error">
-                <div class="alert-content">
-                    <strong>Error</strong>
-                    Something went wrong.
-                </div>
-            </div>
-
-            <h3>Dropdown</h3>
-            <monad-dropdown>
-                <button slot="trigger" class="graphite-core">Options</button>
-                <div slot="menu">
-                    <div class="dropdown-header">Actions</div>
-                    <button class="dropdown-item">Edit</button>
-                    <button class="dropdown-item">Duplicate</button>
-                    <div class="dropdown-divider"></div>
-                    <button class="dropdown-item">Delete</button>
-                </div>
-            </monad-dropdown>
-
-            <h3>Modal</h3>
-            <button class="graphite-core" onclick="document.getElementById('demo-modal').open()">
-                Open Modal
-            </button>
-
-            <monad-modal id="demo-modal">
-                <div slot="header">
-                    <h3 style="margin: 0;">Modal Title</h3>
-                </div>
-                <div slot="body">
-                    <p>Web Component with backdrop, ESC key, and close button.</p>
-                </div>
-                <div slot="footer">
-                    <button class="graphite-core ghost" onclick="document.getElementById('demo-modal').close()">Cancel</button>
-                    <button class="graphite-core" onclick="document.getElementById('demo-modal').close()">Confirm</button>
-                </div>
-            </monad-modal>
-
-            <h3>Toast Notifications</h3>
-            <div class="flex cluster-small">
-                <button class="state-flow" onclick="showToast('success')">Success</button>
-                <button class="state-pulse" onclick="showToast('warning')">Warning</button>
-                <button class="state-break" onclick="showToast('error')">Error</button>
             </div>
         </section>
 
-        <footer class="section-spacious">
-            <p data-text="muted">Monad Design System</p>
+        <section id="sobre" class="section-spacious">
+            <div class="container-narrow">
+                <h2>Sobre o Monad</h2>
+                <p>Monad é um sistema de design atômico construído sobre princípios de clareza e minimalismo. Cada componente é projetado para ser inevitavelmente simples.</p>
+                
+                <h3>Princípios</h3>
+                <ul>
+                    <li>Design Atômico: tokens → átomos → moléculas → organismos</li>
+                    <li>Progressivo: funciona sem JavaScript, melhora com ele</li>
+                    <li>Escalável: padrões compostos, não classes complexas</li>
+                    <li>Acessível: semântica HTML, contraste adequado, navegação por teclado</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="tokens" class="section-spacious">
+            <div class="container">
+                <h2>Tokens</h2>
+                <p data-text="muted">Fundações visuais do sistema</p>
+
+                <div class="section-comfortable">
+                    <h3>Cores</h3>
+                    
+                    <h4>Graphite — Paleta Primária</h4>
+                    <div class="grid grid-cols-4 gap-medium">
+                        <div class="card">
+                            <div class="graphite-mind" style="height: 80px; border-radius: var(--radius-sm);"></div>
+                            <h5>Mind</h5>
+                            <p data-text="muted">#0D1117</p>
+                        </div>
+                        <div class="card">
+                            <div class="graphite-deep" style="height: 80px; border-radius: var(--radius-sm);"></div>
+                            <h5>Deep</h5>
+                            <p data-text="muted">#1A2430</p>
+                        </div>
+                        <div class="card">
+                            <div class="graphite-core" style="height: 80px; border-radius: var(--radius-sm);"></div>
+                            <h5>Core</h5>
+                            <p data-text="muted">#2B3A4A</p>
+                        </div>
+                        <div class="card">
+                            <div class="graphite-light" style="height: 80px; border-radius: var(--radius-sm);"></div>
+                            <h5>Light</h5>
+                            <p data-text="muted">#F4F7FA</p>
+                        </div>
+                    </div>
+
+                    <h4>Thought — Paleta Secundária</h4>
+                    <div class="grid grid-cols-3 gap-medium">
+                        <div class="card">
+                            <div class="thought" style="height: 80px; border-radius: var(--radius-sm);"></div>
+                            <h5>Default</h5>
+                            <p data-text="muted">#1e3a5f</p>
+                        </div>
+                        <div class="card">
+                            <div class="thought-focus" style="height: 80px; border-radius: var(--radius-sm);"></div>
+                            <h5>Focus</h5>
+                            <p data-text="muted">#152d4a</p>
+                        </div>
+                        <div class="card">
+                            <div class="thought-depth" style="height: 80px; border-radius: var(--radius-sm);"></div>
+                            <h5>Depth</h5>
+                            <p data-text="muted">#0d1f35</p>
+                        </div>
+                    </div>
+
+                    <h4>State — Feedback</h4>
+                    <div class="grid grid-cols-3 gap-medium">
+                        <div class="card">
+                            <div class="state-flow" style="height: 80px; border-radius: var(--radius-sm);"></div>
+                            <h5>Flow (Success)</h5>
+                            <p data-text="muted">#33d469</p>
+                        </div>
+                        <div class="card">
+                            <div class="state-pulse" style="height: 80px; border-radius: var(--radius-sm);"></div>
+                            <h5>Pulse (Warning)</h5>
+                            <p data-text="muted">#ffc14d</p>
+                        </div>
+                        <div class="card">
+                            <div class="state-break" style="height: 80px; border-radius: var(--radius-sm);"></div>
+                            <h5>Break (Error)</h5>
+                            <p data-text="muted">#ff5c5c</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-comfortable">
+                    <h3>Tipografia</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Peso</th>
+                                <th>Valor</th>
+                                <th>Uso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Light</td>
+                                <td>300</td>
+                                <td>Corpo de texto padrão</td>
+                            </tr>
+                            <tr>
+                                <td>Regular</td>
+                                <td>400</td>
+                                <td>Headings</td>
+                            </tr>
+                            <tr>
+                                <td>Medium</td>
+                                <td>500</td>
+                                <td>Ênfase sutil</td>
+                            </tr>
+                            <tr>
+                                <td>Semi Bold</td>
+                                <td>600</td>
+                                <td>Destaque forte</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section-comfortable">
+                    <h3>Espaçamento</h3>
+                    <p data-text="muted">Escala baseada em múltiplos de 4px</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Valor</th>
+                                <th>Pixels</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>--space-1</td><td>0.25rem</td><td>4px</td></tr>
+                            <tr><td>--space-2</td><td>0.5rem</td><td>8px</td></tr>
+                            <tr><td>--space-3</td><td>0.75rem</td><td>12px</td></tr>
+                            <tr><td>--space-4</td><td>1rem</td><td>16px</td></tr>
+                            <tr><td>--space-5</td><td>1.25rem</td><td>20px</td></tr>
+                            <tr><td>--space-6</td><td>1.5rem</td><td>24px</td></tr>
+                            <tr><td>--space-7</td><td>2rem</td><td>32px</td></tr>
+                            <tr><td>--space-8</td><td>2.5rem</td><td>40px</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="componentes" class="section-spacious">
+            <div class="container">
+                <header class="stack-compact">
+                    <h2>Componentes</h2>
+                    <p>Biblioteca completa de átomos e moléculas do Monad</p>
+                </header>
+
+                <div class="stack-large">
+                    <!-- Átomos -->
+                    <div class="stack-base">
+                        <h3>Átomos</h3>
+                        <p>Elementos HTML estilizados sem necessidade de classes</p>
+
+                        <div class="grid grid-cols-2">
+                            <!-- Buttons -->
+                            <div class="card">
+                                <h4>Button</h4>
+                                <p>Botões com variantes de cor</p>
+                                <div class="cluster-base">
+                                    <button>Default</button>
+                                    <button class="graphite-core">Primary</button>
+                                    <button class="thought">Secondary</button>
+                                    <button class="flow">Flow</button>
+                                    <button class="pulse">Pulse</button>
+                                    <button class="break">Break</button>
+                                </div>
+                                <pre><code>&lt;button&gt;Default&lt;/button&gt;
+&lt;button class="graphite-core"&gt;Primary&lt;/button&gt;
+&lt;button class="thought"&gt;Secondary&lt;/button&gt;
+&lt;button class="flow hoverable"&gt;With Hover&lt;/button&gt;</code></pre>
+                            </div>
+
+                            <!-- Links -->
+                            <div class="card">
+                                <h4>Link</h4>
+                                <p>Links com underline animado</p>
+                                <div class="stack-compact">
+                                    <a href="#">Link padrão</a>
+                                    <a href="#" class="thought">Link thought</a>
+                                    <a href="#" class="flow">Link flow</a>
+                                </div>
+                                <pre><code>&lt;a href="#"&gt;Link padrão&lt;/a&gt;
+&lt;a href="#" class="thought hoverable"&gt;Link thought&lt;/a&gt;</code></pre>
+                            </div>
+
+                            <!-- Form Controls -->
+                            <div class="card">
+                                <h4>Input & Select</h4>
+                                <form class="stack-compact">
+                                    <input type="text" placeholder="Digite algo...">
+                                    <select>
+                                        <option>Opção 1</option>
+                                        <option>Opção 2</option>
+                                        <option>Opção 3</option>
+                                    </select>
+                                    <div class="cluster-compact">
+                                        <label>
+                                            <input type="checkbox"> Checkbox
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="ex"> Radio
+                                        </label>
+                                    </div>
+                                </form>
+                                <pre><code>&lt;input type="text" placeholder="Digite..."&gt;
+&lt;select class="graphite-core"&gt;
+  &lt;option&gt;Opção 1&lt;/option&gt;
+&lt;/select&gt;
+&lt;input type="checkbox" class="hoverable"&gt;</code></pre>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="card">
+                                <h4>Table</h4>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Coluna A</th>
+                                            <th>Coluna B</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Valor 1</td>
+                                            <td>Valor 2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Valor 3</td>
+                                            <td>Valor 4</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Image -->
+                            <div class="card">
+                                <h4>Image</h4>
+                                <img src="https://placehold.co/400x200/2B3A4A/ffffff?text=Monad" alt="Placeholder">
+                            </div>
+
+                            <!-- Video -->
+                            <div class="card">
+                                <h4>Video</h4>
+                                <video controls class="ratio-16-9">
+                                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Moléculas -->
+                    <div class="stack-base">
+                        <h3>Moléculas</h3>
+                        <p>Componentes compostos com classes específicas</p>
+
+                        <div class="grid grid-cols-2">
+                            <!-- Card -->
+                            <div class="card">
+                                <h4>Card</h4>
+                                <p>Contêiner com padding, border-radius e sombra</p>
+                                <div class="card graphite-core">
+                                    <strong>Card variante graphite-core</strong>
+                                    <p>Pode ter qualquer cor de tema</p>
+                                </div>
+                                <pre><code>&lt;div class="card"&gt;Conteúdo&lt;/div&gt;
+&lt;div class="card graphite-core"&gt;Card Primary&lt;/div&gt;
+&lt;div class="card interactive hoverable"&gt;Interativo&lt;/div&gt;</code></pre>
+                            </div>
+
+                            <!-- Badge -->
+                            <div class="card">
+                                <h4>Badge</h4>
+                                <div class="cluster-compact">
+                                    <span class="badge">Default</span>
+                                    <span class="badge graphite-core">Primary</span>
+                                    <span class="badge thought">Secondary</span>
+                                    <span class="badge flow">Flow</span>
+                                    <span class="badge pulse">Pulse</span>
+                                    <span class="badge break">Break</span>
+                                </div>
+                                <pre><code>&lt;span class="badge"&gt;Default&lt;/span&gt;
+&lt;span class="badge graphite-core"&gt;Primary&lt;/span&gt;
+&lt;span class="badge thought"&gt;Secondary&lt;/span&gt;</code></pre>
+                            </div>
+
+                            <!-- Avatar -->
+                            <div class="card">
+                                <h4>Avatar</h4>
+                                <div class="cluster-base">
+                                    <div class="avatar">
+                                        <img src="https://i.pravatar.cc/150?img=1" alt="Avatar">
+                                    </div>
+                                    <div class="avatar large">
+                                        <img src="https://i.pravatar.cc/150?img=2" alt="Avatar">
+                                    </div>
+                                    <div class="avatar extra-large">
+                                        <img src="https://i.pravatar.cc/150?img=3" alt="Avatar">
+                                    </div>
+                                </div>
+                                <pre><code>&lt;div class="avatar"&gt;
+  &lt;img src="..." alt="Avatar"&gt;
+&lt;/div&gt;
+&lt;div class="avatar large"&gt;...&lt;/div&gt;
+&lt;div class="avatar extra-large"&gt;...&lt;/div&gt;</code></pre>
+                            </div>
+
+                            <!-- Spinner -->
+                            <div class="card">
+                                <h4>Spinner</h4>
+                                <div class="cluster-base">
+                                    <div class="spinner"></div>
+                                    <div class="spinner large graphite-core"></div>
+                                    <div class="spinner thought"></div>
+                                </div>
+                                <pre><code>&lt;div class="spinner"&gt;&lt;/div&gt;
+&lt;div class="spinner large graphite-core"&gt;&lt;/div&gt;
+&lt;div class="spinner small thought"&gt;&lt;/div&gt;</code></pre>
+                            </div>
+
+                            <!-- Alert -->
+                            <div class="card">
+                                <h4>Alert</h4>
+                                <div class="stack-compact">
+                                    <div class="alert alert-info">
+                                        <strong>Info:</strong> Mensagem informativa
+                                    </div>
+                                    <div class="alert alert-success">
+                                        <strong>Sucesso:</strong> Operação concluída
+                                    </div>
+                                    <div class="alert alert-warning">
+                                        <strong>Aviso:</strong> Atenção necessária
+                                    </div>
+                                    <div class="alert alert-error">
+                                        <strong>Erro:</strong> Algo deu errado
+                                    </div>
+                                </div>
+                                <pre><code>&lt;div class="alert alert-info"&gt;
+  &lt;strong&gt;Info:&lt;/strong&gt; Mensagem
+&lt;/div&gt;
+&lt;div class="alert alert-success"&gt;Sucesso&lt;/div&gt;</code></pre>
+                            </div>
+
+                            <!-- Modal Example -->
+                            <div class="card">
+                                <h4>Modal</h4>
+                                <p>Web Component interativo</p>
+                                <button onclick="document.getElementById('demo-modal').open()">Abrir Modal</button>
+                                <monad-modal id="demo-modal">
+                                    <h3>Título do Modal</h3>
+                                    <p>Conteúdo do modal com backdrop blur e animações suaves.</p>
+                                    <button onclick="document.getElementById('demo-modal').close()">Fechar</button>
+                                </monad-modal>
+                                <pre><code>&lt;monad-modal id="meu-modal"&gt;
+  &lt;h3&gt;Título&lt;/h3&gt;
+  &lt;p&gt;Conteúdo do modal&lt;/p&gt;
+&lt;/monad-modal&gt;
+
+&lt;script&gt;
+document.getElementById('meu-modal').open();
+&lt;/script&gt;</code></pre>
+                            </div>
+
+                            <!-- Dropdown Example -->
+                            <div class="card">
+                                <h4>Dropdown</h4>
+                                <p>Menu suspenso com Web Component</p>
+                                <monad-dropdown>
+                                    <button slot="trigger">Abrir Menu</button>
+                                    <div class="dropdown-menu">
+                                        <a href="#" class="dropdown-item hoverable">Ação 1</a>
+                                        <a href="#" class="dropdown-item hoverable">Ação 2</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#" class="dropdown-item hoverable">Ação 3</a>
+                                    </div>
+                                </monad-dropdown>
+                                <pre><code>&lt;monad-dropdown&gt;
+  &lt;button slot="trigger"&gt;Menu&lt;/button&gt;
+  &lt;div class="dropdown-menu"&gt;
+    &lt;a href="#" class="dropdown-item hoverable"&gt;Ação&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/monad-dropdown&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="diretrizes" class="section-spacious graphite-light">
+            <div class="container">
+                <header class="stack-compact">
+                    <h2>Diretrizes</h2>
+                    <p>Princípios de composição e uso do sistema</p>
+                </header>
+
+                <div class="stack-large">
+                    <!-- Composição -->
+                    <div class="stack-base">
+                        <h3>Composição</h3>
+                        <p>O Monad usa primitivas de layout para compor interfaces consistentes</p>
+
+                        <div class="card">
+                            <h4>Primitivas de Layout</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Classe</th>
+                                        <th>Uso</th>
+                                        <th>Exemplo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>container</code></td>
+                                        <td>Limita largura máxima (1152px) e centraliza</td>
+                                        <td>Seções principais</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>stack-*</code></td>
+                                        <td>Espaçamento vertical entre elementos</td>
+                                        <td>Listas, formulários</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>cluster-*</code></td>
+                                        <td>Espaçamento horizontal com wrap</td>
+                                        <td>Botões, tags</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>grid</code></td>
+                                        <td>Layout em grade responsiva</td>
+                                        <td>Cards, galerias</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>flex-*</code></td>
+                                        <td>Alinhamento flexbox</td>
+                                        <td>Headers, toolbars</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Quando Usar -->
+                    <div class="stack-base">
+                        <h3>Átomos vs Moléculas</h3>
+                        
+                        <div class="grid grid-cols-2">
+                            <div class="card">
+                                <h4>Átomos</h4>
+                                <p>Use quando precisar apenas de elementos HTML básicos:</p>
+                                <ul>
+                                    <li>Formulários simples</li>
+                                    <li>Tabelas de dados</li>
+                                    <li>Botões individuais</li>
+                                    <li>Links de navegação</li>
+                                    <li>Imagens e vídeos</li>
+                                </ul>
+                            </div>
+
+                            <div class="card">
+                                <h4>Moléculas</h4>
+                                <p>Use quando precisar de componentes compostos:</p>
+                                <ul>
+                                    <li>Cards de conteúdo</li>
+                                    <li>Alertas e notificações</li>
+                                    <li>Modais e overlays</li>
+                                    <li>Dropdowns e menus</li>
+                                    <li>Avatares com badge</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cores -->
+                    <div class="stack-base">
+                        <h3>Sistema de Cores</h3>
+                        <div class="card">
+                            <h4>Hierarquia Semântica</h4>
+                            <ul>
+                                <li><strong>Graphite (Primary):</strong> Ações principais, navegação primária</li>
+                                <li><strong>Thought (Secondary):</strong> Ações secundárias, complementos</li>
+                                <li><strong>Flow (Success):</strong> Confirmações, estados positivos</li>
+                                <li><strong>Pulse (Warning):</strong> Avisos, atenção necessária</li>
+                                <li><strong>Break (Error):</strong> Erros, ações destrutivas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="licenca" class="section-spacious">
+            <div class="container">
+                <header class="stack-compact">
+                    <h2>Licença</h2>
+                </header>
+
+                <div class="stack-base">
+                    <div class="card">
+                        <h3>MIT License</h3>
+                        <p>Copyright © 2024 Thinkng</p>
+                        <p>
+                            Permission is hereby granted, free of charge, to any person obtaining a copy
+                            of this software and associated documentation files (the "Software"), to deal
+                            in the Software without restriction, including without limitation the rights
+                            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                            copies of the Software, and to permit persons to whom the Software is
+                            furnished to do so, subject to the following conditions:
+                        </p>
+                        <p>
+                            The above copyright notice and this permission notice shall be included in all
+                            copies or substantial portions of the Software.
+                        </p>
+                        <p>
+                            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                            SOFTWARE.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Créditos</h3>
+                        <p>
+                            <strong>Monad Design System</strong> é desenvolvido e mantido por 
+                            <a href="https://thinkng.com" target="_blank">Thinkng</a>.
+                        </p>
+                        <p>
+                            Construído com clareza, silêncio visual e humanidade no centro.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="section-spacious graphite-mind">
+            <div class="container">
+                <p>Monad Design System · 2024</p>
+            </div>
         </footer>
     </div>
 
-    <script type="module">
-        // Import Web Components
-        import '../package/components/index.js';
-
-        // Toast helper
-        window.showToast = (type) => {
-            const messages = {
-                success: 'Operation completed!',
-                warning: 'Please review this',
-                error: 'Something went wrong'
-            };
-            
-            const MonadAlert = customElements.get('monad-alert');
-            MonadAlert.toast(messages[type], type, 3000);
-        };
-    </script>
 </body>
 </html>

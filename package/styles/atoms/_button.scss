@@ -58,8 +58,8 @@ button {
           color: $value;
         }
 
-        // Interactive states powered by motion tokens
-        &:hover {
+        // Interactive states powered by motion tokens (opt-in with .hoverable)
+        &.hoverable:hover {
           transform: translateY(-1px) scale(1.01);
           box-shadow: var(--shadow-soft);
         }
@@ -88,8 +88,8 @@ button {
           color: $value;
         }
 
-        // Interactive states powered by motion tokens
-        &:hover {
+        // Interactive states powered by motion tokens (opt-in with .hoverable)
+        &.hoverable:hover {
           transform: translateY(-1px) scale(1.01);
           box-shadow: var(--shadow-soft);
         }
