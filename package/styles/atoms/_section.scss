@@ -2,6 +2,7 @@
 
 section {
   padding-block: var(--space-6);
+  user-select: text; // Allow text selection in sections
 }
 
 section[data-density="compact"] {

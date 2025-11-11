@@ -25,6 +25,18 @@ button {
     transform var(--motion-duration-fast) var(--motion-ease-decelerate);
 }
 
+// Active state only for button elements
+button:active {
+  transition-timing-function: var(--motion-ease-accelerate);
+  transform: translateY(0) scale(0.99);
+  box-shadow: var(--shadow-faint);
+}
+
+button:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-soft), 0 0 0 var(--ring-width) var(--ring-color);
+}
+
 // Helpers
 @mixin button-variant($value) {
   background-color: $value;
@@ -63,15 +75,7 @@ button {
           transform: translateY(-1px) scale(1.01);
           box-shadow: var(--shadow-soft);
         }
-        &:active {
-          transition-timing-function: var(--motion-ease-accelerate);
-          transform: translateY(0) scale(0.99);
-          box-shadow: var(--shadow-faint);
-        }
-        &:focus-visible {
-          outline: none;
-          box-shadow: var(--shadow-soft), 0 0 0 var(--ring-width) var(--ring-color);
-        }
+        // Active state only for actual button elements
       }
     } @else {
       .#{"" + $palette}-#{$name} {
@@ -92,15 +96,6 @@ button {
         &.hoverable:hover {
           transform: translateY(-1px) scale(1.01);
           box-shadow: var(--shadow-soft);
-        }
-        &:active {
-          transition-timing-function: var(--motion-ease-accelerate);
-          transform: translateY(0) scale(0.99);
-          box-shadow: var(--shadow-faint);
-        }
-        &:focus-visible {
-          outline: none;
-          box-shadow: var(--shadow-soft), 0 0 0 var(--ring-width) var(--ring-color);
         }
       }
     }
