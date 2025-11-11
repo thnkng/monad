@@ -9,6 +9,7 @@ body {
   margin: 0;
   font-family: var(--font-family-sans);
   font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-light);
   line-height: var(--line-height-normal);
   color: var(--graphite-mind);
   background: var(--cloud-pure);
@@ -22,7 +23,7 @@ img, picture, video, canvas, svg {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 var(--space-small);
-  font-weight: var(--font-weight-semi-bold);
+  font-weight: var(--font-weight-regular);
   line-height: var(--line-height-tight);
 }
 

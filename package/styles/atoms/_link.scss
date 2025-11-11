@@ -1,0 +1,44 @@
+@use "sass:color";
+@use "../tokens/colors" as c;
+
+// Base link
+a {
+  color: var(--thought);
+  text-decoration: none;
+  transition: color var(--motion-duration-medium) var(--motion-ease-standard);
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: none;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+}
+
+a:visited {
+  color: var(--iris-dream);
+}
+
+// Helper mixin para variantes de cor
+@mixin link-variant($value) {
+  color: $value;
+}
+
+// Gera classes de cor para links seguindo o mesmo padrão do button
+@each $palette, $entries in c.$colors {
+  @each $name, $value in $entries {
+    @if $name == default {
+      a.#{"" + $palette} {
+        @include link-variant($value);
+      }
+    } @else {
+      a.#{"" + $palette}-#{$name} {
+        @include link-variant($value);
+      }
+    }
+  }
+}

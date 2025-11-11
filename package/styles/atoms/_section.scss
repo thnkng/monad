@@ -1,3 +1,5 @@
+@use "../tokens/colors" as *;
+
 section {
   padding-block: var(--space-6);
 }
@@ -14,4 +16,21 @@ section > .container {
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: var(--space-4);
+}
+
+// Generate color variants for sections
+@each $palette, $entries in $colors {
+  @each $name, $value in $entries {
+    @if $name == default {
+      section.#{"" + $palette} {
+        background-color: #{$value};
+        color: #{color-contrast($value)};
+      }
+    } @else {
+      section.#{"" + $palette}-#{$name} {
+        background-color: #{$value};
+        color: #{color-contrast($value)};
+      }
+    }
+  }
 }

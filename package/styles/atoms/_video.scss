@@ -1,0 +1,65 @@
+@use "../tokens/colors" as *;
+@use "../tokens/spacing" as *;
+
+// Video atom - Semantic HTML video styling with responsive behavior
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  background: var(--graphite-mind);
+
+  // Rounded variant
+  &[data-rounded] {
+    border-radius: var(--radius-md);
+  }
+
+  // Full rounded variant
+  &[data-rounded="full"] {
+    border-radius: var(--radius-full);
+  }
+
+  // Shadow variant
+  &[data-shadow] {
+    box-shadow: var(--shadow-sm);
+  }
+
+  &[data-shadow="medium"] {
+    box-shadow: var(--shadow-md);
+  }
+
+  &[data-shadow="large"] {
+    box-shadow: var(--shadow-lg);
+  }
+
+  // Aspect ratio variants
+  &[data-aspect="16/9"] {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  &[data-aspect="4/3"] {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  &[data-aspect="1/1"] {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+}
+
+// Generate border color variants for videos
+@each $palette, $entries in $colors {
+  @each $name, $value in $entries {
+    @if $name == default {
+      video.#{"" + $palette} {
+        border: 2px solid #{$value};
+      }
+    } @else {
+      video.#{"" + $palette}-#{$name} {
+        border: 2px solid #{$value};
+      }
+    }
+  }
+}

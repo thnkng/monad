@@ -1,0 +1,110 @@
+hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--color-border);
+  margin: var(--space-large) 0;
+}
+
+/* Variantes de espessura */
+hr[data-weight="thin"] {
+  height: 1px;
+}
+
+hr[data-weight="medium"] {
+  height: 2px;
+}
+
+hr[data-weight="thick"] {
+  height: 3px;
+}
+
+/* Variantes de cor */
+hr[data-variant="primary"] {
+  background-color: var(--color-primary);
+}
+
+hr[data-variant="muted"] {
+  background-color: var(--color-muted);
+}
+
+hr[data-variant="subtle"] {
+  background-color: var(--color-muted-weak);
+}
+
+/* Espaçamento */
+hr[data-spacing="compact"] {
+  margin: var(--space-small) 0;
+}
+
+hr[data-spacing="spacious"] {
+  margin: var(--space-xlarge) 0;
+}
+
+/* Divider com texto */
+hr[data-label]::before {
+  content: attr(data-label);
+  display: inline-block;
+  position: relative;
+  top: -0.75rem;
+  padding: 0 var(--space-2);
+  background-color: var(--color-surface);
+  color: var(--color-muted);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+}
+
+hr[data-label] {
+  text-align: center;
+  position: relative;
+}
+
+/* Divider vertical (para uso em flexbox) */
+.divider-vertical {
+  width: 1px;
+  height: 100%;
+  background-color: var(--color-border);
+  margin: 0 var(--space-medium);
+  align-self: stretch;
+}
+
+.divider-vertical[data-weight="medium"] {
+  width: 2px;
+}
+
+.divider-vertical[data-weight="thick"] {
+  width: 3px;
+}
+
+/* Divider com gradiente */
+hr[data-style="gradient"] {
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-border) 50%,
+    transparent
+  );
+}
+
+/* Divider tracejado */
+hr[data-style="dashed"] {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--color-border) 0,
+    var(--color-border) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  background-color: transparent;
+}
+
+/* Divider pontilhado */
+hr[data-style="dotted"] {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--color-border) 0,
+    var(--color-border) 2px,
+    transparent 2px,
+    transparent 6px
+  );
+  background-color: transparent;
+}

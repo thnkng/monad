@@ -1,0 +1,48 @@
+@use "../tokens/colors" as *;
+@use "../tokens/spacing" as *;
+
+// Table atom - Clean minimal styling
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  th, td {
+    padding: var(--space-small) var(--space-medium);
+    text-align: left;
+    border-bottom: 1px solid var(--silver-line);
+  }
+
+  th {
+    font-weight: var(--font-weight-regular);
+    color: var(--silver-depth);
+    font-size: var(--font-size-small);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  tbody tr {
+    transition: background-color var(--motion-duration-fast) var(--motion-ease-standard);
+
+    &:last-child td {
+      border-bottom: none;
+    }
+  }
+}
+
+// Generate color variants for tables
+@each $palette, $entries in $colors {
+  @each $name, $value in $entries {
+    @if $name == default {
+      table.#{"" + $palette} th {
+        background: #{$value};
+        color: color-contrast(#{$value});
+      }
+    } @else {
+      table.#{"" + $palette}-#{$name} th {
+        background: #{$value};
+        color: color-contrast(#{$value});
+      }
+    }
+  }
+}

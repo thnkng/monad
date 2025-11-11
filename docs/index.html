@@ -1,204 +1,230 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Monad Design System</title>
     <link rel="stylesheet" href="../dist/styles/monad.css">
+    <style>
+        .color-swatch {
+            display: flex;
+            align-items: center;
+            gap: var(--space-medium);
+            padding: var(--space-small) 0;
+        }
+        .color-box {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--silver-line);
+        }
+        .color-info {
+            flex: 1;
+        }
+        .color-name {
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-xsmall);
+        }
+        .color-hex {
+            font-family: monospace;
+            font-size: var(--font-size-small);
+            color: var(--silver-depth);
+        }
+        .font-sample {
+            padding: var(--space-medium) 0;
+            border-bottom: 1px solid var(--silver-line);
+        }
+        .font-sample:last-child {
+            border-bottom: none;
+        }
+        .font-label {
+            font-size: var(--font-size-small);
+            color: var(--silver-depth);
+            margin-bottom: var(--space-xsmall);
+        }
+    </style>
 </head>
 <body>
-        <style>
-            body { font-family: system-ui, sans-serif; margin: 32px; }
-            h1 { font-size: 1.5rem; margin: 0 0 1rem; }
-            .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); margin-bottom: 3rem; }
-            .group { margin-bottom: 2.5rem; }
-            .group h2 { font-size: 1rem; font-weight: 600; margin: 0 0 .75rem; letter-spacing: .5px; text-transform: uppercase; opacity: .7; }
-            button { width: 100%; }
-            .outline { font-weight: 500; }
-            footer { margin-top: 4rem; font-size: .75rem; opacity: .6; }
-        </style>
-        <h1>Monad Button Tokens Showcase</h1>
-        <div class="group">
-            <h2>Graphite</h2>
-            <div class="grid">
-                <button class="graphite-mind">graphite-mind</button>
-                <button class="graphite-mind outline">graphite-mind outline</button>
-                <button class="graphite-mind ghost">graphite-mind ghost</button>
-                <button class="graphite-deep">graphite-deep</button>
-                <button class="graphite-deep outline">graphite-deep outline</button>
-                <button class="graphite-deep ghost">graphite-deep ghost</button>
-                <button class="graphite-core">graphite-core</button>
-                <button class="graphite-core outline">graphite-core outline</button>
-                <button class="graphite-core ghost">graphite-core ghost</button>
-                <button class="graphite-light">graphite-light</button>
-                <button class="graphite-light outline">graphite-light outline</button>
-                <button class="graphite-light ghost">graphite-light ghost</button>
-            </div>
-        </div>
-        <div class="group">
-            <h2>Cloud</h2>
-            <div class="grid">
-                <button class="cloud-pure">cloud-pure</button>
-                <button class="cloud-pure outline">cloud-pure outline</button>
-                <button class="cloud-pure ghost">cloud-pure ghost</button>
-                <button class="cloud-silent">cloud-silent</button>
-                <button class="cloud-silent outline">cloud-silent outline</button>
-                <button class="cloud-silent ghost">cloud-silent ghost</button>
-                <button class="cloud-mist">cloud-mist</button>
-                <button class="cloud-mist outline">cloud-mist outline</button>
-                <button class="cloud-mist ghost">cloud-mist ghost</button>
-            </div>
-        </div>
-        <div class="group">
-            <h2>Thought</h2>
-            <div class="grid">
-                <button class="thought">thought</button>
-                <button class="thought outline">thought outline</button>
-                        <button class="thought ghost">thought ghost</button>
-                <button class="thought-focus">thought-focus</button>
-                <button class="thought-focus outline">thought-focus outline</button>
-                        <button class="thought-focus ghost">thought-focus ghost</button>
-                <button class="thought-depth">thought-depth</button>
-                <button class="thought-depth outline">thought-depth outline</button>
-                        <button class="thought-depth ghost">thought-depth ghost</button>
-            </div>
-        </div>
-        <div class="group">
-            <h2>Ember</h2>
-            <div class="grid">
-                <button class="ember-energy">ember-energy</button>
-                <button class="ember-energy outline">ember-energy outline</button>
-                <button class="ember-energy ghost">ember-energy ghost</button>
-                <button class="ember-glow">ember-glow</button>
-                <button class="ember-glow outline">ember-glow outline</button>
-                <button class="ember-glow ghost">ember-glow ghost</button>
-                <button class="ember-burn">ember-burn</button>
-                <button class="ember-burn outline">ember-burn outline</button>
-                <button class="ember-burn ghost">ember-burn ghost</button>
-            </div>
-        </div>
-        <div class="group">
-            <h2>Silver</h2>
-            <div class="grid">
-                <button class="silver-line">silver-line</button>
-                <button class="silver-line outline">silver-line outline</button>
-                <button class="silver-line ghost">silver-line ghost</button>
-                <button class="silver-balance">silver-balance</button>
-                <button class="silver-balance outline">silver-balance outline</button>
-                <button class="silver-balance ghost">silver-balance ghost</button>
-                <button class="silver-depth">silver-depth</button>
-                <button class="silver-depth outline">silver-depth outline</button>
-                <button class="silver-depth ghost">silver-depth ghost</button>
-            </div>
-        </div>
-        <div class="group">
-            <h2>Sage</h2>
-            <div class="grid">
-                <button class="sage-calm">sage-calm</button>
-                <button class="sage-calm outline">sage-calm outline</button>
-                <button class="sage-calm ghost">sage-calm ghost</button>
-                <button class="sage-leaf">sage-leaf</button>
-                <button class="sage-leaf outline">sage-leaf outline</button>
-                <button class="sage-leaf ghost">sage-leaf ghost</button>
-                <button class="sage-shadow">sage-shadow</button>
-                <button class="sage-shadow outline">sage-shadow outline</button>
-                <button class="sage-shadow ghost">sage-shadow ghost</button>
-            </div>
-        </div>
-        <div class="group">
-            <h2>Rose</h2>
-            <div class="grid">
-                <button class="rose-soft">rose-soft</button>
-                <button class="rose-soft outline">rose-soft outline</button>
-                <button class="rose-soft ghost">rose-soft ghost</button>
-                <button class="rose-bloom">rose-bloom</button>
-                <button class="rose-bloom outline">rose-bloom outline</button>
-                <button class="rose-bloom ghost">rose-bloom ghost</button>
-                <button class="rose-depth">rose-depth</button>
-                <button class="rose-depth outline">rose-depth outline</button>
-                <button class="rose-depth ghost">rose-depth ghost</button>
-            </div>
-        </div>
-        <div class="group">
-            <h2>Sand</h2>
-            <div class="grid">
-                <button class="sand-light">sand-light</button>
-                <button class="sand-light outline">sand-light outline</button>
-                <button class="sand-light ghost">sand-light ghost</button>
-                <button class="sand-warm">sand-warm</button>
-                <button class="sand-warm outline">sand-warm outline</button>
-                <button class="sand-warm ghost">sand-warm ghost</button>
-                <button class="sand-earth">sand-earth</button>
-                <button class="sand-earth outline">sand-earth outline</button>
-                <button class="sand-earth ghost">sand-earth ghost</button>
-            </div>
-        </div>
-        <div class="group">
-            <h2>Aether</h2>
-            <div class="grid">
-                <button class="aether-sky">aether-sky</button>
-                <button class="aether-sky outline">aether-sky outline</button>
-                <button class="aether-sky ghost">aether-sky ghost</button>
-            <button class="aether-air">aether-air</button>
-                <button class="aether-air outline">aether-air outline</button>
-                <button class="aether-air ghost">aether-air ghost</button>
-                <button class="aether-light">aether-light</button>
-                <button class="aether-light outline">aether-light outline</button>
-                <button class="aether-light ghost">aether-light ghost</button>
-            </div>
-        </div>
-        <div class="group">
-            <h2>Iris</h2>
-            <div class="grid">
-                <button class="iris-petal">iris-petal</button>
-                <button class="iris-petal outline">iris-petal outline</button>
-                <button class="iris-petal ghost">iris-petal ghost</button>
-                <button class="iris-dream">iris-dream</button>
-                <button class="iris-dream outline">iris-dream outline</button>
-                <button class="iris-dream ghost">iris-dream ghost</button>
-                <button class="iris-void">iris-void</button>
-                <button class="iris-void outline">iris-void outline</button>
-                <button class="iris-void ghost">iris-void ghost</button>
-            </div>
-        </div>
-        <div class="group">
-            <h2>State</h2>
-            <div class="grid">
-                <button class="state-flow">state-flow</button>
-                <button class="state-flow outline">state-flow outline</button>
-                <button class="state-flow ghost">state-flow ghost</button>
-                <button class="state-pulse">state-pulse</button>
-                <button class="state-pulse outline">state-pulse outline</button>
-                <button class="state-pulse ghost">state-pulse ghost</button>
-                <button class="state-break">state-break</button>
-                <button class="state-break outline">state-break outline</button>
-                <button class="state-break ghost">state-break ghost</button>
-            </div>
-        </div>
-                <div class="group">
-                        <h2>Icons (<code>&lt;m-icon&gt;</code> via Lucide)</h2>
-                        <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); align-items: center;">
-                                <div>
-                                    <div>search (medium)</div>
-                                    <m-icon name="search" size="medium" label="Search"></m-icon>
-                                </div>
-                                <div>
-                                    <div>user (large, bold)</div>
-                                    <m-icon name="user" size="large" stroke="bold" label="User"></m-icon>
-                                </div>
-                                <div>
-                                    <div>heart (small, decorative)</div>
-                                    <m-icon name="heart" size="small"></m-icon>
-                                </div>
-                                <div>
-                                    <div>button + icon</div>
-                                    <button class="thought">
-                                        <m-icon name="search" size="small" style="margin-right: var(--space-xsmall);"></m-icon>
-                                        Buscar
-                                    </button>
-                                </div>
-                        </div>
+    <div class="container">
+        <header class="section-spacious">
+            <h1>Monad</h1>
+            <p data-text="muted">Minimal Design System</p>
+        </header>
+
+        <!-- TOKENS -->
+        <section class="section-comfortable">
+            <h2>Tokens</h2>
+            
+            <h3>Colors</h3>
+            
+            <h4>Graphite — Primary Palette</h4>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #0D1117;"></div>
+                <div class="color-info">
+                    <div class="color-name">Mind</div>
+                    <div class="color-hex">#0D1117</div>
                 </div>
-                <footer>Generated showcase of Monad tokens and atoms (buttons and icons).</footer>
+            </div>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #1A2430;"></div>
+                <div class="color-info">
+                    <div class="color-name">Deep</div>
+                    <div class="color-hex">#1A2430</div>
+                </div>
+            </div>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #2B3A4A;"></div>
+                <div class="color-info">
+                    <div class="color-name">Core</div>
+                    <div class="color-hex">#2B3A4A</div>
+                </div>
+            </div>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #F4F7FA;"></div>
+                <div class="color-info">
+                    <div class="color-name">Light</div>
+                    <div class="color-hex">#F4F7FA</div>
+                </div>
+            </div>
+
+            <h4>Thought — Secondary Palette</h4>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #1e3a5f;"></div>
+                <div class="color-info">
+                    <div class="color-name">Default</div>
+                    <div class="color-hex">#1e3a5f</div>
+                </div>
+            </div>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #152d4a;"></div>
+                <div class="color-info">
+                    <div class="color-name">Focus</div>
+                    <div class="color-hex">#152d4a</div>
+                </div>
+            </div>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #0d1f35;"></div>
+                <div class="color-info">
+                    <div class="color-name">Depth</div>
+                    <div class="color-hex">#0d1f35</div>
+                </div>
+            </div>
+
+            <h4>State Colors</h4>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #33d469;"></div>
+                <div class="color-info">
+                    <div class="color-name">Flow (Success)</div>
+                    <div class="color-hex">#33d469</div>
+                </div>
+            </div>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #ffc14d;"></div>
+                <div class="color-info">
+                    <div class="color-name">Pulse (Warning)</div>
+                    <div class="color-hex">#ffc14d</div>
+                </div>
+            </div>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #ff5c5c;"></div>
+                <div class="color-info">
+                    <div class="color-name">Break (Error)</div>
+                    <div class="color-hex">#ff5c5c</div>
+                </div>
+            </div>
+
+            <h3>Typography</h3>
+            <div class="font-sample">
+                <div class="font-label">Font Family</div>
+                <div style="font-size: var(--font-size-large);">Inter</div>
+            </div>
+            <div class="font-sample">
+                <div class="font-label">Light (300)</div>
+                <div style="font-weight: 300; font-size: var(--font-size-large);">The quick brown fox jumps over the lazy dog</div>
+            </div>
+            <div class="font-sample">
+                <div class="font-label">Regular (400)</div>
+                <div style="font-weight: 400; font-size: var(--font-size-large);">The quick brown fox jumps over the lazy dog</div>
+            </div>
+            <div class="font-sample">
+                <div class="font-label">Medium (500)</div>
+                <div style="font-weight: 500; font-size: var(--font-size-large);">The quick brown fox jumps over the lazy dog</div>
+            </div>
+            <div class="font-sample">
+                <div class="font-label">Semi Bold (600)</div>
+                <div style="font-weight: 600; font-size: var(--font-size-large);">The quick brown fox jumps over the lazy dog</div>
+            </div>
+        </section>
+
+        <!-- COMPONENTS -->
+        <section class="section-comfortable">
+            <h2>Components</h2>
+
+            <h3>Buttons</h3>
+            <div class="flex cluster-medium">
+                <button class="graphite-core">Primary</button>
+                <button class="thought">Secondary</button>
+                <button class="graphite-core outline">Outline</button>
+                <button class="graphite-core ghost">Ghost</button>
+            </div>
+
+            <h3>Form</h3>
+            <div class="max-width-medium">
+                <form>
+                    <input type="text" placeholder="Name">
+                    <input type="email" placeholder="Email">
+                    <button type="submit" class="graphite-core">Submit</button>
+                </form>
+            </div>
+
+            <h3>Table</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>28</td>
+                        <td>NYC</td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>34</td>
+                        <td>LA</td>
+                    </tr>
+                    <tr>
+                        <td>Bob Wilson</td>
+                        <td>45</td>
+                        <td>SF</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Cards</h3>
+            <div class="grid grid-cols-3 gap-medium">
+                <div class="card">
+                    <h4>Default</h4>
+                    <p>Clean minimal card</p>
+                </div>
+                <div class="card graphite-core">
+                    <h4>Primary</h4>
+                    <p>With accent border</p>
+                </div>
+                <div class="card interactive">
+                    <h4>Interactive</h4>
+                    <p>Hover to elevate</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="section-spacious">
+            <p data-text="muted">Monad Design System</p>
+        </footer>
+    </div>
 </body>
 </html>

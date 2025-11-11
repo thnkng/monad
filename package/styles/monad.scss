@@ -8,9 +8,13 @@
 // Utilities
 @use 'utilities/padding' as *;
 @use 'utilities/margin' as *;
+@use 'utilities/layout' as *;
 
 // Base styles (semantic tags, minimal normalize)
 @use 'base/base' as *;
 
-// Atoms
+// Atoms (tags HTML básicas)
 @use 'atoms/index' as *;
+
+// Molecules (componentes com classes)
+@use 'molecules/index' as *;

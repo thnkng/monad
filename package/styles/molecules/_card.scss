@@ -1,0 +1,122 @@
+@use "sass:color";
+@use "../tokens/colors" as c;
+
+// Base card
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-large);
+  box-shadow: var(--shadow-faint);
+  transition: 
+    box-shadow var(--motion-duration-medium) var(--motion-ease-standard),
+    transform var(--motion-duration-fast) var(--motion-ease-decelerate);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-soft);
+}
+
+// Helper mixin para variantes de cor
+@mixin card-variant($value) {
+  border-color: $value;
+  $l: color.channel($value, "lightness", hsl);
+  
+  @if $l > 60% {
+    background-color: $value;
+    color: #0D1117;
+  } @else {
+    background-color: color-mix(in srgb, $value 10%, var(--color-surface));
+    border-color: $value;
+  }
+}
+
+// Gera classes de cor para cards
+@each $palette, $entries in c.$colors {
+  @each $name, $value in $entries {
+    @if $name == default {
+      .card.#{"" + $palette} {
+        @include card-variant($value);
+      }
+    } @else {
+      .card.#{"" + $palette}-#{$name} {
+        @include card-variant($value);
+      }
+    }
+  }
+}
+
+/* Variantes de padding */
+.card.padding-none {
+  padding: 0;
+}
+
+.card.padding-compact {
+  padding: var(--space-small);
+}
+
+.card.padding-spacious {
+  padding: var(--space-xlarge);
+}
+
+/* Variantes de sombra */
+.card.shadow-none {
+  box-shadow: none;
+}
+
+.card.shadow-medium {
+  box-shadow: var(--shadow-soft);
+}
+
+.card.shadow-large {
+  box-shadow: var(--shadow-medium);
+}
+
+/* Card interativo */
+.card.interactive {
+  cursor: pointer;
+}
+
+.card.interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.card.interactive:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Componentes internos */
+.card-header {
+  padding: var(--space-medium);
+  border-bottom: 1px solid var(--color-border);
+  margin: calc(-1 * var(--space-large)) calc(-1 * var(--space-large)) var(--space-medium);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.card-body {
+  flex: 1;
+  padding: var(--space-medium);
+}
+
+.card-footer {
+  padding: var(--space-medium);
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-medium) calc(-1 * var(--space-large)) calc(-1 * var(--space-large));
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.card-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin: calc(-1 * var(--space-large)) calc(-1 * var(--space-large)) var(--space-medium);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
