@@ -1,0 +1,137 @@
+@use "../tokens/colors" as *;
+@use "../tokens/spacing" as *;
+
+// Alert molecule - Notification/feedback component
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-small);
+  padding: var(--space-medium) var(--space-large);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid;
+  background: var(--cloud-silent);
+  color: var(--graphite-mind);
+  font-size: var(--font-size-medium);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-medium);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.alert-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+
+.alert-content {
+  flex: 1;
+
+  strong {
+    display: block;
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-xsmall);
+  }
+}
+
+.alert-close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+  padding: 0;
+  font-size: var(--font-size-large);
+  line-height: 1;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// Color variants
+.alert-info {
+  background: rgba(30, 58, 95, 0.1);
+  border-left-color: var(--thought);
+  color: var(--thought-depth);
+}
+
+.alert-success {
+  background: rgba(51, 212, 105, 0.1);
+  border-left-color: var(--state-flow);
+  color: #1a7a3e;
+}
+
+.alert-warning {
+  background: rgba(255, 193, 77, 0.1);
+  border-left-color: var(--state-pulse);
+  color: #8a5a00;
+}
+
+.alert-error {
+  background: rgba(255, 92, 92, 0.1);
+  border-left-color: var(--state-break);
+  color: #c41e3a;
+}
+
+// Toast variant - fixed positioning
+.toast {
+  position: fixed;
+  top: var(--space-large);
+  right: var(--space-large);
+  min-width: 20rem;
+  max-width: 28rem;
+  z-index: 9999;
+  box-shadow: var(--shadow-lg);
+  animation: toastSlideIn var(--motion-duration-medium) var(--motion-ease-standard);
+
+  @keyframes toastSlideIn {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  &.toast-exit {
+    animation: toastSlideOut var(--motion-duration-medium) var(--motion-ease-standard);
+  }
+
+  @keyframes toastSlideOut {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
+}
+
+// Toast container for stacking
+.toast-container {
+  position: fixed;
+  top: var(--space-large);
+  right: var(--space-large);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-small);
+  pointer-events: none;
+
+  .toast {
+    position: relative;
+    top: auto;
+    right: auto;
+    pointer-events: auto;
+  }
+}

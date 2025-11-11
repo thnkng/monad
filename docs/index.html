@@ -220,11 +220,91 @@
                     <p>Hover to elevate</p>
                 </div>
             </div>
+
+            <h3>Alerts</h3>
+            <div class="alert alert-info">
+                <div class="alert-content">
+                    <strong>Info</strong>
+                    Your changes have been saved.
+                </div>
+            </div>
+            <div class="alert alert-success">
+                <div class="alert-content">
+                    <strong>Success</strong>
+                    Operation completed successfully.
+                </div>
+            </div>
+            <div class="alert alert-warning">
+                <div class="alert-content">
+                    <strong>Warning</strong>
+                    Please review your input.
+                </div>
+            </div>
+            <div class="alert alert-error">
+                <div class="alert-content">
+                    <strong>Error</strong>
+                    Something went wrong.
+                </div>
+            </div>
+
+            <h3>Dropdown</h3>
+            <monad-dropdown>
+                <button slot="trigger" class="graphite-core">Options</button>
+                <div slot="menu">
+                    <div class="dropdown-header">Actions</div>
+                    <button class="dropdown-item">Edit</button>
+                    <button class="dropdown-item">Duplicate</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item">Delete</button>
+                </div>
+            </monad-dropdown>
+
+            <h3>Modal</h3>
+            <button class="graphite-core" onclick="document.getElementById('demo-modal').open()">
+                Open Modal
+            </button>
+
+            <monad-modal id="demo-modal">
+                <div slot="header">
+                    <h3 style="margin: 0;">Modal Title</h3>
+                </div>
+                <div slot="body">
+                    <p>Web Component with backdrop, ESC key, and close button.</p>
+                </div>
+                <div slot="footer">
+                    <button class="graphite-core ghost" onclick="document.getElementById('demo-modal').close()">Cancel</button>
+                    <button class="graphite-core" onclick="document.getElementById('demo-modal').close()">Confirm</button>
+                </div>
+            </monad-modal>
+
+            <h3>Toast Notifications</h3>
+            <div class="flex cluster-small">
+                <button class="state-flow" onclick="showToast('success')">Success</button>
+                <button class="state-pulse" onclick="showToast('warning')">Warning</button>
+                <button class="state-break" onclick="showToast('error')">Error</button>
+            </div>
         </section>
 
         <footer class="section-spacious">
             <p data-text="muted">Monad Design System</p>
         </footer>
     </div>
+
+    <script type="module">
+        // Import Web Components
+        import '../package/components/index.js';
+
+        // Toast helper
+        window.showToast = (type) => {
+            const messages = {
+                success: 'Operation completed!',
+                warning: 'Please review this',
+                error: 'Something went wrong'
+            };
+            
+            const MonadAlert = customElements.get('monad-alert');
+            MonadAlert.toast(messages[type], type, 3000);
+        };
+    </script>
 </body>
 </html>
