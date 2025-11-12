@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build:sass": "sass package/styles:dist/styles --style=compressed --no-source-map",
-    "build:js": "node scripts/js-build.mjs",
+    "build:js": "node js-build.mjs",
     "build": "npm run build:sass && npm run build:js"
   },
   "repository": {
