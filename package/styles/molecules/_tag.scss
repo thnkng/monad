@@ -1,0 +1,163 @@
+// ============================================
+// Tag/Chip Molecule
+// ============================================
+// Removable labels with close button
+// Different from Badge - interactive and dismissible
+
+@use "../tokens/colors" as *;
+@use "../tokens/spacing" as *;
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--cloud-silent);
+  border: 1px solid var(--silver-line);
+  color: var(--graphite-mind);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  transition: 
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    transform var(--motion-duration-fast) var(--motion-ease-standard);
+  
+  // Close button
+  .tag-close {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.6;
+    font-size: var(--font-size-medium);
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+    
+    &:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+// Hover effect (opt-in)
+.tag.hoverable:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-faint);
+}
+
+// Color variants
+@each $palette, $entries in $colors {
+  @each $name, $value in $entries {
+    .tag.#{"" + $palette}-#{$name} {
+      background: $value;
+      border-color: $value;
+      color: var(--white);
+      
+      // Light backgrounds need dark text
+      @if $name == "light" or $palette == "cloud" or $palette == "silver" {
+        color: var(--graphite-mind);
+      }
+      
+      .tag-close:hover {
+        background: rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+}
+
+// Size variants
+.tag.tag-small {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-xsmall);
+  gap: var(--space-1);
+  
+  .tag-close {
+    width: 12px;
+    height: 12px;
+    font-size: var(--font-size-small);
+  }
+}
+
+.tag.tag-large {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-medium);
+  gap: var(--space-3);
+  
+  .tag-close {
+    width: 20px;
+    height: 20px;
+    font-size: var(--font-size-large);
+  }
+}
+
+// Outline variant
+.tag.tag-outline {
+  background: transparent;
+  
+  @each $palette, $entries in $colors {
+    @each $name, $value in $entries {
+      &.#{"" + $palette}-#{$name} {
+        background: transparent;
+        border-color: $value;
+        color: $value;
+      }
+    }
+  }
+}
+
+// Clickable variant (whole tag is interactive)
+.tag.tag-clickable {
+  cursor: pointer;
+  user-select: none;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-faint);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// With icon/emoji
+.tag {
+  .tag-icon {
+    font-size: 1em;
+    line-height: 1;
+  }
+}
+
+// Animation for removal
+@keyframes tag-remove {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+.tag.tag-removing {
+  animation: tag-remove var(--motion-duration-fast) var(--motion-ease-accelerate) forwards;
+}
+
+// Respect motion preferences
+@media (prefers-reduced-motion: reduce) {
+  .tag.tag-removing {
+    animation: none;
+    display: none;
+  }
+}

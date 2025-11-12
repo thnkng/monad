@@ -1,0 +1,159 @@
+// ============================================
+// Pagination Molecule
+// ============================================
+// Navigation for paginated content
+
+@use "../tokens/colors" as *;
+@use "../tokens/spacing" as *;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) 0;
+  
+  // Page button
+  button,
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--silver-line);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    color: var(--graphite-core);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    cursor: pointer;
+    transition: 
+      background-color var(--motion-duration-fast) var(--motion-ease-standard),
+      border-color var(--motion-duration-fast) var(--motion-ease-standard),
+      color var(--motion-duration-fast) var(--motion-ease-standard),
+      transform var(--motion-duration-fast) var(--motion-ease-standard);
+    
+    // Hover (opt-in)
+    &.hoverable:hover {
+      background: var(--cloud-silent);
+      border-color: var(--graphite-core);
+    }
+    
+    // Active page
+    &.active {
+      background: var(--graphite-mind);
+      border-color: var(--graphite-mind);
+      color: var(--white);
+      cursor: default;
+      pointer-events: none;
+    }
+    
+    // Disabled state
+    &:disabled,
+    &.disabled {
+      background: var(--cloud-silent);
+      color: var(--silver-line);
+      border-color: var(--silver-line);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+  
+  // Ellipsis for skipped pages
+  .pagination-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    color: var(--graphite-core);
+    font-weight: var(--font-weight-medium);
+    user-select: none;
+  }
+  
+  // Prev/Next buttons
+  .pagination-prev,
+  .pagination-next {
+    padding: var(--space-2) var(--space-4);
+  }
+}
+
+// Compact variant (smaller)
+.pagination.pagination-compact {
+  gap: var(--space-1);
+  
+  button,
+  a {
+    min-width: 32px;
+    height: 32px;
+    font-size: var(--font-size-xsmall);
+  }
+  
+  .pagination-ellipsis {
+    min-width: 32px;
+    height: 32px;
+  }
+}
+
+// Large variant
+.pagination.pagination-large {
+  gap: var(--space-3);
+  
+  button,
+  a {
+    min-width: 48px;
+    height: 48px;
+    font-size: var(--font-size-medium);
+  }
+  
+  .pagination-ellipsis {
+    min-width: 48px;
+    height: 48px;
+  }
+}
+
+// Color variants
+@each $palette, $entries in $colors {
+  @each $name, $value in $entries {
+    .pagination.pagination-#{"" + $palette}-#{$name} {
+      button.active,
+      a.active {
+        background: $value;
+        border-color: $value;
+        
+        // Light backgrounds need dark text
+        @if $name == "light" or $palette == "cloud" or $palette == "silver" {
+          color: var(--graphite-mind);
+        } @else {
+          color: var(--white);
+        }
+      }
+      
+      button.hoverable:hover:not(.active):not(:disabled),
+      a.hoverable:hover:not(.active):not(.disabled) {
+        border-color: $value;
+        color: $value;
+      }
+    }
+  }
+}
+
+// Rounded variant
+.pagination.pagination-rounded {
+  button,
+  a {
+    border-radius: var(--radius-pill);
+  }
+}
+
+// Center alignment
+.pagination.pagination-center {
+  justify-content: center;
+}
+
+// Right alignment
+.pagination.pagination-right {
+  justify-content: flex-end;
+}

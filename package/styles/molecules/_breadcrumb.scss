@@ -1,0 +1,97 @@
+// ============================================
+// Breadcrumb Molecule
+// ============================================
+// Hierarchical navigation trail
+
+@use "../tokens/colors" as *;
+@use "../tokens/spacing" as *;
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  font-size: var(--font-size-small);
+  
+  // Links
+  a {
+    color: var(--thought);
+    text-decoration: none;
+    transition: color var(--motion-duration-fast) var(--motion-ease-standard);
+    
+    &.hoverable:hover {
+      color: var(--graphite-mind);
+      text-decoration: underline;
+    }
+  }
+  
+  // Current page (not a link)
+  span {
+    color: var(--graphite-mind);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  // Separator (auto-generated via CSS)
+  a::after,
+  span:not(:last-child)::after {
+    content: "/";
+    margin-left: var(--space-2);
+    color: var(--silver-line);
+    font-weight: var(--font-weight-regular);
+  }
+  
+  // Last item doesn't need separator
+  span:last-child::after {
+    content: none;
+  }
+}
+
+// Size variants
+.breadcrumb.breadcrumb-small {
+  font-size: var(--font-size-xsmall);
+  gap: var(--space-1);
+  
+  a::after,
+  span:not(:last-child)::after {
+    margin-left: var(--space-1);
+  }
+}
+
+.breadcrumb.breadcrumb-large {
+  font-size: var(--font-size-medium);
+  gap: var(--space-3);
+  
+  a::after,
+  span:not(:last-child)::after {
+    margin-left: var(--space-3);
+  }
+}
+
+// Color variants
+.breadcrumb.breadcrumb-light {
+  a {
+    color: var(--cloud-silent);
+    
+    &.hoverable:hover {
+      color: var(--white);
+    }
+  }
+  
+  span {
+    color: var(--white);
+  }
+  
+  a::after,
+  span:not(:last-child)::after {
+    color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+// With icons
+.breadcrumb a,
+.breadcrumb span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}

@@ -1,0 +1,192 @@
+// ============================================
+// Menu/Navigation Molecule
+// ============================================
+// Vertical navigation menu with items and sections
+
+@use "../tokens/colors" as *;
+@use "../tokens/spacing" as *;
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--white);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--silver-line);
+  min-width: 200px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  color: var(--graphite-core);
+  text-decoration: none;
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-regular);
+  cursor: pointer;
+  transition: 
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard);
+  user-select: none;
+  
+  // Icon/emoji support
+  .menu-icon {
+    font-size: var(--font-size-large);
+    line-height: 1;
+    opacity: 0.7;
+  }
+  
+  // Hover (opt-in)
+  &.hoverable:hover {
+    background: var(--cloud-silent);
+    color: var(--graphite-mind);
+    
+    .menu-icon {
+      opacity: 1;
+    }
+  }
+  
+  // Active state
+  &.active {
+    background: var(--graphite-mind);
+    color: var(--white);
+    font-weight: var(--font-weight-medium);
+    
+    .menu-icon {
+      opacity: 1;
+    }
+  }
+  
+  // Disabled state
+  &.disabled,
+  &:disabled {
+    color: var(--silver-line);
+    cursor: not-allowed;
+    pointer-events: none;
+    
+    .menu-icon {
+      opacity: 0.4;
+    }
+  }
+}
+
+// Menu divider
+.menu-divider {
+  height: 1px;
+  background: var(--silver-line);
+  margin: var(--space-2) 0;
+}
+
+// Menu label/heading
+.menu-label {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-semi-bold);
+  color: var(--graphite-core);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+// Color variants
+@each $palette, $entries in $colors {
+  @each $name, $value in $entries {
+    .menu.menu-#{"" + $palette}-#{$name} {
+      .menu-item.active {
+        background: $value;
+        
+        // Light backgrounds need dark text
+        @if $name == "light" or $palette == "cloud" or $palette == "silver" {
+          color: var(--graphite-mind);
+        } @else {
+          color: var(--white);
+        }
+      }
+      
+      .menu-item.hoverable:hover:not(.active) {
+        color: $value;
+      }
+    }
+  }
+}
+
+// Compact variant
+.menu.menu-compact {
+  padding: var(--space-2);
+  gap: 0;
+  
+  .menu-item {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-small);
+  }
+  
+  .menu-label {
+    padding: var(--space-1) var(--space-3);
+  }
+}
+
+// Horizontal menu
+.menu.menu-horizontal {
+  flex-direction: row;
+  width: 100%;
+  
+  .menu-item {
+    flex: 0 0 auto;
+  }
+  
+  .menu-divider {
+    width: 1px;
+    height: auto;
+    margin: 0 var(--space-2);
+  }
+}
+
+// Submenu support
+.menu-item.menu-item-expandable {
+  justify-content: space-between;
+  
+  &::after {
+    content: "›";
+    font-size: var(--font-size-large);
+    transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
+  }
+  
+  &.expanded::after {
+    transform: rotate(90deg);
+  }
+}
+
+.menu-submenu {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-left: var(--space-6);
+  margin-top: var(--space-1);
+  
+  &.expanded {
+    display: flex;
+    animation: menu-submenu-expand var(--motion-duration-medium) var(--motion-ease-decelerate);
+  }
+}
+
+@keyframes menu-submenu-expand {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Respect motion preferences
+@media (prefers-reduced-motion: reduce) {
+  .menu-submenu.expanded {
+    animation: none;
+  }
+}

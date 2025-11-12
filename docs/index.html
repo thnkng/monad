@@ -11,7 +11,6 @@
     <header class="graphite-mind">
         <div class="container">
             <div class="flex flex-between items-center">
-                <h2>Monad</h2>
                 <nav class="flex cluster-large">
                     <a href="#manifesto">Manifesto</a>
                     <a href="#sobre">Sobre</a>
@@ -485,6 +484,317 @@ document.getElementById('meu-modal').open();
     &lt;a href="#" class="dropdown-item hoverable"&gt;Ação&lt;/a&gt;
   &lt;/div&gt;
 &lt;/monad-dropdown&gt;</code></pre>
+                            </div>
+
+                            <!-- Toast/Notification -->
+                            <div class="card">
+                                <h4>Toast/Notification</h4>
+                                <p>Notificações não-intrusivas que aparecem temporariamente</p>
+                                <div class="stack-compact">
+                                    <div class="toast toast-success">
+                                        <span class="toast-icon">✓</span>
+                                        <p>Operação concluída com sucesso!</p>
+                                        <button class="toast-close">×</button>
+                                    </div>
+                                    <div class="toast toast-error">
+                                        <span class="toast-icon">✕</span>
+                                        <p>Erro ao processar solicitação</p>
+                                        <button class="toast-close">×</button>
+                                    </div>
+                                    <div class="toast toast-warning">
+                                        <span class="toast-icon">⚠</span>
+                                        <p>Atenção: Verifique os dados</p>
+                                        <button class="toast-close">×</button>
+                                    </div>
+                                </div>
+                                <pre><code>&lt;div class="toast toast-success"&gt;
+  &lt;span class="toast-icon"&gt;✓&lt;/span&gt;
+  &lt;p&gt;Mensagem de sucesso&lt;/p&gt;
+  &lt;button class="toast-close"&gt;×&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Container para posicionar toasts --&gt;
+&lt;div class="toast-container toast-top-right"&gt;
+  &lt;!-- Toasts aqui --&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+
+                            <!-- Breadcrumb -->
+                            <div class="card">
+                                <h4>Breadcrumb</h4>
+                                <p>Navegação hierárquica mostrando o caminho atual</p>
+                                <nav class="breadcrumb">
+                                    <a href="#" class="hoverable">Home</a>
+                                    <a href="#" class="hoverable">Produtos</a>
+                                    <a href="#" class="hoverable">Categoria</a>
+                                    <span>Detalhes</span>
+                                </nav>
+                                <pre><code>&lt;nav class="breadcrumb"&gt;
+  &lt;a href="/" class="hoverable"&gt;Home&lt;/a&gt;
+  &lt;a href="/produtos" class="hoverable"&gt;Produtos&lt;/a&gt;
+  &lt;span&gt;Item Atual&lt;/span&gt;
+&lt;/nav&gt;
+
+&lt;!-- Variantes --&gt;
+&lt;nav class="breadcrumb breadcrumb-small"&gt;...&lt;/nav&gt;
+&lt;nav class="breadcrumb breadcrumb-large"&gt;...&lt;/nav&gt;</code></pre>
+                            </div>
+
+                            <!-- Tabs -->
+                            <div class="card">
+                                <h4>Tabs</h4>
+                                <p>Sistema de abas para organizar conteúdo</p>
+                                <div class="tabs">
+                                    <button class="tab active hoverable">Visão Geral</button>
+                                    <button class="tab hoverable">Configurações</button>
+                                    <button class="tab hoverable">Histórico</button>
+                                    <button class="tab" disabled>Desabilitada</button>
+                                </div>
+                                <div class="tab-content">
+                                    <p>Conteúdo da aba ativa aparece aqui com animação suave.</p>
+                                </div>
+                                <pre><code>&lt;div class="tabs"&gt;
+  &lt;button class="tab active hoverable"&gt;Aba 1&lt;/button&gt;
+  &lt;button class="tab hoverable"&gt;Aba 2&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="tab-content"&gt;
+  Conteúdo da aba...
+&lt;/div&gt;
+
+&lt;!-- Variantes de cor --&gt;
+&lt;div class="tabs tabs-flow"&gt;...&lt;/div&gt;
+&lt;div class="tabs tabs-vertical"&gt;...&lt;/div&gt;</code></pre>
+                            </div>
+
+                            <!-- Tag/Chip -->
+                            <div class="card">
+                                <h4>Tag/Chip</h4>
+                                <p>Tags removíveis para filtros e categorias</p>
+                                <div class="cluster-compact">
+                                    <div class="tag">
+                                        Design
+                                        <button class="tag-close">×</button>
+                                    </div>
+                                    <div class="tag graphite-core">
+                                        Development
+                                        <button class="tag-close">×</button>
+                                    </div>
+                                    <div class="tag thought">
+                                        Marketing
+                                        <button class="tag-close">×</button>
+                                    </div>
+                                    <div class="tag flow tag-small">
+                                        Active
+                                        <button class="tag-close">×</button>
+                                    </div>
+                                </div>
+                                <pre><code>&lt;div class="tag"&gt;
+  Label
+  &lt;button class="tag-close"&gt;×&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Variantes --&gt;
+&lt;div class="tag graphite-core"&gt;...&lt;/div&gt;
+&lt;div class="tag tag-small"&gt;...&lt;/div&gt;
+&lt;div class="tag tag-outline flow"&gt;...&lt;/div&gt;</code></pre>
+                            </div>
+
+                            <!-- Pagination -->
+                            <div class="card">
+                                <h4>Pagination</h4>
+                                <p>Navegação entre páginas de conteúdo</p>
+                                <nav class="pagination">
+                                    <button class="pagination-prev hoverable" disabled>Anterior</button>
+                                    <button class="active">1</button>
+                                    <button class="hoverable">2</button>
+                                    <button class="hoverable">3</button>
+                                    <span class="pagination-ellipsis">...</span>
+                                    <button class="hoverable">10</button>
+                                    <button class="pagination-next hoverable">Próximo</button>
+                                </nav>
+                                <pre><code>&lt;nav class="pagination"&gt;
+  &lt;button class="pagination-prev" disabled&gt;Anterior&lt;/button&gt;
+  &lt;button class="active"&gt;1&lt;/button&gt;
+  &lt;button class="hoverable"&gt;2&lt;/button&gt;
+  &lt;span class="pagination-ellipsis"&gt;...&lt;/span&gt;
+  &lt;button class="pagination-next hoverable"&gt;Próximo&lt;/button&gt;
+&lt;/nav&gt;
+
+&lt;!-- Variantes --&gt;
+&lt;nav class="pagination pagination-compact"&gt;...&lt;/nav&gt;
+&lt;nav class="pagination pagination-flow"&gt;...&lt;/nav&gt;</code></pre>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="card">
+                                <h4>Progress Bar</h4>
+                                <p>Indicador visual de progresso de tarefas</p>
+                                <div class="stack-compact">
+                                    <div class="progress-wrapper">
+                                        <div class="progress-label">
+                                            <span>Upload</span>
+                                            <span class="progress-value">65%</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar flow" style="width: 65%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="progress progress-medium">
+                                        <div class="progress-bar thought" style="width: 40%"></div>
+                                    </div>
+                                    
+                                    <div class="progress">
+                                        <div class="progress-bar break progress-bar-indeterminate"></div>
+                                    </div>
+                                </div>
+                                <pre><code>&lt;div class="progress"&gt;
+  &lt;div class="progress-bar flow" style="width: 75%"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Com label --&gt;
+&lt;div class="progress-wrapper"&gt;
+  &lt;div class="progress-label"&gt;
+    &lt;span&gt;Tarefa&lt;/span&gt;
+    &lt;span class="progress-value"&gt;75%&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="progress"&gt;
+    &lt;div class="progress-bar" style="width: 75%"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Indeterminado --&gt;
+&lt;div class="progress-bar progress-bar-indeterminate"&gt;&lt;/div&gt;</code></pre>
+                            </div>
+
+                            <!-- Menu/Navigation -->
+                            <div class="card">
+                                <h4>Menu/Navigation</h4>
+                                <p>Menu vertical para navegação lateral</p>
+                                <nav class="menu" style="max-width: 280px;">
+                                    <div class="menu-label">Principal</div>
+                                    <a href="#" class="menu-item active hoverable">
+                                        <span class="menu-icon">🏠</span>
+                                        Dashboard
+                                    </a>
+                                    <a href="#" class="menu-item hoverable">
+                                        <span class="menu-icon">📊</span>
+                                        Relatórios
+                                    </a>
+                                    <a href="#" class="menu-item hoverable">
+                                        <span class="menu-icon">👥</span>
+                                        Usuários
+                                    </a>
+                                    <div class="menu-divider"></div>
+                                    <div class="menu-label">Conta</div>
+                                    <a href="#" class="menu-item hoverable">
+                                        <span class="menu-icon">⚙️</span>
+                                        Configurações
+                                    </a>
+                                </nav>
+                                <pre><code>&lt;nav class="menu"&gt;
+  &lt;div class="menu-label"&gt;Seção&lt;/div&gt;
+  &lt;a href="#" class="menu-item active hoverable"&gt;
+    &lt;span class="menu-icon"&gt;🏠&lt;/span&gt;
+    Item
+  &lt;/a&gt;
+  &lt;div class="menu-divider"&gt;&lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;!-- Variantes --&gt;
+&lt;nav class="menu menu-compact"&gt;...&lt;/nav&gt;
+&lt;nav class="menu menu-flow"&gt;...&lt;/nav&gt;</code></pre>
+                            </div>
+
+                            <!-- Empty State -->
+                            <div class="card">
+                                <h4>Empty State</h4>
+                                <p>Mensagem amigável quando não há conteúdo</p>
+                                <div class="empty-state empty-state-compact">
+                                    <div class="empty-state-icon">📭</div>
+                                    <h4>Nenhum resultado encontrado</h4>
+                                    <p>Não encontramos nada com esses filtros. Tente ajustar sua busca.</p>
+                                    <button class="graphite-core hoverable">Limpar Filtros</button>
+                                </div>
+                                <pre><code>&lt;div class="empty-state"&gt;
+  &lt;div class="empty-state-icon"&gt;📭&lt;/div&gt;
+  &lt;h3&gt;Nada por aqui&lt;/h3&gt;
+  &lt;p&gt;Descrição do estado vazio&lt;/p&gt;
+  &lt;button&gt;Ação&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Variantes --&gt;
+&lt;div class="empty-state empty-state-compact"&gt;...&lt;/div&gt;
+&lt;div class="empty-state empty-state-error"&gt;...&lt;/div&gt;</code></pre>
+                            </div>
+
+                            <!-- Skeleton -->
+                            <div class="card">
+                                <h4>Skeleton</h4>
+                                <p>Placeholders animados durante carregamento</p>
+                                <div class="stack-compact">
+                                    <div class="skeleton-list-item">
+                                        <div class="skeleton-avatar"></div>
+                                        <div class="skeleton-content">
+                                            <div class="skeleton-text"></div>
+                                            <div class="skeleton-text skeleton-text-short"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skeleton-list-item">
+                                        <div class="skeleton-avatar"></div>
+                                        <div class="skeleton-content">
+                                            <div class="skeleton-text"></div>
+                                            <div class="skeleton-text skeleton-text-medium"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <pre><code>&lt;!-- Texto --&gt;
+&lt;div class="skeleton-text"&gt;&lt;/div&gt;
+&lt;div class="skeleton-text skeleton-text-short"&gt;&lt;/div&gt;
+
+&lt;!-- Avatar --&gt;
+&lt;div class="skeleton-avatar"&gt;&lt;/div&gt;
+
+&lt;!-- Imagem --&gt;
+&lt;div class="skeleton-image"&gt;&lt;/div&gt;
+
+&lt;!-- Lista composta --&gt;
+&lt;div class="skeleton-list-item"&gt;
+  &lt;div class="skeleton-avatar"&gt;&lt;/div&gt;
+  &lt;div class="skeleton-content"&gt;
+    &lt;div class="skeleton-text"&gt;&lt;/div&gt;
+    &lt;div class="skeleton-text skeleton-text-short"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+
+                            <!-- Tooltip -->
+                            <div class="card">
+                                <h4>Tooltip</h4>
+                                <p>Informação contextual ao passar o mouse</p>
+                                <div class="cluster-base">
+                                    <button data-tooltip="Informação adicional sobre este botão" class="graphite-core">
+                                        Hover aqui
+                                    </button>
+                                    <span data-tooltip="Tooltip simples com CSS puro">
+                                        📍 Outro exemplo
+                                    </span>
+                                </div>
+                                <pre><code>&lt;!-- Tooltip CSS-only --&gt;
+&lt;button data-tooltip="Informação"&gt;
+  Hover aqui
+&lt;/button&gt;
+
+&lt;!-- Tooltip via JS (mais controle) --&gt;
+&lt;div class="tooltip tooltip-top tooltip-show"&gt;
+  Conteúdo do tooltip
+&lt;/div&gt;
+
+&lt;!-- Variantes de posição --&gt;
+&lt;div class="tooltip tooltip-top"&gt;...&lt;/div&gt;
+&lt;div class="tooltip tooltip-bottom"&gt;...&lt;/div&gt;
+&lt;div class="tooltip tooltip-left"&gt;...&lt;/div&gt;
+&lt;div class="tooltip tooltip-right"&gt;...&lt;/div&gt;</code></pre>
                             </div>
                         </div>
                     </div>

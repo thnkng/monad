@@ -1,0 +1,191 @@
+// ============================================
+// Tooltip Molecule
+// ============================================
+// Contextual information on hover
+// Requires JavaScript for positioning
+
+@use "../tokens/colors" as *;
+@use "../tokens/spacing" as *;
+
+.tooltip {
+  position: absolute;
+  z-index: 9998;
+  padding: var(--space-2) var(--space-3);
+  background: var(--graphite-mind);
+  color: var(--white);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-tight);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-medium);
+  max-width: 240px;
+  white-space: normal;
+  word-wrap: break-word;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+  
+  // Arrow
+  &::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+  }
+  
+  // Show state
+  &.tooltip-show {
+    opacity: 1;
+    animation: tooltip-fade-in var(--motion-duration-fast) var(--motion-ease-decelerate);
+  }
+}
+
+@keyframes tooltip-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Position variants
+.tooltip.tooltip-top {
+  &::before {
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--graphite-mind);
+  }
+}
+
+.tooltip.tooltip-bottom {
+  &::before {
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--graphite-mind);
+  }
+}
+
+.tooltip.tooltip-left {
+  &::before {
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--graphite-mind);
+  }
+}
+
+.tooltip.tooltip-right {
+  &::before {
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--graphite-mind);
+  }
+}
+
+// Color variants
+@each $palette, $entries in $colors {
+  @each $name, $value in $entries {
+    .tooltip.tooltip-#{"" + $palette}-#{$name} {
+      background: $value;
+      
+      // Light backgrounds need dark text
+      @if $name == "light" or $palette == "cloud" or $palette == "silver" {
+        color: var(--graphite-mind);
+      } @else {
+        color: var(--white);
+      }
+      
+      // Arrow colors
+      &.tooltip-top::before {
+        border-top-color: $value;
+      }
+      
+      &.tooltip-bottom::before {
+        border-bottom-color: $value;
+      }
+      
+      &.tooltip-left::before {
+        border-left-color: $value;
+      }
+      
+      &.tooltip-right::before {
+        border-right-color: $value;
+      }
+    }
+  }
+}
+
+// Size variants
+.tooltip.tooltip-small {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-xsmall);
+  max-width: 160px;
+}
+
+.tooltip.tooltip-large {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-medium);
+  max-width: 320px;
+}
+
+// CSS-only tooltip (using data attributes)
+[data-tooltip] {
+  position: relative;
+  cursor: help;
+  
+  &::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    padding: var(--space-2) var(--space-3);
+    background: var(--graphite-mind);
+    color: var(--white);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-tight);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-medium);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+    z-index: 9998;
+  }
+  
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(2px);
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-top-color: var(--graphite-mind);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+    z-index: 9998;
+  }
+  
+  &:hover::after,
+  &:hover::before,
+  &:focus-visible::after,
+  &:focus-visible::before {
+    opacity: 1;
+  }
+}
+
+// Respect motion preferences
+@media (prefers-reduced-motion: reduce) {
+  .tooltip.tooltip-show {
+    animation: none;
+  }
+}
