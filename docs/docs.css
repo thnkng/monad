@@ -244,3 +244,74 @@
     gap: 0.75rem;
     margin-bottom: 1rem;
 }
+
+/* ============================================
+   Form Examples
+   ============================================ */
+
+.form-example pre {
+    margin-top: 1rem;
+}
+
+.form-example-input {
+    margin-bottom: 0.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ============================================
+   Navigation Examples
+   ============================================ */
+
+.nav-example {
+    display: flex;
+    gap: 1rem;
+}
+
+/* ============================================
+   Header Examples
+   ============================================ */
+
+.header-example {
+    border: 1px solid var(--silver-line);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+}
+
+.header-example h3 {
+    margin: 0;
+}
+
+/* ============================================
+   Image Examples
+   ============================================ */
+
+.image-example img {
+    border-radius: var(--radius-md);
+}
+
+/* ============================================
+   Form Layout Examples
+   ============================================ */
+
+.form-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-field-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
