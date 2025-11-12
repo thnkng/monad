@@ -1,6 +1,3 @@
-@use "../tokens/colors" as *;
-@use "../tokens/spacing" as *;
-
 // Alert molecule - Notification/feedback component
 .alert {
   display: flex;
@@ -15,9 +12,7 @@
   line-height: var(--line-height-normal);
   margin-bottom: var(--space-medium);
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+  &:last-child { margin-bottom: 0; }
 }
 
 .alert-icon {
@@ -49,12 +44,10 @@
   line-height: 1;
   transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
 
-  &.hoverable:hover {
-    opacity: 1;
-  }
+  &.hoverable:hover { opacity: 1; }
 }
 
-// Color variants
+// State variants
 .alert-info {
   background: rgba(30, 58, 95, 0.1);
   border-left-color: var(--thought);
@@ -77,61 +70,4 @@
   background: rgba(255, 92, 92, 0.1);
   border-left-color: var(--state-break);
   color: #c41e3a;
-}
-
-// Toast variant - fixed positioning
-.toast {
-  position: fixed;
-  top: var(--space-large);
-  right: var(--space-large);
-  min-width: 20rem;
-  max-width: 28rem;
-  z-index: 9999;
-  box-shadow: var(--shadow-lg);
-  animation: toastSlideIn var(--motion-duration-medium) var(--motion-ease-standard);
-
-  @keyframes toastSlideIn {
-    from {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  &.toast-exit {
-    animation: toastSlideOut var(--motion-duration-medium) var(--motion-ease-standard);
-  }
-
-  @keyframes toastSlideOut {
-    from {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-  }
-}
-
-// Toast container for stacking
-.toast-container {
-  position: fixed;
-  top: var(--space-large);
-  right: var(--space-large);
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-small);
-  pointer-events: none;
-
-  .toast {
-    position: relative;
-    top: auto;
-    right: auto;
-    pointer-events: auto;
-  }
 }

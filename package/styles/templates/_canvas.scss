@@ -1,0 +1,56 @@
+@use "mixins" as *;
+
+// ============================================
+// Canvas Layout
+// ============================================
+// Blank canvas for creation — workspace with sidebar
+// Usage: <body class="canvas">
+
+body.canvas {
+  @include base-layout(280px 1fr, 64px calc(100vh - 64px));
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  
+  > aside {
+    @include sidebar-base;
+  }
+  
+  > header {
+    @include sticky-header;
+    grid-area: header;
+  }
+  
+  > main {
+    @include main-content;
+    grid-area: main;
+  }
+}
+
+// Variants
+body.canvas.collapsed {
+  grid-template-columns: 72px 1fr;
+}
+
+body.canvas.open {
+  grid-template-areas: "header" "main";
+  grid-template-columns: 1fr;
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  body.canvas {
+    grid-template-areas: "header" "main";
+    grid-template-columns: 1fr;
+    
+    > aside {
+      @include mobile-sidebar-collapse;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  body.canvas > main {
+    @include mobile-padding;
+  }
+}

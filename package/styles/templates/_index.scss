@@ -1,11 +1,12 @@
 // ============================================
 // Templates Index
 // ============================================
-// Page-level layouts as body variants
-// Templates define the structural skeleton of pages
+// Poetic layouts — emotional precision in structure
+// Each template evokes feeling, not just function
 
-@forward "app-layout";
-@forward "dashboard-layout";
-@forward "auth-layout";
-@forward "landing-layout";
-@forward "split-layout";
+@forward "canvas";      // Workspace — blank slate for creation
+@forward "observatory"; // Dashboard — panoramic view of metrics
+@forward "manuscript";  // Documentation — structured knowledge
+@forward "threshold";   // Auth — gateway between states
+@forward "horizon";     // Landing — vast first impression
+@forward "diptych";     // Split — two faces of one work

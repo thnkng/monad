@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "../mixins" as *;
 @use "../tokens/colors" as c;
 
 // Base card
@@ -10,86 +11,45 @@
   border-radius: var(--radius-lg);
   padding: var(--space-large);
   box-shadow: var(--shadow-faint);
-  transition: 
-    box-shadow var(--motion-duration-medium) var(--motion-ease-standard),
-    transform var(--motion-duration-fast) var(--motion-ease-decelerate);
+  @include base-transition;
+  @include hover-shadow;
 }
 
-.card.hoverable:hover {
-  box-shadow: var(--shadow-soft);
-}
-
-// Helper mixin para variantes de cor
-@mixin card-variant($value) {
-  border-color: $value;
-  $l: color.channel($value, "lightness", hsl);
-  
-  @if $l > 60% {
-    background-color: $value;
-    color: #0D1117;
-  } @else {
-    background-color: color-mix(in srgb, $value 10%, var(--color-surface));
-    border-color: $value;
-  }
-}
-
-// Gera classes de cor para cards
+// Color variants with smart background
 @each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
-    @if $name == default {
-      .card.#{"" + $palette} {
-        @include card-variant($value);
-      }
-    } @else {
-      .card.#{"" + $palette}-#{$name} {
-        @include card-variant($value);
+    $class: if($name == default, ".#{$palette}", ".#{$palette}-#{$name}");
+    
+    .card#{$class} {
+      border-color: $value;
+      $l: color.channel($value, "lightness", hsl);
+      
+      @if $l > 60% {
+        background-color: $value;
+        color: #0D1117;
+      } @else {
+        background-color: color-mix(in srgb, $value 10%, var(--color-surface));
       }
     }
   }
 }
 
-/* Variantes de padding */
-.card.padding-none {
-  padding: 0;
-}
+// Padding variants
+.card.padding-none { padding: 0; }
+.card.padding-compact { padding: var(--space-small); }
+.card.padding-spacious { padding: var(--space-xlarge); }
 
-.card.padding-compact {
-  padding: var(--space-small);
-}
+// Shadow variants
+.card.shadow-none { box-shadow: none; }
+.card.shadow-medium { box-shadow: var(--shadow-soft); }
+.card.shadow-large { box-shadow: var(--shadow-medium); }
 
-.card.padding-spacious {
-  padding: var(--space-xlarge);
-}
-
-/* Variantes de sombra */
-.card.shadow-none {
-  box-shadow: none;
-}
-
-.card.shadow-medium {
-  box-shadow: var(--shadow-soft);
-}
-
-.card.shadow-large {
-  box-shadow: var(--shadow-medium);
-}
-
-/* Card interativo */
+// Interactive variant
 .card.interactive {
-  cursor: pointer;
+  @include interactive;
 }
 
-.card.interactive:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
-}
-
-.card.interactive:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-soft);
-}
-
-/* Componentes internos */
+// Internal components
 .card-header {
   padding: var(--space-medium);
   border-bottom: 1px solid var(--color-border);

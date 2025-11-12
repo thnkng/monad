@@ -5,8 +5,12 @@
 @use 'tokens/effects' as *;
 @use 'tokens/spacing' as *;
 
+// Shared mixins (DRY patterns)
+@use 'mixins' as *;
+
 // Utilities
 @use 'utilities/icons' as *;
+@use 'utilities/color' as *;
 @use 'utilities/padding' as *;
 @use 'utilities/margin' as *;
 @use 'utilities/layout' as *;

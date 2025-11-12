@@ -1,3 +1,5 @@
+@use "../mixins" as *;
+
 input,
 select,
 textarea {
@@ -9,29 +11,24 @@ textarea {
   border-radius: var(--radius-md);
   padding: var(--space-2) var(--space-3);
   line-height: var(--line-height-normal);
-  transition: 
-    border-color var(--motion-duration-medium) var(--motion-ease-standard),
-    box-shadow var(--motion-duration-medium) var(--motion-ease-standard),
-    background-color var(--motion-duration-medium) var(--motion-ease-standard);
   outline: none;
   font: inherit;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: var(--color-muted);
-}
-
-:is(input, select, textarea):focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-primary) 15%, transparent);
-}
-
-:is(input, select, textarea):disabled,
-:is(input, select, textarea)[disabled] {
-  background-color: var(--color-muted-weak);
-  color: var(--color-muted);
-  cursor: not-allowed;
+  @include base-transition;
+  
+  &::placeholder { color: var(--color-muted); }
+  
+  &:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-primary) 15%, transparent);
+  }
+  
+  @include disabled;
+  
+  &:disabled,
+  &[disabled] {
+    background-color: var(--color-muted-weak);
+    color: var(--color-muted);
+  }
 }
 
 textarea {
@@ -39,7 +36,7 @@ textarea {
   min-height: 6rem;
 }
 
-/* Tamanhos opcionais sem classes, via atributo */
+// Size variants via data attribute
 :is(input, select, textarea)[data-size="sm"] {
   padding: var(--space-xsmall) var(--space-2);
   font-size: var(--font-size-small);

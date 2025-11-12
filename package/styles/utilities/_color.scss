@@ -1,0 +1,57 @@
+@use "sass:color";
+@use "../tokens/colors" as c;
+
+// ============================================
+// Color Utilities
+// ============================================
+// Apply background and text colors from palette
+// Uses smart contrast calculation for text color
+
+// Background color utilities with auto contrast
+@each $palette, $entries in c.$colors {
+  @each $name, $value in $entries {
+    @if $name == default {
+      .bg-#{"" + $palette} {
+        background-color: $value !important;
+        $l: color.channel($value, "lightness", hsl);
+        color: if($l > 60%, #0D1117, #FFFFFF) !important;
+      }
+    } @else {
+      .bg-#{"" + $palette}-#{$name} {
+        background-color: $value !important;
+        $l: color.channel($value, "lightness", hsl);
+        color: if($l > 60%, #0D1117, #FFFFFF) !important;
+      }
+    }
+  }
+}
+
+// Text color utilities (without background)
+@each $palette, $entries in c.$colors {
+  @each $name, $value in $entries {
+    @if $name == default {
+      .text-#{"" + $palette} {
+        color: $value !important;
+      }
+    } @else {
+      .text-#{"" + $palette}-#{$name} {
+        color: $value !important;
+      }
+    }
+  }
+}
+
+// Border color utilities
+@each $palette, $entries in c.$colors {
+  @each $name, $value in $entries {
+    @if $name == default {
+      .border-#{"" + $palette} {
+        border-color: $value !important;
+      }
+    } @else {
+      .border-#{"" + $palette}-#{$name} {
+        border-color: $value !important;
+      }
+    }
+  }
+}

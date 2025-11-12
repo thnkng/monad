@@ -1,0 +1,52 @@
+@use "mixins" as *;
+
+// ============================================
+// Observatory Layout
+// ============================================
+// Observe metrics and data — panoramic view
+// Usage: <body class="observatory">
+
+body.observatory {
+  @include base-layout(280px 1fr, 64px 1fr);
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  min-height: 100vh;
+  
+  > aside {
+    @include sidebar-base;
+  }
+  
+  > header {
+    @include sticky-header;
+    grid-area: header;
+  }
+  
+  > main {
+    @include main-content;
+    grid-area: main;
+  }
+}
+
+// Variants
+body.observatory.collapsed {
+  grid-template-columns: 72px 1fr;
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  body.observatory {
+    grid-template-areas: "header" "main";
+    grid-template-columns: 1fr;
+    
+    > aside {
+      @include mobile-sidebar-collapse;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  body.observatory > main {
+    @include mobile-padding;
+  }
+}

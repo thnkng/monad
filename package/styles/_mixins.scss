@@ -1,0 +1,129 @@
+@use "sass:color";
+
+// ============================================
+// Component Mixins — DRY Patterns
+// ============================================
+// Shared patterns across atoms and molecules
+
+// Color variant generator (buttons, badges, cards, etc.)
+@mixin color-variant($value) {
+  background-color: $value;
+  border-color: $value;
+  $l: color.channel($value, "lightness", hsl);
+  color: if($l > 60%, #0D1117, #FFFFFF);
+}
+
+// Outline variant
+@mixin outline-variant($value) {
+  background-color: transparent;
+  color: $value;
+  border-color: $value;
+}
+
+// Ghost variant (transparent bg + border)
+@mixin ghost-variant($value) {
+  background-color: transparent;
+  border-color: transparent;
+  color: $value;
+}
+
+// Soft variant (subtle background)
+@mixin soft-variant($value) {
+  background-color: color-mix(in srgb, $value 10%, var(--color-surface));
+  border-color: $value;
+  color: $value;
+}
+
+// Hover lift effect (opt-in with .hoverable)
+@mixin hover-lift {
+  &.hoverable:hover {
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+// Hover shadow only
+@mixin hover-shadow {
+  &.hoverable:hover {
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+// Interactive element (clickable)
+@mixin interactive {
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+// Focus ring
+@mixin focus-ring {
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-soft), 0 0 0 var(--ring-width) var(--ring-color);
+  }
+}
+
+// Disabled state
+@mixin disabled {
+  &:disabled,
+  &[disabled],
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+// Base transition (color + background + border)
+@mixin base-transition {
+  transition:
+    background-color var(--motion-duration-medium) var(--motion-ease-standard),
+    color var(--motion-duration-medium) var(--motion-ease-standard),
+    border-color var(--motion-duration-medium) var(--motion-ease-standard),
+    transform var(--motion-duration-fast) var(--motion-ease-decelerate),
+    box-shadow var(--motion-duration-medium) var(--motion-ease-standard);
+}
+
+// Generate all color variants for a component
+@mixin generate-color-variants($colors, $base-selector) {
+  @each $palette, $entries in $colors {
+    @each $name, $value in $entries {
+      @if $name == default {
+        #{$base-selector}.#{"" + $palette} {
+          @include color-variant($value);
+          @content;
+        }
+      } @else {
+        #{$base-selector}.#{"" + $palette}-#{$name} {
+          @include color-variant($value);
+          @content;
+        }
+      }
+    }
+  }
+}
+
+// Size variants helper
+@mixin size-small {
+  padding: var(--space-xsmall) var(--space-2);
+  font-size: var(--font-size-small);
+}
+
+@mixin size-medium {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-medium);
+}
+
+@mixin size-large {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-large);
+}

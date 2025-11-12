@@ -1,0 +1,51 @@
+@use "mixins" as *;
+
+// ============================================
+// Horizon Layout
+// ============================================
+// Vast expanse — first impression, limitless
+// Usage: <body class="horizon">
+
+body.horizon {
+  margin: 0;
+  padding: 0;
+  background: var(--color-surface);
+  
+  > header {
+    @include sticky-header;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+  
+  > main {
+    section {
+      padding: var(--space-8);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  }
+  
+  > footer {
+    padding: var(--space-8);
+    background: var(--graphite-deep);
+    color: var(--cloud-pure);
+    
+    .footer-content {
+      @include feature-grid(200px);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  body.horizon {
+    > main section {
+      @include mobile-padding;
+    }
+    
+    > footer {
+      @include mobile-padding;
+    }
+  }
+}

@@ -7,10 +7,9 @@
     <title>Monad Design System</title>
     <meta name="description" content="A minimalist atomic design system built on principles of clarity, visual silence, and emotional precision.">
     <link rel="stylesheet" href="../dist/styles/monad.css">
-    <link rel="stylesheet" href="docs.css">
 </head>
 
-<body class="app-layout">
+<body class="manuscript">
     <!-- Sidebar Navigation com Active Link automático -->
     <monad-active-nav>
         <aside class="sidebar">
@@ -35,8 +34,6 @@
                     <span class="sidebar-link-text">Philosophy</span>
                 </a>
 
-                <div class="sidebar-divider"></div>
-
                 <div class="sidebar-label">Foundation</div>
                 <a href="#tokens" class="sidebar-link hoverable">
                     <i data-lucide="palette"></i>
@@ -47,7 +44,6 @@
                     <span class="sidebar-link-text">Base Styles</span>
                 </a>
 
-                <div class="sidebar-divider"></div>
 
                 <div class="sidebar-label">Components</div>
                 <a href="#atoms" class="sidebar-link hoverable">
@@ -63,8 +59,6 @@
                     <span class="sidebar-link-text">Organisms</span>
                 </a>
 
-                <div class="sidebar-divider"></div>
-
                 <div class="sidebar-label">Patterns</div>
                 <a href="#templates" class="sidebar-link hoverable">
                     <i data-lucide="layout"></i>
@@ -75,7 +69,6 @@
                     <span class="sidebar-link-text">Themes</span>
                 </a>
 
-                <div class="sidebar-divider"></div>
 
                 <div class="sidebar-label">Advanced</div>
                 <a href="#utilities" class="sidebar-link hoverable">
@@ -97,10 +90,7 @@
     <!-- Main Header -->
     <header>
         <div class="left">
-            <button class="hoverable" onclick="document.querySelector('.sidebar').classList.toggle('open')">
-                <i data-lucide="menu"></i>
-            </button>
-            <h1>Documentation</h1>
+            <h2>Design System</h2>
         </div>
 
         <div class="right">
@@ -252,23 +242,23 @@
             
             <h4>Graphite — Core Identity</h4>
             <p>The foundation. Dark, grounded, technical precision.</p>
-            <div class="color-grid">
-                <div class="card color-swatch swatch-graphite-mind">
+            <div class="grid-auto-fit-200 gap-4">
+                <div class="card bg-graphite-mind">
                     <strong>graphite-mind</strong><br>
                     <code>#0D1117</code><br>
                     <small>Base dark, almost black</small>
                 </div>
-                <div class="card color-swatch swatch-graphite-deep">
+                <div class="card bg-graphite-deep">
                     <strong>graphite-deep</strong><br>
                     <code>#1A2430</code><br>
                     <small>Deep blue-gray</small>
                 </div>
-                <div class="card color-swatch swatch-graphite-core">
+                <div class="card bg-graphite-core">
                     <strong>graphite-core</strong><br>
                     <code>#2B3A4A</code><br>
                     <small>Medium metallic</small>
                 </div>
-                <div class="card color-swatch swatch-graphite-light">
+                <div class="card bg-graphite-light">
                     <strong>graphite-light</strong><br>
                     <code>#F4F7FA</code><br>
                     <small>Light blue-gray</small>
@@ -277,16 +267,16 @@
             
             <h4>Cloud — Neutral Canvas</h4>
             <p>Backgrounds that breathe. Visual silence.</p>
-            <div class="color-grid">
-                <div class="card color-swatch swatch-cloud-pure">
+            <div class="grid-auto-fit-200 gap-4">
+                <div class="card bg-cloud-pure">
                     <strong>cloud-pure</strong><br>
                     <code>#F1F1F1</code>
                 </div>
-                <div class="card color-swatch swatch-cloud-silent">
+                <div class="card bg-cloud-silent">
                     <strong>cloud-silent</strong><br>
                     <code>#F4F4F4</code>
                 </div>
-                <div class="card color-swatch swatch-cloud-mist">
+                <div class="card bg-cloud-mist">
                     <strong>cloud-mist</strong><br>
                     <code>#EAEAEA</code>
                 </div>
@@ -294,16 +284,16 @@
             
             <h4>Thought — Primary Blue</h4>
             <p>Focus. Depth. Intention.</p>
-            <div class="color-grid">
-                <div class="card color-swatch swatch-thought-default">
+            <div class="grid-auto-fit-200 gap-4">
+                <div class="card bg-thought-default">
                     <strong>thought (default)</strong><br>
                     <code>#1e3a5f</code>
                 </div>
-                <div class="card color-swatch swatch-thought-focus">
+                <div class="card bg-thought-focus">
                     <strong>thought-focus</strong><br>
                     <code>#152d4a</code>
                 </div>
-                <div class="card color-swatch swatch-thought-depth">
+                <div class="card bg-thought-depth">
                     <strong>thought-depth</strong><br>
                     <code>#0d1f35</code>
                 </div>
@@ -311,16 +301,16 @@
             
             <h4>Ember — Energy & Accent</h4>
             <p>Warmth. Energy. Call to action.</p>
-            <div class="color-grid">
-                <div class="card color-swatch swatch-ember-energy">
+            <div class="grid-auto-fit-200 gap-4">
+                <div class="card bg-ember-energy">
                     <strong>ember-energy</strong><br>
                     <code>#ff9533</code>
                 </div>
-                <div class="card color-swatch swatch-ember-glow">
+                <div class="card bg-ember-glow">
                     <strong>ember-glow</strong><br>
                     <code>#ffb366</code>
                 </div>
-                <div class="card color-swatch swatch-ember-burn">
+                <div class="card bg-ember-burn">
                     <strong>ember-burn</strong><br>
                     <code>#e67a1a</code>
                 </div>
@@ -328,16 +318,16 @@
             
             <h4>Silver — Borders & Lines</h4>
             <p>Structure without noise.</p>
-            <div class="color-grid">
-                <div class="card color-swatch swatch-silver-line">
+            <div class="grid-auto-fit-200 gap-4">
+                <div class="card bg-silver-line">
                     <strong>silver-line</strong><br>
                     <code>#DADADA</code>
                 </div>
-                <div class="card color-swatch swatch-silver-balance">
+                <div class="card bg-silver-balance">
                     <strong>silver-balance</strong><br>
                     <code>#B6B6B6</code>
                 </div>
-                <div class="card color-swatch swatch-silver-depth">
+                <div class="card bg-silver-depth">
                     <strong>silver-depth</strong><br>
                     <code>#8A8A8A</code>
                 </div>
@@ -346,81 +336,81 @@
             <h4>Semantic Palettes</h4>
             <p>Additional colors for specific contexts.</p>
             
-            <div class="color-grid-extended">
+            <div class="grid-auto-fit-250 gap-5">
                 <div>
                     <strong>Sage — Calm</strong>
-                    <div class="card color-swatch-compact swatch-sage-calm">
+                    <div class="card bg-sage-calm">
                         sage-calm <code>#b7c6b4</code>
                     </div>
-                    <div class="card color-swatch-compact swatch-sage-leaf">
+                    <div class="card bg-sage-leaf">
                         sage-leaf <code>#9fb49f</code>
                     </div>
-                    <div class="card color-swatch-compact swatch-sage-shadow">
+                    <div class="card bg-sage-shadow">
                         sage-shadow <code>#7a9076</code>
                     </div>
                 </div>
                 
                 <div>
                     <strong>Rose — Softness</strong>
-                    <div class="card color-swatch-compact swatch-rose-soft">
+                    <div class="card bg-rose-soft">
                         rose-soft <code>#f7c9ce</code>
                     </div>
-                    <div class="card color-swatch-compact swatch-rose-bloom">
+                    <div class="card bg-rose-bloom">
                         rose-bloom <code>#e8a7b0</code>
                     </div>
-                    <div class="card color-swatch-compact swatch-rose-depth">
+                    <div class="card bg-rose-depth">
                         rose-depth <code>#bf6975</code>
                     </div>
                 </div>
                 
                 <div>
                     <strong>Sand — Warmth</strong>
-                    <div class="card color-swatch-compact swatch-sand-light">
+                    <div class="card bg-sand-light">
                         sand-light <code>#f3ebde</code>
                     </div>
-                    <div class="card color-swatch-compact swatch-sand-warm">
+                    <div class="card bg-sand-warm">
                         sand-warm <code>#e6cfae</code>
                     </div>
-                    <div class="card color-swatch-compact swatch-sand-earth">
+                    <div class="card bg-sand-earth">
                         sand-earth <code>#ca9f71</code>
                     </div>
                 </div>
                 
                 <div>
                     <strong>Aether — Lightness</strong>
-                    <div class="card color-swatch-compact swatch-aether-sky">
+                    <div class="card bg-aether-sky">
                         aether-sky <code>#d1ebff</code>
                     </div>
-                    <div class="card color-swatch-compact swatch-aether-air">
+                    <div class="card bg-aether-air">
                         aether-air <code>#b6d8fa</code>
                     </div>
-                    <div class="card color-swatch-compact swatch-aether-light">
+                    <div class="card bg-aether-light">
                         aether-light <code>#8bc2ee</code>
                     </div>
                 </div>
                 
                 <div>
                     <strong>Iris — Dreams</strong>
-                    <div class="card color-swatch-compact swatch-iris-petal">
+                    <div class="card bg-iris-petal">
                         iris-petal <code>#c8b6ff</code>
                     </div>
-                    <div class="card color-swatch-compact swatch-iris-dream">
+                    <div class="card bg-iris-dream">
                         iris-dream <code>#a58aed</code>
                     </div>
-                    <div class="card color-swatch-compact swatch-iris-void">
+                    <div class="card bg-iris-void">
                         iris-void <code>#7563b2</code>
                     </div>
                 </div>
                 
                 <div>
                     <strong>State — Status</strong>
-                    <div class="card color-swatch-compact swatch-state-flow">
+                    <div class="card bg-state-flow">
                         state-flow (success) <code>#33d469</code>
                     </div>
-                    <div class="card color-swatch-compact swatch-state-pulse">
+                    <div class="card bg-state-pulse">
                         state-pulse (warning) <code>#ffc14d</code>
                     </div>
-                    <div class="card color-swatch-compact swatch-state-break">
+                    <div class="card bg-state-break">
                         state-break (error) <code>#ff5c5c</code>
                     </div>
                 </div>
@@ -439,14 +429,14 @@ border-color: var(--silver-line);</code></pre>
                 <h4>Component Classes</h4>
                 <pre><code>/* Apply to components */
 &lt;button class="graphite-core"&gt;Button&lt;/button&gt;
-&lt;div class="card thought-focus"&gt;...&lt;/div&gt;
+&lt;div class="card bg-thought-focus"&gt;...&lt;/div&gt;
 &lt;section class="ember-energy"&gt;...&lt;/section&gt;</code></pre>
             </div>
             
             <h3>Spacing</h3>
             <p>Base unit: <strong>4px</strong>. Every space is a multiple of 4 for visual harmony.</p>
             
-            <div class="typography-grid">
+            <div class="grid-auto-fit-300 gap-4">
                 <div class="card">
                     <code>--space-1</code> = 0.25rem (4px)<br>
                     <code>--space-2</code> = 0.5rem (8px)<br>
@@ -725,7 +715,7 @@ function example() {
             
             <div class="card">
                 <h4>Outline Variant</h4>
-                <div class="button-group">
+                <div class="flex-group">
                     <button class="graphite-core outline hoverable">Graphite</button>
                     <button class="thought outline hoverable">Thought</button>
                     <button class="ember-energy outline hoverable">Ember</button>
@@ -735,7 +725,7 @@ function example() {
             
             <div class="card">
                 <h4>Ghost Variant</h4>
-                <div class="button-group">
+                <div class="flex-group">
                     <button class="graphite-core ghost hoverable">Graphite</button>
                     <button class="thought ghost hoverable">Thought</button>
                     <button class="ember-energy ghost hoverable">Ember</button>
@@ -789,12 +779,12 @@ function example() {
             
             <div class="card form-example">
                 <h4>Checkboxes</h4>
-                <div class="form-group">
-                    <label class="form-label">
+                <div class="flex-stack-small">
+                    <label class="flex-row-small">
                         <input type="checkbox" checked>
                         <span>Checked option</span>
                     </label>
-                    <label class="form-label">
+                    <label class="flex-row-small">
                         <input type="checkbox">
                         <span>Unchecked option</span>
                     </label>
@@ -807,16 +797,16 @@ function example() {
             
             <div class="card form-example">
                 <h4>Radio Buttons</h4>
-                <div class="form-group">
-                    <label class="form-label">
+                <div class="flex-stack-small">
+                    <label class="flex-row-small">
                         <input type="radio" name="demo" checked>
                         <span>Option A</span>
                     </label>
-                    <label class="form-label">
+                    <label class="flex-row-small">
                         <input type="radio" name="demo">
                         <span>Option B</span>
                     </label>
-                    <label class="form-label">
+                    <label class="flex-row-small">
                         <input type="radio" name="demo">
                         <span>Option C</span>
                     </label>
@@ -959,7 +949,7 @@ function example() {
                         <textarea id="message" placeholder="Your message..."></textarea>
                     </div>
                     
-                    <div class="button-group">
+                    <div class="flex-group">
                         <button type="submit" class="thought hoverable">Submit</button>
                         <button type="reset" class="graphite-core outline hoverable">Reset</button>
                     </div>
@@ -1006,7 +996,7 @@ function example() {
 &lt;/div&gt;</code></pre>
             </div>
             
-            <div class="typography-grid">
+            <div class="grid-auto-fit-300 gap-4">
                 <div class="card interactive">
                     <h4>Interactive Card</h4>
                     <p>Hover to see effect</p>
@@ -1019,7 +1009,7 @@ function example() {
                     <small>Uses <code>.hoverable</code> class</small>
                 </div>
                 
-                <div class="card thought">
+                <div class="card bg-thought">
                     <h4>Colored Card</h4>
                     <p>With color variant</p>
                     <small>Uses <code>.thought</code> class</small>
@@ -1031,7 +1021,7 @@ function example() {
             
             <div class="card">
                 <h4>Variants</h4>
-                <div class="button-group">
+                <div class="flex-group">
                     <span class="badge">Default</span>
                     <span class="badge thought">Thought</span>
                     <span class="badge ember-energy">Ember</span>

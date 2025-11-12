@@ -1,14 +1,9 @@
 @use "sass:color";
 @use "../tokens/colors" as c;
 
-// ============================================
-// Link Atom
-// ============================================
-// Semantic <a> element with underline by default
-
 // Base link styling
 a {
-  color: inherit; // Uses current text color by default
+  color: inherit;
   text-decoration: underline;
   text-underline-offset: 0.2em;
   text-decoration-thickness: 1px;
@@ -16,26 +11,23 @@ a {
   transition: 
     color var(--motion-duration-fast) var(--motion-ease-standard),
     text-decoration-color var(--motion-duration-fast) var(--motion-ease-standard);
-}
-
-// Hover (opt-in)
-a.hoverable:hover {
-  text-decoration-thickness: 2px;
-  color: var(--thought-focus);
-}
-
-// Focus state
-a:focus-visible {
-  outline: none;
-  border-radius: var(--radius-sm);
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
-}
-
-// Visited state (subtle difference)
-a:visited {
-  color: var(--iris-dream);
+  
+  &:visited {
+    color: var(--iris-dream);
+  }
+  
+  &.hoverable:hover {
+    text-decoration-thickness: 2px;
+    color: var(--thought-focus);
+  }
+  
+  &:focus-visible {
+    outline: none;
+    border-radius: var(--radius-sm);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+  }
 }
 
 // Links inside nav or menu - no underline by default
@@ -53,40 +45,31 @@ menu a {
   }
 }
 
-// Helper mixin for color variants
-@mixin link-variant($value) {
-  color: $value;
-  
-  &:visited {
-    color: color-mix(in srgb, $value 80%, var(--iris-dream) 20%);
-  }
-  
-  &.hoverable:hover {
-    $l: color.channel($value, "lightness", hsl);
-    @if $l > 50% {
-      color: color-mix(in srgb, $value 70%, #000 30%);
-    } @else {
-      color: color-mix(in srgb, $value 70%, #fff 30%);
-    }
-  }
-}
-
-// Auto-generate color variants
+// Color variants with smart hover
 @each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
-    @if $name == default {
-      a.#{"" + $palette} {
-        @include link-variant($value);
+    $class: if($name == default, ".#{$palette}", ".#{$palette}-#{$name}");
+    
+    a#{$class} {
+      color: $value;
+      
+      &:visited {
+        color: color-mix(in srgb, $value 80%, var(--iris-dream) 20%);
       }
-    } @else {
-      a.#{"" + $palette}-#{$name} {
-        @include link-variant($value);
+      
+      &.hoverable:hover {
+        $l: color.channel($value, "lightness", hsl);
+        @if $l > 50% {
+          color: color-mix(in srgb, $value 70%, #000 30%);
+        } @else {
+          color: color-mix(in srgb, $value 70%, #fff 30%);
+        }
       }
     }
   }
 }
 
-// Utility: remove underline
+// Utilities
 a.no-underline {
   text-decoration: none;
   
@@ -95,7 +78,7 @@ a.no-underline {
   }
 }
 
-// External link indicator (optional)
+// External link indicator
 a[target="_blank"]::after,
 a[rel~="external"]::after {
   content: "↗";

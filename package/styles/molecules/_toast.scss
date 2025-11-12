@@ -1,14 +1,4 @@
-// ============================================
-// Toast/Notification Molecule
-// ============================================
-// Non-intrusive feedback messages
-// Appears temporarily, auto-dismissible
-
-@use "../tokens/colors" as *;
-@use "../tokens/spacing" as *;
-@use "../tokens/effects" as *;
-@use "../tokens/motion" as *;
-
+// Toast/Notification molecule
 .toast {
   display: flex;
   align-items: center;
@@ -22,11 +12,8 @@
   max-width: 420px;
   position: relative;
   border-left: 4px solid var(--graphite-mind);
-  
-  // Animation
   animation: toast-slide-in var(--motion-duration-medium) var(--motion-ease-decelerate);
   
-  // Content
   p {
     flex: 1;
     margin: 0;
@@ -34,13 +21,11 @@
     line-height: var(--line-height-normal);
   }
   
-  // Icon/emoji at start
   .toast-icon {
     font-size: var(--font-size-large);
     line-height: 1;
   }
   
-  // Close button
   .toast-close {
     background: transparent;
     border: none;
@@ -52,66 +37,32 @@
     line-height: 1;
     transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
     
-    &:hover {
-      opacity: 1;
-    }
+    &:hover { opacity: 1; }
   }
 }
 
-// Animation keyframes
+// Animations
 @keyframes toast-slide-in {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
 @keyframes toast-slide-out {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
 }
 
-// Dismissing state
 .toast.toast-dismissing {
   animation: toast-slide-out var(--motion-duration-fast) var(--motion-ease-accelerate);
 }
 
 // State variants
-.toast.toast-success {
-  background: var(--flow);
-  border-left-color: var(--flow);
-  color: var(--graphite-mind);
-}
+.toast.toast-success { background: var(--flow); border-left-color: var(--flow); color: var(--graphite-mind); }
+.toast.toast-warning { background: var(--pulse); border-left-color: var(--pulse); color: var(--graphite-mind); }
+.toast.toast-error { background: var(--break); border-left-color: var(--break); color: var(--white); }
+.toast.toast-info { background: var(--thought); border-left-color: var(--thought); color: var(--white); }
 
-.toast.toast-warning {
-  background: var(--pulse);
-  border-left-color: var(--pulse);
-  color: var(--graphite-mind);
-}
-
-.toast.toast-error {
-  background: var(--break);
-  border-left-color: var(--break);
-  color: var(--white);
-}
-
-.toast.toast-info {
-  background: var(--thought);
-  border-left-color: var(--thought);
-  color: var(--white);
-}
-
-// Container for positioning toasts
+// Container for positioning
 .toast-container {
   position: fixed;
   z-index: 9999;
@@ -121,53 +72,19 @@
   padding: var(--space-4);
   pointer-events: none;
   
-  // Children can receive pointer events
-  > * {
-    pointer-events: auto;
-  }
+  > * { pointer-events: auto; }
 }
 
 // Position variants
-.toast-container.toast-top-right {
-  top: 0;
-  right: 0;
-}
-
-.toast-container.toast-top-left {
-  top: 0;
-  left: 0;
-}
-
-.toast-container.toast-bottom-right {
-  bottom: 0;
-  right: 0;
-}
-
-.toast-container.toast-bottom-left {
-  bottom: 0;
-  left: 0;
-}
-
-.toast-container.toast-top-center {
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.toast-container.toast-bottom-center {
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
+.toast-container.toast-top-right { top: 0; right: 0; }
+.toast-container.toast-top-left { top: 0; left: 0; }
+.toast-container.toast-bottom-right { bottom: 0; right: 0; }
+.toast-container.toast-bottom-left { bottom: 0; left: 0; }
+.toast-container.toast-top-center { top: 0; left: 50%; transform: translateX(-50%); }
+.toast-container.toast-bottom-center { bottom: 0; left: 50%; transform: translateX(-50%); }
 
 // Respect motion preferences
 @media (prefers-reduced-motion: reduce) {
-  .toast {
-    animation: none;
-  }
-  
-  .toast.toast-dismissing {
-    animation: none;
-    opacity: 0;
-  }
+  .toast { animation: none; }
+  .toast.toast-dismissing { animation: none; opacity: 0; }
 }

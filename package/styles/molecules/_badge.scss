@@ -1,4 +1,4 @@
-@use "sass:color";
+@use "../mixins" as *;
 @use "../tokens/colors" as c;
 
 // Base badge
@@ -16,50 +16,25 @@
   border: 1px solid var(--silver-line);
   background-color: var(--cloud-silent);
   color: var(--graphite-mind);
-  transition:
-    background-color var(--motion-duration-medium) var(--motion-ease-standard),
-    color var(--motion-duration-medium) var(--motion-ease-standard),
-    border-color var(--motion-duration-medium) var(--motion-ease-standard);
+  @include base-transition;
 }
 
-// Helper mixins
-@mixin badge-variant($value) {
-  background-color: $value;
-  border-color: $value;
-  $l: color.channel($value, "lightness", hsl);
-  color: if($l > 60%, #0D1117, #FFFFFF);
-}
-
-@mixin badge-outline($value) {
-  background-color: transparent;
-  color: $value;
-  border-color: $value;
-}
-
-// Gera classes de cor para badges seguindo o mesmo padrão do button
+// Generate all color variants with outline
 @each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
-    @if $name == default {
-      .badge.#{"" + $palette} {
-        @include badge-variant($value);
-
-        &.outline {
-          @include badge-outline($value);
-        }
-      }
-    } @else {
-      .badge.#{"" + $palette}-#{$name} {
-        @include badge-variant($value);
-
-        &.outline {
-          @include badge-outline($value);
-        }
+    $class: if($name == default, ".#{$palette}", ".#{$palette}-#{$name}");
+    
+    .badge#{$class} {
+      @include color-variant($value);
+      
+      &.outline {
+        @include outline-variant($value);
       }
     }
   }
 }
 
-/* Tamanhos */
+// Size variants
 .badge.small {
   padding: 0.125rem var(--space-xsmall);
   font-size: 0.625rem;
@@ -70,7 +45,7 @@
   font-size: var(--font-size-small);
 }
 
-/* Badge com ponto (dot) */
+// Badge with dot indicator
 .badge.dot::before {
   content: '';
   display: inline-block;
