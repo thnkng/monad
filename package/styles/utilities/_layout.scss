@@ -212,3 +212,73 @@
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 .text-justify { text-align: justify; }
+
+/* Interactive utilities */
+
+/* Pressable - Click feedback */
+.pressable {
+  cursor: pointer;
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
+  user-select: none;
+}
+
+.pressable:active {
+  transform: scale(0.98);
+}
+
+.pressable.pressable-lift:active {
+  transform: translateY(2px);
+}
+
+.pressable.pressable-shrink:active {
+  transform: scale(0.95);
+}
+
+/* Hoverable - Hover feedback */
+.hoverable {
+  transition: 
+    transform var(--motion-duration-fast) var(--motion-ease-decelerate),
+    box-shadow var(--motion-duration-medium) var(--motion-ease-standard),
+    opacity var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.hoverable.hoverable-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+.hoverable.hoverable-scale:hover {
+  transform: scale(1.02);
+}
+
+.hoverable.hoverable-glow:hover {
+  box-shadow: var(--shadow-medium);
+}
+
+.hoverable.hoverable-fade:hover {
+  opacity: 0.7;
+}
+
+.hoverable.hoverable-brighten:hover {
+  filter: brightness(1.1);
+}
+
+/* Combinação: hover + press */
+.interactive {
+  cursor: pointer;
+  user-select: none;
+  transition: 
+    transform var(--motion-duration-fast) var(--motion-ease-decelerate),
+    box-shadow var(--motion-duration-medium) var(--motion-ease-standard);
+}
+
+.interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+.interactive:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-faint);
+}
+

@@ -491,6 +491,11 @@ document.getElementById('meu-modal').open();
                                         <td>Seções principais</td>
                                     </tr>
                                     <tr>
+                                        <td><code>container-narrow</code></td>
+                                        <td>Largura máxima reduzida (768px) para leitura</td>
+                                        <td>Artigos, textos longos</td>
+                                    </tr>
+                                    <tr>
                                         <td><code>stack-*</code></td>
                                         <td>Espaçamento vertical entre elementos</td>
                                         <td>Listas, formulários</td>
@@ -513,6 +518,228 @@ document.getElementById('meu-modal').open();
                                 </tbody>
                             </table>
                         </div>
+
+                        <div class="card">
+                            <h4>Variantes de Espaçamento</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Sufixo</th>
+                                        <th>Espaçamento</th>
+                                        <th>Uso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>-xsmall</code></td>
+                                        <td>var(--space-2) = 8px</td>
+                                        <td>Elementos muito próximos</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>-small</code></td>
+                                        <td>var(--space-3) = 12px</td>
+                                        <td>Elementos relacionados</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>-compact</code></td>
+                                        <td>var(--space-4) = 16px</td>
+                                        <td>Grupos de informação</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>-base</code></td>
+                                        <td>var(--space-5) = 20px</td>
+                                        <td>Espaçamento padrão</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>-comfortable</code></td>
+                                        <td>var(--space-6) = 24px</td>
+                                        <td>Seções confortáveis</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>-large</code></td>
+                                        <td>var(--space-7) = 32px</td>
+                                        <td>Separação clara</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>-spacious</code></td>
+                                        <td>var(--space-8) = 40px</td>
+                                        <td>Seções principais</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Estados Interativos -->
+                    <div class="stack-base">
+                        <h3>Estados Interativos</h3>
+                        <p><strong>Princípio fundamental:</strong> Silêncio por padrão — interatividade é sempre opt-in</p>
+
+                        <div class="card">
+                            <h4>Utilitários de Hover</h4>
+                            <p>Adicione a classe <code>.hoverable</code> combinada com variantes para criar efeitos ao passar o mouse:</p>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Classe</th>
+                                        <th>Efeito</th>
+                                        <th>Uso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>.hoverable.hoverable-lift</code></td>
+                                        <td>Eleva o elemento com sombra</td>
+                                        <td>Cards, botões principais</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.hoverable.hoverable-scale</code></td>
+                                        <td>Aumenta levemente o tamanho</td>
+                                        <td>Imagens, ícones</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.hoverable.hoverable-glow</code></td>
+                                        <td>Adiciona sombra brilhante</td>
+                                        <td>CTAs, destaques</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.hoverable.hoverable-fade</code></td>
+                                        <td>Reduz opacidade</td>
+                                        <td>Links secundários</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.hoverable.hoverable-brighten</code></td>
+                                        <td>Aumenta brilho</td>
+                                        <td>Imagens, fundos escuros</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <pre><code>&lt;div class="card hoverable hoverable-lift"&gt;
+  Card com efeito de elevação ao hover
+&lt;/div&gt;
+
+&lt;button class="graphite-core hoverable"&gt;
+  Botão com hover básico
+&lt;/button&gt;
+
+&lt;img src="..." class="hoverable hoverable-scale" alt="..."&gt;</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>Utilitários de Pressão (Click)</h4>
+                            <p>Use <code>.pressable</code> para feedback visual ao clicar:</p>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Classe</th>
+                                        <th>Efeito</th>
+                                        <th>Uso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>.pressable</code></td>
+                                        <td>Redução de escala sutil (0.98)</td>
+                                        <td>Botões, cards clicáveis</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.pressable.pressable-lift</code></td>
+                                        <td>Move para baixo (translateY)</td>
+                                        <td>Botões físicos, switches</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.pressable.pressable-shrink</code></td>
+                                        <td>Redução mais pronunciada (0.95)</td>
+                                        <td>Elementos grandes, destaque forte</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <pre><code>&lt;div class="card pressable" onclick="..."&gt;
+  Card clicável com feedback
+&lt;/div&gt;
+
+&lt;button class="graphite-core pressable pressable-lift"&gt;
+  Botão com efeito de pressão
+&lt;/button&gt;</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>Utilitário Combinado: .interactive</h4>
+                            <p>Combina hover + press para elementos interativos completos:</p>
+                            <pre><code>&lt;div class="card interactive"&gt;
+  Card com hover (lift) e press (scale) automáticos
+&lt;/div&gt;
+
+&lt;!-- Equivalente a: --&gt;
+&lt;div class="card hoverable hoverable-lift pressable"&gt;
+  Mesmo comportamento, mais verboso
+&lt;/div&gt;</code></pre>
+                        </div>
+
+                        <div class="grid grid-cols-3">
+                            <div class="card hoverable hoverable-lift">
+                                <h5>Hoverable Lift</h5>
+                                <p>Passe o mouse para ver o efeito</p>
+                            </div>
+                            <div class="card pressable">
+                                <h5>Pressable</h5>
+                                <p>Clique para ver o efeito</p>
+                            </div>
+                            <div class="card interactive">
+                                <h5>Interactive</h5>
+                                <p>Hover + Press combinados</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Utilitários de Cor -->
+                    <div class="stack-base">
+                        <h3>Utilitários de Cor</h3>
+                        <p>Aplique cores de texto e fundo diretamente com classes utilitárias (usam <code>!important</code> para override)</p>
+
+                        <div class="card">
+                            <h4>Padrão de Nomenclatura</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Padrão</th>
+                                        <th>Exemplo</th>
+                                        <th>Resultado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>.text-{palette}-{shade}</code></td>
+                                        <td><code>.text-graphite-mind</code></td>
+                                        <td><span class="text-graphite-mind">Texto escuro</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.bg-{palette}-{shade}</code></td>
+                                        <td><code>.bg-flow</code></td>
+                                        <td><span class="bg-flow" style="padding: 2px 8px;">Fundo verde</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card">
+                            <h4>Exemplos de Uso</h4>
+                            <div class="stack-compact">
+                                <p class="text-graphite-mind">Texto graphite-mind (escuro)</p>
+                                <p class="text-thought">Texto thought (azul)</p>
+                                <p class="text-flow">Texto flow (verde/sucesso)</p>
+                                <p class="text-pulse">Texto pulse (amarelo/aviso)</p>
+                                <p class="text-break">Texto break (vermelho/erro)</p>
+                                <div class="bg-graphite-light" style="padding: var(--space-4);">
+                                    <p class="text-graphite-mind">Fundo claro com texto escuro</p>
+                                </div>
+                            </div>
+                            <pre><code>&lt;p class="text-flow"&gt;Mensagem de sucesso&lt;/p&gt;
+&lt;p class="text-break"&gt;Mensagem de erro&lt;/p&gt;
+&lt;div class="bg-graphite-light"&gt;
+  &lt;p class="text-graphite-mind"&gt;Conteúdo&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
                     </div>
 
                     <!-- Quando Usar -->
@@ -530,6 +757,7 @@ document.getElementById('meu-modal').open();
                                     <li>Links de navegação</li>
                                     <li>Imagens e vídeos</li>
                                 </ul>
+                                <p><strong>Vantagem:</strong> Sem classes necessárias, HTML semântico puro</p>
                             </div>
 
                             <div class="card">
@@ -542,22 +770,208 @@ document.getElementById('meu-modal').open();
                                     <li>Dropdowns e menus</li>
                                     <li>Avatares com badge</li>
                                 </ul>
+                                <p><strong>Vantagem:</strong> Componentes complexos prontos para uso</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Cores -->
+                    <!-- Sistema de Cores -->
                     <div class="stack-base">
                         <h3>Sistema de Cores</h3>
+                        
                         <div class="card">
                             <h4>Hierarquia Semântica</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Paleta</th>
+                                        <th>Propósito</th>
+                                        <th>Quando Usar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Graphite</strong></td>
+                                        <td>Paleta primária</td>
+                                        <td>Ações principais, navegação, hierarquia visual</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Thought</strong></td>
+                                        <td>Paleta secundária</td>
+                                        <td>Ações secundárias, elementos complementares</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Flow</strong></td>
+                                        <td>Estado de sucesso</td>
+                                        <td>Confirmações, conclusões bem-sucedidas</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Pulse</strong></td>
+                                        <td>Estado de aviso</td>
+                                        <td>Alertas, atenção necessária, mudanças pendentes</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Break</strong></td>
+                                        <td>Estado de erro</td>
+                                        <td>Erros, ações destrutivas, validações falhas</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Cloud/Silver</strong></td>
+                                        <td>Cores neutras</td>
+                                        <td>Fundos, bordas, texto secundário</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card">
+                            <h4>Tons e Aplicações</h4>
+                            <div class="stack-compact">
+                                <div>
+                                    <h5>Graphite (4 tons)</h5>
+                                    <p><code>mind</code> (mais escuro) → <code>deep</code> → <code>core</code> → <code>light</code> (mais claro)</p>
+                                </div>
+                                <div>
+                                    <h5>Thought (3 tons)</h5>
+                                    <p><code>default</code> → <code>focus</code> → <code>depth</code></p>
+                                </div>
+                                <div>
+                                    <h5>States (tom único)</h5>
+                                    <p><code>flow</code>, <code>pulse</code>, <code>break</code> — cores saturadas para feedback imediato</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Boas Práticas -->
+                    <div class="stack-base">
+                        <h3>Boas Práticas</h3>
+                        
+                        <div class="grid grid-cols-2">
+                            <div class="card">
+                                <h4>✅ Faça</h4>
+                                <ul>
+                                    <li>Use tokens de espaçamento (<code>--space-*</code>)</li>
+                                    <li>Adicione <code>.hoverable</code> apenas onde faz sentido</li>
+                                    <li>Combine primitivas de layout (<code>stack</code> + <code>cluster</code>)</li>
+                                    <li>Use nomes de tamanho consistentes: <code>small</code>, <code>medium</code>, <code>large</code>, <code>extra-large</code></li>
+                                    <li>Prefira HTML semântico (átomos) quando possível</li>
+                                    <li>Use <code>.interactive</code> para elementos clicáveis óbvios</li>
+                                    <li>Teste contraste de cores (mínimo 4.5:1 para texto)</li>
+                                </ul>
+                            </div>
+
+                            <div class="card">
+                                <h4>❌ Evite</h4>
+                                <ul>
+                                    <li>Hard-coded pixels (<code>padding: 16px</code>)</li>
+                                    <li>Hover automático em tudo (viola silêncio visual)</li>
+                                    <li>Abreviações inconsistentes (<code>sm</code>, <code>md</code>, <code>lg</code>)</li>
+                                    <li>Classes repetidas (<code>avatar avatar-large</code>)</li>
+                                    <li>Elementos decorativos sem propósito semântico</li>
+                                    <li>Múltiplas variantes de hover no mesmo elemento</li>
+                                    <li><code>!important</code> fora de utilitários</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Acessibilidade -->
+                    <div class="stack-base">
+                        <h3>Acessibilidade</h3>
+                        
+                        <div class="card">
+                            <h4>Checklist Essencial</h4>
                             <ul>
-                                <li><strong>Graphite (Primary):</strong> Ações principais, navegação primária</li>
-                                <li><strong>Thought (Secondary):</strong> Ações secundárias, complementos</li>
-                                <li><strong>Flow (Success):</strong> Confirmações, estados positivos</li>
-                                <li><strong>Pulse (Warning):</strong> Avisos, atenção necessária</li>
-                                <li><strong>Break (Error):</strong> Erros, ações destrutivas</li>
+                                <li><strong>Contraste:</strong> Todas as cores passam WCAG AA (4.5:1 para texto normal, 3:1 para texto grande)</li>
+                                <li><strong>Foco visível:</strong> Estados <code>:focus-visible</code> em todos os elementos interativos</li>
+                                <li><strong>Navegação por teclado:</strong> Tab, Enter, Escape funcionam em modais e dropdowns</li>
+                                <li><strong>ARIA:</strong> Labels adequados em controles de formulário e componentes dinâmicos</li>
+                                <li><strong>Semântica HTML:</strong> Botões são <code>&lt;button&gt;</code>, links são <code>&lt;a&gt;</code></li>
+                                <li><strong>Mensagens de erro:</strong> Associadas com <code>aria-describedby</code></li>
+                                <li><strong>Animações:</strong> Respeitam <code>prefers-reduced-motion</code></li>
                             </ul>
+                        </div>
+
+                        <div class="card">
+                            <h4>Exemplo de Implementação Acessível</h4>
+                            <pre><code>&lt;!-- Formulário acessível --&gt;
+&lt;form class="stack-compact"&gt;
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+  &lt;input 
+    type="email" 
+    id="email" 
+    aria-describedby="email-error"
+    aria-invalid="true"
+  &gt;
+  &lt;span id="email-error" class="text-break"&gt;
+    Email inválido
+  &lt;/span&gt;
+  
+  &lt;button type="submit" class="graphite-core hoverable"&gt;
+    Enviar
+  &lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- Modal acessível (Web Component) --&gt;
+&lt;monad-modal 
+  id="meu-modal" 
+  aria-labelledby="modal-title"
+  role="dialog"
+&gt;
+  &lt;h3 id="modal-title"&gt;Título do Modal&lt;/h3&gt;
+  &lt;p&gt;Conteúdo...&lt;/p&gt;
+  &lt;button onclick="this.closest('monad-modal').close()"&gt;
+    Fechar
+  &lt;/button&gt;
+&lt;/monad-modal&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Instalação e Uso -->
+                    <div class="stack-base">
+                        <h3>Instalação e Uso</h3>
+                        
+                        <div class="card">
+                            <h4>1. Incluir CSS</h4>
+                            <pre><code>&lt;link rel="stylesheet" href="dist/styles/monad.css"&gt;</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>2. Incluir JavaScript (Opcional)</h4>
+                            <p>Necessário apenas para Web Components (Modal, Dropdown, Alert)</p>
+                            <pre><code>&lt;script src="dist/monad.js" type="module" defer&gt;&lt;/script&gt;</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>3. Estrutura Básica</h4>
+                            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Meu App&lt;/title&gt;
+  &lt;link rel="stylesheet" href="dist/styles/monad.css"&gt;
+  &lt;script src="dist/monad.js" type="module" defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header class="graphite-mind"&gt;
+    &lt;div class="container"&gt;
+      &lt;h1&gt;Meu App&lt;/h1&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section class="section-spacious"&gt;
+      &lt;div class="container"&gt;
+        &lt;div class="stack-base"&gt;
+          &lt;!-- Seu conteúdo aqui --&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
                         </div>
                     </div>
                 </div>
