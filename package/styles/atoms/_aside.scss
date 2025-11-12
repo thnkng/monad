@@ -41,7 +41,7 @@ aside {
 // Generate color variants for all palettes
 @each $palette, $entries in $colors {
   @each $name, $value in $entries {
-    aside.#{$palette}-#{$name} {
+    aside.#{"" + $palette}-#{$name} {
       background: $value;
       border-color: $value;
       color: var(--white);
