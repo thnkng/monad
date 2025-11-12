@@ -1,81 +1,75 @@
 /**
- * MonadDropdown - Custom Element for Dropdown Menu
+ * MonadDropdown - Semantic Dropdown using native HTML
  * 
- * Usage:
+ * Usage with semantic HTML:
  * <monad-dropdown>
- *   <button slot="trigger">Options</button>
- *   <div slot="menu">
- *     <button class="dropdown-item">Edit</button>
- *     <button class="dropdown-item">Delete</button>
- *   </div>
+ *   <button>Options ▾</button>
+ *   <menu class="dropdown">
+ *     <li><button class="hoverable">Edit</button></li>
+ *     <li><button class="hoverable">Delete</button></li>
+ *   </menu>
  * </monad-dropdown>
  * 
  * JavaScript API:
  * dropdown.open()
  * dropdown.close()
  * dropdown.toggle()
- * dropdown.addEventListener('open', () => {})
- * dropdown.addEventListener('close', () => {})
+ * dropdown.addEventListener('dropdown-open', () => {})
+ * dropdown.addEventListener('dropdown-close', () => {})
  */
 
 class MonadDropdown extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
     this._isOpen = false;
   }
 
   connectedCallback() {
-    this.render();
+    this.init();
     this.setupEventListeners();
   }
 
-  static get observedAttributes() {
-    return ['open', 'position'];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'open') {
-      if (newValue !== null) {
-        this.open();
-      } else {
-        this.close();
-      }
-    }
+  init() {
+    // Find trigger (first button or element with role="button")
+    this._trigger = this.querySelector('button:first-of-type, [role="button"]:first-of-type');
     
-    if (name === 'position' && this.shadowRoot) {
-      this.updatePosition();
+    // Find menu (menu tag or element with role="menu")
+    this._menu = this.querySelector('menu, [role="menu"]');
+
+    if (!this._trigger || !this._menu) {
+      console.warn('MonadDropdown: Missing trigger button or menu element');
+      return;
     }
-  }
 
-  render() {
-    const position = this.getAttribute('position') || '';
-    const positionClass = position ? `dropdown-${position}` : '';
+    // Ensure proper classes
+    if (!this._menu.classList.contains('dropdown')) {
+      this._menu.classList.add('dropdown');
+    }
 
-    this.shadowRoot.innerHTML = `
-      <link rel="stylesheet" href="/dist/styles/monad.css">
-      <style>
-        :host {
-          display: inline-block;
-        }
-      </style>
-      
-      <div class="dropdown ${positionClass}" part="dropdown">
-        <div class="dropdown-trigger" part="trigger">
-          <slot name="trigger"></slot>
-        </div>
-        <div class="dropdown-menu" part="menu">
-          <slot name="menu"></slot>
-          <slot></slot>
-        </div>
-      </div>
-    `;
+    // Set initial state
+    this._menu.hidden = true;
+    this._menu.setAttribute('aria-hidden', 'true');
+    
+    // Link trigger to menu
+    this._trigger.setAttribute('aria-haspopup', 'true');
+    this._trigger.setAttribute('aria-expanded', 'false');
+    
+    // Set positioning
+    const position = this.getAttribute('position');
+    if (position) {
+      this._menu.classList.add(`dropdown-${position}`);
+    }
+
+    // Wrapper styling
+    this.style.position = 'relative';
+    this.style.display = 'inline-block';
   }
 
   setupEventListeners() {
-    const trigger = this.shadowRoot.querySelector('.dropdown-trigger');
-    
-    trigger.addEventListener('click', (e) => {
+    if (!this._trigger || !this._menu) return;
+
+    // Toggle on trigger click
+    this._trigger.addEventListener('click', (e) => {
       e.stopPropagation();
       this.toggle();
     });
@@ -92,17 +86,51 @@ class MonadDropdown extends HTMLElement {
     this._escapeHandler = (e) => {
       if (e.key === 'Escape' && this._isOpen) {
         this.close();
+        this._trigger.focus();
       }
     };
     document.addEventListener('keydown', this._escapeHandler);
 
     // Close when menu item is clicked
-    const menu = this.shadowRoot.querySelector('.dropdown-menu');
-    menu.addEventListener('click', (e) => {
-      if (e.target.classList.contains('dropdown-item')) {
+    const menuButtons = this._menu.querySelectorAll('button, a');
+    menuButtons.forEach(button => {
+      button.addEventListener('click', () => {
         this.close();
-      }
+      });
     });
+
+    // Keyboard navigation in menu
+    this._menu.addEventListener('keydown', (e) => {
+      this.handleMenuKeyboard(e);
+    });
+  }
+
+  handleMenuKeyboard(e) {
+    if (!this._menu) return;
+
+    const items = Array.from(this._menu.querySelectorAll('button:not([disabled]), a:not([disabled])'));
+    const currentIndex = items.indexOf(document.activeElement);
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        const nextIndex = (currentIndex + 1) % items.length;
+        items[nextIndex].focus();
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        const prevIndex = (currentIndex - 1 + items.length) % items.length;
+        items[prevIndex].focus();
+        break;
+      case 'Home':
+        e.preventDefault();
+        items[0].focus();
+        break;
+      case 'End':
+        e.preventDefault();
+        items[items.length - 1].focus();
+        break;
+    }
   }
 
   disconnectedCallback() {
@@ -110,47 +138,39 @@ class MonadDropdown extends HTMLElement {
     document.removeEventListener('keydown', this._escapeHandler);
   }
 
-  updatePosition() {
-    const dropdown = this.shadowRoot.querySelector('.dropdown');
-    const position = this.getAttribute('position');
-    
-    dropdown.className = 'dropdown';
-    if (position) {
-      dropdown.classList.add(`dropdown-${position}`);
-    }
-    
-    if (this._isOpen) {
-      dropdown.classList.add('open');
-    }
-  }
-
   open() {
-    if (this._isOpen) return;
+    if (this._isOpen || !this._menu || !this._trigger) return;
     
     this._isOpen = true;
-    this.setAttribute('open', '');
+    this._menu.hidden = false;
+    this._menu.setAttribute('aria-hidden', 'false');
+    this._menu.classList.add('visible');
+    this._trigger.setAttribute('aria-expanded', 'true');
     
-    const dropdown = this.shadowRoot.querySelector('.dropdown');
-    dropdown.classList.add('open');
+    // Focus first menu item
+    const firstItem = this._menu.querySelector('button:not([disabled]), a:not([disabled])');
+    if (firstItem) {
+      setTimeout(() => firstItem.focus(), 50);
+    }
     
-    this.dispatchEvent(new CustomEvent('open', {
+    this.dispatchEvent(new CustomEvent('dropdown-open', {
       bubbles: true,
-      composed: true
+      detail: { menu: this._menu }
     }));
   }
 
   close() {
-    if (!this._isOpen) return;
+    if (!this._isOpen || !this._menu || !this._trigger) return;
     
     this._isOpen = false;
-    this.removeAttribute('open');
+    this._menu.hidden = true;
+    this._menu.setAttribute('aria-hidden', 'true');
+    this._menu.classList.remove('visible');
+    this._trigger.setAttribute('aria-expanded', 'false');
     
-    const dropdown = this.shadowRoot.querySelector('.dropdown');
-    dropdown.classList.remove('open');
-    
-    this.dispatchEvent(new CustomEvent('close', {
+    this.dispatchEvent(new CustomEvent('dropdown-close', {
       bubbles: true,
-      composed: true
+      detail: { menu: this._menu }
     }));
   }
 
@@ -162,6 +182,7 @@ class MonadDropdown extends HTMLElement {
     }
   }
 
+  // Public API
   get isOpen() {
     return this._isOpen;
   }

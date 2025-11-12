@@ -1,13 +1,17 @@
 /**
  * MonadTabs Web Component
- * Tabbed navigation for content organization
+ * Semantic tabbed navigation using standard HTML elements
  * 
  * @example
  * <monad-tabs>
- *   <button slot="tab" active>Tab 1</button>
- *   <button slot="tab">Tab 2</button>
- *   <div slot="panel">Content 1</div>
- *   <div slot="panel">Content 2</div>
+ *   <ul role="tablist">
+ *     <li role="tab" class="active">Tab 1</li>
+ *     <li role="tab">Tab 2</li>
+ *     <li role="tab">Tab 3</li>
+ *   </ul>
+ *   <div role="tabpanel">Content 1</div>
+ *   <div role="tabpanel">Content 2</div>
+ *   <div role="tabpanel">Content 3</div>
  * </monad-tabs>
  */
 
@@ -18,89 +22,137 @@ class MonadTabs extends HTMLElement {
   }
 
   connectedCallback() {
-    this.render();
+    this.setAttribute('role', 'tabs');
+    this.init();
     this.attachEventListeners();
-    
-    // Set initial active tab
-    const initialActive = this.querySelector('[slot="tab"][active]');
-    if (initialActive) {
-      const tabs = this.querySelectorAll('[slot="tab"]');
-      this._activeIndex = Array.from(tabs).indexOf(initialActive);
-    }
-    
     this.updateActiveTab();
   }
 
-  render() {
-    // Create tabs container
-    const tabs = this.querySelectorAll('[slot="tab"]');
-    const panels = this.querySelectorAll('[slot="panel"]');
+  init() {
+    const tablist = this.querySelector('[role="tablist"]');
+    const tabs = this.querySelectorAll('[role="tab"]');
+    const panels = this.querySelectorAll('[role="tabpanel"]');
 
-    if (!this.querySelector('.tabs')) {
-      const tabsContainer = document.createElement('div');
-      tabsContainer.className = 'tabs';
-      
-      tabs.forEach((tab, index) => {
+    if (!tablist || tabs.length === 0 || panels.length === 0) {
+      console.warn('MonadTabs: Missing required elements (tablist, tabs, or panels)');
+      return;
+    }
+
+    // Ensure tablist has proper class
+    if (!tablist.classList.contains('tabs')) {
+      tablist.classList.add('tabs');
+    }
+
+    // Setup tabs
+    tabs.forEach((tab, index) => {
+      if (!tab.classList.contains('tab')) {
         tab.classList.add('tab');
-        if (!tab.classList.contains('hoverable')) {
-          tab.classList.add('hoverable');
-        }
-        tab.dataset.index = index;
-        tabsContainer.appendChild(tab);
-      });
-
-      this.insertBefore(tabsContainer, this.firstChild);
-    }
-
-    // Create panels container
-    if (!this.querySelector('.tabs-panels')) {
-      const panelsContainer = document.createElement('div');
-      panelsContainer.className = 'tabs-panels';
+      }
+      if (!tab.classList.contains('hoverable')) {
+        tab.classList.add('hoverable');
+      }
       
-      panels.forEach((panel, index) => {
-        panel.classList.add('tab-content');
-        panel.dataset.index = index;
-        panel.style.display = 'none';
-        panelsContainer.appendChild(panel);
-      });
+      // ARIA attributes
+      tab.setAttribute('tabindex', index === 0 ? '0' : '-1');
+      tab.setAttribute('aria-selected', 'false');
+      tab.setAttribute('aria-controls', `panel-${index}`);
+      tab.id = `tab-${index}`;
+      
+      // Check for initial active
+      if (tab.classList.contains('active')) {
+        this._activeIndex = index;
+      }
+    });
 
-      this.appendChild(panelsContainer);
-    }
+    // Setup panels
+    panels.forEach((panel, index) => {
+      if (!panel.classList.contains('tab-content')) {
+        panel.classList.add('tab-content');
+      }
+      panel.setAttribute('aria-labelledby', `tab-${index}`);
+      panel.id = `panel-${index}`;
+      panel.hidden = true;
+    });
   }
 
   attachEventListeners() {
-    const tabs = this.querySelectorAll('[slot="tab"]');
+    const tabs = this.querySelectorAll('[role="tab"]');
     
     tabs.forEach((tab, index) => {
+      // Click handler
       tab.addEventListener('click', () => {
-        if (!tab.disabled) {
+        if (!tab.hasAttribute('disabled')) {
           this.setActiveTab(index);
         }
+      });
+
+      // Keyboard navigation
+      tab.addEventListener('keydown', (e) => {
+        this.handleKeyboard(e, index);
       });
     });
   }
 
+  handleKeyboard(e, currentIndex) {
+    const tabs = this.querySelectorAll('[role="tab"]');
+    let newIndex = currentIndex;
+
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        e.preventDefault();
+        newIndex = (currentIndex + 1) % tabs.length;
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        e.preventDefault();
+        newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+        break;
+      case 'Home':
+        e.preventDefault();
+        newIndex = 0;
+        break;
+      case 'End':
+        e.preventDefault();
+        newIndex = tabs.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    this.setActiveTab(newIndex);
+    tabs[newIndex].focus();
+  }
+
   setActiveTab(index) {
-    const tabs = this.querySelectorAll('[slot="tab"]');
-    const panels = this.querySelectorAll('[slot="panel"]');
+    const tabs = this.querySelectorAll('[role="tab"]');
+    const panels = this.querySelectorAll('[role="tabpanel"]');
 
     if (index < 0 || index >= tabs.length) return;
 
-    // Remove active from all tabs
-    tabs.forEach(tab => tab.classList.remove('active'));
-    
-    // Hide all panels
-    panels.forEach(panel => panel.style.display = 'none');
+    // Update tabs
+    tabs.forEach((tab, i) => {
+      const isActive = i === index;
+      tab.classList.toggle('active', isActive);
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      tab.setAttribute('tabindex', isActive ? '0' : '-1');
+    });
 
-    // Set new active
+    // Update panels
+    panels.forEach((panel, i) => {
+      panel.hidden = i !== index;
+    });
+
     this._activeIndex = index;
-    tabs[index].classList.add('active');
-    panels[index].style.display = 'block';
 
     // Dispatch change event
     this.dispatchEvent(new CustomEvent('tab-change', {
       bubbles: true,
-      detail: { index, tab: tabs[index], panel: panels[index] }
+      detail: { 
+        index, 
+        tab: tabs[index], 
+        panel: panels[index] 
+      }
     }));
   }
 
@@ -108,6 +160,7 @@ class MonadTabs extends HTMLElement {
     this.setActiveTab(this._activeIndex);
   }
 
+  // Public API
   get activeIndex() {
     return this._activeIndex;
   }
@@ -117,7 +170,7 @@ class MonadTabs extends HTMLElement {
   }
 
   next() {
-    const tabs = this.querySelectorAll('[slot="tab"]');
+    const tabs = this.querySelectorAll('[role="tab"]');
     if (this._activeIndex < tabs.length - 1) {
       this.setActiveTab(this._activeIndex + 1);
     }

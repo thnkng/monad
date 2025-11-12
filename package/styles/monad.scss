@@ -19,3 +19,9 @@
 
 // Molecules (componentes com classes)
 @use 'molecules/index' as *;
+
+// Organisms (componentes complexos com tags semânticas)
+@use 'organisms/index' as *;
+
+// Templates (page layouts como variantes de body)
+@use 'templates/index' as *;

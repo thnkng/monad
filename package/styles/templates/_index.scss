@@ -1,0 +1,11 @@
+// ============================================
+// Templates Index
+// ============================================
+// Page-level layouts as body variants
+// Templates define the structural skeleton of pages
+
+@forward "app-layout";
+@forward "dashboard-layout";
+@forward "auth-layout";
+@forward "landing-layout";
+@forward "split-layout";

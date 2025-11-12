@@ -1,34 +1,77 @@
 @use "sass:color";
 @use "../tokens/colors" as c;
 
-// Base link
+// ============================================
+// Link Atom
+// ============================================
+// Semantic <a> element with underline by default
+
+// Base link styling
 a {
-  color: var(--flow); // Changed from thought to flow for better visibility
-  text-decoration: none;
-  transition: color var(--motion-duration-medium) var(--motion-ease-standard);
-  cursor: pointer;
-}
-
-a.hoverable:hover {
+  color: inherit; // Uses current text color by default
   text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+  transition: 
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    text-decoration-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
+// Hover (opt-in)
+a.hoverable:hover {
+  text-decoration-thickness: 2px;
+  color: var(--thought-focus);
+}
+
+// Focus state
 a:focus-visible {
   outline: none;
   border-radius: var(--radius-sm);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
   box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
 }
 
+// Visited state (subtle difference)
 a:visited {
   color: var(--iris-dream);
 }
 
-// Helper mixin para variantes de cor
-@mixin link-variant($value) {
-  color: $value;
+// Links inside nav or menu - no underline by default
+nav a,
+menu a {
+  text-decoration: none;
+  
+  &:focus-visible {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+  
+  &.hoverable:hover {
+    text-decoration: none;
+  }
 }
 
-// Gera classes de cor para links seguindo o mesmo padrão do button
+// Helper mixin for color variants
+@mixin link-variant($value) {
+  color: $value;
+  
+  &:visited {
+    color: color-mix(in srgb, $value 80%, var(--iris-dream) 20%);
+  }
+  
+  &.hoverable:hover {
+    $l: color.channel($value, "lightness", hsl);
+    @if $l > 50% {
+      color: color-mix(in srgb, $value 70%, #000 30%);
+    } @else {
+      color: color-mix(in srgb, $value 70%, #fff 30%);
+    }
+  }
+}
+
+// Auto-generate color variants
 @each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
     @if $name == default {
@@ -41,4 +84,22 @@ a:visited {
       }
     }
   }
+}
+
+// Utility: remove underline
+a.no-underline {
+  text-decoration: none;
+  
+  &:focus-visible {
+    text-decoration: underline;
+  }
+}
+
+// External link indicator (optional)
+a[target="_blank"]::after,
+a[rel~="external"]::after {
+  content: "↗";
+  font-size: 0.85em;
+  margin-left: 0.2em;
+  opacity: 0.7;
 }

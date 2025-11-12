@@ -1,20 +1,27 @@
 # Monad Web Components
 
-Custom Elements (Web Components) para o Monad Design System. Framework-agnostic, reutilizáveis e totalmente estilizados.
+Custom Elements (Web Components) para interatividade complexa no Monad Design System.
+
+**Filosofia:** Web Components apenas para funcionalidades que **realmente precisam de JavaScript**. Componentes simples usam CSS puro (veja `molecules/`).
 
 ## 🎯 Componentes Disponíveis
 
-- ✅ **MonadAlert** - Mensagens de alerta dismissíveis
-- ✅ **MonadBreadcrumb** - Navegação hierárquica (trilha de migalhas)
-- ✅ **MonadDropdown** - Menus dropdown com posicionamento
-- ✅ **MonadMenu** - Menus de navegação vertical/horizontal
-- ✅ **MonadModal** - Diálogos overlay com backdrop
-- ✅ **MonadPagination** - Controles de navegação entre páginas
-- ✅ **MonadProgress** - Barras de progresso com animações
-- ✅ **MonadTabs** - Organização de conteúdo em abas
-- ✅ **MonadTag** - Tags/chips removíveis
-- ✅ **MonadToast** - Notificações não-intrusivas
-- ✅ **MonadTooltip** - Informações contextuais no hover
+- ✅ **MonadDropdown** - Menus dropdown com posicionamento dinâmico e click outside
+- ✅ **MonadModal** - Diálogos overlay com backdrop, ESC key e focus trap
+- ✅ **MonadSidebar** - Sidebar colapsável com localStorage e mobile overlay
+- ✅ **MonadTabs** - Abas com troca de painéis e keyboard navigation
+- ✅ **MonadToast** - Notificações com auto-dismiss, queue e positioning
+- ✅ **MonadTooltip** - Tooltips com posicionamento inteligente e hover logic
+
+## 📦 Componentes Removidos (Agora CSS Puro)
+
+Estes agora são moléculas CSS sem JavaScript:
+- `.alert` - Alertas dismissíveis (molecules/_alert.scss)
+- `<nav>.breadcrumb` - Breadcrumbs (molecules/_breadcrumb.scss)
+- `<menu>` - Menus (atoms/_menu.scss)
+- `.pagination` - Paginação (molecules/_pagination.scss)
+- `.progress` - Barras de progresso (molecules/_progress.scss)
+- `.tag` - Tags removíveis (molecules/_tag.scss)
 
 ## 📦 Instalação
 

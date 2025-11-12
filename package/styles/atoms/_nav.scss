@@ -1,0 +1,215 @@
+@use "sass:color";
+@use "../tokens/colors" as c;
+
+// ============================================
+// Navigation Atom
+// ============================================
+// Semantic <nav> element styled as vertical menu
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  min-width: 200px;
+}
+
+// Navigation links (a tags inside nav)
+nav a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  color: var(--color-on-surface);
+  text-decoration: none;
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-regular);
+  transition: 
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard);
+  user-select: none;
+}
+
+// Icon support inside nav links
+nav a .icon,
+nav a i,
+nav a svg {
+  font-size: var(--font-size-large);
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+// Hover (opt-in)
+nav a.hoverable:hover {
+  background: var(--cloud-silent);
+  color: var(--graphite-mind);
+  
+  .icon,
+  i,
+  svg {
+    opacity: 1;
+  }
+}
+
+// Active state
+nav a.active {
+  background: var(--graphite-mind);
+  color: white;
+  font-weight: var(--font-weight-medium);
+  
+  .icon,
+  i,
+  svg {
+    opacity: 1;
+  }
+}
+
+// Disabled state
+nav a.disabled,
+nav a:disabled,
+nav a[aria-disabled="true"] {
+  color: var(--color-muted);
+  cursor: not-allowed;
+  pointer-events: none;
+  
+  .icon,
+  i,
+  svg {
+    opacity: 0.4;
+  }
+}
+
+// Navigation divider (hr inside nav)
+nav hr {
+  height: 1px;
+  background: var(--color-border);
+  border: none;
+  margin: var(--space-2) 0;
+}
+
+// Navigation headings (h6 inside nav for labels/sections)
+nav h6 {
+  padding: var(--space-2) var(--space-4);
+  margin: 0;
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-semi-bold);
+  color: var(--color-on-surface);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+// Helper mixin for color variants
+@mixin nav-variant($value) {
+  a.active {
+    background-color: $value;
+    $l: color.channel($value, "lightness", hsl);
+    color: if($l > 60%, #0D1117, #FFFFFF);
+  }
+  
+  a.hoverable:hover:not(.active) {
+    color: $value;
+  }
+}
+
+// Auto-generate color variants
+@each $palette, $entries in c.$colors {
+  @each $name, $value in $entries {
+    @if $name == default {
+      nav.#{"" + $palette} {
+        @include nav-variant($value);
+      }
+    } @else {
+      nav.#{"" + $palette}-#{$name} {
+        @include nav-variant($value);
+      }
+    }
+  }
+}
+
+// Compact variant
+nav.compact {
+  padding: var(--space-2);
+  gap: 0;
+  
+  a {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-small);
+  }
+  
+  h6 {
+    padding: var(--space-1) var(--space-3);
+  }
+}
+
+// Horizontal variant
+nav.horizontal {
+  flex-direction: row;
+  width: 100%;
+  
+  a {
+    flex: 0 0 auto;
+  }
+  
+  hr {
+    width: 1px;
+    height: auto;
+    margin: 0 var(--space-2);
+  }
+}
+
+// Expandable link support (for submenus)
+nav a.expandable {
+  justify-content: space-between;
+  
+  &::after {
+    content: "›";
+    font-size: var(--font-size-large);
+    transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
+  }
+  
+  &.expanded::after {
+    transform: rotate(90deg);
+  }
+}
+
+// Submenu (nested nav or div with role="group")
+nav [role="group"],
+nav nav {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-left: var(--space-6);
+  margin-top: var(--space-1);
+  border: none;
+  background: transparent;
+  
+  &.expanded {
+    display: flex;
+    animation: nav-submenu-expand var(--motion-duration-medium) var(--motion-ease-decelerate);
+  }
+}
+
+@keyframes nav-submenu-expand {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Respect motion preferences
+@media (prefers-reduced-motion: reduce) {
+  nav [role="group"].expanded,
+  nav nav.expanded {
+    animation: none;
+  }
+}

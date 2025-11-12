@@ -1,192 +1,116 @@
 // ============================================
-// Menu/Navigation Molecule
+// Menu Molecule - Context Menus & Dropdowns
 // ============================================
-// Vertical navigation menu with items and sections
+// Enhanced styling for <menu> element in dropdown/context menu scenarios.
+// Adds box-shadow and max-width for floating menus.
+// For basic menus, use the <menu> atom instead.
 
-@use "../tokens/colors" as *;
-@use "../tokens/spacing" as *;
+@use "sass:color";
+@use "../tokens/colors" as c;
 
-.menu {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-4);
-  background: var(--white);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--silver-line);
-  min-width: 200px;
+// Dropdown/context menu wrapper (adds shadow and constraints)
+menu.dropdown,
+menu.context {
+  box-shadow: var(--shadow-soft);
+  max-width: 280px;
+  position: absolute;
+  z-index: 1000;
 }
 
-.menu-item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-sm);
-  color: var(--graphite-core);
-  text-decoration: none;
-  font-size: var(--font-size-medium);
-  font-weight: var(--font-weight-regular);
-  cursor: pointer;
-  transition: 
-    background-color var(--motion-duration-fast) var(--motion-ease-standard),
-    color var(--motion-duration-fast) var(--motion-ease-standard);
-  user-select: none;
-  
-  // Icon/emoji support
-  .menu-icon {
-    font-size: var(--font-size-large);
-    line-height: 1;
-    opacity: 0.7;
-  }
-  
-  // Hover (opt-in)
-  &.hoverable:hover {
-    background: var(--cloud-silent);
-    color: var(--graphite-mind);
-    
-    .menu-icon {
-      opacity: 1;
-    }
-  }
-  
-  // Active state
-  &.active {
-    background: var(--graphite-mind);
-    color: var(--white);
-    font-weight: var(--font-weight-medium);
-    
-    .menu-icon {
-      opacity: 1;
-    }
-  }
-  
-  // Disabled state
-  &.disabled,
-  &:disabled {
-    color: var(--silver-line);
-    cursor: not-allowed;
-    pointer-events: none;
-    
-    .menu-icon {
-      opacity: 0.4;
-    }
-  }
+// Popover menu (triggered by dropdown/context actions)
+menu[role="menu"] {
+  box-shadow: var(--shadow-soft);
+  max-width: 280px;
 }
 
-// Menu divider
-.menu-divider {
-  height: 1px;
-  background: var(--silver-line);
-  margin: var(--space-2) 0;
-}
-
-// Menu label/heading
-.menu-label {
-  padding: var(--space-2) var(--space-4);
+// Enhanced keyboard shortcut styling in dropdown menus
+menu.dropdown button kbd,
+menu.dropdown a kbd,
+menu.context button kbd,
+menu.context a kbd {
+  margin-left: auto;
   font-size: var(--font-size-xsmall);
-  font-weight: var(--font-weight-semi-bold);
-  color: var(--graphite-core);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  user-select: none;
+  opacity: 0.6;
+  padding: var(--space-1) var(--space-2);
+  background: var(--cloud-mist);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-mono);
 }
 
-// Color variants
-@each $palette, $entries in $colors {
-  @each $name, $value in $entries {
-    .menu.menu-#{"" + $palette}-#{$name} {
-      .menu-item.active {
-        background: $value;
-        
-        // Light backgrounds need dark text
-        @if $name == "light" or $palette == "cloud" or $palette == "silver" {
-          color: var(--graphite-mind);
-        } @else {
-          color: var(--white);
-        }
-      }
-      
-      .menu-item.hoverable:hover:not(.active) {
-        color: $value;
-      }
-    }
-  }
+// Submenu indicator
+menu.dropdown button.expandable::after,
+menu.context button.expandable::after {
+  content: "›";
+  margin-left: auto;
+  font-size: var(--font-size-large);
+  opacity: 0.7;
 }
 
-// Compact variant
-.menu.menu-compact {
-  padding: var(--space-2);
-  gap: 0;
-  
-  .menu-item {
-    padding: var(--space-2) var(--space-3);
-    font-size: var(--font-size-small);
-  }
-  
-  .menu-label {
-    padding: var(--space-1) var(--space-3);
-  }
-}
-
-// Horizontal menu
-.menu.menu-horizontal {
-  flex-direction: row;
-  width: 100%;
-  
-  .menu-item {
-    flex: 0 0 auto;
-  }
-  
-  .menu-divider {
-    width: 1px;
-    height: auto;
-    margin: 0 var(--space-2);
-  }
-}
-
-// Submenu support
-.menu-item.menu-item-expandable {
-  justify-content: space-between;
-  
-  &::after {
-    content: "›";
-    font-size: var(--font-size-large);
-    transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
-  }
-  
-  &.expanded::after {
-    transform: rotate(90deg);
-  }
-}
-
-.menu-submenu {
+// Nested submenu positioning
+menu.dropdown menu,
+menu.context menu {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin-left: var(--space-1);
   display: none;
-  flex-direction: column;
-  gap: var(--space-1);
-  padding-left: var(--space-6);
-  margin-top: var(--space-1);
   
-  &.expanded {
+  &.visible {
     display: flex;
-    animation: menu-submenu-expand var(--motion-duration-medium) var(--motion-ease-decelerate);
+    animation: submenu-slide-in var(--motion-duration-fast) var(--motion-ease-decelerate);
   }
 }
 
-@keyframes menu-submenu-expand {
+@keyframes submenu-slide-in {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateX(-8px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
+  }
+}
+
+// Helper mixin for color variants in dropdown context
+@mixin menu-dropdown-variant($value) {
+  border-color: color-mix(in srgb, $value 20%, var(--color-border));
+  
+  button.active,
+  a.active {
+    background-color: $value;
+    $l: color.channel($value, "lightness", hsl);
+    color: if($l > 60%, #0D1117, #FFFFFF);
+  }
+  
+  button.hoverable:hover:not(.active):not(.danger),
+  a.hoverable:hover:not(.active):not(.danger) {
+    background-color: color-mix(in srgb, $value 10%, var(--color-surface));
+    color: $value;
+  }
+}
+
+// Auto-generate color variants for dropdown menus
+@each $palette, $entries in c.$colors {
+  @each $name, $value in $entries {
+    @if $name == default {
+      menu.dropdown.#{"" + $palette},
+      menu.context.#{"" + $palette} {
+        @include menu-dropdown-variant($value);
+      }
+    } @else {
+      menu.dropdown.#{"" + $palette}-#{$name},
+      menu.context.#{"" + $palette}-#{$name} {
+        @include menu-dropdown-variant($value);
+      }
+    }
   }
 }
 
 // Respect motion preferences
 @media (prefers-reduced-motion: reduce) {
-  .menu-submenu.expanded {
+  menu.dropdown menu.visible,
+  menu.context menu.visible {
     animation: none;
   }
 }

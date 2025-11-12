@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Monad Design System</title>
+    <meta name="description" content="A minimalist atomic design system built on principles of clarity, visual silence, and emotional precision.">
+    <link rel="stylesheet" href="../dist/styles/monad.css">
+    <style>
+        /* Minimal documentation styles */
+        .doc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .doc-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .doc-header-left h1 {
+            margin: 0;
+        }
+        
+        .doc-header-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .doc-section {
+            max-width: 1200px;
+            margin-bottom: 4rem;
+        }
+        
+        .doc-section h2 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .sidebar-version {
+            opacity: 0.5;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+
+<body class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <header>
+            <a href="#">
+                <i data-lucide="circle-dot"></i>
+                <span>Monad</span>
+            </a>
+            <button class="hoverable" onclick="document.querySelector('.sidebar').classList.toggle('collapsed')">
+                <i data-lucide="chevron-left"></i>
+            </button>
+        </header>
+
+        <nav>
+            <h6>Getting Started</h6>
+            <a href="#manifest" class="hoverable active">
+                <i data-lucide="file-text"></i>
+                <span>Manifest</span>
+            </a>
+            <a href="#philosophy" class="hoverable">
+                <i data-lucide="lightbulb"></i>
+                <span>Philosophy</span>
+            </a>
+
+            <hr>
+
+            <h6>Foundation</h6>
+            <a href="#tokens" class="hoverable">
+                <i data-lucide="palette"></i>
+                <span>Tokens</span>
+            </a>
+            <a href="#base" class="hoverable">
+                <i data-lucide="square"></i>
+                <span>Base Styles</span>
+            </a>
+
+            <hr>
+
+            <h6>Components</h6>
+            <a href="#atoms" class="hoverable">
+                <i data-lucide="circle"></i>
+                <span>Atoms</span>
+            </a>
+            <a href="#molecules" class="hoverable">
+                <i data-lucide="hexagon"></i>
+                <span>Molecules</span>
+            </a>
+            <a href="#organisms" class="hoverable">
+                <i data-lucide="grid-2x2"></i>
+                <span>Organisms</span>
+            </a>
+
+            <hr>
+
+            <h6>Patterns</h6>
+            <a href="#templates" class="hoverable">
+                <i data-lucide="layout"></i>
+                <span>Templates</span>
+            </a>
+            <a href="#themes" class="hoverable">
+                <i data-lucide="sun"></i>
+                <span>Themes</span>
+            </a>
+
+            <hr>
+
+            <h6>Advanced</h6>
+            <a href="#utilities" class="hoverable">
+                <i data-lucide="wrench"></i>
+                <span>Utilities</span>
+            </a>
+            <a href="#web-components" class="hoverable">
+                <i data-lucide="code-2"></i>
+                <span>Web Components</span>
+            </a>
+        </nav>
+
+        <footer>
+            <small class="sidebar-version">v1.0.0</small>
+        </footer>
+    </aside>
+
+    <!-- Main Header -->
+    <header>
+        <div class="doc-header">
+            <div class="doc-header-left">
+                <button class="hoverable" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+                    <i data-lucide="menu"></i>
+                </button>
+                <h1>Documentation</h1>
+            </div>
+
+            <div class="doc-header-right">
+                <a href="https://github.com/thnkng/monad" target="_blank" class="hoverable">
+                    <i data-lucide="github"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section id="manifest" class="doc-section">
+            <h2>Manifest</h2>
+            <p>A minimalist atomic design system built on principles of clarity, visual silence, and emotional precision.</p>
+        </section>
+
+        <section id="philosophy" class="doc-section">
+            <h2>Philosophy</h2>
+            <p>Core principles that guide Monad's design decisions.</p>
+        </section>
+
+        <section id="tokens" class="doc-section">
+            <h2>Design Tokens</h2>
+            <p>Foundation: colors, typography, spacing, motion, and effects.</p>
+        </section>
+
+        <section id="base" class="doc-section">
+            <h2>Base Styles</h2>
+            <p>Semantic HTML resets and typography.</p>
+        </section>
+
+        <section id="atoms" class="doc-section">
+            <h2>Atoms</h2>
+            <p>Basic HTML elements: button, input, link, nav, menu.</p>
+        </section>
+
+        <section id="molecules" class="doc-section">
+            <h2>Molecules</h2>
+            <p>Simple components: card, badge, avatar, dropdown, tabs.</p>
+        </section>
+
+        <section id="organisms" class="doc-section">
+            <h2>Organisms</h2>
+            <p>Complex components: sidebar, empty-state, header.</p>
+        </section>
+
+        <section id="templates" class="doc-section">
+            <h2>Templates</h2>
+            <p>Page layouts: app-layout, dashboard-layout, auth-layout, landing-layout, split-layout.</p>
+        </section>
+
+        <section id="themes" class="doc-section">
+            <h2>Themes</h2>
+            <p>Color schemes and visual variations.</p>
+        </section>
+
+        <section id="utilities" class="doc-section">
+            <h2>Utilities</h2>
+            <p>Helper classes: margin, padding, layout, icons.</p>
+        </section>
+
+        <section id="web-components" class="doc-section">
+            <h2>Web Components</h2>
+            <p>Interactive elements: modal, dropdown, tabs, toast, tooltip, sidebar.</p>
+        </section>
+    </main>
+
+    <script src="../dist/scripts/monad.min.js"></script>
+    <script type="module">
+        // Import Lucide icons
+        import { createIcons, CircleDot, ChevronLeft, FileText, Lightbulb, Palette, Square, Circle, Hexagon, Grid2X2, Layout, Sun, Wrench, Code2, Menu, Github } from 'https://cdn.jsdelivr.net/npm/lucide@latest/dist/esm/lucide.js';
+        
+        // Initialize Lucide icons
+        createIcons({
+            icons: {
+                CircleDot,
+                ChevronLeft,
+                FileText,
+                Lightbulb,
+                Palette,
+                Square,
+                Circle,
+                Hexagon,
+                Grid2X2,
+                Layout,
+                Sun,
+                Wrench,
+                Code2,
+                Menu,
+                Github
+            }
+        });
+
+        // Active link highlighting on scroll
+        const sections = document.querySelectorAll('main section[id]');
+        const navLinks = document.querySelectorAll('.sidebar-link');
+
+        function setActiveLink() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', setActiveLink);
+        
+        // Smooth scroll for anchor links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
