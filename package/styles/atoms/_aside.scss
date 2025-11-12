@@ -1,0 +1,102 @@
+// ============================================
+// Aside Atom
+// ============================================
+// Semantic sidebar/complementary content
+// Style the <aside> element directly
+// Variants generated from color tokens
+
+@use "../tokens/colors" as *;
+@use "../tokens/spacing" as *;
+@use "../tokens/effects" as *;
+
+// Base aside styling
+aside {
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  background: var(--cloud-silent);
+  border: 1px solid var(--silver-line);
+  color: var(--graphite-mind);
+  
+  // Smooth transitions
+  transition: 
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
+
+  // Typography adjustments for aside content
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  // Lists inside aside
+  ul, ol {
+    padding-left: var(--space-5);
+  }
+}
+
+// Generate color variants for all palettes
+@each $palette, $entries in $colors {
+  @each $name, $value in $entries {
+    aside.#{$palette}-#{$name} {
+      background: $value;
+      border-color: $value;
+      color: var(--white);
+      
+      // Ensure readable contrast on dark backgrounds
+      @if $name == "light" or $palette == "cloud" or $palette == "silver" {
+        color: var(--graphite-mind);
+      }
+
+      // Adjust link colors inside colored aside
+      a {
+        color: inherit;
+        text-decoration: underline;
+        opacity: 0.9;
+        
+        &.hoverable:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+// Opt-in hover effect for interactive asides
+aside.hoverable:hover {
+  box-shadow: var(--shadow-soft);
+}
+
+// Size variants
+aside.small {
+  padding: var(--space-4);
+  font-size: var(--font-size-small);
+}
+
+aside.large {
+  padding: var(--space-8);
+  font-size: var(--font-size-large);
+}
+
+// Position variants for layout flexibility
+aside.aside-sticky {
+  position: sticky;
+  top: var(--space-6);
+}
+
+aside.aside-float-right {
+  float: right;
+  margin-left: var(--space-6);
+  margin-bottom: var(--space-6);
+  max-width: 320px;
+}
+
+aside.aside-float-left {
+  float: left;
+  margin-right: var(--space-6);
+  margin-bottom: var(--space-6);
+  max-width: 320px;
+}
