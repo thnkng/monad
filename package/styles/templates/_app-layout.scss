@@ -10,20 +10,19 @@ body.app-layout {
     "sidebar header"
     "sidebar main";
   grid-template-columns: 280px 1fr;
-  grid-template-rows: 64px 1fr;
-  min-height: 100vh;
+  grid-template-rows: 64px calc(100vh - 64px);
+  height: 100vh;
   margin: 0;
   overflow: hidden;
   
   // Sidebar area
   > aside {
     grid-area: sidebar;
-    position: relative;
-    top: auto;
-    left: auto;
-    height: 100vh;
     position: sticky;
     top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 60;
   }
   
   // Header area
@@ -40,6 +39,7 @@ body.app-layout {
   > main {
     grid-area: main;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: var(--space-6);
     background: var(--cloud-pure);
   }

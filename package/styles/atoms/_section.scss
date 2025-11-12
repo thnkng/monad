@@ -1,10 +1,25 @@
-@use "../tokens/colors" as *;
+@use "sass:color";
+@use "../tokens/colors" as c;
 
+// Base section styling
 section {
+  display: block;
   padding-block: var(--space-6);
-  user-select: text; // Allow text selection in sections
+  padding-inline: var(--space-6);
+  user-select: text;
+  max-width: 1200px;
+  width: 100%;
+  margin-inline: auto;
+  border-left: 3px solid transparent;
+  transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
+// Accent bar variant
+section[data-accent="true"] {
+  border-left-color: var(--color-primary);
+}
+
+// Density variants
 section[data-density="compact"] {
   padding-block: var(--space-4);
 }
@@ -13,24 +28,57 @@ section[data-density="spacious"] {
   padding-block: var(--space-8);
 }
 
+// Container wrapper
 section > .container {
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: var(--space-4);
 }
 
-// Generate color variants for sections
-@each $palette, $entries in $colors {
+// Typography spacing within sections
+section h2 {
+  margin-bottom: var(--space-5);
+}
+
+section h3 {
+  margin-top: var(--space-7);
+  margin-bottom: var(--space-4);
+}
+
+section h4 {
+  margin-bottom: var(--space-3);
+}
+
+// Card spacing within sections
+section .card {
+  margin-bottom: var(--space-4);
+}
+
+section .card h4 {
+  margin-top: 0;
+}
+
+section .card p {
+  margin-bottom: 0;
+}
+
+// Helper mixin for color variants
+@mixin section-variant($value) {
+  background-color: $value;
+  $l: color.channel($value, "lightness", hsl);
+  color: if($l > 60%, #0D1117, #FFFFFF);
+}
+
+// Auto-generate color variants
+@each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
     @if $name == default {
       section.#{"" + $palette} {
-        background-color: #{$value};
-        color: #{color-contrast($value)};
+        @include section-variant($value);
       }
     } @else {
       section.#{"" + $palette}-#{$name} {
-        background-color: #{$value};
-        color: #{color-contrast($value)};
+        @include section-variant($value);
       }
     }
   }

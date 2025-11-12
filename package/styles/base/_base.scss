@@ -42,16 +42,33 @@ ul, ol {
   padding-left: var(--space-large);
 }
 
-code, pre {
+code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-  font-size: 0.9375rem;
+  font-size: 0.875em;
+  padding: 0.125rem 0.375rem;
+  background: var(--cloud-silent);
+  color: var(--graphite-mind);
+  border: 1px solid var(--silver-line);
+  border-radius: var(--radius-sm);
 }
 
 pre {
-  padding: var(--space-small) var(--space-medium);
-  background: var(--graphite-light);
-  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  background: var(--graphite-deep);
+  color: var(--cloud-pure);
+  border-radius: var(--radius-md);
   overflow: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+pre code {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  border: none;
+  font-size: inherit;
 }
 
 blockquote {
@@ -62,12 +79,13 @@ blockquote {
 }
 
 a {
-  color: var(--thought);
+  color: var(--graphite-core);
   text-decoration: none;
   transition: color var(--motion-duration-medium) var(--motion-ease-standard);
 }
 a.hoverable:hover, a:focus-visible {
   text-decoration: underline;
+  color: var(--graphite-deep);
 }
 
 a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {

@@ -1,0 +1,246 @@
+/* ============================================
+   Monad Documentation Styles
+   ============================================
+   Page-specific styles for documentation
+   Layout components are in monad.css */
+
+/* Sidebar version text */
+.sidebar-version {
+    opacity: 0.5;
+    font-size: 0.75rem;
+}
+
+/* ============================================
+   Color Palette Grids
+   ============================================ */
+
+/* Grid layouts for color swatches */
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.color-grid-extended {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Color swatch cards */
+.color-swatch {
+    padding: 1.5rem;
+}
+
+.color-swatch-compact {
+    padding: 1rem;
+    margin-top: 0.5rem;
+}
+
+/* Graphite palette */
+.swatch-graphite-mind {
+    background: #0D1117;
+    color: white;
+}
+
+.swatch-graphite-deep {
+    background: #1A2430;
+    color: white;
+}
+
+.swatch-graphite-core {
+    background: #2B3A4A;
+    color: white;
+}
+
+.swatch-graphite-light {
+    background: #F4F7FA;
+    color: #0D1117;
+}
+
+/* Cloud palette */
+.swatch-cloud-pure {
+    background: #F1F1F1;
+    border: 1px solid #DADADA;
+}
+
+.swatch-cloud-silent {
+    background: #F4F4F4;
+    border: 1px solid #DADADA;
+}
+
+.swatch-cloud-mist {
+    background: #EAEAEA;
+    border: 1px solid #DADADA;
+}
+
+/* Thought palette */
+.swatch-thought-default {
+    background: #1e3a5f;
+    color: white;
+}
+
+.swatch-thought-focus {
+    background: #152d4a;
+    color: white;
+}
+
+.swatch-thought-depth {
+    background: #0d1f35;
+    color: white;
+}
+
+/* Ember palette */
+.swatch-ember-energy {
+    background: #ff9533;
+    color: white;
+}
+
+.swatch-ember-glow {
+    background: #ffb366;
+    color: #0D1117;
+}
+
+.swatch-ember-burn {
+    background: #e67a1a;
+    color: white;
+}
+
+/* Silver palette */
+.swatch-silver-line {
+    background: #DADADA;
+}
+
+.swatch-silver-balance {
+    background: #B6B6B6;
+    color: white;
+}
+
+.swatch-silver-depth {
+    background: #8A8A8A;
+    color: white;
+}
+
+/* Sage palette */
+.swatch-sage-calm {
+    background: #b7c6b4;
+}
+
+.swatch-sage-leaf {
+    background: #9fb49f;
+}
+
+.swatch-sage-shadow {
+    background: #7a9076;
+    color: white;
+}
+
+/* Rose palette */
+.swatch-rose-soft {
+    background: #f7c9ce;
+}
+
+.swatch-rose-bloom {
+    background: #e8a7b0;
+}
+
+.swatch-rose-depth {
+    background: #bf6975;
+    color: white;
+}
+
+/* Sand palette */
+.swatch-sand-light {
+    background: #f3ebde;
+}
+
+.swatch-sand-warm {
+    background: #e6cfae;
+}
+
+.swatch-sand-earth {
+    background: #ca9f71;
+    color: white;
+}
+
+/* Aether palette */
+.swatch-aether-sky {
+    background: #d1ebff;
+}
+
+.swatch-aether-air {
+    background: #b6d8fa;
+}
+
+.swatch-aether-light {
+    background: #8bc2ee;
+}
+
+/* Iris palette */
+.swatch-iris-petal {
+    background: #c8b6ff;
+}
+
+.swatch-iris-dream {
+    background: #a58aed;
+    color: white;
+}
+
+.swatch-iris-void {
+    background: #7563b2;
+    color: white;
+}
+
+/* State palette */
+.swatch-state-flow {
+    background: #33d469;
+    color: white;
+}
+
+.swatch-state-pulse {
+    background: #ffc14d;
+}
+
+.swatch-state-break {
+    background: #ff5c5c;
+    color: white;
+}
+
+/* ============================================
+   Typography Examples
+   ============================================ */
+
+.typography-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.typography-example-heading {
+    margin-bottom: 0.5rem;
+}
+
+/* ============================================
+   Motion Examples
+   ============================================ */
+
+.motion-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* ============================================
+   Button Groups
+   ============================================ */
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}

@@ -7,44 +7,7 @@
     <title>Monad Design System</title>
     <meta name="description" content="A minimalist atomic design system built on principles of clarity, visual silence, and emotional precision.">
     <link rel="stylesheet" href="../dist/styles/monad.css">
-    <style>
-        /* Minimal documentation styles */
-        .doc-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .doc-header-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .doc-header-left h1 {
-            margin: 0;
-        }
-        
-        .doc-header-right {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        
-        .doc-section {
-            max-width: 1200px;
-            margin-bottom: 4rem;
-        }
-        
-        .doc-section h2 {
-            margin-bottom: 1.5rem;
-        }
-        
-        .sidebar-version {
-            opacity: 0.5;
-            font-size: 0.75rem;
-        }
-    </style>
+    <link rel="stylesheet" href="docs.css">
 </head>
 
 <body class="app-layout">
@@ -53,7 +16,7 @@
         <header>
             <a href="#">
                 <i data-lucide="circle-dot"></i>
-                <span>Monad</span>
+                <h1>Monad</h1>
             </a>
             <button class="hoverable" onclick="document.querySelector('.sidebar').classList.toggle('collapsed')">
                 <i data-lucide="chevron-left"></i>
@@ -131,75 +94,1298 @@
 
     <!-- Main Header -->
     <header>
-        <div class="doc-header">
-            <div class="doc-header-left">
-                <button class="hoverable" onclick="document.querySelector('.sidebar').classList.toggle('open')">
-                    <i data-lucide="menu"></i>
-                </button>
-                <h1>Documentation</h1>
-            </div>
+        <div class="left">
+            <button class="hoverable" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+                <i data-lucide="menu"></i>
+            </button>
+            <h1>Documentation</h1>
+        </div>
 
-            <div class="doc-header-right">
-                <a href="https://github.com/thnkng/monad" target="_blank" class="hoverable">
-                    <i data-lucide="github"></i>
-                </a>
-            </div>
+        <div class="right">
+            <a href="https://github.com/thnkng/monad" target="_blank" class="hoverable">
+                <i data-lucide="github"></i>
+            </a>
         </div>
     </header>
 
     <!-- Main Content -->
     <main>
-        <section id="manifest" class="doc-section">
+        <section id="manifest">
             <h2>Manifest</h2>
-            <p>A minimalist atomic design system built on principles of clarity, visual silence, and emotional precision.</p>
+            <p class="lead">A minimalist atomic design system built on principles of clarity, visual silence, and emotional precision.</p>
+            
+            <h3>What is Monad?</h3>
+            <p>Monad is a complete design system for building modern interfaces with semantic HTML at its core. Every component is crafted to disappear — to serve human experience without noise.</p>
+            <p>Born from frustration with bloated frameworks and decorative design, Monad strips everything to its essence. What remains is pure, intentional, and beautiful.</p>
+            
+            <h3>Architecture</h3>
+            <p>Monad follows the Atomic Design methodology with a semantic-first approach:</p>
+            
+            <div class="card">
+                <h4>Tokens</h4>
+                <p>Foundation layer. Colors, typography, spacing, motion, effects. Every value is a token — no hard-coded pixels.</p>
+            </div>
+            
+            <div class="card">
+                <h4>Base</h4>
+                <p>HTML resets and semantic typography. Clean slate for consistent rendering across browsers.</p>
+            </div>
+            
+            <div class="card">
+                <h4>Atoms</h4>
+                <p>HTML tags styled directly: <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;section&gt;</code>. No wrapper divs required.</p>
+            </div>
+            
+            <div class="card">
+                <h4>Molecules</h4>
+                <p>Simple components with single responsibility: <code>.card</code>, <code>.badge</code>, <code>.avatar</code>, <code>.dropdown</code>. CSS classes for composite elements.</p>
+            </div>
+            
+            <div class="card">
+                <h4>Organisms</h4>
+                <p>Complex components using semantic tags: <code>&lt;aside.sidebar&gt;</code>, <code>&lt;nav.breadcrumb&gt;</code>. Structure with meaning.</p>
+            </div>
+            
+            <div class="card">
+                <h4>Templates</h4>
+                <p>Page layouts as body variants: <code>&lt;body.app-layout&gt;</code>, <code>&lt;body.dashboard-layout&gt;</code>, <code>&lt;body.auth-layout&gt;</code>. Complete layout systems.</p>
+            </div>
+            
+            <div class="card">
+                <h4>Utilities</h4>
+                <p>Layout helpers: margin, padding, grid, flexbox. When semantic HTML isn't enough.</p>
+            </div>
+            
+            <h3>Technology Stack</h3>
+            <p><strong>Pure SCSS</strong> — No preprocessor complexity. Clean, readable, maintainable.</p>
+            <p><strong>Web Components</strong> — Only for interactive elements (modal, dropdown, tabs, toast). Encapsulated, reusable, framework-agnostic.</p>
+            <p><strong>Zero Dependencies</strong> — Except Lucide icons for visual consistency. No jQuery. No Bootstrap. No bloat.</p>
+            <p><strong>Semantic HTML</strong> — Accessibility built-in. SEO-friendly. Standards-compliant.</p>
+            
+            <h3>Getting Started</h3>
+            <div class="card">
+                <pre><code>npm install monad-design-system
+
+# Import in your SCSS
+@use 'monad' as *;
+
+# Or link the compiled CSS
+&lt;link rel="stylesheet" href="dist/monad.css"&gt;
+&lt;script src="dist/monad.js"&gt;&lt;/script&gt;</code></pre>
+            </div>
+            
+            <h3>Philosophy</h3>
+            <p>Five principles guide every decision in Monad:</p>
+            <ul>
+                <li><strong>Clarity before form</strong> — Every element exists for a reason</li>
+                <li><strong>Visual silence</strong> — Space is as important as content</li>
+                <li><strong>Emotional precision</strong> — Colors and names evoke feeling</li>
+                <li><strong>Scalability without noise</strong> — Grow without losing harmony</li>
+                <li><strong>Humanity at the center</strong> — Technology serves people</li>
+            </ul>
+            
+            <blockquote>
+                <p>"Technology disappears. Experience remains."</p>
+            </blockquote>
         </section>
 
-        <section id="philosophy" class="doc-section">
+        <section id="philosophy">
             <h2>Philosophy</h2>
-            <p>Core principles that guide Monad's design decisions.</p>
+            <p class="lead">Monad is born from the idea that design should not merely decorate technology — it must reveal its essence. Every detail is an invitation to clarity, coherence, and visual silence.</p>
+            
+            <h3>The Five Principles</h3>
+            <p>These principles guide every decision in Monad — from naming conventions to color choices, from spacing tokens to interaction patterns.</p>
+            
+            <div class="card">
+                <h4>1. Clarity before form</h4>
+                <p>Every element must exist for a reason. No pixel is decorative; everything communicates. Beauty lies in precision, not ornamentation.</p>
+                <p><strong>In practice:</strong> Semantic HTML tags styled directly. Minimal class dependencies. Every line of code serves a purpose.</p>
+            </div>
+            
+            <div class="card">
+                <h4>2. Visual silence</h4>
+                <p>Space is as important as content. Elements are silent by default — interactions require opt-in. Generous spacing allows the eye to breathe.</p>
+                <p><strong>In practice:</strong> <code>.hoverable</code> class required for hover effects. Never automatic. Silence is the default state.</p>
+            </div>
+            
+            <div class="card">
+                <h4>3. Emotional precision</h4>
+                <p>Interfaces are never neutral — they evoke trust, lightness, calm. Every curve, color, and rhythm carries emotional intent. Naming is poetic.</p>
+                <p><strong>In practice:</strong> Colors named <code>graphite-mind</code>, <code>cloud-silent</code>, <code>ember-energy</code>. Motion curves evoke lightness or urgency.</p>
+            </div>
+            
+            <div class="card">
+                <h4>4. Scalability without noise</h4>
+                <p>A system is only good if it can grow without losing harmony. We seek universal patterns, not fleeting conventions. Auto-generate variants via loops.</p>
+                <p><strong>In practice:</strong> SCSS loops generate all color variants automatically. No hard-coding. Tokens power everything.</p>
+            </div>
+            
+            <div class="card">
+                <h4>5. Humanity at the center</h4>
+                <p>Invisible technology — disappears so human experience prevails. In the end, everything is about people — not code. Developer experience (DX) is user experience.</p>
+                <p><strong>In practice:</strong> Clean API. Semantic naming. Comprehensive accessibility. Built for humans first, machines second.</p>
+            </div>
+            
+            <h3>Design Reveals, Not Decorates</h3>
+            <p>Modern interfaces are drowning in noise. Shadows stacked on shadows. Colors fighting for attention. Animations that distract rather than guide.</p>
+            <p>Monad takes a different path. We embrace silence. We give space to breathe. We design with intention, not trends.</p>
+            <p>Every shadow has a reason. Every color communicates. Every animation guides the eye. Nothing is decoration — everything is communication.</p>
+            
+            <h3>Technology That Disappears</h3>
+            <p>The best interface is one you don't notice. The best code is one that feels inevitable. The best design system is one that gets out of the way.</p>
+            <p>Monad is built to disappear. Pure SCSS. No frameworks. No dependencies beyond Lucide icons. Semantic HTML at its core. Web Components only when necessary.</p>
+            <p>Technology should serve humans, not the other way around. Monad serves.</p>
+            
+            <blockquote>
+                <p>"Design reveals, not decorates."</p>
+            </blockquote>
         </section>
 
-        <section id="tokens" class="doc-section">
+        <section id="tokens">
             <h2>Design Tokens</h2>
-            <p>Foundation: colors, typography, spacing, motion, and effects.</p>
+            <p class="lead">Foundation of the Monad design system. Every value is a token — colors, spacing, typography, motion, and effects. No hard-coded values, ever.</p>
+            
+            <h3>Colors</h3>
+            <p>Our color palette is emotionally precise. Each name evokes feeling, not just function. Every shade has purpose.</p>
+            
+            <h4>Graphite — Core Identity</h4>
+            <p>The foundation. Dark, grounded, technical precision.</p>
+            <div class="color-grid">
+                <div class="card color-swatch swatch-graphite-mind">
+                    <strong>graphite-mind</strong><br>
+                    <code>#0D1117</code><br>
+                    <small>Base dark, almost black</small>
+                </div>
+                <div class="card color-swatch swatch-graphite-deep">
+                    <strong>graphite-deep</strong><br>
+                    <code>#1A2430</code><br>
+                    <small>Deep blue-gray</small>
+                </div>
+                <div class="card color-swatch swatch-graphite-core">
+                    <strong>graphite-core</strong><br>
+                    <code>#2B3A4A</code><br>
+                    <small>Medium metallic</small>
+                </div>
+                <div class="card color-swatch swatch-graphite-light">
+                    <strong>graphite-light</strong><br>
+                    <code>#F4F7FA</code><br>
+                    <small>Light blue-gray</small>
+                </div>
+            </div>
+            
+            <h4>Cloud — Neutral Canvas</h4>
+            <p>Backgrounds that breathe. Visual silence.</p>
+            <div class="color-grid">
+                <div class="card color-swatch swatch-cloud-pure">
+                    <strong>cloud-pure</strong><br>
+                    <code>#F1F1F1</code>
+                </div>
+                <div class="card color-swatch swatch-cloud-silent">
+                    <strong>cloud-silent</strong><br>
+                    <code>#F4F4F4</code>
+                </div>
+                <div class="card color-swatch swatch-cloud-mist">
+                    <strong>cloud-mist</strong><br>
+                    <code>#EAEAEA</code>
+                </div>
+            </div>
+            
+            <h4>Thought — Primary Blue</h4>
+            <p>Focus. Depth. Intention.</p>
+            <div class="color-grid">
+                <div class="card color-swatch swatch-thought-default">
+                    <strong>thought (default)</strong><br>
+                    <code>#1e3a5f</code>
+                </div>
+                <div class="card color-swatch swatch-thought-focus">
+                    <strong>thought-focus</strong><br>
+                    <code>#152d4a</code>
+                </div>
+                <div class="card color-swatch swatch-thought-depth">
+                    <strong>thought-depth</strong><br>
+                    <code>#0d1f35</code>
+                </div>
+            </div>
+            
+            <h4>Ember — Energy & Accent</h4>
+            <p>Warmth. Energy. Call to action.</p>
+            <div class="color-grid">
+                <div class="card color-swatch swatch-ember-energy">
+                    <strong>ember-energy</strong><br>
+                    <code>#ff9533</code>
+                </div>
+                <div class="card color-swatch swatch-ember-glow">
+                    <strong>ember-glow</strong><br>
+                    <code>#ffb366</code>
+                </div>
+                <div class="card color-swatch swatch-ember-burn">
+                    <strong>ember-burn</strong><br>
+                    <code>#e67a1a</code>
+                </div>
+            </div>
+            
+            <h4>Silver — Borders & Lines</h4>
+            <p>Structure without noise.</p>
+            <div class="color-grid">
+                <div class="card color-swatch swatch-silver-line">
+                    <strong>silver-line</strong><br>
+                    <code>#DADADA</code>
+                </div>
+                <div class="card color-swatch swatch-silver-balance">
+                    <strong>silver-balance</strong><br>
+                    <code>#B6B6B6</code>
+                </div>
+                <div class="card color-swatch swatch-silver-depth">
+                    <strong>silver-depth</strong><br>
+                    <code>#8A8A8A</code>
+                </div>
+            </div>
+            
+            <h4>Semantic Palettes</h4>
+            <p>Additional colors for specific contexts.</p>
+            
+            <div class="color-grid-extended">
+                <div>
+                    <strong>Sage — Calm</strong>
+                    <div class="card color-swatch-compact swatch-sage-calm">
+                        sage-calm <code>#b7c6b4</code>
+                    </div>
+                    <div class="card color-swatch-compact swatch-sage-leaf">
+                        sage-leaf <code>#9fb49f</code>
+                    </div>
+                    <div class="card color-swatch-compact swatch-sage-shadow">
+                        sage-shadow <code>#7a9076</code>
+                    </div>
+                </div>
+                
+                <div>
+                    <strong>Rose — Softness</strong>
+                    <div class="card color-swatch-compact swatch-rose-soft">
+                        rose-soft <code>#f7c9ce</code>
+                    </div>
+                    <div class="card color-swatch-compact swatch-rose-bloom">
+                        rose-bloom <code>#e8a7b0</code>
+                    </div>
+                    <div class="card color-swatch-compact swatch-rose-depth">
+                        rose-depth <code>#bf6975</code>
+                    </div>
+                </div>
+                
+                <div>
+                    <strong>Sand — Warmth</strong>
+                    <div class="card color-swatch-compact swatch-sand-light">
+                        sand-light <code>#f3ebde</code>
+                    </div>
+                    <div class="card color-swatch-compact swatch-sand-warm">
+                        sand-warm <code>#e6cfae</code>
+                    </div>
+                    <div class="card color-swatch-compact swatch-sand-earth">
+                        sand-earth <code>#ca9f71</code>
+                    </div>
+                </div>
+                
+                <div>
+                    <strong>Aether — Lightness</strong>
+                    <div class="card color-swatch-compact swatch-aether-sky">
+                        aether-sky <code>#d1ebff</code>
+                    </div>
+                    <div class="card color-swatch-compact swatch-aether-air">
+                        aether-air <code>#b6d8fa</code>
+                    </div>
+                    <div class="card color-swatch-compact swatch-aether-light">
+                        aether-light <code>#8bc2ee</code>
+                    </div>
+                </div>
+                
+                <div>
+                    <strong>Iris — Dreams</strong>
+                    <div class="card color-swatch-compact swatch-iris-petal">
+                        iris-petal <code>#c8b6ff</code>
+                    </div>
+                    <div class="card color-swatch-compact swatch-iris-dream">
+                        iris-dream <code>#a58aed</code>
+                    </div>
+                    <div class="card color-swatch-compact swatch-iris-void">
+                        iris-void <code>#7563b2</code>
+                    </div>
+                </div>
+                
+                <div>
+                    <strong>State — Status</strong>
+                    <div class="card color-swatch-compact swatch-state-flow">
+                        state-flow (success) <code>#33d469</code>
+                    </div>
+                    <div class="card color-swatch-compact swatch-state-pulse">
+                        state-pulse (warning) <code>#ffc14d</code>
+                    </div>
+                    <div class="card color-swatch-compact swatch-state-break">
+                        state-break (error) <code>#ff5c5c</code>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>Usage</h4>
+            <div class="card">
+                <h4>CSS Variables</h4>
+                <pre><code>/* Use colors via CSS variables */
+background-color: var(--graphite-core);
+color: var(--cloud-pure);
+border-color: var(--silver-line);</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Component Classes</h4>
+                <pre><code>/* Apply to components */
+&lt;button class="graphite-core"&gt;Button&lt;/button&gt;
+&lt;div class="card thought-focus"&gt;...&lt;/div&gt;
+&lt;section class="ember-energy"&gt;...&lt;/section&gt;</code></pre>
+            </div>
+            
+            <h3>Spacing</h3>
+            <p>Base unit: <strong>4px</strong>. Every space is a multiple of 4 for visual harmony.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                <div class="card">
+                    <code>--space-1</code> = 0.25rem (4px)<br>
+                    <code>--space-2</code> = 0.5rem (8px)<br>
+                    <code>--space-3</code> = 0.75rem (12px)<br>
+                    <code>--space-4</code> = 1rem (16px)
+                </div>
+                <div class="card">
+                    <code>--space-5</code> = 1.25rem (20px)<br>
+                    <code>--space-6</code> = 1.5rem (24px)<br>
+                    <code>--space-7</code> = 2rem (32px)<br>
+                    <code>--space-8</code> = 2.5rem (40px)
+                </div>
+            </div>
+            
+            <div class="card">
+                <h4>Usage</h4>
+                <pre><code>/* Use spacing tokens */
+padding: var(--space-4);
+margin-bottom: var(--space-6);
+gap: var(--space-3);</code></pre>
+            </div>
+            
+            <h3>Typography</h3>
+            <p>Font family: <strong>Inter</strong> — clean, readable, universal.</p>
+            
+            <h4>Font Sizes</h4>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                <div class="card">
+                    <code>--font-size-xsmall</code> = 0.75rem (12px)<br>
+                    <code>--font-size-small</code> = 0.875rem (14px)<br>
+                    <code>--font-size-medium</code> = 1rem (16px)<br>
+                    <code>--font-size-large</code> = 1.125rem (18px)<br>
+                    <code>--font-size-xlarge</code> = 1.25rem (20px)
+                </div>
+                <div class="card">
+                    <code>--font-size-2xlarge</code> = 1.5rem (24px)<br>
+                    <code>--font-size-3xlarge</code> = 1.875rem (30px)<br>
+                    <code>--font-size-4xlarge</code> = 2.25rem (36px)<br>
+                    <code>--font-size-5xlarge</code> = 3rem (48px)
+                </div>
+            </div>
+            
+            <h4>Font Weights</h4>
+            <div class="card">
+                <code>--font-weight-light</code> = 300,
+                <code>--font-weight-regular</code> = 400,
+                <code>--font-weight-medium</code> = 500,
+                <code>--font-weight-semi-bold</code> = 600,
+                <code>--font-weight-bold</code> = 700
+            </div>
+            
+            <h4>Line Heights</h4>
+            <div class="card">
+                <code>--line-height-tight</code> = 1.2 (headings),
+                <code>--line-height-snug</code> = 1.35,
+                <code>--line-height-normal</code> = 1.5 (body),
+                <code>--line-height-relaxed</code> = 1.65 (long text)
+            </div>
+            
+            <h3>Motion</h3>
+            <p>Animations are subtle, never distracting. Every motion has emotional intent.</p>
+            
+            <h4>Durations</h4>
+            <div class="card">
+                <code>--motion-duration-fast</code> = 150ms (micro-interactions)<br>
+                <code>--motion-duration-medium</code> = 200ms (transitions)<br>
+                <code>--motion-duration-slow</code> = 300ms (complex animations)
+            </div>
+            
+            <h4>Easing Functions</h4>
+            <div class="card">
+                <code>--motion-ease-standard</code> = cubic-bezier(0.4, 0, 0.2, 1) — balanced<br>
+                <code>--motion-ease-decelerate</code> = cubic-bezier(0, 0, 0.2, 1) — lightness<br>
+                <code>--motion-ease-accelerate</code> = cubic-bezier(0.4, 0, 1, 1) — urgency
+            </div>
+            
+            <h3>Effects</h3>
+            <p>Shadows and borders are restrained. Only what serves communication.</p>
+            
+            <h4>Border Radius</h4>
+            <div class="card">
+                <code>--radius-sm</code> = 3px,
+                <code>--radius-md</code> = 4px,
+                <code>--radius-lg</code> = 6px,
+                <code>--radius-pill</code> = 999px
+            </div>
+            
+            <h4>Shadows</h4>
+            <div class="card">
+                <code>--shadow-faint</code> = 0 1px 2px rgba(0,0,0,0.06)<br>
+                <code>--shadow-soft</code> = 0 2px 4px rgba(0,0,0,0.08)<br>
+                <code>--shadow-medium</code> = 0 4px 8px rgba(0,0,0,0.10)
+            </div>
+            
+            <h4>Focus Ring</h4>
+            <div class="card">
+                <code>--ring-width</code> = 2px<br>
+                <code>--ring-color</code> = color-mix(in srgb, currentColor 40%, transparent)
+            </div>
+            
+            <blockquote>
+                <p>"Every value is intentional. No hard-coded pixels. Tokens are truth."</p>
+            </blockquote>
         </section>
 
-        <section id="base" class="doc-section">
+        <section id="base">
             <h2>Base Styles</h2>
-            <p>Semantic HTML resets and typography.</p>
+            <p class="lead">Foundation layer that resets browser inconsistencies and establishes semantic HTML typography. No classes required — just write HTML.</p>
+            
+            <h3>Philosophy</h3>
+            <p>Base styles make HTML beautiful by default. Every semantic tag receives intentional styling. Headers, paragraphs, lists, code blocks — all work out of the box.</p>
+            <p>This is where "semantic-first" becomes real. Write <code>&lt;h1&gt;</code>, not <code>&lt;div class="title"&gt;</code>. Write <code>&lt;blockquote&gt;</code>, not <code>&lt;div class="quote"&gt;</code>.</p>
+            
+            <h3>Typography Hierarchy</h3>
+            <p>All headings use consistent spacing and weights for natural document flow.</p>
+            
+            <div class="card">
+                <h1 style="margin-bottom: 0.5rem;">Heading 1 (3xlarge)</h1>
+                <code>font-size: 1.875rem (30px)</code>
+            </div>
+            
+            <div class="card">
+                <h2 style="margin-bottom: 0.5rem;">Heading 2 (2xlarge)</h2>
+                <code>font-size: 1.5rem (24px)</code>
+            </div>
+            
+            <div class="card">
+                <h3 style="margin-bottom: 0.5rem;">Heading 3 (xlarge)</h3>
+                <code>font-size: 1.25rem (20px)</code>
+            </div>
+            
+            <div class="card">
+                <h4 style="margin-bottom: 0.5rem;">Heading 4 (large)</h4>
+                <code>font-size: 1.125rem (18px)</code>
+            </div>
+            
+            <div class="card">
+                <h5 style="margin-bottom: 0.5rem;">Heading 5 (medium)</h5>
+                <code>font-size: 1rem (16px)</code>
+            </div>
+            
+            <div class="card">
+                <h6 style="margin-bottom: 0.5rem;">Heading 6 (small)</h6>
+                <code>font-size: 0.875rem (14px)</code>
+            </div>
+            
+            <h3>Body Text</h3>
+            <div class="card">
+                <p>This is a paragraph. Default font size is <code>1rem (16px)</code> with <code>line-height: 1.5</code> for comfortable reading. Paragraphs have bottom margin of <code>var(--space-medium)</code> for natural spacing.</p>
+                <p>Multiple paragraphs flow naturally. No need for wrapper divs or utility classes. Just write semantic HTML.</p>
+            </div>
+            
+            <h3>Lists</h3>
+            <div class="card">
+                <h4>Unordered List</h4>
+                <ul>
+                    <li>First item with natural spacing</li>
+                    <li>Second item flows nicely</li>
+                    <li>Third item maintains rhythm
+                        <ul>
+                            <li>Nested lists work too</li>
+                            <li>With proper indentation</li>
+                        </ul>
+                    </li>
+                    <li>Last item completes the pattern</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h4>Ordered List</h4>
+                <ol>
+                    <li>First step is clear</li>
+                    <li>Second step follows</li>
+                    <li>Third step concludes</li>
+                </ol>
+            </div>
+            
+            <h3>Code & Preformatted Text</h3>
+            <p>Inline code uses <code>monospace font</code> with subtle background. Perfect for <code>variable names</code> and <code>function()</code> references.</p>
+            
+            <div class="card">
+                <h4>Code Block</h4>
+                <pre><code>// Multi-line code blocks
+function example() {
+  const value = "Dark background, light text";
+  return value;
+}</code></pre>
+            </div>
+            
+            <h3>Quotes</h3>
+            <div class="card">
+                <blockquote>
+                    <p>"This is a blockquote. Styled with left border and italic text. Perfect for highlighting important statements or citations."</p>
+                </blockquote>
+            </div>
+            
+            <h3>Links</h3>
+            <div class="card">
+                <p>Links use the <code>thought</code> color by default: <a href="#">This is a link</a>. Hover requires the <code>.hoverable</code> class: <a href="#" class="hoverable">This is a hoverable link</a>.</p>
+            </div>
+            
+            <h3>Horizontal Rule</h3>
+            <div class="card">
+                <p>Content above the divider.</p>
+                <hr>
+                <p>Content below the divider. Subtle, minimal, purposeful.</p>
+            </div>
+            
+            <h3>Text Formatting</h3>
+            <div class="card">
+                <p><strong>Strong text</strong> uses semi-bold weight.</p>
+                <p><em>Emphasized text</em> uses italic style.</p>
+                <p><small>Small text</small> is 70% opacity at reduced size.</p>
+                <p><mark>Highlighted text</mark> uses ember-glow background.</p>
+                <p><kbd>Ctrl</kbd> + <kbd>C</kbd> for keyboard shortcuts.</p>
+                <p><code>Inline code</code> for technical references.</p>
+            </div>
+            
+            <h3>Implementation</h3>
+            <p>All base styles are in <code>package/styles/base/_base.scss</code>. They apply automatically to semantic HTML — no classes required.</p>
+            
+            <div class="card">
+                <h4>Example Usage</h4>
+                <pre><code>&lt;article&gt;
+  &lt;h1&gt;Article Title&lt;/h1&gt;
+  &lt;p&gt;Just write semantic HTML.&lt;/p&gt;
+  
+  &lt;h2&gt;Section Heading&lt;/h2&gt;
+  &lt;p&gt;Paragraphs flow naturally.&lt;/p&gt;
+  
+  &lt;ul&gt;
+    &lt;li&gt;Lists are styled&lt;/li&gt;
+    &lt;li&gt;Without any classes&lt;/li&gt;
+  &lt;/ul&gt;
+  
+  &lt;blockquote&gt;
+    &lt;p&gt;Quotes stand out beautifully.&lt;/p&gt;
+  &lt;/blockquote&gt;
+  
+  &lt;pre&gt;&lt;code&gt;Code blocks just work.&lt;/code&gt;&lt;/pre&gt;
+&lt;/article&gt;</code></pre>
+            </div>
+            
+            <h3>Accessibility</h3>
+            <p>Focus states are visible on all interactive elements:</p>
+            <div class="card">
+                <p>Try tabbing through: <a href="#">Link</a>, <button>Button</button>, <input type="text" placeholder="Input field"></p>
+                <p>Focus rings use <code>--ring-width</code> and <code>--ring-color</code> tokens for consistency.</p>
+            </div>
+            
+            <blockquote>
+                <p>"Semantic HTML is accessible HTML. Base styles make it beautiful too."</p>
+            </blockquote>
         </section>
 
-        <section id="atoms" class="doc-section">
+        <section id="atoms">
             <h2>Atoms</h2>
-            <p>Basic HTML elements: button, input, link, nav, menu.</p>
+            <p class="lead">HTML tags styled directly. No wrapper divs, no utility classes — just semantic elements that work beautifully out of the box.</p>
+            
+            <h3>Button</h3>
+            <p>The <code>&lt;button&gt;</code> element receives intelligent styling with automatic color contrast. Hover effects require <code>.hoverable</code> opt-in.</p>
+            
+            <div class="card">
+                <h4>Default & Color Variants</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+                    <button class="graphite-core hoverable">Graphite</button>
+                    <button class="thought hoverable">Thought</button>
+                    <button class="ember-energy hoverable">Ember</button>
+                    <button class="sage-calm hoverable">Sage</button>
+                    <button class="state-flow hoverable">Success</button>
+                    <button class="state-pulse hoverable">Warning</button>
+                    <button class="state-break hoverable">Error</button>
+                </div>
+                <pre><code>&lt;button class="graphite-core hoverable"&gt;Button&lt;/button&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Outline Variant</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+                    <button class="graphite-core outline hoverable">Graphite</button>
+                    <button class="thought outline hoverable">Thought</button>
+                    <button class="ember-energy outline hoverable">Ember</button>
+                </div>
+                <pre><code>&lt;button class="thought outline hoverable"&gt;Outline&lt;/button&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Ghost Variant</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+                    <button class="graphite-core ghost hoverable">Graphite</button>
+                    <button class="thought ghost hoverable">Thought</button>
+                    <button class="ember-energy ghost hoverable">Ember</button>
+                </div>
+                <pre><code>&lt;button class="ember-energy ghost hoverable"&gt;Ghost&lt;/button&gt;</code></pre>
+            </div>
+            
+            <h3>Input</h3>
+            <p>Text inputs, textareas, and selects are styled consistently with focus states and transitions.</p>
+            
+            <div class="card">
+                <h4>Text Input</h4>
+                <input type="text" placeholder="Enter your name...">
+                <pre style="margin-top: 1rem;"><code>&lt;input type="text" placeholder="Enter your name..."&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Textarea</h4>
+                <textarea placeholder="Write your message..."></textarea>
+                <pre style="margin-top: 1rem;"><code>&lt;textarea placeholder="Write your message..."&gt;&lt;/textarea&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Sizes (data-size attribute)</h4>
+                <input type="text" data-size="sm" placeholder="Small input" style="margin-bottom: 0.5rem;">
+                <input type="text" placeholder="Medium input (default)" style="margin-bottom: 0.5rem;">
+                <input type="text" data-size="lg" placeholder="Large input">
+                <pre style="margin-top: 1rem;"><code>&lt;input type="text" data-size="sm"&gt;
+&lt;input type="text"&gt;
+&lt;input type="text" data-size="lg"&gt;</code></pre>
+            </div>
+            
+            <h3>Select</h3>
+            <p>Custom-styled select dropdowns with native functionality.</p>
+            
+            <div class="card">
+                <select>
+                    <option>Choose an option...</option>
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                    <option>Option 3</option>
+                </select>
+                <pre style="margin-top: 1rem;"><code>&lt;select&gt;
+  &lt;option&gt;Choose an option...&lt;/option&gt;
+  &lt;option&gt;Option 1&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+            </div>
+            
+            <h3>Checkbox & Radio</h3>
+            <p>Enhanced native form controls with custom styling.</p>
+            
+            <div class="card">
+                <h4>Checkboxes</h4>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" checked>
+                        <span>Checked option</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox">
+                        <span>Unchecked option</span>
+                    </label>
+                </div>
+                <pre style="margin-top: 1rem;"><code>&lt;label&gt;
+  &lt;input type="checkbox" checked&gt;
+  &lt;span&gt;Option&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Radio Buttons</h4>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="radio" name="demo" checked>
+                        <span>Option A</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="radio" name="demo">
+                        <span>Option B</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="radio" name="demo">
+                        <span>Option C</span>
+                    </label>
+                </div>
+                <pre style="margin-top: 1rem;"><code>&lt;label&gt;
+  &lt;input type="radio" name="group"&gt;
+  &lt;span&gt;Option&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+            </div>
+            
+            <h3>Link</h3>
+            <p>Links are styled with the <code>thought</code> color. Hover effects require <code>.hoverable</code> class.</p>
+            
+            <div class="card">
+                <p><a href="#">Default link (no hover)</a></p>
+                <p><a href="#" class="hoverable">Hoverable link (underline on hover)</a></p>
+                <pre style="margin-top: 1rem;"><code>&lt;a href="#"&gt;Default link&lt;/a&gt;
+&lt;a href="#" class="hoverable"&gt;Hoverable link&lt;/a&gt;</code></pre>
+            </div>
+            
+            <h3>Table</h3>
+            <p>Clean, readable tables with subtle borders and hover states.</p>
+            
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alice Johnson</td>
+                            <td>alice@example.com</td>
+                            <td>Designer</td>
+                        </tr>
+                        <tr>
+                            <td>Bob Smith</td>
+                            <td>bob@example.com</td>
+                            <td>Developer</td>
+                        </tr>
+                        <tr>
+                            <td>Carol White</td>
+                            <td>carol@example.com</td>
+                            <td>Manager</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pre style="margin-top: 1rem;"><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Email&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Alice&lt;/td&gt;
+      &lt;td&gt;alice@example.com&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+            </div>
+            
+            <h3>Nav</h3>
+            <p>Navigation elements with semantic structure.</p>
+            
+            <div class="card">
+                <nav style="display: flex; gap: 1rem;">
+                    <a href="#" class="hoverable">Home</a>
+                    <a href="#" class="hoverable">About</a>
+                    <a href="#" class="hoverable">Services</a>
+                    <a href="#" class="hoverable">Contact</a>
+                </nav>
+                <pre style="margin-top: 1rem;"><code>&lt;nav&gt;
+  &lt;a href="#" class="hoverable"&gt;Home&lt;/a&gt;
+  &lt;a href="#" class="hoverable"&gt;About&lt;/a&gt;
+  &lt;a href="#" class="hoverable"&gt;Services&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+            </div>
+            
+            <h3>Header & Section</h3>
+            <p>Layout primitives with polymorphic modifiers.</p>
+            
+            <div class="card">
+                <h4>Header with .left and .right</h4>
+                <header style="border: 1px solid var(--silver-line); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4);">
+                    <div class="left">
+                        <h3 style="margin: 0;">Page Title</h3>
+                    </div>
+                    <div class="right">
+                        <button class="thought hoverable">Action</button>
+                    </div>
+                </header>
+                <pre style="margin-top: 1rem;"><code>&lt;header&gt;
+  &lt;div class="left"&gt;
+    &lt;h3&gt;Page Title&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class="right"&gt;
+    &lt;button&gt;Action&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Section with data-accent</h4>
+                <p>Sections support color variants and density modifiers:</p>
+                <pre><code>&lt;section class="ember-energy"&gt;Colored section&lt;/section&gt;
+&lt;section data-density="compact"&gt;Compact spacing&lt;/section&gt;
+&lt;section data-accent="true"&gt;With accent bar&lt;/section&gt;</code></pre>
+            </div>
+            
+            <h3>Image & Video</h3>
+            <p>Media elements are responsive by default.</p>
+            
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=600&h=300&fit=crop" alt="Demo image" style="border-radius: var(--radius-md);">
+                <pre style="margin-top: 1rem;"><code>&lt;img src="..." alt="Description"&gt;</code></pre>
+            </div>
+            
+            <h3>Form</h3>
+            <p>Complete form example using semantic atoms.</p>
+            
+            <div class="card">
+                <form style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div>
+                        <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Name</label>
+                        <input type="text" id="name" placeholder="Your full name">
+                    </div>
+                    
+                    <div>
+                        <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email</label>
+                        <input type="email" id="email" placeholder="you@example.com">
+                    </div>
+                    
+                    <div>
+                        <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Message</label>
+                        <textarea id="message" placeholder="Your message..."></textarea>
+                    </div>
+                    
+                    <div style="display: flex; gap: 0.75rem;">
+                        <button type="submit" class="thought hoverable">Submit</button>
+                        <button type="reset" class="graphite-core outline hoverable">Reset</button>
+                    </div>
+                </form>
+                <pre style="margin-top: 1rem;"><code>&lt;form&gt;
+  &lt;div&gt;
+    &lt;label for="name"&gt;Name&lt;/label&gt;
+    &lt;input type="text" id="name"&gt;
+  &lt;/div&gt;
+  
+  &lt;button type="submit" class="thought hoverable"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+            
+            <h3>Key Principles</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>Semantic-first:</strong> Style HTML tags directly, not wrapper divs</li>
+                    <li><strong>Opt-in interactions:</strong> Hover effects require <code>.hoverable</code></li>
+                    <li><strong>Color variants:</strong> All components support full color palette</li>
+                    <li><strong>Data attributes:</strong> Size and behavior via <code>data-*</code> attributes</li>
+                    <li><strong>Accessibility:</strong> Focus states, ARIA support, keyboard navigation</li>
+                </ul>
+            </div>
+            
+            <blockquote>
+                <p>"Every HTML element should work beautifully without classes. Atoms make this real."</p>
+            </blockquote>
         </section>
 
-        <section id="molecules" class="doc-section">
+        <section id="molecules">
             <h2>Molecules</h2>
-            <p>Simple components: card, badge, avatar, dropdown, tabs.</p>
+            <p class="lead">Simple components with single responsibility. CSS classes for composite elements that combine atoms into functional units.</p>
+            
+            <h3>Card</h3>
+            <p>Flexible container for grouping content. The foundation of many UI patterns.</p>
+            
+            <div class="card">
+                <h4>Basic Card</h4>
+                <p>Cards have padding, border, and subtle shadow by default.</p>
+                <pre style="margin-top: 1rem;"><code>&lt;div class="card"&gt;
+  &lt;h4&gt;Card Title&lt;/h4&gt;
+  &lt;p&gt;Card content...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                <div class="card interactive">
+                    <h4>Interactive Card</h4>
+                    <p>Hover to see effect</p>
+                    <small>Uses <code>.interactive</code> class</small>
+                </div>
+                
+                <div class="card hoverable">
+                    <h4>Hoverable Card</h4>
+                    <p>Subtle hover effect</p>
+                    <small>Uses <code>.hoverable</code> class</small>
+                </div>
+                
+                <div class="card thought">
+                    <h4>Colored Card</h4>
+                    <p>With color variant</p>
+                    <small>Uses <code>.thought</code> class</small>
+                </div>
+            </div>
+            
+            <h3>Badge</h3>
+            <p>Small labels for status, tags, and counts.</p>
+            
+            <div class="card">
+                <h4>Variants</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span class="badge">Default</span>
+                    <span class="badge thought">Thought</span>
+                    <span class="badge ember-energy">Ember</span>
+                    <span class="badge state-flow">Success</span>
+                    <span class="badge state-pulse">Warning</span>
+                    <span class="badge state-break">Error</span>
+                </div>
+                <pre><code>&lt;span class="badge"&gt;Default&lt;/span&gt;
+&lt;span class="badge thought"&gt;Thought&lt;/span&gt;
+&lt;span class="badge ember-energy"&gt;Ember&lt;/span&gt;
+&lt;span class="badge state-flow"&gt;Success&lt;/span&gt;
+&lt;span class="badge state-pulse"&gt;Warning&lt;/span&gt;
+&lt;span class="badge state-break"&gt;Error&lt;/span&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Outline</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span class="badge thought outline">Thought</span>
+                    <span class="badge ember-energy outline">Ember</span>
+                    <span class="badge state-flow outline">Success</span>
+                </div>
+                <pre><code>&lt;span class="badge thought outline"&gt;Thought&lt;/span&gt;
+&lt;span class="badge ember-energy outline"&gt;Ember&lt;/span&gt;
+&lt;span class="badge state-flow outline"&gt;Success&lt;/span&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>With Dot</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span class="badge state-flow dot">Active</span>
+                    <span class="badge state-pulse dot">Pending</span>
+                    <span class="badge state-break dot">Error</span>
+                </div>
+                <pre><code>&lt;span class="badge state-flow dot"&gt;Active&lt;/span&gt;
+&lt;span class="badge state-pulse dot"&gt;Pending&lt;/span&gt;
+&lt;span class="badge state-break dot"&gt;Error&lt;/span&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Sizes</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+                    <span class="badge small thought">Small</span>
+                    <span class="badge thought">Medium</span>
+                    <span class="badge large thought">Large</span>
+                </div>
+                <pre><code>&lt;span class="badge small thought"&gt;Small&lt;/span&gt;
+&lt;span class="badge thought"&gt;Medium&lt;/span&gt;
+&lt;span class="badge large thought"&gt;Large&lt;/span&gt;</code></pre>
+            </div>
+            
+            <h3>Avatar</h3>
+            <p>User profile images and initials with multiple variants.</p>
+            
+            <div class="card">
+                <h4>Sizes</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                    <div class="avatar extra-small graphite-core">XS</div>
+                    <div class="avatar small graphite-core">S</div>
+                    <div class="avatar medium graphite-core">M</div>
+                    <div class="avatar large graphite-core">L</div>
+                    <div class="avatar extra-large graphite-core">XL</div>
+                </div>
+                <pre><code>&lt;div class="avatar extra-small graphite-core"&gt;XS&lt;/div&gt;
+&lt;div class="avatar small graphite-core"&gt;S&lt;/div&gt;
+&lt;div class="avatar medium graphite-core"&gt;M&lt;/div&gt;
+&lt;div class="avatar large graphite-core"&gt;L&lt;/div&gt;
+&lt;div class="avatar extra-large graphite-core"&gt;XL&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>With Images</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="avatar">
+                        <img src="https://i.pravatar.cc/150?img=1" alt="User 1">
+                    </div>
+                    <div class="avatar large">
+                        <img src="https://i.pravatar.cc/150?img=2" alt="User 2">
+                    </div>
+                    <div class="avatar extra-large">
+                        <img src="https://i.pravatar.cc/150?img=3" alt="User 3">
+                    </div>
+                </div>
+                <pre><code>&lt;div class="avatar"&gt;
+  &lt;img src="https://i.pravatar.cc/150?img=1" alt="User 1"&gt;
+&lt;/div&gt;
+&lt;div class="avatar large"&gt;
+  &lt;img src="https://i.pravatar.cc/150?img=2" alt="User 2"&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Colors</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="avatar thought">T</div>
+                    <div class="avatar ember-energy">E</div>
+                    <div class="avatar sage-calm">S</div>
+                    <div class="avatar rose-soft">R</div>
+                    <div class="avatar iris-petal">I</div>
+                </div>
+                <pre><code>&lt;div class="avatar thought"&gt;T&lt;/div&gt;
+&lt;div class="avatar ember-energy"&gt;E&lt;/div&gt;
+&lt;div class="avatar sage-calm"&gt;S&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Shapes</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="avatar large thought">●</div>
+                    <div class="avatar large rounded thought">◆</div>
+                    <div class="avatar large square thought">■</div>
+                </div>
+                <pre><code>&lt;div class="avatar large thought"&gt;●&lt;/div&gt;
+&lt;div class="avatar large rounded thought"&gt;◆&lt;/div&gt;
+&lt;div class="avatar large square thought"&gt;■&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Status Indicators</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="avatar large status online">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="Online">
+                    </div>
+                    <div class="avatar large status busy">
+                        <img src="https://i.pravatar.cc/150?img=6" alt="Busy">
+                    </div>
+                    <div class="avatar large status away">
+                        <img src="https://i.pravatar.cc/150?img=7" alt="Away">
+                    </div>
+                    <div class="avatar large status offline">
+                        <img src="https://i.pravatar.cc/150?img=8" alt="Offline">
+                    </div>
+                </div>
+                <pre><code>&lt;div class="avatar large status online"&gt;
+  &lt;img src="..." alt="Online"&gt;
+&lt;/div&gt;
+&lt;div class="avatar large status busy"&gt;
+  &lt;img src="..." alt="Busy"&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Spinner</h3>
+            <p>Loading indicators with multiple styles.</p>
+            
+            <div class="card">
+                <h4>Default Spinner</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; margin-bottom: 1rem;">
+                    <div class="spinner small"></div>
+                    <div class="spinner"></div>
+                    <div class="spinner large"></div>
+                    <div class="spinner extra-large"></div>
+                </div>
+                <pre><code>&lt;div class="spinner small"&gt;&lt;/div&gt;
+&lt;div class="spinner"&gt;&lt;/div&gt;
+&lt;div class="spinner large"&gt;&lt;/div&gt;
+&lt;div class="spinner extra-large"&gt;&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Colors</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; margin-bottom: 1rem;">
+                    <div class="spinner thought"></div>
+                    <div class="spinner ember-energy"></div>
+                    <div class="spinner state-flow"></div>
+                </div>
+                <pre><code>&lt;div class="spinner thought"&gt;&lt;/div&gt;
+&lt;div class="spinner ember-energy"&gt;&lt;/div&gt;
+&lt;div class="spinner state-flow"&gt;&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Dots Variant</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; margin-bottom: 1rem;">
+                    <div class="spinner-dots small">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="spinner-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="spinner-dots large">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <pre><code>&lt;div class="spinner-dots small"&gt;
+  &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="spinner-dots"&gt;
+  &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Pulse Variant</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; margin-bottom: 1rem;">
+                    <div class="spinner-pulse small"></div>
+                    <div class="spinner-pulse"></div>
+                    <div class="spinner-pulse large"></div>
+                </div>
+                <pre><code>&lt;div class="spinner-pulse small"&gt;&lt;/div&gt;
+&lt;div class="spinner-pulse"&gt;&lt;/div&gt;
+&lt;div class="spinner-pulse large"&gt;&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Tag</h3>
+            <p>Dismissible labels for filters and selections.</p>
+            
+            <div class="card">
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <span class="tag">Design</span>
+                    <span class="tag">Development</span>
+                    <span class="tag">Marketing</span>
+                    <span class="tag thought">Featured</span>
+                    <span class="tag ember-energy">Hot</span>
+                </div>
+                <pre style="margin-top: 1rem;"><code>&lt;span class="tag"&gt;Design&lt;/span&gt;
+&lt;span class="tag thought"&gt;Featured&lt;/span&gt;</code></pre>
+            </div>
+            
+            <h3>Alert</h3>
+            <p>Message boxes for notifications and feedback.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+                <div class="alert state-flow">
+                    <strong>Success!</strong> Your changes have been saved.
+                </div>
+                
+                <div class="alert state-pulse">
+                    <strong>Warning:</strong> Your session will expire soon.
+                </div>
+                
+                <div class="alert state-break">
+                    <strong>Error:</strong> Something went wrong. Please try again.
+                </div>
+                
+                <div class="alert thought">
+                    <strong>Info:</strong> New features are available.
+                </div>
+            </div>
+            
+            <pre><code>&lt;div class="alert state-flow"&gt;
+  &lt;strong&gt;Success!&lt;/strong&gt; Message here.
+&lt;/div&gt;</code></pre>
+            
+            <h3>Progress</h3>
+            <p>Progress bars and indicators.</p>
+            
+            <div class="card">
+                <h4>Progress Bar</h4>
+                <div class="progress" style="margin-bottom: 1rem;">
+                    <div class="progress-bar thought" style="width: 60%;"></div>
+                </div>
+                
+                <div class="progress" style="margin-bottom: 1rem;">
+                    <div class="progress-bar state-flow" style="width: 100%;"></div>
+                </div>
+                
+                <div class="progress">
+                    <div class="progress-bar ember-energy" style="width: 35%;"></div>
+                </div>
+                
+                <pre style="margin-top: 1rem;"><code>&lt;div class="progress"&gt;
+  &lt;div class="progress-bar thought" style="width: 60%;"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Skeleton</h3>
+            <p>Loading placeholders that mimic content structure.</p>
+            
+            <div class="card">
+                <div class="skeleton" style="height: 2rem; margin-bottom: 1rem;"></div>
+                <div class="skeleton" style="height: 1rem; width: 80%; margin-bottom: 0.5rem;"></div>
+                <div class="skeleton" style="height: 1rem; width: 60%;"></div>
+                
+                <pre style="margin-top: 1rem;"><code>&lt;div class="skeleton" style="height: 2rem;"&gt;&lt;/div&gt;
+&lt;div class="skeleton" style="height: 1rem; width: 80%;"&gt;&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Breadcrumb</h3>
+            <p>Navigation trail showing current location.</p>
+            
+            <div class="card">
+                <nav class="breadcrumb">
+                    <a href="#" class="hoverable">Home</a>
+                    <span>/</span>
+                    <a href="#" class="hoverable">Products</a>
+                    <span>/</span>
+                    <a href="#" class="hoverable">Category</a>
+                    <span>/</span>
+                    <span>Current Page</span>
+                </nav>
+                
+                <pre style="margin-top: 1rem;"><code>&lt;nav class="breadcrumb"&gt;
+  &lt;a href="#" class="hoverable"&gt;Home&lt;/a&gt;
+  &lt;span&gt;/&lt;/span&gt;
+  &lt;span&gt;Current&lt;/span&gt;
+&lt;/nav&gt;</code></pre>
+            </div>
+            
+            <h3>Pagination</h3>
+            <p>Page navigation controls.</p>
+            
+            <div class="card">
+                <div class="pagination">
+                    <button class="graphite-core outline hoverable">Previous</button>
+                    <button class="graphite-core outline hoverable">1</button>
+                    <button class="thought hoverable">2</button>
+                    <button class="graphite-core outline hoverable">3</button>
+                    <button class="graphite-core outline hoverable">4</button>
+                    <button class="graphite-core outline hoverable">Next</button>
+                </div>
+                
+                <pre style="margin-top: 1rem;"><code>&lt;div class="pagination"&gt;
+  &lt;button class="graphite-core outline hoverable"&gt;Previous&lt;/button&gt;
+  &lt;button class="thought hoverable"&gt;2&lt;/button&gt;
+  &lt;button class="graphite-core outline hoverable"&gt;Next&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Key Features</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>Single responsibility:</strong> Each molecule does one thing well</li>
+                    <li><strong>Composable:</strong> Combine with atoms and other molecules</li>
+                    <li><strong>Color variants:</strong> Full palette support on all components</li>
+                    <li><strong>Size variants:</strong> small, medium, large, extra-large</li>
+                    <li><strong>Modifiers:</strong> outline, ghost, interactive, hoverable</li>
+                    <li><strong>Consistent API:</strong> Same patterns across all molecules</li>
+                </ul>
+            </div>
+            
+            <blockquote>
+                <p>"Molecules combine atoms into functional units. Simple, purposeful, reusable."</p>
+            </blockquote>
         </section>
 
-        <section id="organisms" class="doc-section">
+        <section id="organisms">
             <h2>Organisms</h2>
             <p>Complex components: sidebar, empty-state, header.</p>
         </section>
 
-        <section id="templates" class="doc-section">
+        <section id="templates">
             <h2>Templates</h2>
             <p>Page layouts: app-layout, dashboard-layout, auth-layout, landing-layout, split-layout.</p>
         </section>
 
-        <section id="themes" class="doc-section">
+        <section id="themes">
             <h2>Themes</h2>
             <p>Color schemes and visual variations.</p>
         </section>
 
-        <section id="utilities" class="doc-section">
+        <section id="utilities">
             <h2>Utilities</h2>
             <p>Helper classes: margin, padding, layout, icons.</p>
         </section>
 
-        <section id="web-components" class="doc-section">
+        <section id="web-components">
             <h2>Web Components</h2>
             <p>Interactive elements: modal, dropdown, tabs, toast, tooltip, sidebar.</p>
         </section>

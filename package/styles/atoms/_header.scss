@@ -40,6 +40,26 @@ header :is(h1, h2) {
   user-select: none; // Prevent text selection on logo/title
 }
 
+// Polymorphic layout variants
+header > .left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+header > .right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+header > .center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
 // Generate color variants for headers
 @each $palette, $entries in $colors {
   @each $name, $value in $entries {
