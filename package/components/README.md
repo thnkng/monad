@@ -1,152 +1,75 @@
 # Monad Web Components
 
-Custom Elements for the Monad Design System. Framework-agnostic, reusable, and fully styled.
+Custom Elements (Web Components) para o Monad Design System. Framework-agnostic, reutilizáveis e totalmente estilizados.
 
-## Installation
+## 🎯 Componentes Disponíveis
 
-```bash
-npm install monad-design-system
-```
+- ✅ **MonadAlert** - Mensagens de alerta dismissíveis
+- ✅ **MonadBreadcrumb** - Navegação hierárquica (trilha de migalhas)
+- ✅ **MonadDropdown** - Menus dropdown com posicionamento
+- ✅ **MonadMenu** - Menus de navegação vertical/horizontal
+- ✅ **MonadModal** - Diálogos overlay com backdrop
+- ✅ **MonadPagination** - Controles de navegação entre páginas
+- ✅ **MonadProgress** - Barras de progresso com animações
+- ✅ **MonadTabs** - Organização de conteúdo em abas
+- ✅ **MonadTag** - Tags/chips removíveis
+- ✅ **MonadToast** - Notificações não-intrusivas
+- ✅ **MonadTooltip** - Informações contextuais no hover
 
-## Usage
-
-### Import All Components
-
-```javascript
-import 'monad/components';
-```
-
-### Import Individual Components
-
-```javascript
-import 'monad/components/modal';
-import 'monad/components/alert';
-import 'monad/components/dropdown';
-```
-
-## Components
-
-### MonadModal
-
-Modal dialog with backdrop, animations, and keyboard support.
+## 📦 Instalação
 
 ```html
-<monad-modal id="my-modal">
-  <div slot="header">
-    <h3>Title</h3>
-  </div>
-  <div slot="body">
-    <p>Content goes here</p>
-  </div>
-  <div slot="footer">
-    <button>Cancel</button>
-    <button>Confirm</button>
-  </div>
-</monad-modal>
+<!-- Incluir JavaScript compilado -->
+<script src="dist/monad.js" type="module" defer></script>
 ```
 
-**JavaScript API:**
+## 🚀 Exemplos de Uso
+
+### Toast Notification
+
 ```javascript
-const modal = document.getElementById('my-modal');
+// Método rápido
+MonadToast.show('Operação bem-sucedida!', 'success', 3000);
 
-modal.open();
-modal.close();
-modal.toggle();
-
-modal.addEventListener('open', () => console.log('opened'));
-modal.addEventListener('close', () => console.log('closed'));
+// Ou criar manualmente
+const toast = document.createElement('monad-toast');
+toast.type = 'success';
+toast.message = 'Salvo com sucesso!';
+toast.duration = 3000;
+document.body.appendChild(toast);
+toast.show();
 ```
 
-**Attributes:**
-- `open` - Opens the modal
-- `size` - Modal size: `small`, `large`, `full`
-
----
-
-### MonadAlert
-
-Alert/Toast notifications with auto-dismiss.
+### Tabs
 
 ```html
-<monad-alert type="success" dismissible>
-  Operation completed!
-</monad-alert>
-
-<monad-alert type="error" dismissible duration="5000">
-  <strong>Error:</strong> Something went wrong
-</monad-alert>
+<monad-tabs>
+  <button slot="tab" active>Visão Geral</button>
+  <button slot="tab">Configurações</button>
+  
+  <div slot="panel">Conteúdo 1</div>
+  <div slot="panel">Conteúdo 2</div>
+</monad-tabs>
 ```
 
-**JavaScript API:**
-```javascript
-// Create toast programmatically
-MonadAlert.toast('Saved!', 'success', 3000);
+### Outros componentes
 
-const alert = document.querySelector('monad-alert');
-alert.dismiss();
-alert.show();
-alert.hide();
-```
+Veja documentação completa com exemplos detalhados de todos os componentes no arquivo principal.
 
-**Attributes:**
-- `type` - Alert type: `info`, `success`, `warning`, `error`
-- `dismissible` - Shows close button
-- `duration` - Auto-dismiss after milliseconds
-- `toast` - Position as toast (top-right corner)
+## 📡 Eventos
 
----
+Todos os componentes disparam eventos customizados:
 
-### MonadDropdown
+- **Toast**: `toast-show`, `toast-hide`
+- **Tabs**: `tab-change`
+- **Tag**: `tag-remove`
+- **Pagination**: `page-change`
+- **Menu**: `menu-item-click`
 
-Dropdown menu with click-outside and keyboard support.
+## 🌐 Suporte a Navegadores
 
-```html
-<monad-dropdown>
-  <button slot="trigger">Options</button>
-  <div slot="menu">
-    <div class="dropdown-header">Actions</div>
-    <button class="dropdown-item">Edit</button>
-    <button class="dropdown-item">Delete</button>
-  </div>
-</monad-dropdown>
-```
+Chrome/Edge 67+, Firefox 63+, Safari 10.1+
 
-**JavaScript API:**
-```javascript
-const dropdown = document.querySelector('monad-dropdown');
-
-dropdown.open();
-dropdown.close();
-dropdown.toggle();
-
-dropdown.addEventListener('open', () => console.log('opened'));
-dropdown.addEventListener('close', () => console.log('closed'));
-```
-
-**Attributes:**
-- `open` - Opens the dropdown
-- `position` - Menu position: `right`, `top`
-
----
-
-## Features
-
-✅ **Framework-agnostic** - Works with React, Vue, Angular, or vanilla JS  
-✅ **Fully styled** - Uses Monad CSS variables  
-✅ **Keyboard accessible** - ESC to close, proper focus management  
-✅ **Event-driven** - Listen to open/close events  
-✅ **Shadow DOM** - Encapsulated styles  
-✅ **Progressive enhancement** - Works without JavaScript (where possible)
-
-## Browser Support
-
-All modern browsers that support Custom Elements v1:
-- Chrome/Edge 67+
-- Firefox 63+
-- Safari 13.1+
-
-For older browsers, use a polyfill like [@webcomponents/webcomponentsjs](https://github.com/webcomponents/polyfills/tree/master/packages/webcomponentsjs).
-
-## License
+## 📄 Licença
 
 MIT
