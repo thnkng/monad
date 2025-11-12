@@ -11,6 +11,8 @@
 @use 'utilities/margin' as *;
 @use 'utilities/layout' as *;
 @use 'utilities/typography' as *;
+@use 'utilities/grid' as *;
+@use 'utilities/flex' as *;
 
 // Base styles (semantic tags, minimal normalize)
 @use 'base/base' as *;

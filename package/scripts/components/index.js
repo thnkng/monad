@@ -14,6 +14,7 @@
  */
 
 // Export all components
+export { default as MonadActiveNav } from './active-nav/index.js';
 export { default as MonadDropdown } from './dropdown/index.js';
 export { default as MonadModal } from './modal/index.js';
 export { default as MonadSidebar } from './sidebar/index.js';
@@ -22,6 +23,7 @@ export { default as MonadToast } from './toast/index.js';
 export { default as MonadTooltip } from './tooltip/index.js';
 
 // Auto-register all components
+import './active-nav/index.js';
 import './dropdown/index.js';
 import './modal/index.js';
 import './sidebar/index.js';

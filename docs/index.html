@@ -11,86 +11,88 @@
 </head>
 
 <body class="app-layout">
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-        <header>
-            <a href="#">
-                <i data-lucide="circle-dot"></i>
-                <h1>Monad</h1>
-            </a>
-            <button class="hoverable" onclick="document.querySelector('.sidebar').classList.toggle('collapsed')">
-                <i data-lucide="chevron-left"></i>
-            </button>
-        </header>
+    <!-- Sidebar Navigation com Active Link automático -->
+    <monad-active-nav>
+        <aside class="sidebar">
+            <header>
+                <a href="#">
+                    <i data-lucide="circle-dot"></i>
+                    <h1>Monad</h1>
+                </a>
+                <button class="hoverable" onclick="document.querySelector('.sidebar').classList.toggle('collapsed')">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+            </header>
 
-        <nav>
-            <h6>Getting Started</h6>
-            <a href="#manifest" class="hoverable active">
-                <i data-lucide="file-text"></i>
-                <span>Manifest</span>
-            </a>
-            <a href="#philosophy" class="hoverable">
-                <i data-lucide="lightbulb"></i>
-                <span>Philosophy</span>
-            </a>
+            <nav>
+                <div class="sidebar-label">Getting Started</div>
+                <a href="#manifest" class="sidebar-link hoverable">
+                    <i data-lucide="file-text"></i>
+                    <span class="sidebar-link-text">Manifest</span>
+                </a>
+                <a href="#philosophy" class="sidebar-link hoverable">
+                    <i data-lucide="lightbulb"></i>
+                    <span class="sidebar-link-text">Philosophy</span>
+                </a>
 
-            <hr>
+                <div class="sidebar-divider"></div>
 
-            <h6>Foundation</h6>
-            <a href="#tokens" class="hoverable">
-                <i data-lucide="palette"></i>
-                <span>Tokens</span>
-            </a>
-            <a href="#base" class="hoverable">
-                <i data-lucide="square"></i>
-                <span>Base Styles</span>
-            </a>
+                <div class="sidebar-label">Foundation</div>
+                <a href="#tokens" class="sidebar-link hoverable">
+                    <i data-lucide="palette"></i>
+                    <span class="sidebar-link-text">Tokens</span>
+                </a>
+                <a href="#base" class="sidebar-link hoverable">
+                    <i data-lucide="square"></i>
+                    <span class="sidebar-link-text">Base Styles</span>
+                </a>
 
-            <hr>
+                <div class="sidebar-divider"></div>
 
-            <h6>Components</h6>
-            <a href="#atoms" class="hoverable">
-                <i data-lucide="circle"></i>
-                <span>Atoms</span>
-            </a>
-            <a href="#molecules" class="hoverable">
-                <i data-lucide="hexagon"></i>
-                <span>Molecules</span>
-            </a>
-            <a href="#organisms" class="hoverable">
-                <i data-lucide="grid-2x2"></i>
-                <span>Organisms</span>
-            </a>
+                <div class="sidebar-label">Components</div>
+                <a href="#atoms" class="sidebar-link hoverable">
+                    <i data-lucide="circle"></i>
+                    <span class="sidebar-link-text">Atoms</span>
+                </a>
+                <a href="#molecules" class="sidebar-link hoverable">
+                    <i data-lucide="hexagon"></i>
+                    <span class="sidebar-link-text">Molecules</span>
+                </a>
+                <a href="#organisms" class="sidebar-link hoverable">
+                    <i data-lucide="grid-2x2"></i>
+                    <span class="sidebar-link-text">Organisms</span>
+                </a>
 
-            <hr>
+                <div class="sidebar-divider"></div>
 
-            <h6>Patterns</h6>
-            <a href="#templates" class="hoverable">
-                <i data-lucide="layout"></i>
-                <span>Templates</span>
-            </a>
-            <a href="#themes" class="hoverable">
-                <i data-lucide="sun"></i>
-                <span>Themes</span>
-            </a>
+                <div class="sidebar-label">Patterns</div>
+                <a href="#templates" class="sidebar-link hoverable">
+                    <i data-lucide="layout"></i>
+                    <span class="sidebar-link-text">Templates</span>
+                </a>
+                <a href="#themes" class="sidebar-link hoverable">
+                    <i data-lucide="sun"></i>
+                    <span class="sidebar-link-text">Themes</span>
+                </a>
 
-            <hr>
+                <div class="sidebar-divider"></div>
 
-            <h6>Advanced</h6>
-            <a href="#utilities" class="hoverable">
-                <i data-lucide="wrench"></i>
-                <span>Utilities</span>
-            </a>
-            <a href="#web-components" class="hoverable">
-                <i data-lucide="code-2"></i>
-                <span>Web Components</span>
-            </a>
-        </nav>
+                <div class="sidebar-label">Advanced</div>
+                <a href="#utilities" class="sidebar-link hoverable">
+                    <i data-lucide="wrench"></i>
+                    <span class="sidebar-link-text">Utilities</span>
+                </a>
+                <a href="#web-components" class="sidebar-link hoverable">
+                    <i data-lucide="code-2"></i>
+                    <span class="sidebar-link-text">Web Components</span>
+                </a>
+            </nav>
 
-        <footer>
-            <small class="sidebar-version">v1.0.0</small>
-        </footer>
-    </aside>
+            <div class="sidebar-footer">
+                <small class="sidebar-version">v1.0.0</small>
+            </div>
+        </aside>
+    </monad-active-nav>
 
     <!-- Main Header -->
     <header>

@@ -1,0 +1,45 @@
+// ============================================
+// Flex Utilities
+// ============================================
+// Flexbox helpers for quick layouts
+
+// Flex groups (button groups, tag groups, etc.)
+.flex-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.flex-group-small {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+// Flex stacks (vertical layouts)
+.flex-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.flex-stack-small {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+// Flex rows
+.flex-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.flex-row-small {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
