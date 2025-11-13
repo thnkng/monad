@@ -1,26 +1,27 @@
 /**
- * MonadDropdown - Semantic Dropdown using native HTML
+ * MonadDropdown - Dropdown 100% autônomo
  * 
- * Usage with semantic HTML:
+ * Uso simples:
  * <monad-dropdown>
- *   <button>Options ▾</button>
- *   <menu class="dropdown">
- *     <li><button class="hoverable">Edit</button></li>
- *     <li><button class="hoverable">Delete</button></li>
- *   </menu>
+ *   <button>Opções</button>
+ *   <ul>
+ *     <li><a href="#">Editar</a></li>
+ *     <li><a href="#">Excluir</a></li>
+ *   </ul>
  * </monad-dropdown>
  * 
- * JavaScript API:
- * dropdown.open()
- * dropdown.close()
- * dropdown.toggle()
- * dropdown.addEventListener('dropdown-open', () => {})
- * dropdown.addEventListener('dropdown-close', () => {})
+ * Recursos:
+ * - Detecta trigger e menu automaticamente
+ * - Cria overlay e estrutura completa
+ * - Respeita temas CSS
+ * - Posicionamento: position="left|right|top|bottom"
+ * - Fecha ao clicar fora ou ESC
  */
 
 class MonadDropdown extends HTMLElement {
   constructor() {
     super();
+    this.attachShadow({ mode: 'open' });
     this._isOpen = false;
   }
 
@@ -30,59 +31,132 @@ class MonadDropdown extends HTMLElement {
   }
 
   init() {
-    // Find trigger (first button or element with role="button")
-    this._trigger = this.querySelector('button:first-of-type, [role="button"]:first-of-type');
+    // Detectar trigger (primeiro botão)
+    this._trigger = this.querySelector('button, [role="button"]');
     
-    // Find menu (menu tag or element with role="menu")
-    this._menu = this.querySelector('menu, [role="menu"]');
+    // Detectar menu (menu, ul, ol, ou div)
+    this._menu = this.querySelector('menu, ul, ol, div:not(:first-child)');
 
-    if (!this._trigger || !this._menu) {
-      console.warn('MonadDropdown: Missing trigger button or menu element');
+    if (!this._trigger) {
+      console.warn('MonadDropdown: Trigger button não encontrado');
+      return;
+    }
+    
+    if (!this._menu) {
+      console.warn('MonadDropdown: Menu não encontrado');
       return;
     }
 
-    // Ensure proper classes
-    if (!this._menu.classList.contains('dropdown')) {
-      this._menu.classList.add('dropdown');
-    }
-
-    // Set initial state
-    this._menu.hidden = true;
-    this._menu.setAttribute('aria-hidden', 'true');
+    const position = this.getAttribute('position') || 'bottom';
     
-    // Link trigger to menu
+    this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          position: relative;
+          display: inline-block;
+        }
+        
+        .dropdown-trigger {
+          display: contents;
+        }
+        
+        .dropdown-menu {
+          position: absolute;
+          top: calc(100% + 0.5rem);
+          left: 0;
+          min-width: 12rem;
+          max-width: 20rem;
+          padding: var(--space-2, 0.5rem);
+          background: var(--color-surface, var(--cloud-pure, #FFFFFF));
+          border: 1px solid var(--color-border, var(--silver-line, #DADADA));
+          border-radius: var(--radius-md, 8px);
+          box-shadow: var(--shadow-medium, 0 4px 12px rgba(0,0,0,0.1));
+          z-index: 100;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-0.5rem);
+          transition: all var(--motion-duration-fast, 150ms);
+          pointer-events: none;
+        }
+        
+        :host([open]) .dropdown-menu {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+        
+        .dropdown-menu.left { left: auto; right: 0; }
+        .dropdown-menu.right { left: 0; right: auto; }
+        .dropdown-menu.top { top: auto; bottom: calc(100% + 0.5rem); }
+        
+        ::slotted(ul),
+        ::slotted(ol),
+        ::slotted(menu) {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        
+        ::slotted(li) {
+          margin: 0;
+        }
+        
+        ::slotted(a),
+        ::slotted(button) {
+          display: block;
+          width: 100%;
+          padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+          text-align: left;
+          border: none;
+          background: transparent;
+          color: var(--color-on-surface, var(--graphite-mind, #0D1117));
+          border-radius: var(--radius-sm, 6px);
+          cursor: pointer;
+          transition: background var(--motion-duration-fast, 150ms);
+          text-decoration: none;
+        }
+        
+        ::slotted(a:hover),
+        ::slotted(button:hover) {
+          background: var(--cloud-silent, #F4F4F4);
+        }
+      </style>
+      
+      <div class="dropdown-trigger">
+        <slot name="trigger"></slot>
+      </div>
+      <div class="dropdown-menu ${position}" part="menu" role="menu">
+        <slot></slot>
+      </div>
+    `;
+    
+    // Mover trigger para slot
+    this._trigger.setAttribute('slot', 'trigger');
+    
+    // Setup ARIA
     this._trigger.setAttribute('aria-haspopup', 'true');
     this._trigger.setAttribute('aria-expanded', 'false');
-    
-    // Set positioning
-    const position = this.getAttribute('position');
-    if (position) {
-      this._menu.classList.add(`dropdown-${position}`);
-    }
-
-    // Wrapper styling
-    this.style.position = 'relative';
-    this.style.display = 'inline-block';
   }
 
   setupEventListeners() {
-    if (!this._trigger || !this._menu) return;
+    if (!this._trigger) return;
 
-    // Toggle on trigger click
+    // Toggle no trigger
     this._trigger.addEventListener('click', (e) => {
       e.stopPropagation();
       this.toggle();
     });
 
-    // Close on click outside
+    // Fechar ao clicar fora
     this._clickOutsideHandler = (e) => {
-      if (this._isOpen && !this.contains(e.target)) {
+      if (this._isOpen && !this.contains(e.target) && !this.shadowRoot.contains(e.target)) {
         this.close();
       }
     };
     document.addEventListener('click', this._clickOutsideHandler);
 
-    // Close on ESC key
+    // ESC key
     this._escapeHandler = (e) => {
       if (e.key === 'Escape' && this._isOpen) {
         this.close();
@@ -91,46 +165,13 @@ class MonadDropdown extends HTMLElement {
     };
     document.addEventListener('keydown', this._escapeHandler);
 
-    // Close when menu item is clicked
-    const menuButtons = this._menu.querySelectorAll('button, a');
-    menuButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        this.close();
-      });
+    // Fechar ao clicar em item
+    this.addEventListener('click', (e) => {
+      const item = e.target.closest('a, button');
+      if (item && item !== this._trigger) {
+        setTimeout(() => this.close(), 100);
+      }
     });
-
-    // Keyboard navigation in menu
-    this._menu.addEventListener('keydown', (e) => {
-      this.handleMenuKeyboard(e);
-    });
-  }
-
-  handleMenuKeyboard(e) {
-    if (!this._menu) return;
-
-    const items = Array.from(this._menu.querySelectorAll('button:not([disabled]), a:not([disabled])'));
-    const currentIndex = items.indexOf(document.activeElement);
-
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        const nextIndex = (currentIndex + 1) % items.length;
-        items[nextIndex].focus();
-        break;
-      case 'ArrowUp':
-        e.preventDefault();
-        const prevIndex = (currentIndex - 1 + items.length) % items.length;
-        items[prevIndex].focus();
-        break;
-      case 'Home':
-        e.preventDefault();
-        items[0].focus();
-        break;
-      case 'End':
-        e.preventDefault();
-        items[items.length - 1].focus();
-        break;
-    }
   }
 
   disconnectedCallback() {
@@ -139,38 +180,26 @@ class MonadDropdown extends HTMLElement {
   }
 
   open() {
-    if (this._isOpen || !this._menu || !this._trigger) return;
+    if (this._isOpen) return;
     
     this._isOpen = true;
-    this._menu.hidden = false;
-    this._menu.setAttribute('aria-hidden', 'false');
-    this._menu.classList.add('visible');
+    this.setAttribute('open', '');
     this._trigger.setAttribute('aria-expanded', 'true');
     
-    // Focus first menu item
-    const firstItem = this._menu.querySelector('button:not([disabled]), a:not([disabled])');
-    if (firstItem) {
-      setTimeout(() => firstItem.focus(), 50);
-    }
-    
     this.dispatchEvent(new CustomEvent('dropdown-open', {
-      bubbles: true,
-      detail: { menu: this._menu }
+      bubbles: true
     }));
   }
 
   close() {
-    if (!this._isOpen || !this._menu || !this._trigger) return;
+    if (!this._isOpen) return;
     
     this._isOpen = false;
-    this._menu.hidden = true;
-    this._menu.setAttribute('aria-hidden', 'true');
-    this._menu.classList.remove('visible');
+    this.removeAttribute('open');
     this._trigger.setAttribute('aria-expanded', 'false');
     
     this.dispatchEvent(new CustomEvent('dropdown-close', {
-      bubbles: true,
-      detail: { menu: this._menu }
+      bubbles: true
     }));
   }
 
@@ -182,7 +211,6 @@ class MonadDropdown extends HTMLElement {
     }
   }
 
-  // Public API
   get isOpen() {
     return this._isOpen;
   }

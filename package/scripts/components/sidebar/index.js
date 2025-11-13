@@ -1,7 +1,28 @@
-// ============================================
-// Sidebar Web Component
-// ============================================
-// Interactive sidebar with collapse/expand functionality
+/**
+ * MonadSidebar - Sidebar 100% autônomo
+ * 
+ * Uso simples:
+ * <monad-sidebar>
+ *   <header>
+ *     <h1>Logo</h1>
+ *   </header>
+ *   <nav>
+ *     <a href="/">Home</a>
+ *     <a href="/about">Sobre</a>
+ *   </nav>
+ * </monad-sidebar>
+ * 
+ * Trigger externo:
+ * <button data-sidebar-toggle>Menu</button>
+ * 
+ * Recursos:
+ * - Detecta estrutura automaticamente
+ * - Cria botão toggle e overlay
+ * - Responsivo (collapse desktop, overlay mobile)
+ * - Respeita temas CSS
+ * - Persiste estado no localStorage
+ * - Atalho: Ctrl/Cmd + B
+ */
 
 class MonadSidebar extends HTMLElement {
   constructor() {
@@ -15,70 +36,93 @@ class MonadSidebar extends HTMLElement {
     this.render();
     this.setupEventListeners();
     this.checkMobile();
+    this.setupExternalTriggers();
   }
 
   render() {
-    // Find or create toggle button
+    // Criar toggle button se não existir
     let toggle = this.querySelector('.sidebar-toggle');
     if (!toggle) {
-      const header = this.querySelector('.sidebar-header');
+      const header = this.querySelector('header, .sidebar-header');
       if (header) {
         toggle = document.createElement('button');
-        toggle.className = 'sidebar-toggle hoverable';
+        toggle.className = 'sidebar-toggle';
         toggle.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
           </svg>
         `;
         toggle.setAttribute('aria-label', 'Toggle sidebar');
+        toggle.setAttribute('type', 'button');
         header.appendChild(toggle);
       }
     }
 
-    // Create overlay for mobile
-    if (!document.querySelector('.sidebar-overlay')) {
-      const overlay = document.createElement('div');
+    // Criar overlay para mobile
+    let overlay = document.querySelector('.sidebar-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
       overlay.className = 'sidebar-overlay';
       overlay.setAttribute('aria-hidden', 'true');
       document.body.appendChild(overlay);
     }
+    
+    this._overlay = overlay;
+  }
+  
+  setupExternalTriggers() {
+    // Botões com data-sidebar-toggle
+    const triggers = document.querySelectorAll('[data-sidebar-toggle]');
+    triggers.forEach(trigger => {
+      trigger.addEventListener('click', () => this.toggle());
+    });
   }
 
   setupEventListeners() {
     // Toggle button
     const toggle = this.querySelector('.sidebar-toggle');
     if (toggle) {
-      toggle.addEventListener('click', () => this.toggle());
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.toggle();
+      });
     }
 
     // Overlay click (mobile)
-    const overlay = document.querySelector('.sidebar-overlay');
-    if (overlay) {
-      overlay.addEventListener('click', () => this.close());
+    if (this._overlay) {
+      this._overlay.addEventListener('click', () => this.close());
     }
 
-    // Keyboard shortcut (Ctrl+B or Cmd+B)
-    document.addEventListener('keydown', (e) => {
+    // Atalho de teclado (Ctrl+B ou Cmd+B)
+    this._keyboardHandler = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
         e.preventDefault();
         this.toggle();
       }
-    });
-
-    // Escape key to close (mobile)
-    document.addEventListener('keydown', (e) => {
+      
+      // ESC para fechar (mobile)
       if (e.key === 'Escape' && this.isMobile && this.classList.contains('open')) {
         this.close();
       }
-    });
+    };
+    document.addEventListener('keydown', this._keyboardHandler);
 
     // Responsive check
-    window.addEventListener('resize', () => this.checkMobile());
+    this._resizeHandler = () => this.checkMobile();
+    window.addEventListener('resize', this._resizeHandler);
 
     // Active link tracking
     this.trackActiveLink();
+  }
+  
+  disconnectedCallback() {
+    document.removeEventListener('keydown', this._keyboardHandler);
+    window.removeEventListener('resize', this._resizeHandler);
+    if (this._overlay && this._overlay.parentNode) {
+      this._overlay.remove();
+    }
   }
 
   toggle() {
@@ -94,10 +138,8 @@ class MonadSidebar extends HTMLElement {
     this.isCollapsed = true;
     this.setAttribute('aria-expanded', 'false');
     
-    // Store preference
     localStorage.setItem('monad-sidebar-collapsed', 'true');
     
-    // Dispatch event
     this.dispatchEvent(new CustomEvent('sidebar-collapse', {
       bubbles: true,
       detail: { collapsed: true }
@@ -109,10 +151,8 @@ class MonadSidebar extends HTMLElement {
     this.isCollapsed = false;
     this.setAttribute('aria-expanded', 'true');
     
-    // Store preference
     localStorage.setItem('monad-sidebar-collapsed', 'false');
     
-    // Dispatch event
     this.dispatchEvent(new CustomEvent('sidebar-expand', {
       bubbles: true,
       detail: { collapsed: false }
@@ -121,13 +161,11 @@ class MonadSidebar extends HTMLElement {
 
   open() {
     this.classList.add('open');
-    const overlay = document.querySelector('.sidebar-overlay');
-    if (overlay) {
-      overlay.classList.add('visible');
+    if (this._overlay) {
+      this._overlay.classList.add('visible');
     }
     document.body.style.overflow = 'hidden';
     
-    // Dispatch event
     this.dispatchEvent(new CustomEvent('sidebar-open', {
       bubbles: true
     }));
@@ -135,13 +173,11 @@ class MonadSidebar extends HTMLElement {
 
   close() {
     this.classList.remove('open');
-    const overlay = document.querySelector('.sidebar-overlay');
-    if (overlay) {
-      overlay.classList.remove('visible');
+    if (this._overlay) {
+      this._overlay.classList.remove('visible');
     }
     document.body.style.overflow = '';
     
-    // Dispatch event
     this.dispatchEvent(new CustomEvent('sidebar-close', {
       bubbles: true
     }));
@@ -153,7 +189,7 @@ class MonadSidebar extends HTMLElement {
     
     if (wasMobile !== this.isMobile) {
       if (!this.isMobile) {
-        // Desktop: restore collapsed state
+        // Desktop: restaurar estado colapsado
         const collapsed = localStorage.getItem('monad-sidebar-collapsed') === 'true';
         if (collapsed) {
           this.collapse();
@@ -162,7 +198,7 @@ class MonadSidebar extends HTMLElement {
         }
         this.close();
       } else {
-        // Mobile: start closed
+        // Mobile: começar fechado
         this.classList.remove('collapsed');
         this.close();
       }
@@ -170,21 +206,22 @@ class MonadSidebar extends HTMLElement {
   }
 
   trackActiveLink() {
-    const links = this.querySelectorAll('.sidebar-link');
+    const links = this.querySelectorAll('a, .sidebar-link');
     const currentPath = window.location.pathname;
     
     links.forEach(link => {
-      if (link.getAttribute('href') === currentPath) {
+      const href = link.getAttribute('href');
+      if (href && href === currentPath) {
         link.classList.add('active');
       }
       
-      link.addEventListener('click', (e) => {
-        // Remove active from all
+      link.addEventListener('click', () => {
+        // Remover active de todos
         links.forEach(l => l.classList.remove('active'));
-        // Add to clicked
+        // Adicionar ao clicado
         link.classList.add('active');
         
-        // Close on mobile after click
+        // Fechar no mobile após clicar
         if (this.isMobile) {
           setTimeout(() => this.close(), 150);
         }
@@ -192,7 +229,7 @@ class MonadSidebar extends HTMLElement {
     });
   }
 
-  // Public API
+  // API pública
   isOpen() {
     return this.classList.contains('open');
   }
@@ -202,7 +239,6 @@ class MonadSidebar extends HTMLElement {
   }
 }
 
-// Register custom element
 customElements.define('monad-sidebar', MonadSidebar);
 
 export default MonadSidebar;
