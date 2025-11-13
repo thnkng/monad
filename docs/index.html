@@ -244,31 +244,81 @@
             <p class="lead">Foundation of the Monad design system. Every value is a token — colors, spacing, typography, motion, and effects. No hard-coded values, ever.</p>
             
             <h3>Colors</h3>
-            <p>Our color palette is emotionally precise. Each name evokes feeling, not just function.</p>
+            <p><strong>Theme-aware palettes</strong> — colors change based on active theme. Moonlight uses GitHub Light colors, Midnight uses GitHub Dark colors.</p>
             
-            <h4>Primary Palettes</h4>
-            <div class="grid-auto-fit-200 gap-4">
-                <div class="card bg-graphite-core"><strong class="cloud-silent">graphite-core</strong></div>
-                <div class="card bg-thought-default"><strong class="cloud-silent">thought</strong></div>
-                <div class="card bg-ember-energy"><strong class="graphite-mind">ember-energy</strong></div>
-                <div class="card bg-silver-line"><strong>silver-line</strong></div>
+            <h4>Structural Colors (Moonlight Theme)</h4>
+            <div class="card margin-bottom-4">
+                <div class="grid-auto-fit-250 gap-3">
+                    <div style="padding: var(--space-3); background: var(--graphite-mind); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 14px;">graphite-mind</strong>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 4px;">#24292F</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 11px;">Main text</div>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--thought); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 14px;">thought</strong>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 4px;">#0969DA</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 11px;">Primary blue</div>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--cloud-pure); border: 1px solid var(--silver-line); border-radius: var(--radius-md);">
+                        <strong style="color: var(--graphite-mind); font-size: 14px;">cloud-pure</strong>
+                        <div style="color: var(--graphite-core); font-size: 12px; margin-top: 4px;">#FFFFFF</div>
+                        <div style="color: var(--silver-depth); font-size: 11px;">Surface</div>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--silver-line); border-radius: var(--radius-md);">
+                        <strong style="color: var(--graphite-mind); font-size: 14px;">silver-line</strong>
+                        <div style="color: var(--graphite-core); font-size: 12px; margin-top: 4px;">#D0D7DE</div>
+                        <div style="color: var(--silver-depth); font-size: 11px;">Borders</div>
+                    </div>
+                </div>
             </div>
             
-            <h4>Semantic Palettes</h4>
-            <div class="grid-auto-fit-200 gap-4">
-                <div class="card bg-sage-calm"><strong>sage-calm</strong></div>
-                <div class="card bg-rose-soft"><strong>rose-soft</strong></div>
-                <div class="card bg-sand-light"><strong>sand-light</strong></div>
-                <div class="card bg-aether-sky"><strong>aether-sky</strong></div>
-                <div class="card bg-iris-petal"><strong class="graphite-mind">iris-petal</strong></div>
-                <div class="card bg-state-flow"><strong class="graphite-mind">state-flow</strong></div>
-                <div class="card bg-state-pulse"><strong class="graphite-mind">state-pulse</strong></div>
-                <div class="card bg-state-break"><strong class="cloud-silent">state-break</strong></div>
+            <h4>Semantic State Colors</h4>
+            <div class="card margin-bottom-4">
+                <div class="grid-auto-fit-250 gap-3">
+                    <div style="padding: var(--space-3); background: var(--state-flow); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 14px;">state-flow</strong>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 4px;">#1A7F37</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 11px;">Success</div>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--state-pulse); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 14px;">state-pulse</strong>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 4px;">#9A6700</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 11px;">Warning</div>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--state-break); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 14px;">state-break</strong>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 4px;">#CF222E</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 11px;">Error</div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Accent Palettes</h4>
+            <div class="card margin-bottom-4">
+                <div class="grid-auto-fit-200 gap-3">
+                    <div style="padding: var(--space-3); background: var(--sage-leaf); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 13px;">sage-leaf</strong>
+                        <small style="color: rgba(255,255,255,0.7); font-size: 11px; display: block;">#1A7F37</small>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--rose-depth); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 13px;">rose-depth</strong>
+                        <small style="color: rgba(255,255,255,0.7); font-size: 11px; display: block;">#CF222E</small>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--aether-light); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 13px;">aether-light</strong>
+                        <small style="color: rgba(255,255,255,0.7); font-size: 11px; display: block;">#0969DA</small>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--iris-void); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 13px;">iris-void</strong>
+                        <small style="color: rgba(255,255,255,0.7); font-size: 11px; display: block;">#8250DF</small>
+                    </div>
+                </div>
             </div>
             
             <h4>Usage</h4>
-            <pre><code>&lt;button class="graphite-core hoverable"&gt;Button&lt;/button&gt;
-&lt;div class="card sage-calm"&gt;...&lt;/div&gt;</code></pre>
+            <pre><code>&lt;button class="thought hoverable"&gt;Primary&lt;/button&gt;
+&lt;button class="state-flow hoverable"&gt;Success&lt;/button&gt;
+&lt;div class="card iris-void"&gt;Purple card&lt;/div&gt;</code></pre>
             
             <h3>Spacing</h3>
             <p>Base unit: <strong>4px</strong>. Scale: <code>--space-1</code> (4px) to <code>--space-8</code> (40px).</p>

@@ -196,19 +196,19 @@ aside.sidebar > nav {
   
   // Active state
   &.active {
-    background: var(--cloud-mist);
-    color: var(--graphite-mind);
+    background: color-mix(in srgb, var(--thought) 8%, transparent);
+    color: var(--thought);
     font-weight: var(--font-weight-semi-bold);
     
     svg,
     i {
-      color: var(--graphite-mind);
+      color: var(--thought);
       opacity: 1;
     }
     
     .sidebar-badge {
-      background: var(--silver-line);
-      color: var(--graphite-mind);
+      background: var(--thought);
+      color: white;
     }
   }
   
