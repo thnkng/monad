@@ -82,7 +82,7 @@ select[multiple] {
         &:focus,
         &:focus-visible {
           border-color: #{$value};
-          box-shadow: 0 0 0 3px color.change($value, $alpha: 0.1);
+          box-shadow: 0 0 0 3px color-mix(in srgb, #{$value} 10%, transparent);
         }
       }
     } @else {
@@ -92,7 +92,7 @@ select[multiple] {
         &:focus,
         &:focus-visible {
           border-color: #{$value};
-          box-shadow: 0 0 0 3px color.change($value, $alpha: 0.1);
+          box-shadow: 0 0 0 3px color-mix(in srgb, #{$value} 10%, transparent);
         }
       }
     }

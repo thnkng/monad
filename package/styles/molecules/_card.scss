@@ -1,4 +1,3 @@
-@use "sass:color";
 @use "../mixins" as *;
 @use "../tokens/colors" as c;
 
@@ -15,21 +14,14 @@
   @include hover-shadow;
 }
 
-// Color variants with smart background
+// Color variants with subtle background
 @each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
     $class: if($name == default, ".#{$palette}", ".#{$palette}-#{$name}");
     
     .card#{$class} {
       border-color: $value;
-      $l: color.channel($value, "lightness", hsl);
-      
-      @if $l > 60% {
-        background-color: $value;
-        color: #0D1117;
-      } @else {
-        background-color: color-mix(in srgb, $value 10%, var(--color-surface));
-      }
+      background-color: color-mix(in srgb, $value 8%, var(--color-surface));
     }
   }
 }

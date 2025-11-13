@@ -1,10 +1,8 @@
 @use "sass:color";
+@use "../mixins" as *;
 @use "../tokens/colors" as c;
 
-// ============================================
-// Menu Atom
-// ============================================
-// Semantic <menu> element for toolbars and action lists
+// Menu Atom - Semantic <menu> element for toolbars and action lists
 
 menu {
   display: flex;
@@ -19,15 +17,15 @@ menu {
   min-width: 180px;
 }
 
-// List items inside menu
 menu li {
   display: flex;
   margin: 0;
   padding: 0;
 }
 
-// Buttons inside menu (the actual menu items)
-menu button {
+// Menu items (buttons and links)
+menu button,
+menu a {
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -35,109 +33,64 @@ menu button {
   width: 100%;
   border: none;
   background: transparent;
-  color: var(--color-on-surface);
+  color: var(--thought-focus);
   text-align: left;
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-regular);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: 
-    background-color var(--motion-duration-fast) var(--motion-ease-standard),
-    color var(--motion-duration-fast) var(--motion-ease-standard);
-  user-select: none;
-}
-
-// Links inside menu items
-menu a {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-2) var(--space-3);
-  width: 100%;
-  color: var(--color-on-surface);
   text-decoration: none;
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-regular);
   border-radius: var(--radius-sm);
-  transition: 
-    background-color var(--motion-duration-fast) var(--motion-ease-standard),
-    color var(--motion-duration-fast) var(--motion-ease-standard);
+  cursor: pointer;
   user-select: none;
+  @include base-transition;
 }
 
-// Icon support
-menu button .icon,
-menu button i,
-menu button svg,
-menu a .icon,
-menu a i,
-menu a svg {
-  font-size: var(--font-size-medium);
-  line-height: 1;
-  opacity: 0.7;
-  flex-shrink: 0;
-  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
-}
-
-// Keyboard shortcut hints
-menu button kbd,
-menu a kbd {
-  margin-left: auto;
-  font-size: var(--font-size-xsmall);
-  opacity: 0.6;
-}
-
-// Hover (opt-in)
-menu button.hoverable:hover,
-menu a.hoverable:hover {
-  background: var(--cloud-silent);
-  color: var(--graphite-mind);
-  
-  .icon,
-  i,
-  svg {
-    opacity: 1;
+// Icon and shortcut support
+menu button, menu a {
+  .icon, i, svg {
+    font-size: var(--font-size-medium);
+    line-height: 1;
+    opacity: 0.7;
+    flex-shrink: 0;
+    transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
   }
-}
-
-// Active/selected state
-menu button.active,
-menu a.active {
-  background: var(--graphite-mind);
-  color: white;
-  font-weight: var(--font-weight-medium);
   
-  .icon,
-  i,
-  svg {
-    opacity: 1;
+  kbd {
+    margin-left: auto;
+    font-size: var(--font-size-xsmall);
+    opacity: 0.6;
   }
-}
-
-// Disabled state
-menu button:disabled,
-menu button[aria-disabled="true"],
-menu a.disabled,
-menu a[aria-disabled="true"] {
-  color: var(--color-muted);
-  cursor: not-allowed;
-  pointer-events: none;
-  
-  .icon,
-  i,
-  svg {
-    opacity: 0.4;
-  }
-}
-
-// Danger/destructive action
-menu button.danger,
-menu a.danger {
-  color: var(--state-break);
   
   &.hoverable:hover {
-    background: var(--state-break);
+    background: var(--cloud-silent);
+    color: var(--graphite-mind);
+    
+    .icon, i, svg { opacity: 1; }
+  }
+  
+  &.active {
+    background: var(--graphite-mind);
     color: white;
+    font-weight: var(--font-weight-medium);
+    
+    .icon, i, svg { opacity: 1; }
+  }
+  
+  @include disabled;
+  
+  &:disabled,
+  &[aria-disabled="true"] {
+    color: var(--color-muted);
+    
+    .icon, i, svg { opacity: 0.4; }
+  }
+  
+  &.danger {
+    color: var(--state-break);
+    
+    &.hoverable:hover {
+      background: var(--state-break);
+      color: white;
+    }
   }
 }
 
@@ -161,32 +114,20 @@ menu li[data-label] {
   display: block;
 }
 
-// Helper mixin for color variants
-@mixin menu-variant($value) {
-  button.active,
-  a.active {
-    background-color: $value;
-    $l: color.channel($value, "lightness", hsl);
-    color: if($l > 60%, #0D1117, #FFFFFF);
-  }
-  
-  button.hoverable:hover:not(.active):not(.danger),
-  a.hoverable:hover:not(.active):not(.danger) {
-    background-color: color-mix(in srgb, $value 10%, var(--color-surface));
-    color: $value;
-  }
-}
-
-// Auto-generate color variants
+// Color variants
 @each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
-    @if $name == default {
-      menu.#{"" + $palette} {
-        @include menu-variant($value);
+    $class: if($name == default, ".#{$palette}", ".#{$palette}-#{$name}");
+    
+    menu#{$class} {
+      button.active,
+      a.active {
+        @include color-variant($value);
       }
-    } @else {
-      menu.#{"" + $palette}-#{$name} {
-        @include menu-variant($value);
+      
+      button.hoverable:hover:not(.active):not(.danger),
+      a.hoverable:hover:not(.active):not(.danger) {
+        @include soft-variant($value);
       }
     }
   }

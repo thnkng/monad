@@ -81,29 +81,18 @@ nav h6 {
   user-select: none;
 }
 
-// Helper mixin for color variants
-@mixin nav-variant($value) {
-  a.active {
-    background-color: $value;
-    $l: color.channel($value, "lightness", hsl);
-    color: if($l > 60%, #0D1117, #FFFFFF);
-  }
-  
-  a.hoverable:hover:not(.active) {
-    color: $value;
-  }
-}
-
-// Auto-generate color variants
+// Color variants
 @each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
-    @if $name == default {
-      nav.#{"" + $palette} {
-        @include nav-variant($value);
+    $class: if($name == default, ".#{$palette}", ".#{$palette}-#{$name}");
+    
+    nav#{$class} {
+      a.active {
+        @include color-variant($value);
       }
-    } @else {
-      nav.#{"" + $palette}-#{$name} {
-        @include nav-variant($value);
+      
+      a.hoverable:hover:not(.active) {
+        color: $value;
       }
     }
   }

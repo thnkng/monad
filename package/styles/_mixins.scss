@@ -1,16 +1,14 @@
-@use "sass:color";
-
 // ============================================
 // Component Mixins — DRY Patterns
 // ============================================
 // Shared patterns across atoms and molecules
 
 // Color variant generator (buttons, badges, cards, etc.)
-@mixin color-variant($value) {
+// Note: No auto-contrast since values are CSS custom properties
+@mixin color-variant($value, $text-color: var(--color-on-surface)) {
   background-color: $value;
   border-color: $value;
-  $l: color.channel($value, "lightness", hsl);
-  color: if($l > 60%, #0D1117, #FFFFFF);
+  color: $text-color;
 }
 
 // Outline variant

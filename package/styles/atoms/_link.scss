@@ -18,7 +18,7 @@ a {
   
   &.hoverable:hover {
     text-decoration-thickness: 2px;
-    color: var(--thought-focus);
+    color: var(--graphite-core);
   }
   
   &:focus-visible {
@@ -58,12 +58,7 @@ menu a {
       }
       
       &.hoverable:hover {
-        $l: color.channel($value, "lightness", hsl);
-        @if $l > 50% {
-          color: color-mix(in srgb, $value 70%, #000 30%);
-        } @else {
-          color: color-mix(in srgb, $value 70%, #fff 30%);
-        }
+        color: color-mix(in srgb, $value 70%, var(--color-on-surface) 30%);
       }
     }
   }

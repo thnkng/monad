@@ -1,0 +1,77 @@
+// ============================================
+// Moonlight Theme
+// ============================================
+// The default light theme — calm, clear, focused
+// Soft blues and grays with high contrast for readability
+// Applied by default (no attribute needed)
+
+:root,
+body:not([theme]) {
+  // Graphite palette — structural foundation
+  --graphite-mind: #0D1117;
+  --graphite-deep: #1A2430;
+  --graphite-core: #2B3A4A;
+  --graphite-light: #F4F7FA;
+  
+  // Cloud palette — surfaces and backgrounds
+  --cloud-pure: #F1F1F1;
+  --cloud-silent: #F4F4F4;
+  --cloud-mist: #EAEAEA;
+  
+  // Thought palette — primary interactive
+  --thought: #1e3a5f;
+  --thought-focus: #152d4a;
+  --thought-depth: #0d1f35;
+  
+  // Ember palette — energy and warmth
+  --ember-energy: #ff9533;
+  --ember-glow: #ffb366;
+  --ember-burn: #e67a1a;
+  
+  // Silver palette — borders and dividers
+  --silver-line: #DADADA;
+  --silver-balance: #B6B6B6;
+  --silver-depth: #8A8A8A;
+  
+  // Sage palette — calm success states
+  --sage-calm: #b7c6b4;
+  --sage-leaf: #9fb49f;
+  --sage-shadow: #7a9076;
+  
+  // Rose palette — soft emphasis
+  --rose-soft: #f7c9ce;
+  --rose-bloom: #e8a7b0;
+  --rose-depth: #bf6975;
+  
+  // Sand palette — warm neutrals
+  --sand-light: #f3ebde;
+  --sand-warm: #e6cfae;
+  --sand-earth: #ca9f71;
+  
+  // Aether palette — sky and air
+  --aether-sky: #d1ebff;
+  --aether-air: #b6d8fa;
+  --aether-light: #8bc2ee;
+  
+  // Iris palette — mystery and depth
+  --iris-petal: #c8b6ff;
+  --iris-dream: #a58aed;
+  --iris-void: #7563b2;
+  
+  // State palette — semantic feedback
+  --state-flow: #33d469;
+  --state-pulse: #ffc14d;
+  --state-break: #ff5c5c;
+  
+  // Semantic aliases
+  --color-surface: var(--cloud-pure);
+  --color-on-surface: var(--graphite-mind);
+  --color-border: var(--silver-line);
+  --color-primary: var(--graphite-core);
+  --color-secondary: var(--thought);
+  --color-muted: var(--silver-depth);
+  --color-muted-weak: var(--cloud-silent);
+  --color-danger: var(--state-break);
+  --color-success: var(--state-flow);
+  --color-warning: var(--state-pulse);
+}

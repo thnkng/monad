@@ -79,8 +79,7 @@ menu.context menu {
   button.active,
   a.active {
     background-color: $value;
-    $l: color.channel($value, "lightness", hsl);
-    color: if($l > 60%, #0D1117, #FFFFFF);
+    color: var(--color-surface);
   }
   
   button.hoverable:hover:not(.active):not(.danger),

@@ -28,8 +28,7 @@
 // Helper mixin
 @mixin avatar-variant($value) {
   background-color: $value;
-  $l: color.channel($value, "lightness", hsl);
-  color: if($l > 60%, #0D1117, #FFFFFF);
+  color: var(--color-surface);
 }
 
 // Gera classes de cor para avatars

@@ -1,3 +1,6 @@
+// Themes (color schemes first — define CSS custom properties)
+@use 'themes/index' as *;
+
 // Tokens (foundations)
 @use 'tokens/colors' as *;
 @use 'tokens/typography' as *;

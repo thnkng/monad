@@ -1,0 +1,76 @@
+// ============================================
+// Midnight Theme
+// ============================================
+// Dark variant — deep, focused, restful
+// Inverted palette with adjusted contrast for night work
+// Applied with: <body theme="midnight">
+
+body[theme="midnight"] {
+  // Graphite palette — now lighter for dark backgrounds
+  --graphite-mind: #E8EAED;
+  --graphite-deep: #C5C9CF;
+  --graphite-core: #A0A6B0;
+  --graphite-light: #1A2430;
+  
+  // Cloud palette — now darker surfaces
+  --cloud-pure: #0D1117;
+  --cloud-silent: #161B22;
+  --cloud-mist: #21262D;
+  
+  // Thought palette — adjusted for dark mode
+  --thought: #5B8DC9;
+  --thought-focus: #7BA3D5;
+  --thought-depth: #92B4DF;
+  
+  // Ember palette — slightly muted for dark
+  --ember-energy: #FF9F4D;
+  --ember-glow: #FFB87A;
+  --ember-burn: #F28B36;
+  
+  // Silver palette — mid-tones for dark
+  --silver-line: #30363D;
+  --silver-balance: #484F58;
+  --silver-depth: #6E7681;
+  
+  // Sage palette — softer greens
+  --sage-calm: #8FAC8C;
+  --sage-leaf: #7A9578;
+  --sage-shadow: #9CB99A;
+  
+  // Rose palette — muted pinks
+  --rose-soft: #D99FA6;
+  --rose-bloom: #C68790;
+  --rose-depth: #E5B3B9;
+  
+  // Sand palette — warm dark tones
+  --sand-light: #3A3229;
+  --sand-warm: #4F4539;
+  --sand-earth: #A68B5F;
+  
+  // Aether palette — darker blues
+  --aether-sky: #4A7BA7;
+  --aether-air: #5A8EC0;
+  --aether-light: #3B6A94;
+  
+  // Iris palette — vibrant purples
+  --iris-petal: #B39FE8;
+  --iris-dream: #9882D4;
+  --iris-void: #C7B3F3;
+  
+  // State palette — adjusted brightness
+  --state-flow: #4ADE80;
+  --state-pulse: #FFC857;
+  --state-break: #FF6B6B;
+  
+  // Semantic aliases — inverted
+  --color-surface: var(--cloud-pure);
+  --color-on-surface: var(--graphite-mind);
+  --color-border: var(--silver-line);
+  --color-primary: var(--graphite-core);
+  --color-secondary: var(--thought);
+  --color-muted: var(--silver-depth);
+  --color-muted-weak: var(--cloud-silent);
+  --color-danger: var(--state-break);
+  --color-success: var(--state-flow);
+  --color-warning: var(--state-pulse);
+}

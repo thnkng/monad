@@ -65,8 +65,7 @@ section .card p {
 // Helper mixin for color variants
 @mixin section-variant($value) {
   background-color: $value;
-  $l: color.channel($value, "lightness", hsl);
-  color: if($l > 60%, #0D1117, #FFFFFF);
+  color: var(--color-on-surface);
 }
 
 // Auto-generate color variants
