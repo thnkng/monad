@@ -118,13 +118,13 @@ aside.sidebar > nav {
   align-items: center;
   padding: var(--space-2) var(--space-3);
   font-size: var(--font-size-xsmall);
-  font-weight: var(--font-weight-bold);
-  color: var(--graphite-deep);
+  font-weight: var(--font-weight-semi-bold);
+  color: var(--silver-depth);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   white-space: nowrap;
-  margin-top: var(--space-5);
-  margin-bottom: var(--space-1);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-2);
   
   &:first-child {
     margin-top: 0;
@@ -135,13 +135,13 @@ aside.sidebar > nav {
 .sidebar-link {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-3);
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-md);
   color: var(--graphite-mind);
   text-decoration: none;
   font-size: var(--font-size-medium);
-  font-weight: var(--font-weight-semi-bold);
+  font-weight: var(--font-weight-regular);
   white-space: nowrap;
   user-select: none;
   position: relative;
@@ -150,10 +150,10 @@ aside.sidebar > nav {
   // Icon support (Lucide or SVG)
   svg,
   i {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     flex-shrink: 0;
-    color: var(--graphite-mind);
+    color: var(--silver-depth);
     opacity: 1;
     transition: all var(--motion-duration-fast) var(--motion-ease-standard);
   }
@@ -184,35 +184,31 @@ aside.sidebar > nav {
   
   // Hover (opt-in)
   &.hoverable:hover {
-    background: var(--aether-sky);
-    color: var(--thought-focus);
+    background: var(--cloud-silent);
+    color: var(--graphite-mind);
     
     svg,
     i {
-      color: var(--thought-focus);
+      color: var(--graphite-mind);
       opacity: 1;
-      transform: translateX(2px);
     }
   }
   
   // Active state
   &.active {
-    background: var(--thought);
-    color: white;
+    background: var(--cloud-mist);
+    color: var(--graphite-mind);
     font-weight: var(--font-weight-semi-bold);
-    box-shadow: var(--shadow-faint);
-    border-left: 3px solid var(--aether-light);
-    padding-left: calc(var(--space-3) - 3px);
     
     svg,
     i {
-      color: white;
+      color: var(--graphite-mind);
       opacity: 1;
     }
     
     .sidebar-badge {
-      background: white;
-      color: var(--thought);
+      background: var(--silver-line);
+      color: var(--graphite-mind);
     }
   }
   
