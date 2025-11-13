@@ -1,0 +1,81 @@
+// ============================================
+// Ocean Theme
+// ============================================
+// Modern waves — inspired by Vercel, Tailwind & Stripe
+// Cool blues and teals with crisp contrast for modern interfaces
+// Emotional intent: innovation, clarity, modern tech aesthetic
+// Applied with: <body theme="ocean">
+
+body[theme="ocean"] {
+  // Graphite palette — deep navy foundation
+  --graphite-mind: #0C4A6E;      // Sky 900 - deep text
+  --graphite-deep: #0369A1;      // Sky 800 - secondary
+  --graphite-core: #0284C7;      // Sky 600 - muted
+  --graphite-light: #F0F9FF;     // Sky 50 - lightest
+  
+  // Cloud palette — sky-tinted surfaces
+  --cloud-pure: #F0F9FF;         // Sky 50 - main bg
+  --cloud-silent: #E0F2FE;       // Sky 100 - cards
+  --cloud-mist: #BAE6FD;         // Sky 200 - hover
+  
+  // Thought palette — cyan primary (Vercel-inspired)
+  --thought: #06B6D4;            // Cyan 500 - primary
+  --thought-focus: #0891B2;      // Cyan 600 - hover
+  --thought-depth: #0E7490;      // Cyan 700 - pressed
+  
+  // Ember palette — warm accent for contrast
+  --ember-energy: #F97316;       // Orange 500 - energy
+  --ember-glow: #FB923C;         // Orange 400 - light
+  --ember-burn: #EA580C;         // Orange 600 - deep
+  
+  // Silver palette — cool gray boundaries
+  --silver-line: #CBD5E1;        // Slate 300 - borders
+  --silver-balance: #94A3B8;     // Slate 400 - icons
+  --silver-depth: #64748B;       // Slate 500 - text
+  
+  // Sage palette — teal success
+  --sage-calm: #5EEAD4;          // Teal 300 - success light
+  --sage-leaf: #14B8A6;          // Teal 500 - success
+  --sage-shadow: #0D9488;        // Teal 600 - success dark
+  
+  // Rose palette — pink accents
+  --rose-soft: #FBCFE8;          // Pink 200 - subtle
+  --rose-bloom: #F9A8D4;         // Pink 300 - medium
+  --rose-depth: #EC4899;         // Pink 500 - bold
+  
+  // Sand palette — warm neutrals
+  --sand-light: #FEF3C7;         // Amber 100
+  --sand-warm: #FDE68A;          // Amber 200
+  --sand-earth: #F59E0B;         // Amber 500
+  
+  // Aether palette — THE STAR — ocean blues
+  --aether-sky: #7DD3FC;         // Sky 300 - light
+  --aether-air: #38BDF8;         // Sky 400 - medium
+  --aether-light: #0EA5E9;       // Sky 500 - vibrant
+  
+  // Iris palette — indigo depth
+  --iris-petal: #C7D2FE;         // Indigo 200 - light
+  --iris-dream: #A5B4FC;         // Indigo 300 - medium
+  --iris-void: #6366F1;          // Indigo 500 - bold
+  
+  // State palette — ocean semantics
+  --state-flow: #14B8A6;         // Teal 500 - success
+  --state-pulse: #F59E0B;        // Amber 500 - warning
+  --state-break: #EF4444;        // Red 500 - error
+  
+  // Semantic aliases
+  --color-surface: var(--cloud-pure);
+  --color-on-surface: var(--graphite-mind);
+  --color-border: var(--silver-line);
+  --color-primary: var(--thought);
+  --color-secondary: var(--aether-light);
+  --color-muted: var(--silver-depth);
+  --color-muted-weak: var(--cloud-silent);
+  --color-danger: var(--state-break);
+  --color-success: var(--state-flow);
+  --color-warning: var(--state-pulse);
+  
+  // Ocean freshness
+  background: var(--cloud-pure);
+  color: var(--graphite-mind);
+}

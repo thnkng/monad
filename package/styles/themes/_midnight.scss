@@ -1,67 +1,67 @@
 // ============================================
 // Midnight Theme
 // ============================================
-// Deep focus — the mind at rest in darkness
-// True black with subtle blue undertones for late-night work
-// Emotional intent: concentration, introspection, calm depth
+// Professional darkness — inspired by VS Code Dark+ & GitHub Dark
+// Rich dark surfaces with perfect contrast, never pure black
+// Emotional intent: deep focus, late-night coding, eye comfort
 // Applied with: <body theme="midnight">
 
 body[theme="midnight"] {
-  // Graphite palette — light text on dark
-  --graphite-mind: #E6EDF3;
-  --graphite-deep: #B1BAC4;
-  --graphite-core: #7D8590;
-  --graphite-light: #0A0E13;
+  // Graphite palette — warm gray text (not harsh white)
+  --graphite-mind: #E5E7EB;      // Gray 200 - main text
+  --graphite-deep: #D1D5DB;      // Gray 300 - emphasis
+  --graphite-core: #9CA3AF;      // Gray 400 - secondary
+  --graphite-light: #111827;     // Gray 900 - darkest
   
-  // Cloud palette — deep space surfaces
-  --cloud-pure: #010409;
-  --cloud-silent: #0D1117;
-  --cloud-mist: #161B22;
+  // Cloud palette — rich dark surfaces (GitHub-inspired)
+  --cloud-pure: #0D1117;         // GitHub dark - main bg
+  --cloud-silent: #161B22;       // GitHub canvas - cards
+  --cloud-mist: #1F2937;         // Gray 800 - elevated
   
-  // Thought palette — cool blue emphasis
-  --thought: #58A6FF;
-  --thought-focus: #79C0FF;
-  --thought-depth: #388BFD;
+  // Thought palette — vibrant blue for dark (VS Code-inspired)
+  --thought: #60A5FA;            // Blue 400 - primary action
+  --thought-focus: #3B82F6;      // Blue 500 - hover
+  --thought-depth: #93C5FD;      // Blue 300 - light accent
   
-  // Ember palette — warm accent glow
-  --ember-energy: #FFA657;
-  --ember-glow: #FFBC7A;
-  --ember-burn: #F08A3C;
+  // Ember palette — warm orange glow
+  --ember-energy: #FB923C;       // Orange 400 - energy
+  --ember-glow: #FDBA74;         // Orange 300 - light
+  --ember-burn: #F97316;         // Orange 500 - bold
   
-  // Silver palette — subtle borders
-  --silver-line: #21262D;
-  --silver-balance: #30363D;
-  --silver-depth: #484F58;
+  // Silver palette — subtle dark borders
+  --silver-line: #374151;        // Gray 700 - borders
+  --silver-balance: #4B5563;     // Gray 600 - dividers
+  --silver-depth: #6B7280;       // Gray 500 - muted
   
-  // Sage palette — muted natural greens
-  --sage-calm: #7EE787;
-  --sage-leaf: #56D364;
-  --sage-shadow: #3FB950;
+  // Sage palette — vibrant green for dark
+  --sage-calm: #6EE7B7;          // Emerald 300 - success light
+  --sage-leaf: #34D399;          // Emerald 400 - success
+  --sage-shadow: #10B981;        // Emerald 500 - success dark
   
-  // Rose palette — soft pink highlights
-  --rose-soft: #FFBCCE;
-  --rose-bloom: #FF9EB3;
-  --rose-depth: #F778A1;
+  // Rose palette — soft pink on dark
+  --rose-soft: #FDA4AF;          // Rose 300 - subtle
+  --rose-bloom: #FB7185;         // Rose 400 - medium
+  --rose-depth: #F43F5E;         // Rose 500 - bold
   
-  // Sand palette — warm dark earth
-  --sand-light: #2D2A24;
-  --sand-warm: #3E3A31;
-  --sand-earth: #8B7355;
+  // Sand palette — warm amber on dark
+  --sand-light: #FDE68A;         // Amber 200
+  --sand-warm: #FCD34D;          // Amber 300
+  --sand-earth: #F59E0B;         // Amber 500
   
-  // Aether palette — sky at night
-  --aether-sky: #6CB6FF;
-  --aether-air: #8CC9FF;
-  --aether-light: #4A9EFF;
+  // Aether palette — bright sky on dark
+  --aether-sky: #7DD3FC;         // Sky 300 - light
+  --aether-air: #38BDF8;         // Sky 400 - medium
+  --aether-light: #0EA5E9;       // Sky 500 - bold
   
-  // Iris palette — mystical purples
-  --iris-petal: #D2A8FF;
-  --iris-dream: #BC8CFF;
-  --iris-void: #A371F7;
+  // Iris palette — vibrant purple on dark
+  --iris-petal: #C4B5FD;         // Violet 300 - light
+  --iris-dream: #A78BFA;         // Violet 400 - medium
+  --iris-void: #8B5CF6;          // Violet 500 - bold
   
-  // State palette — clear semantic feedback
-  --state-flow: #3FB950;
-  --state-pulse: #D29922;
-  --state-break: #F85149;
+  // State palette — semantic feedback for dark
+  --state-flow: #34D399;         // Emerald 400 - success
+  --state-pulse: #FBBF24;        // Amber 400 - warning
+  --state-break: #F87171;        // Red 400 - error
   
   // Semantic aliases
   --color-surface: var(--cloud-silent);
