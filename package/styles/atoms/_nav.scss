@@ -1,10 +1,8 @@
 @use "sass:color";
+@use "../mixins" as *;
 @use "../tokens/colors" as c;
 
-// ============================================
-// Navigation Atom
-// ============================================
-// Semantic <nav> element styled as vertical menu
+// Navigation Atom - Semantic <nav> element
 
 nav {
   display: flex;
@@ -17,7 +15,7 @@ nav {
   min-width: 200px;
 }
 
-// Navigation links (a tags inside nav)
+// Navigation links
 nav a {
   display: flex;
   align-items: center;
@@ -28,63 +26,42 @@ nav a {
   text-decoration: none;
   font-size: var(--font-size-medium);
   font-weight: var(--font-weight-regular);
-  transition: 
-    background-color var(--motion-duration-fast) var(--motion-ease-standard),
-    color var(--motion-duration-fast) var(--motion-ease-standard);
   user-select: none;
-}
-
-// Icon support inside nav links
-nav a .icon,
-nav a i,
-nav a svg {
-  font-size: var(--font-size-large);
-  line-height: 1;
-  opacity: 0.7;
-  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
-}
-
-// Hover (opt-in)
-nav a.hoverable:hover {
-  background: var(--cloud-silent);
-  color: var(--graphite-mind);
+  @include base-transition;
   
-  .icon,
-  i,
-  svg {
-    opacity: 1;
+  .icon, i, svg {
+    font-size: var(--font-size-large);
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+  }
+  
+  &.hoverable:hover {
+    background: var(--cloud-silent);
+    color: var(--graphite-mind);
+    
+    .icon, i, svg { opacity: 1; }
+  }
+  
+  &.active {
+    background: var(--graphite-mind);
+    color: white;
+    font-weight: var(--font-weight-medium);
+    
+    .icon, i, svg { opacity: 1; }
+  }
+  
+  @include disabled;
+  
+  &:disabled,
+  &[aria-disabled="true"] {
+    color: var(--color-muted);
+    
+    .icon, i, svg { opacity: 0.4; }
   }
 }
 
-// Active state
-nav a.active {
-  background: var(--graphite-mind);
-  color: white;
-  font-weight: var(--font-weight-medium);
-  
-  .icon,
-  i,
-  svg {
-    opacity: 1;
-  }
-}
-
-// Disabled state
-nav a.disabled,
-nav a:disabled,
-nav a[aria-disabled="true"] {
-  color: var(--color-muted);
-  cursor: not-allowed;
-  pointer-events: none;
-  
-  .icon,
-  i,
-  svg {
-    opacity: 0.4;
-  }
-}
-
-// Navigation divider (hr inside nav)
+// Navigation divider
 nav hr {
   height: 1px;
   background: var(--color-border);
@@ -92,7 +69,7 @@ nav hr {
   margin: var(--space-2) 0;
 }
 
-// Navigation headings (h6 inside nav for labels/sections)
+// Navigation headings (section labels)
 nav h6 {
   padding: var(--space-2) var(--space-4);
   margin: 0;
