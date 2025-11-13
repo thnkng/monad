@@ -196,7 +196,6 @@ aside.sidebar > nav {
   
   // Active state
   &.active {
-    background: color-mix(in srgb, var(--thought) 8%, transparent);
     color: var(--thought);
     font-weight: var(--font-weight-semi-bold);
     
