@@ -62,63 +62,164 @@
     </header>
 
     <main>
-        <div class="card sage-calm">
-            <h3>Canvas Layout</h3>
-            <p><strong>Purpose:</strong> Blank slate for creation. Grid-based workspace with collapsible sidebar navigation.</p>
-            <p><strong>Use case:</strong> Application interfaces, design tools, project workspaces.</p>
+        <div class="card iris-petal margin-bottom-6">
+            <div class="flex-between">
+                <div>
+                    <h3>Canvas Layout</h3>
+                    <p><strong>Purpose:</strong> Blank slate for creation. Grid-based workspace with collapsible sidebar navigation.</p>
+                    <p><strong>Use case:</strong> Application interfaces, design tools, project workspaces.</p>
+                </div>
+                <i data-lucide="layout" style="width: 48px; height: 48px; opacity: 0.3;"></i>
+            </div>
         </div>
 
-        <div class="grid-auto-fit-300 gap-5 margin-top-6">
-            <div class="card hoverable">
-                <i data-lucide="layers" class="icon-large text-thought"></i>
+        <div class="flex-between margin-bottom-5">
+            <h3>Active Projects</h3>
+            <div class="flex-group">
+                <button class="graphite-core outline hoverable small">
+                    <i data-lucide="filter"></i>
+                    Filter
+                </button>
+                <button class="thought hoverable small">
+                    <i data-lucide="plus"></i>
+                    New Project
+                </button>
+            </div>
+        </div>
+
+        <div class="grid-auto-fit-300 gap-5">
+            <div class="card sage-calm hoverable">
+                <div class="flex-between margin-bottom-3">
+                    <i data-lucide="layers" style="width: 36px; height: 36px;"></i>
+                    <span class="badge state-flow">Active</span>
+                </div>
                 <h4>Project Alpha</h4>
                 <p>Design system components and documentation.</p>
-                <span class="badge state-flow">Active</span>
+                <div class="flex-between margin-top-4">
+                    <div class="flex-group">
+                        <div class="avatar small">
+                            <img src="https://i.pravatar.cc/150?img=1" alt="Member">
+                        </div>
+                        <div class="avatar small">
+                            <img src="https://i.pravatar.cc/150?img=2" alt="Member">
+                        </div>
+                        <div class="avatar small">
+                            <img src="https://i.pravatar.cc/150?img=3" alt="Member">
+                        </div>
+                    </div>
+                    <small class="text-muted">2h ago</small>
+                </div>
             </div>
 
-            <div class="card hoverable">
-                <i data-lucide="code" class="icon-large text-ember-energy"></i>
+            <div class="card aether-sky hoverable">
+                <div class="flex-between margin-bottom-3">
+                    <i data-lucide="code" style="width: 36px; height: 36px;"></i>
+                    <span class="badge state-pulse">In Progress</span>
+                </div>
                 <h4>API Integration</h4>
                 <p>Backend services and microservices architecture.</p>
-                <span class="badge state-pulse">In Progress</span>
+                <div class="flex-between margin-top-4">
+                    <div class="flex-group">
+                        <div class="avatar small">
+                            <img src="https://i.pravatar.cc/150?img=4" alt="Member">
+                        </div>
+                        <div class="avatar small">
+                            <img src="https://i.pravatar.cc/150?img=5" alt="Member">
+                        </div>
+                    </div>
+                    <small class="text-muted">5h ago</small>
+                </div>
             </div>
 
-            <div class="card hoverable">
-                <i data-lucide="palette" class="icon-large text-iris-petal"></i>
+            <div class="card rose-soft hoverable">
+                <div class="flex-between margin-bottom-3">
+                    <i data-lucide="palette" style="width: 36px; height: 36px;"></i>
+                    <span class="badge">Planning</span>
+                </div>
                 <h4>Brand Refresh</h4>
                 <p>New visual identity and brand guidelines.</p>
-                <span class="badge">Planning</span>
+                <div class="flex-between margin-top-4">
+                    <div class="flex-group">
+                        <div class="avatar small">
+                            <img src="https://i.pravatar.cc/150?img=6" alt="Member">
+                        </div>
+                    </div>
+                    <small class="text-muted">1d ago</small>
+                </div>
             </div>
 
-            <div class="card hoverable">
-                <i data-lucide="file-text" class="icon-large text-sage-calm"></i>
+            <div class="card sand-light hoverable">
+                <div class="flex-between margin-bottom-3">
+                    <i data-lucide="file-text" style="width: 36px; height: 36px;"></i>
+                    <span class="badge state-flow">Complete</span>
+                </div>
                 <h4>Documentation</h4>
                 <p>User guides and API reference documentation.</p>
-                <span class="badge state-flow">Complete</span>
+                <div class="flex-between margin-top-4">
+                    <div class="flex-group">
+                        <div class="avatar small">
+                            <img src="https://i.pravatar.cc/150?img=7" alt="Member">
+                        </div>
+                        <div class="avatar small">
+                            <img src="https://i.pravatar.cc/150?img=8" alt="Member">
+                        </div>
+                    </div>
+                    <small class="text-muted">3h ago</small>
+                </div>
             </div>
 
             <div class="card hoverable">
-                <i data-lucide="users" class="icon-large text-rose-soft"></i>
+                <div class="flex-between margin-bottom-3">
+                    <i data-lucide="users" style="width: 36px; height: 36px;"></i>
+                    <span class="badge">Upcoming</span>
+                </div>
                 <h4>Team Portal</h4>
                 <p>Internal collaboration and resource hub.</p>
-                <span class="badge">Upcoming</span>
+                <div class="flex-between margin-top-4">
+                    <div class="flex-group">
+                        <div class="avatar small">
+                            <img src="https://i.pravatar.cc/150?img=9" alt="Member">
+                        </div>
+                        <div class="avatar small">
+                            <img src="https://i.pravatar.cc/150?img=10" alt="Member">
+                        </div>
+                        <div class="avatar small">
+                            <img src="https://i.pravatar.cc/150?img=11" alt="Member">
+                        </div>
+                    </div>
+                    <small class="text-muted">1w ago</small>
+                </div>
             </div>
 
             <div class="card hoverable">
-                <i data-lucide="trending-up" class="icon-large text-aether-sky"></i>
+                <div class="flex-between margin-bottom-3">
+                    <i data-lucide="trending-up" style="width: 36px; height: 36px;"></i>
+                    <span class="badge state-flow">Active</span>
+                </div>
                 <h4>Analytics Dashboard</h4>
                 <p>Data visualization and metrics tracking.</p>
-                <span class="badge state-pulse">In Progress</span>
+                <div class="flex-between margin-top-4">
+                    <div class="flex-group">
+                        <div class="avatar small">
+                            <img src="https://i.pravatar.cc/150?img=12" alt="Member">
+                        </div>
+                    </div>
+                    <small class="text-muted">1h ago</small>
+                </div>
             </div>
         </div>
 
         <div class="card margin-top-6">
-            <h3>Layout Features</h3>
-            <ul>
-                <li><strong>Collapsible Sidebar:</strong> Click the chevron to collapse/expand</li>
-                <li><strong>Grid Layout:</strong> Responsive grid system with sidebar + header + main</li>
-                <li><strong>Mobile Ready:</strong> Sidebar converts to overlay on mobile</li>
-                <li><strong>Clean Structure:</strong> Perfect for application interfaces</li>
+            <h4>
+                <i data-lucide="info" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle; margin-right: 8px;"></i>
+                Layout Features
+            </h4>
+            <ul style="margin-bottom: 0;">
+                <li><strong>Collapsible Sidebar:</strong> Click chevron to toggle between 280px and 72px width</li>
+                <li><strong>Responsive Grid:</strong> Auto-fit grid system adapts to screen size (min 300px cards)</li>
+                <li><strong>Mobile Overlay:</strong> Sidebar becomes slide-in overlay on screens ≤1024px</li>
+                <li><strong>Visual Depth:</strong> Subtle shadows and backdrop blur create hierarchy</li>
+                <li><strong>Team Avatars:</strong> Visual team member indicators on each project card</li>
             </ul>
         </div>
 

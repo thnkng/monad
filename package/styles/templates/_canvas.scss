@@ -14,22 +14,59 @@ body.canvas {
   
   > aside {
     @include sidebar-base;
+    box-shadow: 2px 0 8px rgba(13, 17, 23, 0.04);
   }
   
   > header {
     @include sticky-header;
     grid-area: header;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-6);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 1px 3px rgba(13, 17, 23, 0.04);
+    
+    .left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    
+    .right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    
+    h2, h3 {
+      margin: 0;
+      font-size: var(--font-size-large);
+      font-weight: var(--font-weight-semi-bold);
+    }
   }
   
   > main {
     @include main-content;
     grid-area: main;
+    
+    // Smooth scroll for anchor links
+    scroll-behavior: smooth;
+    
+    // Better focus management
+    &:focus {
+      outline: none;
+    }
   }
 }
 
 // Variants
 body.canvas.collapsed {
   grid-template-columns: 72px 1fr;
+  
+  > aside {
+    box-shadow: 1px 0 4px rgba(13, 17, 23, 0.04);
+  }
 }
 
 body.canvas.open {
@@ -45,6 +82,15 @@ body.canvas.open {
     
     > aside {
       @include mobile-sidebar-collapse;
+      box-shadow: 4px 0 16px rgba(13, 17, 23, 0.12);
+    }
+    
+    > header {
+      padding: 0 var(--space-4);
+      
+      h2, h3 {
+        font-size: var(--font-size-medium);
+      }
     }
   }
 }

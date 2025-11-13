@@ -20,6 +20,7 @@
 @use 'utilities/typography' as *;
 @use 'utilities/grid' as *;
 @use 'utilities/flex' as *;
+@use 'utilities/animations' as *;
 
 // Base styles (semantic tags, minimal normalize)
 @use 'base/base' as *;
