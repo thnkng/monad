@@ -113,37 +113,37 @@
             <h3>Architecture</h3>
             <p>Monad follows the Atomic Design methodology with a semantic-first approach:</p>
             
-            <div class="card">
+            <div class="card iris-petal">
                 <h4>Tokens</h4>
                 <p>Foundation layer. Colors, typography, spacing, motion, effects. Every value is a token — no hard-coded pixels.</p>
             </div>
             
-            <div class="card">
+            <div class="card aether-sky">
                 <h4>Base</h4>
                 <p>HTML resets and semantic typography. Clean slate for consistent rendering across browsers.</p>
             </div>
             
-            <div class="card">
+            <div class="card sage-calm">
                 <h4>Atoms</h4>
                 <p>HTML tags styled directly: <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;section&gt;</code>. No wrapper divs required.</p>
             </div>
             
-            <div class="card">
+            <div class="card sand-light">
                 <h4>Molecules</h4>
                 <p>Simple components with single responsibility: <code>.card</code>, <code>.badge</code>, <code>.avatar</code>, <code>.dropdown</code>. CSS classes for composite elements.</p>
             </div>
             
-            <div class="card">
+            <div class="card rose-soft">
                 <h4>Organisms</h4>
                 <p>Complex components using semantic tags: <code>&lt;aside.sidebar&gt;</code>, <code>&lt;nav.breadcrumb&gt;</code>. Structure with meaning.</p>
             </div>
             
-            <div class="card">
+            <div class="card ember-glow">
                 <h4>Templates</h4>
                 <p>Page layouts as body variants: <code>&lt;body.app-layout&gt;</code>, <code>&lt;body.dashboard-layout&gt;</code>, <code>&lt;body.auth-layout&gt;</code>. Complete layout systems.</p>
             </div>
             
-            <div class="card">
+            <div class="card thought-default">
                 <h4>Utilities</h4>
                 <p>Layout helpers: margin, padding, grid, flexbox. When semantic HTML isn't enough.</p>
             </div>
@@ -188,31 +188,31 @@
             <h3>The Five Principles</h3>
             <p>These principles guide every decision in Monad — from naming conventions to color choices, from spacing tokens to interaction patterns.</p>
             
-            <div class="card">
+            <div class="card aether-sky">
                 <h4>1. Clarity before form</h4>
                 <p>Every element must exist for a reason. No pixel is decorative; everything communicates. Beauty lies in precision, not ornamentation.</p>
                 <p><strong>In practice:</strong> Semantic HTML tags styled directly. Minimal class dependencies. Every line of code serves a purpose.</p>
             </div>
             
-            <div class="card">
+            <div class="card cloud-silent">
                 <h4>2. Visual silence</h4>
                 <p>Space is as important as content. Elements are silent by default — interactions require opt-in. Generous spacing allows the eye to breathe.</p>
                 <p><strong>In practice:</strong> <code>.hoverable</code> class required for hover effects. Never automatic. Silence is the default state.</p>
             </div>
             
-            <div class="card">
+            <div class="card rose-soft">
                 <h4>3. Emotional precision</h4>
                 <p>Interfaces are never neutral — they evoke trust, lightness, calm. Every curve, color, and rhythm carries emotional intent. Naming is poetic.</p>
                 <p><strong>In practice:</strong> Colors named <code>graphite-mind</code>, <code>cloud-silent</code>, <code>ember-energy</code>. Motion curves evoke lightness or urgency.</p>
             </div>
             
-            <div class="card">
+            <div class="card sage-calm">
                 <h4>4. Scalability without noise</h4>
                 <p>A system is only good if it can grow without losing harmony. We seek universal patterns, not fleeting conventions. Auto-generate variants via loops.</p>
                 <p><strong>In practice:</strong> SCSS loops generate all color variants automatically. No hard-coding. Tokens power everything.</p>
             </div>
             
-            <div class="card">
+            <div class="card sand-light">
                 <h4>5. Humanity at the center</h4>
                 <p>Invisible technology — disappears so human experience prevails. In the end, everything is about people — not code. Developer experience (DX) is user experience.</p>
                 <p><strong>In practice:</strong> Clean API. Semantic naming. Comprehensive accessibility. Built for humans first, machines second.</p>
@@ -234,308 +234,48 @@
         </section>
 
         <section id="tokens">
-            <h2>Design Tokens</h2>
+            <h2>Design Tokens <span class="badge iris-petal">Foundation</span></h2>
             <p class="lead">Foundation of the Monad design system. Every value is a token — colors, spacing, typography, motion, and effects. No hard-coded values, ever.</p>
             
             <h3>Colors</h3>
-            <p>Our color palette is emotionally precise. Each name evokes feeling, not just function. Every shade has purpose.</p>
+            <p>Our color palette is emotionally precise. Each name evokes feeling, not just function.</p>
             
-            <h4>Graphite — Core Identity</h4>
-            <p>The foundation. Dark, grounded, technical precision.</p>
+            <h4>Primary Palettes</h4>
             <div class="grid-auto-fit-200 gap-4">
-                <div class="card bg-graphite-mind">
-                    <strong>graphite-mind</strong><br>
-                    <code>#0D1117</code><br>
-                    <small>Base dark, almost black</small>
-                </div>
-                <div class="card bg-graphite-deep">
-                    <strong>graphite-deep</strong><br>
-                    <code>#1A2430</code><br>
-                    <small>Deep blue-gray</small>
-                </div>
-                <div class="card bg-graphite-core">
-                    <strong>graphite-core</strong><br>
-                    <code>#2B3A4A</code><br>
-                    <small>Medium metallic</small>
-                </div>
-                <div class="card bg-graphite-light">
-                    <strong>graphite-light</strong><br>
-                    <code>#F4F7FA</code><br>
-                    <small>Light blue-gray</small>
-                </div>
-            </div>
-            
-            <h4>Cloud — Neutral Canvas</h4>
-            <p>Backgrounds that breathe. Visual silence.</p>
-            <div class="grid-auto-fit-200 gap-4">
-                <div class="card bg-cloud-pure">
-                    <strong>cloud-pure</strong><br>
-                    <code>#F1F1F1</code>
-                </div>
-                <div class="card bg-cloud-silent">
-                    <strong>cloud-silent</strong><br>
-                    <code>#F4F4F4</code>
-                </div>
-                <div class="card bg-cloud-mist">
-                    <strong>cloud-mist</strong><br>
-                    <code>#EAEAEA</code>
-                </div>
-            </div>
-            
-            <h4>Thought — Primary Blue</h4>
-            <p>Focus. Depth. Intention.</p>
-            <div class="grid-auto-fit-200 gap-4">
-                <div class="card bg-thought-default">
-                    <strong>thought (default)</strong><br>
-                    <code>#1e3a5f</code>
-                </div>
-                <div class="card bg-thought-focus">
-                    <strong>thought-focus</strong><br>
-                    <code>#152d4a</code>
-                </div>
-                <div class="card bg-thought-depth">
-                    <strong>thought-depth</strong><br>
-                    <code>#0d1f35</code>
-                </div>
-            </div>
-            
-            <h4>Ember — Energy & Accent</h4>
-            <p>Warmth. Energy. Call to action.</p>
-            <div class="grid-auto-fit-200 gap-4">
-                <div class="card bg-ember-energy">
-                    <strong>ember-energy</strong><br>
-                    <code>#ff9533</code>
-                </div>
-                <div class="card bg-ember-glow">
-                    <strong>ember-glow</strong><br>
-                    <code>#ffb366</code>
-                </div>
-                <div class="card bg-ember-burn">
-                    <strong>ember-burn</strong><br>
-                    <code>#e67a1a</code>
-                </div>
-            </div>
-            
-            <h4>Silver — Borders & Lines</h4>
-            <p>Structure without noise.</p>
-            <div class="grid-auto-fit-200 gap-4">
-                <div class="card bg-silver-line">
-                    <strong>silver-line</strong><br>
-                    <code>#DADADA</code>
-                </div>
-                <div class="card bg-silver-balance">
-                    <strong>silver-balance</strong><br>
-                    <code>#B6B6B6</code>
-                </div>
-                <div class="card bg-silver-depth">
-                    <strong>silver-depth</strong><br>
-                    <code>#8A8A8A</code>
-                </div>
+                <div class="card bg-graphite-core"><strong class="cloud-silent">graphite-core</strong></div>
+                <div class="card bg-thought-default"><strong class="cloud-silent">thought</strong></div>
+                <div class="card bg-ember-energy"><strong class="graphite-mind">ember-energy</strong></div>
+                <div class="card bg-silver-line"><strong>silver-line</strong></div>
             </div>
             
             <h4>Semantic Palettes</h4>
-            <p>Additional colors for specific contexts.</p>
-            
-            <div class="grid-auto-fit-250 gap-5">
-                <div>
-                    <strong>Sage — Calm</strong>
-                    <div class="card bg-sage-calm">
-                        sage-calm <code>#b7c6b4</code>
-                    </div>
-                    <div class="card bg-sage-leaf">
-                        sage-leaf <code>#9fb49f</code>
-                    </div>
-                    <div class="card bg-sage-shadow">
-                        sage-shadow <code>#7a9076</code>
-                    </div>
-                </div>
-                
-                <div>
-                    <strong>Rose — Softness</strong>
-                    <div class="card bg-rose-soft">
-                        rose-soft <code>#f7c9ce</code>
-                    </div>
-                    <div class="card bg-rose-bloom">
-                        rose-bloom <code>#e8a7b0</code>
-                    </div>
-                    <div class="card bg-rose-depth">
-                        rose-depth <code>#bf6975</code>
-                    </div>
-                </div>
-                
-                <div>
-                    <strong>Sand — Warmth</strong>
-                    <div class="card bg-sand-light">
-                        sand-light <code>#f3ebde</code>
-                    </div>
-                    <div class="card bg-sand-warm">
-                        sand-warm <code>#e6cfae</code>
-                    </div>
-                    <div class="card bg-sand-earth">
-                        sand-earth <code>#ca9f71</code>
-                    </div>
-                </div>
-                
-                <div>
-                    <strong>Aether — Lightness</strong>
-                    <div class="card bg-aether-sky">
-                        aether-sky <code>#d1ebff</code>
-                    </div>
-                    <div class="card bg-aether-air">
-                        aether-air <code>#b6d8fa</code>
-                    </div>
-                    <div class="card bg-aether-light">
-                        aether-light <code>#8bc2ee</code>
-                    </div>
-                </div>
-                
-                <div>
-                    <strong>Iris — Dreams</strong>
-                    <div class="card bg-iris-petal">
-                        iris-petal <code>#c8b6ff</code>
-                    </div>
-                    <div class="card bg-iris-dream">
-                        iris-dream <code>#a58aed</code>
-                    </div>
-                    <div class="card bg-iris-void">
-                        iris-void <code>#7563b2</code>
-                    </div>
-                </div>
-                
-                <div>
-                    <strong>State — Status</strong>
-                    <div class="card bg-state-flow">
-                        state-flow (success) <code>#33d469</code>
-                    </div>
-                    <div class="card bg-state-pulse">
-                        state-pulse (warning) <code>#ffc14d</code>
-                    </div>
-                    <div class="card bg-state-break">
-                        state-break (error) <code>#ff5c5c</code>
-                    </div>
-                </div>
+            <div class="grid-auto-fit-200 gap-4">
+                <div class="card bg-sage-calm"><strong>sage-calm</strong></div>
+                <div class="card bg-rose-soft"><strong>rose-soft</strong></div>
+                <div class="card bg-sand-light"><strong>sand-light</strong></div>
+                <div class="card bg-aether-sky"><strong>aether-sky</strong></div>
+                <div class="card bg-iris-petal"><strong class="graphite-mind">iris-petal</strong></div>
+                <div class="card bg-state-flow"><strong class="graphite-mind">state-flow</strong></div>
+                <div class="card bg-state-pulse"><strong class="graphite-mind">state-pulse</strong></div>
+                <div class="card bg-state-break"><strong class="cloud-silent">state-break</strong></div>
             </div>
             
             <h4>Usage</h4>
-            <div class="card">
-                <h4>CSS Variables</h4>
-                <pre><code>/* Use colors via CSS variables */
-background-color: var(--graphite-core);
-color: var(--cloud-pure);
-border-color: var(--silver-line);</code></pre>
-            </div>
-            
-            <div class="card">
-                <h4>Component Classes</h4>
-                <pre><code>/* Apply to components */
-&lt;button class="graphite-core"&gt;Button&lt;/button&gt;
-&lt;div class="card bg-thought-focus"&gt;...&lt;/div&gt;
-&lt;section class="ember-energy"&gt;...&lt;/section&gt;</code></pre>
-            </div>
+            <pre><code>&lt;button class="graphite-core hoverable"&gt;Button&lt;/button&gt;
+&lt;div class="card sage-calm"&gt;...&lt;/div&gt;</code></pre>
             
             <h3>Spacing</h3>
-            <p>Base unit: <strong>4px</strong>. Every space is a multiple of 4 for visual harmony.</p>
-            
-            <div class="grid-auto-fit-300 gap-4">
-                <div class="card">
-                    <code>--space-1</code> = 0.25rem (4px)<br>
-                    <code>--space-2</code> = 0.5rem (8px)<br>
-                    <code>--space-3</code> = 0.75rem (12px)<br>
-                    <code>--space-4</code> = 1rem (16px)
-                </div>
-                <div class="card">
-                    <code>--space-5</code> = 1.25rem (20px)<br>
-                    <code>--space-6</code> = 1.5rem (24px)<br>
-                    <code>--space-7</code> = 2rem (32px)<br>
-                    <code>--space-8</code> = 2.5rem (40px)
-                </div>
-            </div>
-            
-            <div class="card">
-                <h4>Usage</h4>
-                <pre><code>/* Use spacing tokens */
-padding: var(--space-4);
-margin-bottom: var(--space-6);
-gap: var(--space-3);</code></pre>
-            </div>
+            <p>Base unit: <strong>4px</strong>. Scale: <code>--space-1</code> (4px) to <code>--space-8</code> (40px).</p>
+            <pre><code>padding: var(--space-4); /* 16px */</code></pre>
             
             <h3>Typography</h3>
-            <p>Font family: <strong>Inter</strong> — clean, readable, universal.</p>
-            
-            <h4>Font Sizes</h4>
-            <div class="motion-grid">
-                <div class="card">
-                    <code>--font-size-xsmall</code> = 0.75rem (12px)<br>
-                    <code>--font-size-small</code> = 0.875rem (14px)<br>
-                    <code>--font-size-medium</code> = 1rem (16px)<br>
-                    <code>--font-size-large</code> = 1.125rem (18px)<br>
-                    <code>--font-size-xlarge</code> = 1.25rem (20px)
-                </div>
-                <div class="card">
-                    <code>--font-size-2xlarge</code> = 1.5rem (24px)<br>
-                    <code>--font-size-3xlarge</code> = 1.875rem (30px)<br>
-                    <code>--font-size-4xlarge</code> = 2.25rem (36px)<br>
-                    <code>--font-size-5xlarge</code> = 3rem (48px)
-                </div>
-            </div>
-            
-            <h4>Font Weights</h4>
-            <div class="card">
-                <code>--font-weight-light</code> = 300,
-                <code>--font-weight-regular</code> = 400,
-                <code>--font-weight-medium</code> = 500,
-                <code>--font-weight-semi-bold</code> = 600,
-                <code>--font-weight-bold</code> = 700
-            </div>
-            
-            <h4>Line Heights</h4>
-            <div class="card">
-                <code>--line-height-tight</code> = 1.2 (headings),
-                <code>--line-height-snug</code> = 1.35,
-                <code>--line-height-normal</code> = 1.5 (body),
-                <code>--line-height-relaxed</code> = 1.65 (long text)
-            </div>
+            <p>Font family: <strong>Inter</strong>. Sizes from <code>--font-size-xsmall</code> (12px) to <code>--font-size-5xlarge</code> (48px). Weights: 300-700.</p>
             
             <h3>Motion</h3>
-            <p>Animations are subtle, never distracting. Every motion has emotional intent.</p>
-            
-            <h4>Durations</h4>
-            <div class="card">
-                <code>--motion-duration-fast</code> = 150ms (micro-interactions)<br>
-                <code>--motion-duration-medium</code> = 200ms (transitions)<br>
-                <code>--motion-duration-slow</code> = 300ms (complex animations)
-            </div>
-            
-            <h4>Easing Functions</h4>
-            <div class="card">
-                <code>--motion-ease-standard</code> = cubic-bezier(0.4, 0, 0.2, 1) — balanced<br>
-                <code>--motion-ease-decelerate</code> = cubic-bezier(0, 0, 0.2, 1) — lightness<br>
-                <code>--motion-ease-accelerate</code> = cubic-bezier(0.4, 0, 1, 1) — urgency
-            </div>
+            <p>Durations: <code>fast</code> (150ms), <code>medium</code> (250ms), <code>slow</code> (400ms). Easing: <code>standard</code>, <code>decelerate</code>, <code>accelerate</code>.</p>
             
             <h3>Effects</h3>
-            <p>Shadows and borders are restrained. Only what serves communication.</p>
-            
-            <h4>Border Radius</h4>
-            <div class="card">
-                <code>--radius-sm</code> = 3px,
-                <code>--radius-md</code> = 4px,
-                <code>--radius-lg</code> = 6px,
-                <code>--radius-pill</code> = 999px
-            </div>
-            
-            <h4>Shadows</h4>
-            <div class="card">
-                <code>--shadow-faint</code> = 0 1px 2px rgba(0,0,0,0.06)<br>
-                <code>--shadow-soft</code> = 0 2px 4px rgba(0,0,0,0.08)<br>
-                <code>--shadow-medium</code> = 0 4px 8px rgba(0,0,0,0.10)
-            </div>
-            
-            <h4>Focus Ring</h4>
-            <div class="card">
-                <code>--ring-width</code> = 2px<br>
-                <code>--ring-color</code> = color-mix(in srgb, currentColor 40%, transparent)
-            </div>
+            <p>Radius: <code>--radius-sm/md/lg/pill</code>. Shadows: <code>--shadow-faint/soft/medium</code>. Focus ring: 2px with 40% opacity.</p>
             
             <blockquote>
                 <p>"Every value is intentional. No hard-coded pixels. Tokens are truth."</p>
@@ -543,120 +283,16 @@ gap: var(--space-3);</code></pre>
         </section>
 
         <section id="base">
-            <h2>Base Styles</h2>
+            <h2>Base Styles <span class="badge aether-sky">Semantic HTML</span></h2>
             <p class="lead">Foundation layer that resets browser inconsistencies and establishes semantic HTML typography. No classes required — just write HTML.</p>
             
             <h3>Philosophy</h3>
             <p>Base styles make HTML beautiful by default. Every semantic tag receives intentional styling. Headers, paragraphs, lists, code blocks — all work out of the box.</p>
             <p>This is where "semantic-first" becomes real. Write <code>&lt;h1&gt;</code>, not <code>&lt;div class="title"&gt;</code>. Write <code>&lt;blockquote&gt;</code>, not <code>&lt;div class="quote"&gt;</code>.</p>
             
-            <h3>Typography Hierarchy</h3>
-            <p>All headings use consistent spacing and weights for natural document flow.</p>
-            
-            <div class="card">
-                <h1 class="typography-example-heading">Heading 1 (3xlarge)</h1>
-                <code>font-size: 1.875rem (30px)</code>
-            </div>
-            
-            <div class="card">
-                <h2 class="typography-example-heading">Heading 2 (2xlarge)</h2>
-                <code>font-size: 1.5rem (24px)</code>
-            </div>
-            
-            <div class="card">
-                <h3 class="typography-example-heading">Heading 3 (xlarge)</h3>
-                <code>font-size: 1.25rem (20px)</code>
-            </div>
-            
-            <div class="card">
-                <h4 class="typography-example-heading">Heading 4 (large)</h4>
-                <code>font-size: 1.125rem (18px)</code>
-            </div>
-            
-            <div class="card">
-                <h5 class="typography-example-heading">Heading 5 (medium)</h5>
-                <code>font-size: 1rem (16px)</code>
-            </div>
-            
-            <div class="card">
-                <h6 class="typography-example-heading">Heading 6 (small)</h6>
-                <code>font-size: 0.875rem (14px)</code>
-            </div>
-            
-            <h3>Body Text</h3>
-            <div class="card">
-                <p>This is a paragraph. Default font size is <code>1rem (16px)</code> with <code>line-height: 1.5</code> for comfortable reading. Paragraphs have bottom margin of <code>var(--space-medium)</code> for natural spacing.</p>
-                <p>Multiple paragraphs flow naturally. No need for wrapper divs or utility classes. Just write semantic HTML.</p>
-            </div>
-            
-            <h3>Lists</h3>
-            <div class="card">
-                <h4>Unordered List</h4>
-                <ul>
-                    <li>First item with natural spacing</li>
-                    <li>Second item flows nicely</li>
-                    <li>Third item maintains rhythm
-                        <ul>
-                            <li>Nested lists work too</li>
-                            <li>With proper indentation</li>
-                        </ul>
-                    </li>
-                    <li>Last item completes the pattern</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h4>Ordered List</h4>
-                <ol>
-                    <li>First step is clear</li>
-                    <li>Second step follows</li>
-                    <li>Third step concludes</li>
-                </ol>
-            </div>
-            
-            <h3>Code & Preformatted Text</h3>
-            <p>Inline code uses <code>monospace font</code> with subtle background. Perfect for <code>variable names</code> and <code>function()</code> references.</p>
-            
-            <div class="card">
-                <h4>Code Block</h4>
-                <pre><code>// Multi-line code blocks
-function example() {
-  const value = "Dark background, light text";
-  return value;
-}</code></pre>
-            </div>
-            
-            <h3>Quotes</h3>
-            <div class="card">
-                <blockquote>
-                    <p>"This is a blockquote. Styled with left border and italic text. Perfect for highlighting important statements or citations."</p>
-                </blockquote>
-            </div>
-            
-            <h3>Links</h3>
-            <div class="card">
-                <p>Links use the <code>thought</code> color by default: <a href="#">This is a link</a>. Hover requires the <code>.hoverable</code> class: <a href="#" class="hoverable">This is a hoverable link</a>.</p>
-            </div>
-            
-            <h3>Horizontal Rule</h3>
-            <div class="card">
-                <p>Content above the divider.</p>
-                <hr>
-                <p>Content below the divider. Subtle, minimal, purposeful.</p>
-            </div>
-            
-            <h3>Text Formatting</h3>
-            <div class="card">
-                <p><strong>Strong text</strong> uses semi-bold weight.</p>
-                <p><em>Emphasized text</em> uses italic style.</p>
-                <p><small>Small text</small> is 70% opacity at reduced size.</p>
-                <p><mark>Highlighted text</mark> uses ember-glow background.</p>
-                <p><kbd>Ctrl</kbd> + <kbd>C</kbd> for keyboard shortcuts.</p>
-                <p><code>Inline code</code> for technical references.</p>
-            </div>
-            
-            <h3>Implementation</h3>
-            <p>All base styles are in <code>package/styles/base/_base.scss</code>. They apply automatically to semantic HTML — no classes required.</p>
+            <h3>Typography</h3>
+            <p>Six heading levels (<code>h1-h6</code>), semantic paragraph spacing, styled lists, inline <code>code</code> elements, and <code>&lt;blockquote&gt;</code> — all styled by default.</p>
+
             
             <div class="card">
                 <h4>Example Usage</h4>
@@ -693,44 +329,18 @@ function example() {
         </section>
 
         <section id="atoms">
-            <h2>Atoms</h2>
+            <h2>Atoms <span class="badge sage-calm">HTML Elements</span></h2>
             <p class="lead">HTML tags styled directly. No wrapper divs, no utility classes — just semantic elements that work beautifully out of the box.</p>
             
             <h3>Button</h3>
-            <p>The <code>&lt;button&gt;</code> element receives intelligent styling with automatic color contrast. Hover effects require <code>.hoverable</code> opt-in.</p>
-            
             <div class="card">
-                <h4>Default & Color Variants</h4>
                 <div class="button-group">
-                    <button class="graphite-core hoverable">Graphite</button>
-                    <button class="thought hoverable">Thought</button>
-                    <button class="ember-energy hoverable">Ember</button>
-                    <button class="sage-calm hoverable">Sage</button>
+                    <button class="graphite-core hoverable">Default</button>
+                    <button class="thought outline hoverable">Outline</button>
+                    <button class="ember-energy ghost hoverable">Ghost</button>
                     <button class="state-flow hoverable">Success</button>
-                    <button class="state-pulse hoverable">Warning</button>
-                    <button class="state-break hoverable">Error</button>
                 </div>
                 <pre><code>&lt;button class="graphite-core hoverable"&gt;Button&lt;/button&gt;</code></pre>
-            </div>
-            
-            <div class="card">
-                <h4>Outline Variant</h4>
-                <div class="flex-group">
-                    <button class="graphite-core outline hoverable">Graphite</button>
-                    <button class="thought outline hoverable">Thought</button>
-                    <button class="ember-energy outline hoverable">Ember</button>
-                </div>
-                <pre><code>&lt;button class="thought outline hoverable"&gt;Outline&lt;/button&gt;</code></pre>
-            </div>
-            
-            <div class="card">
-                <h4>Ghost Variant</h4>
-                <div class="flex-group">
-                    <button class="graphite-core ghost hoverable">Graphite</button>
-                    <button class="thought ghost hoverable">Thought</button>
-                    <button class="ember-energy ghost hoverable">Ember</button>
-                </div>
-                <pre><code>&lt;button class="ember-energy ghost hoverable"&gt;Ghost&lt;/button&gt;</code></pre>
             </div>
             
             <h3>Input</h3>
@@ -981,7 +591,7 @@ function example() {
         </section>
 
         <section id="molecules">
-            <h2>Molecules</h2>
+            <h2>Molecules <span class="badge sand-warm">CSS Components</span></h2>
             <p class="lead">Simple components with single responsibility. CSS classes for composite elements that combine atoms into functional units.</p>
             
             <h3>Card</h3>
@@ -1355,7 +965,7 @@ function example() {
         </section>
 
         <section id="organisms">
-            <h2>Organisms</h2>
+            <h2>Organisms <span class="badge rose-soft">Complex Patterns</span></h2>
             <p class="lead">Complex components composed of molecules and atoms using semantic HTML. Organisms define complete interface patterns like sidebars, navigation systems, and empty states.</p>
             
             <h3>Philosophy</h3>
@@ -1583,7 +1193,7 @@ function example() {
         </section>
 
         <section id="templates">
-            <h2>Templates</h2>
+            <h2>Templates <span class="badge ember-glow">Page Layouts</span></h2>
             <p class="lead">Full-page layouts applied as body classes. Each template embodies a specific mindset — workspace, observation, documentation, gateway, vast expanse, or duality.</p>
 
             <h3>Philosophy</h3>
@@ -1903,7 +1513,7 @@ function example() {
         </section>
 
         <section id="themes">
-            <h2>Themes</h2>
+            <h2>Themes <span class="badge iris-petal">Color Schemes</span></h2>
             <p class="lead">Color schemes that adapt the entire design system. Switch between Moonlight (calm light) and Midnight (deep dark) with a single attribute.</p>
 
             <h3>Philosophy</h3>
@@ -2248,7 +1858,7 @@ button {
         </section>
 
         <section id="utilities">
-            <h2>Utilities</h2>
+            <h2>Utilities <span class="badge aether-sky">Helper Classes</span></h2>
             <p class="lead">Atomic helper classes for rapid prototyping and common patterns. Utilities follow a clear naming convention with both shorthand and descriptive variants.</p>
 
             <h3>Philosophy</h3>
@@ -2661,23 +2271,27 @@ function example() {
             <article>
                 <h3>Best Practices</h3>
 
-                <h4>✅ DO</h4>
-                <ul>
-                    <li>Use utilities for quick prototyping</li>
-                    <li>Combine 2-3 utilities for one-off layouts</li>
-                    <li>Use descriptive names (margin-large) over shorthand (m-4)</li>
-                    <li>Prefer semantic components over utility soup</li>
-                    <li>Use stack/cluster for consistent spacing</li>
-                </ul>
+                <div class="card sage-calm">
+                    <h4>✅ DO</h4>
+                    <ul>
+                        <li>Use utilities for quick prototyping</li>
+                        <li>Combine 2-3 utilities for one-off layouts</li>
+                        <li>Use descriptive names (margin-large) over shorthand (m-4)</li>
+                        <li>Prefer semantic components over utility soup</li>
+                        <li>Use stack/cluster for consistent spacing</li>
+                    </ul>
+                </div>
 
-                <h4>❌ DON'T</h4>
-                <ul>
-                    <li>Stack 10+ utilities on a single element</li>
-                    <li>Use utilities as primary styling method</li>
-                    <li>Duplicate utility patterns — create a component</li>
-                    <li>Override utilities with !important</li>
-                    <li>Mix margin utilities with component spacing</li>
-                </ul>
+                <div class="card rose-soft margin-top-3">
+                    <h4>❌ DON'T</h4>
+                    <ul>
+                        <li>Stack 10+ utilities on a single element</li>
+                        <li>Use utilities as primary styling method</li>
+                        <li>Duplicate utility patterns — create a component</li>
+                        <li>Override utilities with !important</li>
+                        <li>Mix margin utilities with component spacing</li>
+                    </ul>
+                </div>
 
                 <h4>When to Use Utilities vs Components</h4>
                 <table>
@@ -2723,7 +2337,7 @@ function example() {
         </section>
 
         <section id="web-components">
-            <h2>Web Components</h2>
+            <h2>Web Components <span class="badge thought-default">JavaScript</span></h2>
             <p>Interactive JavaScript-powered components for behaviors that pure CSS cannot achieve. Framework-agnostic, encapsulated, semantic.</p>
 
             <div class="card margin-top-6">
@@ -2743,7 +2357,7 @@ function example() {
             <p>7 Web Components available, each solving a specific interaction pattern:</p>
 
             <!-- MonadModal -->
-            <div class="card margin-top-5">
+            <div class="card iris-petal margin-top-5">
                 <h4><code>&lt;monad-modal&gt;</code> — Overlay Dialogs</h4>
                 <p>Modal dialogs with backdrop, ESC key handling, focus trapping, and body scroll lock.</p>
 
@@ -2818,7 +2432,7 @@ modal.addEventListener('close', () =&gt; console.log('Modal closed'));</code></p
             </div>
 
             <!-- MonadDropdown -->
-            <div class="card margin-top-5">
+            <div class="card aether-sky margin-top-5">
                 <h4><code>&lt;monad-dropdown&gt;</code> — Dropdown Menus</h4>
                 <p>Context menus with click-outside detection, keyboard navigation, and automatic positioning.</p>
 
@@ -2884,7 +2498,7 @@ dropdown.addEventListener('dropdown-close', () =&gt; console.log('Closed'));</co
             </div>
 
             <!-- MonadTabs -->
-            <div class="card margin-top-5">
+            <div class="card sage-calm margin-top-5">
                 <h4><code>&lt;monad-tabs&gt;</code> — Tabbed Navigation</h4>
                 <p>Tab panels with keyboard navigation, ARIA support, and smooth content switching.</p>
 
@@ -2942,7 +2556,7 @@ tabs.addEventListener('tab-change', (e) =&gt; {
             </div>
 
             <!-- MonadToast -->
-            <div class="card margin-top-5">
+            <div class="card sand-light margin-top-5">
                 <h4><code>&lt;monad-toast&gt;</code> — Notifications</h4>
                 <p>Non-intrusive toast notifications with auto-dismiss, queue management, and positioning.</p>
 
@@ -3030,7 +2644,7 @@ toast.addEventListener('toast-hide', (e) =&gt; console.log('Hidden:', e.detail))
             </div>
 
             <!-- MonadTooltip -->
-            <div class="card margin-top-5">
+            <div class="card rose-soft margin-top-5">
                 <h4><code>&lt;monad-tooltip&gt;</code> — Contextual Hints</h4>
                 <p>Hover/focus tooltips with smart positioning, delay control, and viewport awareness.</p>
 
@@ -3108,7 +2722,7 @@ tooltip.delay = 500;</code></pre>
             </div>
 
             <!-- MonadSidebar -->
-            <div class="card margin-top-5">
+            <div class="card ember-glow margin-top-5">
                 <h4><code>&lt;monad-sidebar&gt;</code> — Collapsible Navigation</h4>
                 <p>Responsive sidebar with collapse state, localStorage persistence, and mobile overlay.</p>
 
@@ -3169,7 +2783,7 @@ sidebar.addEventListener('sidebar-close', () =&gt; console.log('Mobile closed'))
             </div>
 
             <!-- MonadActiveNav -->
-            <div class="card margin-top-5">
+            <div class="card thought-default margin-top-5">
                 <h4><code>&lt;monad-active-nav&gt;</code> — Scroll-Based Highlighting</h4>
                 <p>Automatically highlights navigation links based on scroll position. Uses Intersection Observer for performance.</p>
 
@@ -3334,29 +2948,49 @@ threshold: 0                    // Trigger at any visibility</code></pre>
 
     <script src="../dist/scripts/monad.min.js"></script>
     <script type="module">
-        // Import Lucide icons
-        import { createIcons, CircleDot, ChevronLeft, FileText, Lightbulb, Palette, Square, Circle, Hexagon, Grid2X2, Layout, Sun, Wrench, Code2, Menu, Github } from 'https://cdn.jsdelivr.net/npm/lucide@latest/dist/esm/lucide.js';
-        
-        // Initialize Lucide icons
-        createIcons({
-            icons: {
-                CircleDot,
-                ChevronLeft,
-                FileText,
-                Lightbulb,
-                Palette,
-                Square,
-                Circle,
-                Hexagon,
-                Grid2X2,
-                Layout,
-                Sun,
-                Wrench,
-                Code2,
-                Menu,
-                Github
-            }
-        });
+       import {
+    createIcons,
+    CircleDot,
+    ChevronLeft,
+    FileText,
+    Lightbulb,
+    Palette,
+    Square,
+    Circle,
+    Hexagon,
+    Grid2X2,
+    Layout,
+    Sun,
+    Wrench,
+    Code2,
+    Code,
+    Menu,
+    Github,
+    Layers
+} from 'https://cdn.jsdelivr.net/npm/lucide@latest/dist/esm/lucide.js';
+
+createIcons({
+    icons: {
+        CircleDot,
+        ChevronLeft,
+        FileText,
+        Lightbulb,
+        Palette,
+        Square,
+        Circle,
+        Hexagon,
+        Grid2X2,
+        Layout,
+        Sun,
+        Wrench,
+        Code2,
+        Code,
+        Menu,
+        Github,
+        Layers
+    }
+});
+
     </script>
 </body>
 </html>
