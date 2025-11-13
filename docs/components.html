@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Components — Monad Design System</title>
+  <link rel="stylesheet" href="../dist/styles/monad.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: var(--color-surface);
+      color: var(--color-on-surface);
+      font-family: var(--font-family-sans);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 16rem;
+      background: var(--cloud-pure);
+      border-right: 1px solid var(--color-border);
+      padding: var(--space-6);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar h1 {
+      font-size: var(--font-size-large);
+      margin-bottom: var(--space-2);
+      color: var(--graphite-mind);
+    }
+
+    .sidebar p {
+      font-size: var(--font-size-small);
+      color: var(--silver-depth);
+      margin-bottom: var(--space-6);
+    }
+
+    /* Active Nav Links */
+    monad-active-nav {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    monad-active-nav strong {
+      font-size: var(--font-size-small);
+      font-weight: var(--font-weight-semibold);
+      color: var(--silver-depth);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: var(--space-2);
+      display: block;
+    }
+
+    monad-active-nav a {
+      display: block;
+      padding: var(--space-2) var(--space-3);
+      color: var(--graphite-mind);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: all var(--motion-duration-fast);
+      font-size: var(--font-size-medium);
+    }
+
+    monad-active-nav a:hover {
+      background: var(--cloud-silent);
+    }
+
+    monad-active-nav a.active {
+      color: var(--thought);
+      background: color-mix(in srgb, var(--thought) 10%, transparent);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      padding: var(--space-8);
+      max-width: 60rem;
+    }
+
+    main > header {
+      margin-bottom: var(--space-8);
+    }
+
+    main > header h1 {
+      font-size: var(--font-size-xlarge);
+      margin-bottom: var(--space-3);
+    }
+
+    main > header p {
+      font-size: var(--font-size-large);
+      color: var(--silver-depth);
+    }
+
+    /* Theme Switcher */
+    .theme-switcher {
+      display: flex;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+      padding: var(--space-4);
+      background: var(--cloud-silent);
+      border-radius: var(--radius-md);
+    }
+
+    .theme-switcher button {
+      font-size: var(--font-size-small);
+    }
+
+    /* Section */
+    section {
+      margin-bottom: var(--space-8);
+      scroll-margin-top: var(--space-8);
+    }
+
+    section h2 {
+      font-size: var(--font-size-xlarge);
+      margin-bottom: var(--space-4);
+      color: var(--graphite-mind);
+      border-bottom: 2px solid var(--color-border);
+      padding-bottom: var(--space-3);
+    }
+
+    section h3 {
+      font-size: var(--font-size-large);
+      margin: var(--space-6) 0 var(--space-3);
+      color: var(--thought);
+    }
+
+    section p {
+      line-height: 1.6;
+      margin-bottom: var(--space-4);
+    }
+
+    /* Demo Box */
+    .demo-box {
+      padding: var(--space-6);
+      background: var(--cloud-silent);
+      border-radius: var(--radius-lg);
+      margin: var(--space-4) 0;
+    }
+
+    .demo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+
+    /* Code Block */
+    pre {
+      background: var(--graphite-mind);
+      color: var(--cloud-pure);
+      padding: var(--space-5);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      margin: var(--space-4) 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    code {
+      background: var(--cloud-mist);
+      padding: 0.125rem 0.375rem;
+      border-radius: var(--radius-sm);
+      font-family: 'Courier New', monospace;
+      font-size: 0.875em;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+    }
+
+    /* Feature List */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-3);
+      margin: var(--space-4) 0;
+    }
+
+    .feature {
+      padding: var(--space-4);
+      background: var(--cloud-pure);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: var(--space-2);
+      color: var(--thought);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      monad-active-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body theme="moonlight">
+  
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <h1>🎭 Web Components</h1>
+    <p>Componentes 100% autônomos</p>
+
+    <monad-active-nav>
+      <strong>Componentes</strong>
+      <a href="#modal">Modal</a>
+      <a href="#toast">Toast</a>
+      <a href="#dropdown">Dropdown</a>
+      <a href="#tabs">Tabs</a>
+      <a href="#sidebar">Sidebar</a>
+      <a href="#tooltip">Tooltip</a>
+      <a href="#active-nav">Active Nav</a>
+    </monad-active-nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <header>
+      <h1>Web Components Autônomos</h1>
+      <p>Componentes que funcionam apenas com HTML — JavaScript opcional.</p>
+
+      <div class="theme-switcher">
+        <button onclick="document.body.setAttribute('theme', 'moonlight')" class="graphite-core hoverable">
+          ☀️ Moonlight
+        </button>
+        <button onclick="document.body.setAttribute('theme', 'midnight')" class="graphite-deep hoverable">
+          🌙 Midnight
+        </button>
+        <button onclick="document.body.setAttribute('theme', 'ocean')" class="aether-sky hoverable">
+          🌊 Ocean
+        </button>
+        <button onclick="document.body.setAttribute('theme', 'purple')" class="iris-void hoverable">
+          ✨ Purple
+        </button>
+      </div>
+    </header>
+
+    <!-- MODAL -->
+    <section id="modal">
+      <h2>🎭 Modal</h2>
+      <p>Modal 100% autônomo — cria overlay, botão fechar, estrutura completa automaticamente.</p>
+
+      <div class="features">
+        <div class="feature">
+          <strong>Shadow DOM</strong>
+          Estilos isolados e personalizáveis
+        </div>
+        <div class="feature">
+          <strong>Triggers HTML</strong>
+          data-modal-target="id"
+        </div>
+        <div class="feature">
+          <strong>Slots</strong>
+          header, body, footer
+        </div>
+        <div class="feature">
+          <strong>Auto-open</strong>
+          Atributo open para carregar aberto
+        </div>
+      </div>
+
+      <h3>Exemplo Básico</h3>
+      <div class="demo-box">
+        <div class="demo-actions">
+          <button data-modal-target="modal-basic" class="thought hoverable">
+            Abrir Modal Básico
+          </button>
+          <button data-modal-target="modal-confirm" class="state-pulse hoverable">
+            Modal com Footer
+          </button>
+          <button data-modal-target="modal-large" class="iris-void hoverable">
+            Modal Grande
+          </button>
+        </div>
+      </div>
+
+      <pre><code>&lt;!-- Modal --&gt;
+&lt;monad-modal id="modal-basic" title="Meu Modal"&gt;
+  &lt;p&gt;Conteúdo do modal aqui...&lt;/p&gt;
+&lt;/monad-modal&gt;
+
+&lt;!-- Trigger --&gt;
+&lt;button data-modal-target="modal-basic"&gt;Abrir Modal&lt;/button&gt;</code></pre>
+
+      <h3>Com Footer Customizado</h3>
+      <pre><code>&lt;monad-modal id="confirm" title="Confirmação"&gt;
+  &lt;p&gt;Tem certeza que deseja continuar?&lt;/p&gt;
+  &lt;div slot="footer"&gt;
+    &lt;button data-modal-close&gt;Cancelar&lt;/button&gt;
+    &lt;button data-modal-close class="state-break"&gt;Confirmar&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/monad-modal&gt;</code></pre>
+
+      <h3>Tamanhos</h3>
+      <pre><code>&lt;monad-modal size="small"&gt;...&lt;/monad-modal&gt;
+&lt;monad-modal size="large"&gt;...&lt;/monad-modal&gt;</code></pre>
+    </section>
+
+    <!-- TOAST -->
+    <section id="toast">
+      <h2>🍞 Toast</h2>
+      <p>Notificações não-intrusivas com helper global e triggers HTML.</p>
+
+      <div class="features">
+        <div class="feature">
+          <strong>Helper Global</strong>
+          window.monad.toast()
+        </div>
+        <div class="feature">
+          <strong>Triggers HTML</strong>
+          data-toast em botões
+        </div>
+        <div class="feature">
+          <strong>Tipos</strong>
+          success, error, warning, info
+        </div>
+        <div class="feature">
+          <strong>Auto-dismiss</strong>
+          Duração configurável
+        </div>
+      </div>
+
+      <h3>Exemplo com Botões</h3>
+      <div class="demo-box">
+        <div class="demo-actions">
+          <button 
+            data-toast="Operação concluída!" 
+            data-toast-type="success"
+            class="state-flow hoverable">
+            ✓ Success
+          </button>
+          <button 
+            data-toast="Erro ao processar!" 
+            data-toast-type="error"
+            class="state-break hoverable">
+            ✕ Error
+          </button>
+          <button 
+            data-toast="Atenção necessária" 
+            data-toast-type="warning"
+            class="state-pulse hoverable">
+            ⚠ Warning
+          </button>
+          <button 
+            onclick="window.monad.toast('Informação útil', 'info')"
+            class="thought hoverable">
+            ℹ Info (JS)
+          </button>
+        </div>
+      </div>
+
+      <pre><code>&lt;!-- Via HTML --&gt;
+&lt;button 
+  data-toast="Salvo com sucesso!" 
+  data-toast-type="success"&gt;
+  Salvar
+&lt;/button&gt;
+
+&lt;!-- Via JavaScript --&gt;
+&lt;script&gt;
+  window.monad.toast('Mensagem', 'success', 3000);
+&lt;/script&gt;</code></pre>
+    </section>
+
+    <!-- DROPDOWN -->
+    <section id="dropdown">
+      <h2>📋 Dropdown</h2>
+      <p>Menu suspenso que detecta estrutura automaticamente.</p>
+
+      <div class="features">
+        <div class="feature">
+          <strong>Auto-detecta</strong>
+          Trigger e menu automaticamente
+        </div>
+        <div class="feature">
+          <strong>Posicionamento</strong>
+          bottom, top, left, right
+        </div>
+        <div class="feature">
+          <strong>Estrutura flexível</strong>
+          ul, menu, div
+        </div>
+        <div class="feature">
+          <strong>Fecha automático</strong>
+          Clique fora, ESC, ou item
+        </div>
+      </div>
+
+      <h3>Exemplo</h3>
+      <div class="demo-box">
+        <div class="demo-actions">
+          <monad-dropdown>
+            <button class="graphite-core hoverable">Opções ▾</button>
+            <ul>
+              <li><a href="#edit">✏️ Editar</a></li>
+              <li><a href="#copy">📋 Copiar</a></li>
+              <li><a href="#delete">🗑️ Excluir</a></li>
+            </ul>
+          </monad-dropdown>
+
+          <monad-dropdown position="left">
+            <button class="thought hoverable">Menu ▾</button>
+            <menu>
+              <li><button>Novo arquivo</button></li>
+              <li><button>Abrir...</button></li>
+              <li><button>Salvar</button></li>
+            </menu>
+          </monad-dropdown>
+        </div>
+      </div>
+
+      <pre><code>&lt;monad-dropdown&gt;
+  &lt;button&gt;Opções&lt;/button&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#edit"&gt;Editar&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#delete"&gt;Excluir&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/monad-dropdown&gt;</code></pre>
+    </section>
+
+    <!-- TABS -->
+    <section id="tabs">
+      <h2>📑 Tabs</h2>
+      <p>Navegação por abas com estrutura HTML flexível.</p>
+
+      <div class="features">
+        <div class="feature">
+          <strong>Auto-detecta</strong>
+          Tabs e panels automaticamente
+        </div>
+        <div class="feature">
+          <strong>Estrutura flexível</strong>
+          div, ul, ol
+        </div>
+        <div class="feature">
+          <strong>Teclado</strong>
+          Arrow, Home, End
+        </div>
+        <div class="feature">
+          <strong>Animações</strong>
+          Fade-in suave
+        </div>
+      </div>
+
+      <h3>Exemplo</h3>
+      <div class="demo-box">
+        <monad-tabs>
+          <div>
+            <button active>📊 Dashboard</button>
+            <button>⚙️ Configurações</button>
+            <button>📜 Histórico</button>
+          </div>
+          
+          <div>
+            <h4>Dashboard</h4>
+            <p>Métricas e estatísticas do sistema.</p>
+          </div>
+          
+          <div>
+            <h4>Configurações</h4>
+            <p>Opções de personalização.</p>
+          </div>
+          
+          <div>
+            <h4>Histórico</h4>
+            <p>Atividades recentes.</p>
+          </div>
+        </monad-tabs>
+      </div>
+
+      <pre><code>&lt;monad-tabs&gt;
+  &lt;div&gt;
+    &lt;button active&gt;Tab 1&lt;/button&gt;
+    &lt;button&gt;Tab 2&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div&gt;Conteúdo 1&lt;/div&gt;
+  &lt;div&gt;Conteúdo 2&lt;/div&gt;
+&lt;/monad-tabs&gt;</code></pre>
+    </section>
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+      <h2>📱 Sidebar</h2>
+      <p>Barra lateral responsiva com toggle automático.</p>
+
+      <div class="features">
+        <div class="feature">
+          <strong>Toggle automático</strong>
+          Cria botão no header
+        </div>
+        <div class="feature">
+          <strong>Triggers externos</strong>
+          data-sidebar-toggle
+        </div>
+        <div class="feature">
+          <strong>Responsive</strong>
+          Collapse/Overlay
+        </div>
+        <div class="feature">
+          <strong>localStorage</strong>
+          Persiste estado
+        </div>
+      </div>
+
+      <h3>Exemplo</h3>
+      <pre><code>&lt;monad-sidebar&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Logo&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;nav&gt;
+    &lt;a href="/"&gt;Home&lt;/a&gt;
+    &lt;a href="/about"&gt;Sobre&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/monad-sidebar&gt;
+
+&lt;!-- Trigger externo --&gt;
+&lt;button data-sidebar-toggle&gt;☰ Menu&lt;/button&gt;</code></pre>
+
+      <p><strong>Atalho:</strong> Ctrl/Cmd+B para toggle</p>
+    </section>
+
+    <!-- TOOLTIP -->
+    <section id="tooltip">
+      <h2>💬 Tooltip</h2>
+      <p>Dica contextual ao passar o mouse.</p>
+
+      <div class="features">
+        <div class="feature">
+          <strong>Posicionamento</strong>
+          top, bottom, left, right
+        </div>
+        <div class="feature">
+          <strong>Delay</strong>
+          Configurável
+        </div>
+        <div class="feature">
+          <strong>Acessível</strong>
+          Também em focus
+        </div>
+        <div class="feature">
+          <strong>Variants</strong>
+          Cores customizáveis
+        </div>
+      </div>
+
+      <h3>Exemplo</h3>
+      <div class="demo-box">
+        <div class="demo-actions" style="gap: var(--space-6);">
+          <monad-tooltip content="Informação útil" position="top">
+            <button class="thought hoverable">Hover (Top)</button>
+          </monad-tooltip>
+
+          <monad-tooltip content="Deletar item" position="bottom">
+            <button class="state-break hoverable">Hover (Bottom)</button>
+          </monad-tooltip>
+
+          <monad-tooltip content="Copiar para área de transferência" position="right">
+            <button class="graphite-core hoverable">Hover (Right)</button>
+          </monad-tooltip>
+        </div>
+      </div>
+
+      <pre><code>&lt;monad-tooltip content="Informação útil" position="top"&gt;
+  &lt;button&gt;Hover me&lt;/button&gt;
+&lt;/monad-tooltip&gt;</code></pre>
+    </section>
+
+    <!-- ACTIVE NAV -->
+    <section id="active-nav">
+      <h2>🧭 Active Nav</h2>
+      <p>Navegação que marca automaticamente o link ativo ao scrollar.</p>
+
+      <div class="features">
+        <div class="feature">
+          <strong>Auto-detecta</strong>
+          Seções pelo href (#id)
+        </div>
+        <div class="feature">
+          <strong>Intersection Observer</strong>
+          Performance otimizada
+        </div>
+        <div class="feature">
+          <strong>HTML simples</strong>
+          Apenas links
+        </div>
+        <div class="feature">
+          <strong>Grupos</strong>
+          Use strong para labels
+        </div>
+      </div>
+
+      <h3>Exemplo Simples</h3>
+      <pre><code>&lt;monad-active-nav&gt;
+  &lt;a href="#section1"&gt;Seção 1&lt;/a&gt;
+  &lt;a href="#section2"&gt;Seção 2&lt;/a&gt;
+  &lt;a href="#section3"&gt;Seção 3&lt;/a&gt;
+&lt;/monad-active-nav&gt;</code></pre>
+
+      <h3>Com Grupos</h3>
+      <pre><code>&lt;monad-active-nav&gt;
+  &lt;strong&gt;Getting Started&lt;/strong&gt;
+  &lt;a href="#intro"&gt;Introdução&lt;/a&gt;
+  &lt;a href="#install"&gt;Instalação&lt;/a&gt;
+  
+  &lt;strong&gt;Componentes&lt;/strong&gt;
+  &lt;a href="#atoms"&gt;Atoms&lt;/a&gt;
+  &lt;a href="#molecules"&gt;Molecules&lt;/a&gt;
+&lt;/monad-active-nav&gt;</code></pre>
+
+      <p><strong>Nota:</strong> O componente desta página usa exatamente este padrão!</p>
+    </section>
+
+  </main>
+
+  <!-- Modais (ocultos, abertos via triggers) -->
+  <monad-modal id="modal-basic" title="Modal Básico">
+    <p>Este é um modal básico com título e conteúdo simples.</p>
+    <p>Clique no overlay ou pressione ESC para fechar.</p>
+  </monad-modal>
+
+  <monad-modal id="modal-confirm" title="Confirmação Necessária">
+    <p>Tem certeza que deseja continuar com esta ação?</p>
+    <div slot="footer">
+      <button data-modal-close class="hoverable">Cancelar</button>
+      <button data-modal-close class="state-break hoverable">Confirmar</button>
+    </div>
+  </monad-modal>
+
+  <monad-modal id="modal-large" title="Formulário Completo" size="large">
+    <h3>Dados do Usuário</h3>
+    <form>
+      <label>
+        Nome:
+        <input type="text" placeholder="Digite seu nome">
+      </label>
+      <label>
+        Email:
+        <input type="email" placeholder="seu@email.com">
+      </label>
+      <label>
+        Mensagem:
+        <textarea rows="4" placeholder="Sua mensagem..."></textarea>
+      </label>
+    </form>
+    <div slot="footer">
+      <button data-modal-close class="hoverable">Cancelar</button>
+      <button data-modal-close class="thought hoverable">Enviar</button>
+    </div>
+  </monad-modal>
+
+  <!-- Scripts -->
+  <script src="../dist/scripts/monad.min.js"></script>
+  <script>
+    // Eventos dos componentes (opcional)
+    document.addEventListener('modal-open', () => console.log('Modal aberto'));
+    document.addEventListener('tab-change', (e) => console.log('Tab:', e.detail.index));
+  </script>
+</body>
+</html>

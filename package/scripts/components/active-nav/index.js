@@ -1,7 +1,27 @@
 /**
- * Active Navigation Web Component
- * Automatically highlights navigation links based on scroll position
- * Pure CSS couldn't solve this elegantly, so we use a minimal Web Component
+ * MonadActiveNav - Navegação ativa automática
+ * 
+ * Uso simples:
+ * <monad-active-nav>
+ *   <a href="#section1">Seção 1</a>
+ *   <a href="#section2">Seção 2</a>
+ *   <a href="#section3">Seção 3</a>
+ * </monad-active-nav>
+ * 
+ * Ou com grupos:
+ * <monad-active-nav>
+ *   <strong>Grupo 1</strong>
+ *   <a href="#item1">Item 1</a>
+ *   <a href="#item2">Item 2</a>
+ *   <strong>Grupo 2</strong>
+ *   <a href="#item3">Item 3</a>
+ * </monad-active-nav>
+ * 
+ * Recursos:
+ * - Detecta seções automaticamente pelo href (#id)
+ * - Marca link ativo ao scrollar
+ * - Respeita cores do tema
+ * - HTML minimalista
  */
 
 class MonadActiveNav extends HTMLElement {
@@ -13,16 +33,38 @@ class MonadActiveNav extends HTMLElement {
   }
 
   connectedCallback() {
-    // Find all sections with IDs
-    this.sections = Array.from(document.querySelectorAll('main section[id]'));
+    // Encontrar todos os links
+    this.links = Array.from(this.querySelectorAll('a[href^="#"]'));
     
-    // Find all navigation links
-    this.links = Array.from(this.querySelectorAll('.sidebar-link'));
+    if (this.links.length === 0) {
+      console.warn('MonadActiveNav: Nenhum link com href="#..." encontrado');
+      return;
+    }
     
-    // Use Intersection Observer for performance
+    // Encontrar seções correspondentes
+    this.sections = this.links
+      .map(link => {
+        const id = link.getAttribute('href').substring(1);
+        return document.getElementById(id);
+      })
+      .filter(section => section !== null);
+    
+    if (this.sections.length === 0) {
+      console.warn('MonadActiveNav: Nenhuma seção com ID correspondente encontrada');
+      return;
+    }
+    
+    // Adicionar classes aos links
+    this.links.forEach(link => {
+      if (!link.classList.contains('nav-link')) {
+        link.classList.add('nav-link');
+      }
+    });
+    
+    // Setup Intersection Observer
     this.setupIntersectionObserver();
     
-    // Initial check
+    // Check inicial
     this.updateActiveLink();
   }
 
@@ -47,7 +89,7 @@ class MonadActiveNav extends HTMLElement {
 
   updateActiveLink(activeId) {
     if (!activeId) {
-      // Find current section based on scroll position
+      // Encontrar seção atual baseado na posição de scroll
       const scrollPosition = window.scrollY + 150;
       
       for (const section of this.sections) {
@@ -57,12 +99,12 @@ class MonadActiveNav extends HTMLElement {
       }
     }
 
-    // Remove active class from all links
+    // Remover active de todos os links
     this.links.forEach(link => link.classList.remove('active'));
 
-    // Add active class to matching link
+    // Adicionar active ao link correspondente
     if (activeId) {
-      const activeLink = this.querySelector(`.sidebar-link[href="#${activeId}"]`);
+      const activeLink = this.querySelector(`a[href="#${activeId}"]`);
       if (activeLink) {
         activeLink.classList.add('active');
       }
