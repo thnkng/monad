@@ -1583,187 +1583,172 @@
                     <i data-lucide="palette" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle; margin-right: 8px;"></i>
                     Explore All Themes
                 </h3>
-                <p>Visit the <a href="themes.html" class="hoverable"><strong>Themes Gallery</strong></a> to see all 4 themes with live examples:</p>
+                <p>Visit the <a href="themes.html" class="hoverable"><strong>Themes Gallery</strong></a> to see all 4 professional themes inspired by the best software:</p>
                 <div class="flex-group margin-top-4">
                     <a href="theme-moonlight.html" class="hoverable">
-                        <button class="graphite-core outline hoverable">
+                        <button class="thought outline hoverable">
                             <i data-lucide="sun"></i>
-                            Moonlight
+                            Moonlight (GitHub)
                         </button>
                     </a>
                     <a href="theme-midnight.html" class="hoverable">
-                        <button class="graphite-core outline hoverable">
+                        <button class="graphite-mind hoverable">
                             <i data-lucide="moon"></i>
-                            Midnight
+                            Midnight (GitHub Dark)
                         </button>
                     </a>
-                    <a href="theme-ember.html" class="hoverable">
-                        <button class="ember-energy hoverable">
-                            <i data-lucide="flame"></i>
-                            Ember
+                    <a href="theme-ocean.html" class="hoverable">
+                        <button class="thought hoverable">
+                            <i data-lucide="waves"></i>
+                            Ocean (Vercel)
                         </button>
                     </a>
-                    <a href="theme-forest.html" class="hoverable">
-                        <button class="sage-calm hoverable">
-                            <i data-lucide="tree-pine"></i>
-                            Forest
+                    <a href="theme-purple.html" class="hoverable">
+                        <button class="iris-void hoverable">
+                            <i data-lucide="sparkles"></i>
+                            Purple (Linear)
                         </button>
                     </a>
                 </div>
             </div>
 
             <h3>Philosophy</h3>
-            <p><strong>Themes are not decoration</strong> — they are emotional atmospheres. Each theme embodies a distinct mindset, designed for different contexts and moods. Moonlight invites clarity. Midnight offers deep focus. Ember ignites creativity. Forest grounds in natural calm.</p>
+            <p><strong>Themes are not decoration</strong> — they are emotional atmospheres inspired by the best software. Each theme embodies proven design systems: Moonlight and Midnight follow GitHub's exact palette, while Ocean brings Vercel/Tailwind aesthetics and Purple channels Linear/Stripe elegance.</p>
 
             <!-- Moonlight Theme -->
             <article>
-                <h3>Moonlight — Light Theme (Default)</h3>
-                <p><strong>Mindset:</strong> Calm, clear, focused. Soft blues and grays with high contrast for daytime work.</p>
-                <p><strong>Active by default</strong> — Moonlight is applied when no theme attribute is set.</p>
+                <h3>Moonlight — GitHub Light (Default)</h3>
+                <p><strong>Authentic GitHub.com light theme</strong> — the exact colors millions of developers trust daily.</p>
+                <p><strong>Active by default</strong> — no theme attribute needed.</p>
 
-                <h4>Color Philosophy</h4>
+                <h4>GitHub Color System</h4>
                 <ul>
-                    <li><strong>Surface:</strong> Cloud Pure (#F1F1F1) — soft, non-white background reduces eye strain</li>
-                    <li><strong>Text:</strong> Graphite Mind (#0D1117) — near-black with subtle blue undertone</li>
-                    <li><strong>Primary:</strong> Graphite Core (#2B3A4A) — metallic mid-tone for actions</li>
-                    <li><strong>Borders:</strong> Silver Line (#DADADA) — gentle separation without harshness</li>
+                    <li><strong>Surface:</strong> #FFFFFF (canvas.default) — pure white GitHub background</li>
+                    <li><strong>Text:</strong> #24292F (fg.default) — GitHub's main text color</li>
+                    <li><strong>Primary:</strong> #0969DA (accent.fg) — GitHub blue for links and actions</li>
+                    <li><strong>Borders:</strong> #D0D7DE (border.default) — GitHub's subtle borders</li>
                 </ul>
 
-                <h4>Palette Characteristics</h4>
+                <h4>Semantic Colors</h4>
                 <ul>
-                    <li><strong>Graphite:</strong> Cool structural grays (#0D1117 → #F4F7FA)</li>
-                    <li><strong>Cloud:</strong> Soft surfaces (#F1F1F1, #F4F4F4, #EAEAEA)</li>
-                    <li><strong>Thought:</strong> Deep blue primaries (#1e3a5f → #0d1f35)</li>
-                    <li><strong>Ember:</strong> Warm orange accents (#ff9533 → #e67a1a)</li>
-                    <li><strong>State:</strong> Semantic feedback (flow: #33d469, pulse: #ffc14d, break: #ff5c5c)</li>
+                    <li><strong>Success:</strong> #1A7F37 (success.fg) — GitHub green</li>
+                    <li><strong>Warning:</strong> #9A6700 (attention.fg) — GitHub amber</li>
+                    <li><strong>Danger:</strong> #CF222E (danger.fg) — GitHub red</li>
+                    <li><strong>Info:</strong> #0969DA (accent.fg) — GitHub blue</li>
                 </ul>
 
                 <h4>Usage</h4>
                 <pre><code>&lt;!-- Default (no attribute needed) --&gt;
 &lt;body&gt;
-  &lt;!-- Moonlight is active --&gt;
+  &lt;!-- Moonlight/GitHub Light is active --&gt;
 &lt;/body&gt;</code></pre>
 
                 <h4>Best For</h4>
-                <p>Daytime work, high-contrast reading, content creation, detailed interfaces, accessibility compliance.</p>
+                <p>Professional development, daytime coding, familiarity for GitHub users, maximum readability, WCAG AAA compliance.</p>
             </article>
 
             <!-- Midnight Theme -->
             <article>
-                <h3>Midnight — Dark Theme</h3>
-                <p><strong>Mindset:</strong> Deep, focused, restful. Inverted palette with adjusted contrast for night work.</p>
-                <p><strong>Purpose:</strong> Reduce eye strain in low-light environments while maintaining readability and emotional precision.</p>
+                <h3>Midnight — GitHub Dark</h3>
+                <p><strong>Authentic GitHub.com dark theme</strong> — trusted by millions for late-night coding sessions.</p>
+                <p><strong>Purpose:</strong> Reduce eye strain in low-light environments with GitHub's proven dark palette.</p>
 
-                <h4>Color Philosophy</h4>
+                <h4>GitHub Dark Color System</h4>
                 <ul>
-                    <li><strong>Surface:</strong> Graphite Mind (#0D1117) — deep background, not pure black</li>
-                    <li><strong>Text:</strong> Cloud Pure (#E8EAED) — light gray with warmth, not harsh white</li>
-                    <li><strong>Primary:</strong> Graphite Core (#A0A6B0) — muted metallic for reduced glare</li>
-                    <li><strong>Borders:</strong> Silver Line (#30363D) — subtle separation in darkness</li>
+                    <li><strong>Surface:</strong> #0D1117 (canvas.default) — GitHub dark main background</li>
+                    <li><strong>Deepest:</strong> #010409 (canvas.inset) — GitHub's deepest dark</li>
+                    <li><strong>Text:</strong> #E6EDF3 (fg.default) — GitHub's main light text</li>
+                    <li><strong>Primary:</strong> #58A6FF (accent.fg) — GitHub blue for dark mode</li>
+                    <li><strong>Borders:</strong> #21262D (border.default) — GitHub's subtle dark borders</li>
                 </ul>
 
-                <h4>Palette Characteristics</h4>
+                <h4>Semantic Colors (Dark Mode)</h4>
                 <ul>
-                    <li><strong>Graphite:</strong> Inverted to light grays (#E8EAED → #1A2430)</li>
-                    <li><strong>Cloud:</strong> Now dark surfaces (#0D1117, #161B22, #21262D)</li>
-                    <li><strong>Thought:</strong> Brighter blues (#5B8DC9 → #92B4DF)</li>
-                    <li><strong>Ember:</strong> Slightly muted oranges (#FF9F4D → #F28B36)</li>
-                    <li><strong>State:</strong> Adjusted brightness (flow: #4ADE80, pulse: #FFC857, break: #FF6B6B)</li>
+                    <li><strong>Success:</strong> #3FB950 (success.fg) — GitHub green for dark</li>
+                    <li><strong>Warning:</strong> #D29922 (attention.fg) — GitHub amber for dark</li>
+                    <li><strong>Danger:</strong> #F85149 (danger.fg) — GitHub red for dark</li>
+                    <li><strong>Info:</strong> #58A6FF (accent.fg) — GitHub blue for dark</li>
                 </ul>
 
-                <h4>Design Adjustments</h4>
+                <h4>Design Principles</h4>
                 <ul>
-                    <li><strong>Contrast:</strong> Reduced from 21:1 to ~12:1 to prevent harsh glare</li>
-                    <li><strong>Saturation:</strong> Slightly muted to reduce eye strain</li>
-                    <li><strong>Warmth:</strong> Subtle warm undertones prevent cold clinical feel</li>
-                    <li><strong>Borders:</strong> Lighter than Moonlight to maintain visibility</li>
+                    <li><strong>Never pure black:</strong> #0D1117 provides depth and reduces eye strain</li>
+                    <li><strong>Adjusted contrast:</strong> ~12:1 prevents harsh glare on dark backgrounds</li>
+                    <li><strong>Vibrant accents:</strong> Colors are brighter in dark mode for visibility</li>
+                    <li><strong>OLED friendly:</strong> Deep blacks save power on OLED displays</li>
                 </ul>
 
                 <h4>Usage</h4>
                 <pre><code>&lt;body theme="midnight"&gt;
-  &lt;!-- Midnight is active --&gt;
+  &lt;!-- Midnight/GitHub Dark is active --&gt;
 &lt;/body&gt;</code></pre>
 
                 <h4>Best For</h4>
-                <p>Night work, low-light environments, extended coding sessions, OLED displays, reducing blue light exposure.</p>
+                <p>Night coding, low-light environments, extended sessions, OLED displays, GitHub users, reducing blue light exposure.</p>
             </article>
 
-            <!-- Ember Theme -->
+            <!-- Ocean Theme -->
             <article>
-                <h3>Ember — Warm Theme</h3>
-                <p><strong>Mindset:</strong> Passionate, creative, energetic. Warm amber and orange tones with charcoal depth.</p>
-                <p><strong>Purpose:</strong> Ignite creativity and dynamic energy through warmth and fire-inspired colors.</p>
+                <h3>Ocean — Modern Tech Aesthetic</h3>
+                <p><strong>Inspired by Vercel, Tailwind CSS, and Stripe</strong> — the look of modern web applications.</p>
+                <p><strong>Purpose:</strong> Create innovation-focused interfaces with cool blues and teals.</p>
 
                 <h4>Color Philosophy</h4>
                 <ul>
-                    <li><strong>Surface:</strong> Warm Paper (#FFF5EB) — soft cream background like sunset light</li>
-                    <li><strong>Text:</strong> Charcoal (#1A1310) — deep brown-black with earthiness</li>
-                    <li><strong>Primary:</strong> Ember Energy (#FF6B35) — vibrant orange for actions</li>
-                    <li><strong>Borders:</strong> Desert Sand (#E6D5C3) — warm, subtle separation</li>
+                    <li><strong>Surface:</strong> #F0F9FF (Sky 50) — light sky-tinted background</li>
+                    <li><strong>Text:</strong> #0C4A6E (Sky 900) — deep ocean text</li>
+                    <li><strong>Primary:</strong> #06B6D4 (Cyan 500) — modern cyan for actions</li>
+                    <li><strong>Accent:</strong> #0EA5E9 (Sky 500) — vibrant sky blue</li>
+                    <li><strong>Borders:</strong> #CBD5E1 (Slate 300) — cool neutral borders</li>
                 </ul>
 
                 <h4>Palette Characteristics</h4>
                 <ul>
-                    <li><strong>Ember:</strong> Core theme colors (energy: #FF6B35, glow: #FFB366, burn: #E67A1A)</li>
-                    <li><strong>Surfaces:</strong> Warm neutrals (#FFF5EB, #FAF3E8, #F5E8D6)</li>
-                    <li><strong>Accents:</strong> Desert greens (#B7A77F), warm metallics (#D4A574)</li>
-                    <li><strong>State:</strong> Fire-inspired (flow: #FFB347, pulse: #FF8C42, break: #D84315)</li>
-                </ul>
-
-                <h4>Emotional Intent</h4>
-                <ul>
-                    <li><strong>Warmth:</strong> Like sitting by a fire — inviting and cozy</li>
-                    <li><strong>Energy:</strong> Dynamic and passionate without aggression</li>
-                    <li><strong>Creativity:</strong> Stimulating without overwhelming</li>
-                    <li><strong>Craft:</strong> Artisan quality, handmade feel</li>
+                    <li><strong>Ocean blues:</strong> Cyan and Sky from Tailwind palette</li>
+                    <li><strong>Success:</strong> #14B8A6 (Teal 500) — teal success state</li>
+                    <li><strong>Modern feel:</strong> Crisp, clean, tech-forward aesthetic</li>
+                    <li><strong>Versatile:</strong> Works for SaaS, dashboards, modern apps</li>
                 </ul>
 
                 <h4>Usage</h4>
-                <pre><code>&lt;body theme="ember"&gt;
-  &lt;!-- Ember is active --&gt;
+                <pre><code>&lt;body theme="ocean"&gt;
+  &lt;!-- Ocean is active --&gt;
 &lt;/body&gt;</code></pre>
 
                 <h4>Best For</h4>
-                <p>Creative work, brainstorming, warm environments, evening work, artistic projects, energizing interfaces.</p>
+                <p>Modern web apps, SaaS products, dashboards, tech startups, innovation-focused projects, Tailwind CSS users.</p>
             </article>
 
-            <!-- Forest Theme -->
+            <!-- Purple Theme -->
             <article>
-                <h3>Forest — Natural Theme</h3>
-                <p><strong>Mindset:</strong> Grounded, calm, stable. Rich greens and earth tones inspired by deep woods.</p>
-                <p><strong>Purpose:</strong> Create stability and natural rhythm through botanical and earth colors.</p>
+                <h3>Purple — Creative Elegance</h3>
+                <p><strong>Inspired by Linear, Stripe, and Notion</strong> — premium, sophisticated design for creative products.</p>
+                <p><strong>Purpose:</strong> Convey quality, creativity, and elegance through refined purples.</p>
 
                 <h4>Color Philosophy</h4>
                 <ul>
-                    <li><strong>Surface:</strong> Mist (#F7FAF8) — soft gray-green like morning fog</li>
-                    <li><strong>Text:</strong> Bark (#1F2923) — deep forest green-black</li>
-                    <li><strong>Primary:</strong> Sage Calm (#8FB88A) — muted green for actions</li>
-                    <li><strong>Borders:</strong> Stone (#D8E1DC) — natural gray-green separation</li>
+                    <li><strong>Surface:</strong> #FAFAF9 (Stone 50) — warm neutral background</li>
+                    <li><strong>Text:</strong> #1C1917 (Stone 900) — deep warm text</li>
+                    <li><strong>Primary:</strong> #8B5CF6 (Violet 500) — rich violet for actions</li>
+                    <li><strong>Secondary:</strong> #7C3AED (Violet 600) — deep purple</li>
+                    <li><strong>Borders:</strong> #D6D3D1 (Stone 300) — warm gray borders</li>
                 </ul>
 
                 <h4>Palette Characteristics</h4>
                 <ul>
-                    <li><strong>Sage:</strong> Core greens (calm: #8FB88A, leaf: #9FB49F, shadow: #7A9076)</li>
-                    <li><strong>Surfaces:</strong> Natural neutrals (#F7FAF8, #EFF3F0, #E5EBE7)</li>
-                    <li><strong>Accents:</strong> Earth tones (#A89F91), moss (#6B8A6A), dew (#C1D9D3)</li>
-                    <li><strong>State:</strong> Nature-inspired (flow: #7CB342, pulse: #FFB74D, break: #E57373)</li>
-                </ul>
-
-                <h4>Emotional Intent</h4>
-                <ul>
-                    <li><strong>Grounded:</strong> Connected to earth, stable and reliable</li>
-                    <li><strong>Growth:</strong> Organic progression, natural development</li>
-                    <li><strong>Calm:</strong> Like a quiet forest walk — peaceful focus</li>
-                    <li><strong>Renewal:</strong> Fresh and regenerative energy</li>
+                    <li><strong>Violet primary:</strong> Rich, sophisticated purple from Tailwind</li>
+                    <li><strong>Warm neutrals:</strong> Stone palette creates premium feel</li>
+                    <li><strong>Pink accents:</strong> #EC4899 for creative highlights</li>
+                    <li><strong>Premium feel:</strong> Linear/Stripe aesthetic for quality products</li>
                 </ul>
 
                 <h4>Usage</h4>
-                <pre><code>&lt;body theme="forest"&gt;
-  &lt;!-- Forest is active --&gt;
+                <pre><code>&lt;body theme="purple"&gt;
+  &lt;!-- Purple is active --&gt;
 &lt;/body&gt;</code></pre>
 
                 <h4>Best For</h4>
-                <p>Long-form work, natural lighting, wellness apps, sustainable projects, calming interfaces, focused reading.</p>
+                <p>Creative tools, premium products, design apps, Notion-like interfaces, elegant dashboards, sophisticated brands.</p>
             </article>
 
             <!-- Theme Switching -->
@@ -1782,14 +1767,14 @@
   &lt;!-- Dark theme active --&gt;
 &lt;/body&gt;
 
-&lt;!-- Ember (warm) --&gt;
-&lt;body theme="ember"&gt;
-  &lt;!-- Warm theme active --&gt;
+&lt;!-- Ocean (modern) --&gt;
+&lt;body theme="ocean"&gt;
+  &lt;!-- Modern theme active --&gt;
 &lt;/body&gt;
 
-&lt;!-- Forest (natural) --&gt;
-&lt;body theme="forest"&gt;
-  &lt;!-- Natural theme active --&gt;
+&lt;!-- Purple (elegant) --&gt;
+&lt;body theme="purple"&gt;
+  &lt;!-- Elegant theme active --&gt;
 &lt;/body&gt;</code></pre>
 
                 <h4>Server-Side Rendering</h4>
@@ -1807,9 +1792,10 @@
 &lt;style&gt;
 @media (prefers-color-scheme: dark) {
   body:not([theme]) {
-    /* Override Moonlight with Midnight variables */
-    --graphite-mind: #E8EAED;
+    /* Override Moonlight with Midnight (GitHub Dark) */
+    --graphite-mind: #E6EDF3;
     --cloud-pure: #0D1117;
+    --thought: #58A6FF;
     /* ... etc ... */
   }
 }
