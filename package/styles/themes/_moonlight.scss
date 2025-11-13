@@ -1,68 +1,68 @@
 // ============================================
 // Moonlight Theme
 // ============================================
-// Professional clarity — inspired by GitHub & Linear
-// Clean, minimal, perfect contrast for long work sessions
-// Emotional intent: focus, productivity, calm professionalism
+// GitHub Light — authentic GitHub.com light theme
+// Clean whites with perfect contrast, exactly as GitHub designed
+// Emotional intent: productivity, familiarity, professional coding
 // Applied by default (no attribute needed)
 
 :root,
 body:not([theme]) {
-  // Graphite palette — slate foundation (Tailwind-inspired)
-  --graphite-mind: #0F172A;      // Slate 900 - deep rich text
-  --graphite-deep: #1E293B;      // Slate 800 - secondary text
-  --graphite-core: #475569;      // Slate 600 - muted text
-  --graphite-light: #F8FAFC;     // Slate 50 - subtle bg
+  // Graphite palette — GitHub text hierarchy
+  --graphite-mind: #24292F;      // GitHub fg.default - main text
+  --graphite-deep: #57606A;      // GitHub fg.muted - secondary
+  --graphite-core: #656D76;      // GitHub fg.subtle - tertiary
+  --graphite-light: #F6F8FA;     // GitHub canvas.subtle
   
-  // Cloud palette — pure surfaces
-  --cloud-pure: #FFFFFF;         // Pure white
-  --cloud-silent: #F8FAFC;       // Slate 50 - off-white
-  --cloud-mist: #F1F5F9;         // Slate 100 - light gray
+  // Cloud palette — GitHub surfaces
+  --cloud-pure: #FFFFFF;         // GitHub canvas.default
+  --cloud-silent: #F6F8FA;       // GitHub canvas.subtle
+  --cloud-mist: #EAEEF2;         // GitHub neutral.muted
   
-  // Thought palette — professional blue (GitHub-inspired)
-  --thought: #2563EB;            // Blue 600 - primary action
-  --thought-focus: #1D4ED8;      // Blue 700 - hover state
-  --thought-depth: #1E40AF;      // Blue 800 - pressed state
+  // Thought palette — GitHub blue (actions/links)
+  --thought: #0969DA;            // GitHub accent.fg - primary
+  --thought-focus: #0550AE;      // GitHub accent.emphasis - hover
+  --thought-depth: #033D8B;      // GitHub done.fg - pressed
   
-  // Ember palette — warm orange (Tailwind-inspired)
-  --ember-energy: #F97316;       // Orange 500 - energy
-  --ember-glow: #FB923C;         // Orange 400 - light
-  --ember-burn: #EA580C;         // Orange 600 - deep
+  // Ember palette — GitHub orange
+  --ember-energy: #BC4C00;       // GitHub severe.fg
+  --ember-glow: #FB8500;         // Custom light orange
+  --ember-burn: #953800;         // GitHub severe.emphasis
   
-  // Silver palette — neutral boundaries
-  --silver-line: #E2E8F0;        // Slate 200 - borders
-  --silver-balance: #94A3B8;     // Slate 400 - icons
-  --silver-depth: #64748B;       // Slate 500 - subtle text
+  // Silver palette — GitHub borders
+  --silver-line: #D0D7DE;        // GitHub border.default
+  --silver-balance: #8C959F;     // GitHub fg.subtle
+  --silver-depth: #6E7781;       // GitHub fg.muted
   
-  // Sage palette — natural green (Emerald)
-  --sage-calm: #34D399;          // Emerald 400 - success light
-  --sage-leaf: #10B981;          // Emerald 500 - success
-  --sage-shadow: #059669;        // Emerald 600 - success dark
+  // Sage palette — GitHub green (success)
+  --sage-calm: #4AC26B;          // GitHub success.fg light
+  --sage-leaf: #1A7F37;          // GitHub success.fg
+  --sage-shadow: #116329;        // GitHub success.emphasis
   
-  // Rose palette — soft pink accents
-  --rose-soft: #FECDD3;          // Rose 200 - subtle
-  --rose-bloom: #FDA4AF;         // Rose 300 - medium
-  --rose-depth: #F43F5E;         // Rose 500 - bold
+  // Rose palette — GitHub red/pink
+  --rose-soft: #FFD8D3;          // GitHub danger.muted
+  --rose-bloom: #FF9492;         // GitHub danger.subtle
+  --rose-depth: #CF222E;         // GitHub danger.fg
   
-  // Sand palette — warm neutrals
-  --sand-light: #FEF3C7;         // Amber 100
-  --sand-warm: #FDE68A;          // Amber 200
-  --sand-earth: #F59E0B;         // Amber 500
+  // Sand palette — GitHub yellow/amber
+  --sand-light: #FFF8C5;         // GitHub attention.muted
+  --sand-warm: #DDB84C;          // GitHub attention.subtle
+  --sand-earth: #9A6700;         // GitHub attention.fg
   
-  // Aether palette — sky blue (Tailwind Sky)
-  --aether-sky: #BAE6FD;         // Sky 200 - light
-  --aether-air: #7DD3FC;         // Sky 300 - medium
-  --aether-light: #0EA5E9;       // Sky 500 - vibrant
+  // Aether palette — GitHub sky/info blue
+  --aether-sky: #DDF4FF;         // GitHub accent.muted
+  --aether-air: #54AEFF;         // GitHub accent.subtle
+  --aether-light: #0969DA;       // GitHub accent.fg
   
-  // Iris palette — purple accents (Violet)
-  --iris-petal: #C4B5FD;         // Violet 300 - light
-  --iris-dream: #A78BFA;         // Violet 400 - medium
-  --iris-void: #8B5CF6;          // Violet 500 - bold
+  // Iris palette — GitHub purple
+  --iris-petal: #EBD6FD;         // GitHub done.muted
+  --iris-dream: #BF8AF8;         // GitHub done.subtle
+  --iris-void: #8250DF;          // GitHub done.fg
   
-  // State palette — semantic feedback (professional)
-  --state-flow: #10B981;         // Emerald 500 - success
-  --state-pulse: #F59E0B;        // Amber 500 - warning
-  --state-break: #EF4444;        // Red 500 - error
+  // State palette — GitHub semantic colors
+  --state-flow: #1A7F37;         // GitHub success.fg - green
+  --state-pulse: #9A6700;        // GitHub attention.fg - amber
+  --state-break: #CF222E;        // GitHub danger.fg - red
   
   // Semantic aliases
   --color-surface: var(--cloud-pure);

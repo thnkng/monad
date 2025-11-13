@@ -119,7 +119,7 @@ aside.sidebar > nav {
   padding: var(--space-2) var(--space-3);
   font-size: var(--font-size-xsmall);
   font-weight: var(--font-weight-bold);
-  color: var(--graphite-core);
+  color: var(--graphite-deep);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   white-space: nowrap;
@@ -141,7 +141,7 @@ aside.sidebar > nav {
   color: var(--graphite-mind);
   text-decoration: none;
   font-size: var(--font-size-medium);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semi-bold);
   white-space: nowrap;
   user-select: none;
   position: relative;
@@ -153,8 +153,8 @@ aside.sidebar > nav {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    color: var(--graphite-core);
-    opacity: 0.85;
+    color: var(--graphite-mind);
+    opacity: 1;
     transition: all var(--motion-duration-fast) var(--motion-ease-standard);
   }
   
