@@ -1,76 +1,81 @@
 // ============================================
 // Midnight Theme
 // ============================================
-// Dark variant — deep, focused, restful
-// Inverted palette with adjusted contrast for night work
+// Deep focus — the mind at rest in darkness
+// True black with subtle blue undertones for late-night work
+// Emotional intent: concentration, introspection, calm depth
 // Applied with: <body theme="midnight">
 
 body[theme="midnight"] {
-  // Graphite palette — now lighter for dark backgrounds
-  --graphite-mind: #E8EAED;
-  --graphite-deep: #C5C9CF;
-  --graphite-core: #A0A6B0;
-  --graphite-light: #1A2430;
+  // Graphite palette — light text on dark
+  --graphite-mind: #E6EDF3;
+  --graphite-deep: #B1BAC4;
+  --graphite-core: #7D8590;
+  --graphite-light: #0A0E13;
   
-  // Cloud palette — now darker surfaces
-  --cloud-pure: #0D1117;
-  --cloud-silent: #161B22;
-  --cloud-mist: #21262D;
+  // Cloud palette — deep space surfaces
+  --cloud-pure: #010409;
+  --cloud-silent: #0D1117;
+  --cloud-mist: #161B22;
   
-  // Thought palette — adjusted for dark mode
-  --thought: #5B8DC9;
-  --thought-focus: #7BA3D5;
-  --thought-depth: #92B4DF;
+  // Thought palette — cool blue emphasis
+  --thought: #58A6FF;
+  --thought-focus: #79C0FF;
+  --thought-depth: #388BFD;
   
-  // Ember palette — slightly muted for dark
-  --ember-energy: #FF9F4D;
-  --ember-glow: #FFB87A;
-  --ember-burn: #F28B36;
+  // Ember palette — warm accent glow
+  --ember-energy: #FFA657;
+  --ember-glow: #FFBC7A;
+  --ember-burn: #F08A3C;
   
-  // Silver palette — mid-tones for dark
-  --silver-line: #30363D;
-  --silver-balance: #484F58;
-  --silver-depth: #6E7681;
+  // Silver palette — subtle borders
+  --silver-line: #21262D;
+  --silver-balance: #30363D;
+  --silver-depth: #484F58;
   
-  // Sage palette — softer greens
-  --sage-calm: #8FAC8C;
-  --sage-leaf: #7A9578;
-  --sage-shadow: #9CB99A;
+  // Sage palette — muted natural greens
+  --sage-calm: #7EE787;
+  --sage-leaf: #56D364;
+  --sage-shadow: #3FB950;
   
-  // Rose palette — muted pinks
-  --rose-soft: #D99FA6;
-  --rose-bloom: #C68790;
-  --rose-depth: #E5B3B9;
+  // Rose palette — soft pink highlights
+  --rose-soft: #FFBCCE;
+  --rose-bloom: #FF9EB3;
+  --rose-depth: #F778A1;
   
-  // Sand palette — warm dark tones
-  --sand-light: #3A3229;
-  --sand-warm: #4F4539;
-  --sand-earth: #A68B5F;
+  // Sand palette — warm dark earth
+  --sand-light: #2D2A24;
+  --sand-warm: #3E3A31;
+  --sand-earth: #8B7355;
   
-  // Aether palette — darker blues
-  --aether-sky: #4A7BA7;
-  --aether-air: #5A8EC0;
-  --aether-light: #3B6A94;
+  // Aether palette — sky at night
+  --aether-sky: #6CB6FF;
+  --aether-air: #8CC9FF;
+  --aether-light: #4A9EFF;
   
-  // Iris palette — vibrant purples
-  --iris-petal: #B39FE8;
-  --iris-dream: #9882D4;
-  --iris-void: #C7B3F3;
+  // Iris palette — mystical purples
+  --iris-petal: #D2A8FF;
+  --iris-dream: #BC8CFF;
+  --iris-void: #A371F7;
   
-  // State palette — adjusted brightness
-  --state-flow: #4ADE80;
-  --state-pulse: #FFC857;
-  --state-break: #FF6B6B;
+  // State palette — clear semantic feedback
+  --state-flow: #3FB950;
+  --state-pulse: #D29922;
+  --state-break: #F85149;
   
-  // Semantic aliases — inverted
-  --color-surface: var(--cloud-pure);
+  // Semantic aliases
+  --color-surface: var(--cloud-silent);
   --color-on-surface: var(--graphite-mind);
   --color-border: var(--silver-line);
-  --color-primary: var(--graphite-core);
-  --color-secondary: var(--thought);
+  --color-primary: var(--thought);
+  --color-secondary: var(--graphite-core);
   --color-muted: var(--silver-depth);
-  --color-muted-weak: var(--cloud-silent);
+  --color-muted-weak: var(--cloud-mist);
   --color-danger: var(--state-break);
   --color-success: var(--state-flow);
   --color-warning: var(--state-pulse);
+  
+  // Special overrides for midnight
+  background: var(--cloud-pure);
+  color: var(--graphite-mind);
 }

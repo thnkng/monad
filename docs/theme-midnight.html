@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Midnight Theme — Monad Design System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/styles/monad.css">
+</head>
+
+<body class="canvas" theme="midnight">
+    <aside class="sidebar">
+        <header>
+            <a href="themes.html">
+                <i data-lucide="moon"></i>
+                <h1>Midnight</h1>
+            </a>
+        </header>
+
+        <nav>
+            <div class="sidebar-label">Theme Demo</div>
+            <a href="#" class="sidebar-link active hoverable">
+                <i data-lucide="layout-dashboard"></i>
+                <span class="sidebar-link-text">Dashboard</span>
+            </a>
+            <a href="#" class="sidebar-link hoverable">
+                <i data-lucide="users"></i>
+                <span class="sidebar-link-text">Team</span>
+            </a>
+            <a href="#" class="sidebar-link hoverable">
+                <i data-lucide="folder"></i>
+                <span class="sidebar-link-text">Projects</span>
+            </a>
+            <a href="#" class="sidebar-link hoverable">
+                <i data-lucide="settings"></i>
+                <span class="sidebar-link-text">Settings</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="themes.html" class="hoverable">← All Themes</a>
+        </div>
+    </aside>
+
+    <header>
+        <div class="left">
+            <h2>Midnight Theme</h2>
+        </div>
+        <div class="right">
+            <span class="badge graphite-core">Dark</span>
+            <button class="hoverable">
+                <i data-lucide="moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="card margin-bottom-6" style="background: linear-gradient(135deg, var(--cloud-silent) 0%, var(--thought) 100%); border: 1px solid var(--silver-line);">
+            <div class="flex-between">
+                <div>
+                    <h3>Deep Focus</h3>
+                    <p><strong>Midnight</strong> embraces true black with subtle blue undertones — designed for concentration, introspection, and late-night work.</p>
+                    <p><em>Emotional intent: focus, depth, restful intensity.</em></p>
+                </div>
+                <i data-lucide="moon" style="width: 64px; height: 64px; opacity: 0.2;"></i>
+            </div>
+        </div>
+
+        <h3>Components Showcase</h3>
+
+        <div class="grid-auto-fit-250 gap-4 margin-bottom-6">
+            <div class="card sage-calm">
+                <small class="text-muted">Success State</small>
+                <h2 style="margin: var(--space-2) 0;">98.5%</h2>
+                <span class="badge state-flow">Active</span>
+            </div>
+
+            <div class="card aether-sky">
+                <small class="text-muted">Primary Color</small>
+                <h2 style="margin: var(--space-2) 0;">2,847</h2>
+                <span class="badge thought">Info</span>
+            </div>
+
+            <div class="card rose-soft">
+                <small class="text-muted">Danger State</small>
+                <h2 style="margin: var(--space-2) 0;">12</h2>
+                <span class="badge state-break">Alert</span>
+            </div>
+
+            <div class="card sand-light">
+                <small class="text-muted">Warning State</small>
+                <h2 style="margin: var(--space-2) 0;">47</h2>
+                <span class="badge state-pulse">Pending</span>
+            </div>
+        </div>
+
+        <div class="card margin-bottom-6">
+            <h4>Button Variants</h4>
+            <div class="flex-group">
+                <button class="thought hoverable">Primary</button>
+                <button class="graphite-core hoverable">Secondary</button>
+                <button class="state-flow hoverable">Success</button>
+                <button class="state-pulse hoverable">Warning</button>
+                <button class="state-break hoverable">Danger</button>
+            </div>
+        </div>
+
+        <div class="card margin-bottom-6">
+            <h4>Form Elements</h4>
+            <div class="stack-4">
+                <div>
+                    <label for="input1">Text Input</label>
+                    <input type="text" id="input1" placeholder="Enter text...">
+                </div>
+                <div>
+                    <label for="select1">Select</label>
+                    <select id="select1">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                    </select>
+                </div>
+                <label>
+                    <input type="checkbox" checked>
+                    <span>Checkbox option</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="flex-group margin-top-6">
+            <a href="theme-moonlight.html" class="hoverable">
+                <button class="graphite-core outline hoverable">← Moonlight</button>
+            </a>
+            <a href="theme-ember.html" class="hoverable">
+                <button class="thought hoverable">Ember →</button>
+            </a>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/scripts/monad.js" defer></script>
+    <script type="module">
+        import { createIcons } from 'https://cdn.jsdelivr.net/npm/lucide@latest/dist/esm/lucide.js';
+        createIcons();
+    </script>
+</body>
+</html>

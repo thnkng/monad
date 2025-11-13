@@ -1,8 +1,14 @@
 // ============================================
 // Themes Index
 // ============================================
-// "Moonlight" — calm light (default)
-// "Midnight" — deep dark (variant)
+// Four emotional palettes — choose your atmosphere
+//
+// "Moonlight" — soft clarity (default) - pure white, calm focus
+// "Midnight" — deep focus - true black, concentration
+// "Ember" — warm glow - fire and energy, creative heat
+// "Forest" — deep woods - natural calm, grounded stability
 
 @forward "moonlight";
 @forward "midnight";
+@forward "ember";
+@forward "forest";

@@ -1,67 +1,68 @@
 // ============================================
 // Moonlight Theme
 // ============================================
-// The default light theme — calm, clear, focused
-// Soft blues and grays with high contrast for readability
+// Soft clarity — the default voice of calm
+// Pure whites with subtle warmth, designed for prolonged focus
+// Emotional intent: clarity, serenity, effortless reading
 // Applied by default (no attribute needed)
 
 :root,
 body:not([theme]) {
-  // Graphite palette — structural foundation
+  // Graphite palette — structured darkness
   --graphite-mind: #0D1117;
-  --graphite-deep: #1A2430;
-  --graphite-core: #2B3A4A;
-  --graphite-light: #F4F7FA;
+  --graphite-deep: #1C2128;
+  --graphite-core: #2D333B;
+  --graphite-light: #F6F8FA;
   
-  // Cloud palette — surfaces and backgrounds
-  --cloud-pure: #F1F1F1;
-  --cloud-silent: #F4F4F4;
-  --cloud-mist: #EAEAEA;
+  // Cloud palette — pure surfaces
+  --cloud-pure: #FFFFFF;
+  --cloud-silent: #F6F8FA;
+  --cloud-mist: #EAEEF2;
   
-  // Thought palette — primary interactive
-  --thought: #1e3a5f;
-  --thought-focus: #152d4a;
-  --thought-depth: #0d1f35;
+  // Thought palette — cool depth
+  --thought: #0969DA;
+  --thought-focus: #0550AE;
+  --thought-depth: #033D8B;
   
-  // Ember palette — energy and warmth
-  --ember-energy: #ff9533;
-  --ember-glow: #ffb366;
-  --ember-burn: #e67a1a;
+  // Ember palette — warm energy
+  --ember-energy: #FB8500;
+  --ember-glow: #FFB703;
+  --ember-burn: #E67E00;
   
-  // Silver palette — borders and dividers
-  --silver-line: #DADADA;
-  --silver-balance: #B6B6B6;
-  --silver-depth: #8A8A8A;
+  // Silver palette — gentle boundaries
+  --silver-line: #D0D7DE;
+  --silver-balance: #9DA5B0;
+  --silver-depth: #6E7781;
   
-  // Sage palette — calm success states
-  --sage-calm: #b7c6b4;
-  --sage-leaf: #9fb49f;
-  --sage-shadow: #7a9076;
+  // Sage palette — natural growth
+  --sage-calm: #A7C7A3;
+  --sage-leaf: #8FB88A;
+  --sage-shadow: #6A9666;
   
-  // Rose palette — soft emphasis
-  --rose-soft: #f7c9ce;
-  --rose-bloom: #e8a7b0;
-  --rose-depth: #bf6975;
+  // Rose palette — soft warmth
+  --rose-soft: #FFD7D9;
+  --rose-bloom: #FFC1C5;
+  --rose-depth: #CF7680;
   
-  // Sand palette — warm neutrals
-  --sand-light: #f3ebde;
-  --sand-warm: #e6cfae;
-  --sand-earth: #ca9f71;
+  // Sand palette — earth tones
+  --sand-light: #F5EBD9;
+  --sand-warm: #E8D5B5;
+  --sand-earth: #C1A573;
   
-  // Aether palette — sky and air
-  --aether-sky: #d1ebff;
-  --aether-air: #b6d8fa;
-  --aether-light: #8bc2ee;
+  // Aether palette — sky light
+  --aether-sky: #CCDDFF;
+  --aether-air: #A8C5FF;
+  --aether-light: #7AA4FF;
   
-  // Iris palette — mystery and depth
-  --iris-petal: #c8b6ff;
-  --iris-dream: #a58aed;
-  --iris-void: #7563b2;
+  // Iris palette — mystical light
+  --iris-petal: #D4BFFF;
+  --iris-dream: #B99EF5;
+  --iris-void: #8957E5;
   
-  // State palette — semantic feedback
-  --state-flow: #33d469;
-  --state-pulse: #ffc14d;
-  --state-break: #ff5c5c;
+  // State palette — clear feedback
+  --state-flow: #1A7F37;
+  --state-pulse: #BF8700;
+  --state-break: #CF222E;
   
   // Semantic aliases
   --color-surface: var(--cloud-pure);

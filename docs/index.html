@@ -1575,11 +1575,45 @@
         </section>
 
         <section id="themes">
-            <h2>Themes <span class="badge iris-petal">Color Schemes</span></h2>
-            <p class="lead">Color schemes that adapt the entire design system. Switch between Moonlight (calm light) and Midnight (deep dark) with a single attribute.</p>
+            <h2>Themes <span class="badge iris-petal">Emotional Palettes</span></h2>
+            <p class="lead">Four emotional atmospheres — each theme is a complete transformation of the design system.</p>
+
+            <div class="card margin-bottom-6" style="background: linear-gradient(135deg, var(--cloud-pure), var(--aether-sky)); border: none;">
+                <h3>
+                    <i data-lucide="palette" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle; margin-right: 8px;"></i>
+                    Explore All Themes
+                </h3>
+                <p>Visit the <a href="themes.html" class="hoverable"><strong>Themes Gallery</strong></a> to see all 4 themes with live examples:</p>
+                <div class="flex-group margin-top-4">
+                    <a href="theme-moonlight.html" class="hoverable">
+                        <button class="graphite-core outline hoverable">
+                            <i data-lucide="sun"></i>
+                            Moonlight
+                        </button>
+                    </a>
+                    <a href="theme-midnight.html" class="hoverable">
+                        <button class="graphite-core outline hoverable">
+                            <i data-lucide="moon"></i>
+                            Midnight
+                        </button>
+                    </a>
+                    <a href="theme-ember.html" class="hoverable">
+                        <button class="ember-energy hoverable">
+                            <i data-lucide="flame"></i>
+                            Ember
+                        </button>
+                    </a>
+                    <a href="theme-forest.html" class="hoverable">
+                        <button class="sage-calm hoverable">
+                            <i data-lucide="tree-pine"></i>
+                            Forest
+                        </button>
+                    </a>
+                </div>
+            </div>
 
             <h3>Philosophy</h3>
-            <p><strong>Themes are not decoration</strong> — they are emotional states. Moonlight invites clarity and focus. Midnight offers rest and concentration. Both preserve Monad's core identity while adapting to context.</p>
+            <p><strong>Themes are not decoration</strong> — they are emotional atmospheres. Each theme embodies a distinct mindset, designed for different contexts and moods. Moonlight invites clarity. Midnight offers deep focus. Ember ignites creativity. Forest grounds in natural calm.</p>
 
             <!-- Moonlight Theme -->
             <article>
@@ -1654,6 +1688,84 @@
                 <p>Night work, low-light environments, extended coding sessions, OLED displays, reducing blue light exposure.</p>
             </article>
 
+            <!-- Ember Theme -->
+            <article>
+                <h3>Ember — Warm Theme</h3>
+                <p><strong>Mindset:</strong> Passionate, creative, energetic. Warm amber and orange tones with charcoal depth.</p>
+                <p><strong>Purpose:</strong> Ignite creativity and dynamic energy through warmth and fire-inspired colors.</p>
+
+                <h4>Color Philosophy</h4>
+                <ul>
+                    <li><strong>Surface:</strong> Warm Paper (#FFF5EB) — soft cream background like sunset light</li>
+                    <li><strong>Text:</strong> Charcoal (#1A1310) — deep brown-black with earthiness</li>
+                    <li><strong>Primary:</strong> Ember Energy (#FF6B35) — vibrant orange for actions</li>
+                    <li><strong>Borders:</strong> Desert Sand (#E6D5C3) — warm, subtle separation</li>
+                </ul>
+
+                <h4>Palette Characteristics</h4>
+                <ul>
+                    <li><strong>Ember:</strong> Core theme colors (energy: #FF6B35, glow: #FFB366, burn: #E67A1A)</li>
+                    <li><strong>Surfaces:</strong> Warm neutrals (#FFF5EB, #FAF3E8, #F5E8D6)</li>
+                    <li><strong>Accents:</strong> Desert greens (#B7A77F), warm metallics (#D4A574)</li>
+                    <li><strong>State:</strong> Fire-inspired (flow: #FFB347, pulse: #FF8C42, break: #D84315)</li>
+                </ul>
+
+                <h4>Emotional Intent</h4>
+                <ul>
+                    <li><strong>Warmth:</strong> Like sitting by a fire — inviting and cozy</li>
+                    <li><strong>Energy:</strong> Dynamic and passionate without aggression</li>
+                    <li><strong>Creativity:</strong> Stimulating without overwhelming</li>
+                    <li><strong>Craft:</strong> Artisan quality, handmade feel</li>
+                </ul>
+
+                <h4>Usage</h4>
+                <pre><code>&lt;body theme="ember"&gt;
+  &lt;!-- Ember is active --&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Best For</h4>
+                <p>Creative work, brainstorming, warm environments, evening work, artistic projects, energizing interfaces.</p>
+            </article>
+
+            <!-- Forest Theme -->
+            <article>
+                <h3>Forest — Natural Theme</h3>
+                <p><strong>Mindset:</strong> Grounded, calm, stable. Rich greens and earth tones inspired by deep woods.</p>
+                <p><strong>Purpose:</strong> Create stability and natural rhythm through botanical and earth colors.</p>
+
+                <h4>Color Philosophy</h4>
+                <ul>
+                    <li><strong>Surface:</strong> Mist (#F7FAF8) — soft gray-green like morning fog</li>
+                    <li><strong>Text:</strong> Bark (#1F2923) — deep forest green-black</li>
+                    <li><strong>Primary:</strong> Sage Calm (#8FB88A) — muted green for actions</li>
+                    <li><strong>Borders:</strong> Stone (#D8E1DC) — natural gray-green separation</li>
+                </ul>
+
+                <h4>Palette Characteristics</h4>
+                <ul>
+                    <li><strong>Sage:</strong> Core greens (calm: #8FB88A, leaf: #9FB49F, shadow: #7A9076)</li>
+                    <li><strong>Surfaces:</strong> Natural neutrals (#F7FAF8, #EFF3F0, #E5EBE7)</li>
+                    <li><strong>Accents:</strong> Earth tones (#A89F91), moss (#6B8A6A), dew (#C1D9D3)</li>
+                    <li><strong>State:</strong> Nature-inspired (flow: #7CB342, pulse: #FFB74D, break: #E57373)</li>
+                </ul>
+
+                <h4>Emotional Intent</h4>
+                <ul>
+                    <li><strong>Grounded:</strong> Connected to earth, stable and reliable</li>
+                    <li><strong>Growth:</strong> Organic progression, natural development</li>
+                    <li><strong>Calm:</strong> Like a quiet forest walk — peaceful focus</li>
+                    <li><strong>Renewal:</strong> Fresh and regenerative energy</li>
+                </ul>
+
+                <h4>Usage</h4>
+                <pre><code>&lt;body theme="forest"&gt;
+  &lt;!-- Forest is active --&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Best For</h4>
+                <p>Long-form work, natural lighting, wellness apps, sustainable projects, calming interfaces, focused reading.</p>
+            </article>
+
             <!-- Theme Switching -->
             <article>
                 <h3>Theme Switching</h3>
@@ -1668,17 +1780,27 @@
 &lt;!-- Midnight (dark) --&gt;
 &lt;body theme="midnight"&gt;
   &lt;!-- Dark theme active --&gt;
+&lt;/body&gt;
+
+&lt;!-- Ember (warm) --&gt;
+&lt;body theme="ember"&gt;
+  &lt;!-- Warm theme active --&gt;
+&lt;/body&gt;
+
+&lt;!-- Forest (natural) --&gt;
+&lt;body theme="forest"&gt;
+  &lt;!-- Natural theme active --&gt;
 &lt;/body&gt;</code></pre>
 
                 <h4>Server-Side Rendering</h4>
                 <pre><code>&lt;!-- Django/Jinja example --&gt;
-&lt;body{% if user.prefers_dark_mode %} theme="midnight"{% endif %}&gt;
+&lt;body{% if user.theme %} theme="{{ user.theme }}"{% endif %}&gt;
 
 &lt;!-- PHP example --&gt;
-&lt;body&lt;?php if ($user['theme'] === 'midnight') echo ' theme="midnight"'; ?&gt;&gt;
+&lt;body&lt;?php if ($user['theme']) echo ' theme="' . $user['theme'] . '"'; ?&gt;&gt;
 
 &lt;!-- Rails/ERB example --&gt;
-&lt;body&lt;%= ' theme="midnight"' if current_user.dark_mode? %&gt;&gt;</code></pre>
+&lt;body&lt;%= " theme=\"#{current_user.theme}\"" if current_user.theme.present? %&gt;&gt;</code></pre>
 
                 <h4>CSS Media Query (No JavaScript)</h4>
                 <pre><code>&lt;!-- Respect system preference without JS --&gt;
