@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monad Design System</title>
+  <link rel="stylesheet" href="../dist/styles/monad.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Layout Principal */
+    body {
+      display: grid;
+      grid-template-columns: 16rem 1fr;
+      grid-template-rows: 4rem 1fr;
+      min-height: 100vh;
+      background: var(--color-surface);
+      color: var(--color-on-surface);
+      font-family: var(--font-family-sans);
+    }
+
+    /* Header Fixo */
+    .header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-6);
+      background: var(--cloud-pure);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--font-size-large);
+      font-weight: var(--font-weight-bold);
+      color: var(--graphite-mind);
+      text-decoration: none;
+    }
+
+    .header-logo svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--thought);
+    }
+
+    .theme-switcher {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .theme-btn {
+      padding: var(--space-2) var(--space-3);
+      border: 1px solid var(--color-border);
+      background: transparent;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: var(--font-size-small);
+      transition: all var(--motion-duration-fast);
+    }
+
+    .theme-btn:hover {
+      background: var(--cloud-silent);
+    }
+
+    .theme-btn.active {
+      background: var(--thought);
+      color: white;
+      border-color: var(--thought);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      grid-row: 2;
+      padding: var(--space-6);
+      background: var(--cloud-pure);
+      border-right: 1px solid var(--color-border);
+      overflow-y: auto;
+      position: sticky;
+      top: 4rem;
+      height: calc(100vh - 4rem);
+    }
+
+    .nav-section {
+      margin-bottom: var(--space-6);
+    }
+
+    .nav-label {
+      font-size: var(--font-size-small);
+      font-weight: var(--font-weight-semibold);
+      color: var(--silver-depth);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-3);
+      display: block;
+    }
+
+    .nav-link {
+      display: block;
+      padding: var(--space-2) var(--space-3);
+      color: var(--graphite-mind);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: all var(--motion-duration-fast);
+      font-size: var(--font-size-medium);
+    }
+
+    .nav-link:hover {
+      background: var(--cloud-silent);
+    }
+
+    .nav-link.active {
+      color: var(--thought);
+      background: color-mix(in srgb, var(--thought) 10%, transparent);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Main Content */
+    main {
+      grid-row: 2;
+      padding: var(--space-8);
+      max-width: 56rem;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    section {
+      margin-bottom: var(--space-10);
+      scroll-margin-top: 5rem;
+    }
+
+    section h1 {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-4);
+      color: var(--graphite-mind);
+    }
+
+    section h2 {
+      font-size: var(--font-size-xlarge);
+      margin: var(--space-8) 0 var(--space-4);
+      color: var(--graphite-mind);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    section h3 {
+      font-size: var(--font-size-large);
+      margin: var(--space-6) 0 var(--space-3);
+      color: var(--thought);
+    }
+
+    section p {
+      line-height: 1.7;
+      margin-bottom: var(--space-4);
+      color: var(--graphite-core);
+    }
+
+    section ul, section ol {
+      padding-left: var(--space-6);
+      margin-bottom: var(--space-4);
+      line-height: 1.7;
+    }
+
+    section li {
+      margin-bottom: var(--space-2);
+    }
+
+    /* Component Demo */
+    .component-demo {
+      margin: var(--space-6) 0;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .demo-preview {
+      padding: var(--space-6);
+      background: var(--cloud-silent);
+      min-height: 8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .demo-code {
+      background: var(--graphite-mind);
+      color: var(--cloud-pure);
+      padding: var(--space-5);
+      overflow-x: auto;
+    }
+
+    .demo-code pre {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    /* Code Inline */
+    code {
+      background: var(--cloud-mist);
+      padding: 0.125rem 0.375rem;
+      border-radius: var(--radius-sm);
+      font-family: 'Courier New', monospace;
+      font-size: 0.875em;
+      color: var(--iris-void);
+    }
+
+    .demo-code code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    /* Props Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-4) 0;
+      font-size: var(--font-size-medium);
+    }
+
+    table th {
+      text-align: left;
+      padding: var(--space-3);
+      background: var(--cloud-silent);
+      border-bottom: 2px solid var(--color-border);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    table td {
+      padding: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--space-4);
+      margin: var(--space-5) 0;
+    }
+
+    .feature-card {
+      padding: var(--space-5);
+      background: var(--cloud-pure);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+
+    .feature-card h4 {
+      margin-bottom: var(--space-2);
+      color: var(--thought);
+      font-size: var(--font-size-medium);
+    }
+
+    .feature-card p {
+      margin: 0;
+      font-size: var(--font-size-small);
+      color: var(--silver-depth);
+    }
+
+    /* Badge */
+    .badge-inline {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background: var(--thought);
+      color: white;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-small);
+      font-weight: var(--font-weight-medium);
+      margin-left: var(--space-2);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      body {
+        grid-template-columns: 1fr;
+        grid-template-rows: 4rem auto 1fr;
+      }
+
+      .sidebar {
+        grid-row: 2;
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--space-4);
+      }
+
+      .nav-section {
+        display: inline-block;
+        margin-right: var(--space-4);
+        margin-bottom: 0;
+      }
+
+      .nav-label {
+        display: inline;
+        margin-right: var(--space-2);
+      }
+
+      .nav-link {
+        display: inline-block;
+        margin-right: var(--space-2);
+      }
+
+      main {
+        grid-row: 3;
+      }
+    }
+  </style>
+</head>
+<body theme="moonlight">
+  
+  <!-- Header Fixo -->
+  <header class="header">
+    <a href="/" class="header-logo">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="currentColor"/>
+        <circle cx="12" cy="12" r="6" fill="white"/>
+      </svg>
+      <span>Monad</span>
+    </a>
+
+    <div class="theme-switcher">
+      <button class="theme-btn active" onclick="setTheme('moonlight')" data-theme="moonlight">☀️</button>
+      <button class="theme-btn" onclick="setTheme('midnight')" data-theme="midnight">🌙</button>
+      <button class="theme-btn" onclick="setTheme('ocean')" data-theme="ocean">🌊</button>
+      <button class="theme-btn" onclick="setTheme('purple')" data-theme="purple">✨</button>
+    </div>
+  </header>
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <monad-active-nav>
+      <span class="nav-label">Getting Started</span>
+      <a href="#introduction" class="nav-link">Introduction</a>
+      <a href="#installation" class="nav-link">Installation</a>
+
+      <span class="nav-label">Foundation</span>
+      <a href="#colors" class="nav-link">Colors</a>
+      <a href="#typography" class="nav-link">Typography</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+
+      <span class="nav-label">Components</span>
+      <a href="#button" class="nav-link">Button</a>
+      <a href="#input" class="nav-link">Input</a>
+      <a href="#card" class="nav-link">Card</a>
+      <a href="#badge" class="nav-link">Badge</a>
+      <a href="#modal" class="nav-link">Modal</a>
+      <a href="#dropdown" class="nav-link">Dropdown</a>
+      <a href="#tabs" class="nav-link">Tabs</a>
+      <a href="#toast" class="nav-link">Toast</a>
+
+      <span class="nav-label">Resources</span>
+      <a href="#themes" class="nav-link">Themes</a>
+      <a href="#utilities" class="nav-link">Utilities</a>
+    </monad-active-nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    
+    <!-- Introduction -->
+    <section id="introduction">
+      <h1>Monad Design System</h1>
+      <p>Um sistema de design minimalista construído em SCSS puro com Web Components para interatividade. Inspirado nos princípios de clareza, silêncio visual e precisão emocional.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h4>🎨 SCSS Puro</h4>
+          <p>Sem frameworks. CSS semântico e limpo.</p>
+        </div>
+        <div class="feature-card">
+          <h4>⚡ 27.5kb Bundle</h4>
+          <p>Leve e performático para produção.</p>
+        </div>
+        <div class="feature-card">
+          <h4>🎭 Web Components</h4>
+          <p>Componentes autônomos e reutilizáveis.</p>
+        </div>
+        <div class="feature-card">
+          <h4>🌈 4 Temas</h4>
+          <p>GitHub Light/Dark, Ocean, Purple.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Installation -->
+    <section id="installation">
+      <h2>Installation</h2>
+      <p>Instale via npm ou use diretamente os arquivos compilados.</p>
+
+      <div class="component-demo">
+        <div class="demo-code">
+          <pre><code># Via NPM
+npm install monad-design-system
+
+# Ou use os arquivos compilados
+&lt;link rel="stylesheet" href="dist/styles/monad.css"&gt;
+&lt;script src="dist/scripts/monad.min.js"&gt;&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+
+      <h3>Quick Start</h3>
+      <div class="component-demo">
+        <div class="demo-code">
+          <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="monad.css"&gt;
+&lt;/head&gt;
+&lt;body theme="moonlight"&gt;
+  &lt;button class="thought hoverable"&gt;Hello Monad&lt;/button&gt;
+  &lt;script src="monad.min.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Colors -->
+    <section id="colors">
+      <h2>Colors</h2>
+      <p>Sistema de cores baseado em paletas semânticas inspiradas no GitHub.</p>
+
+      <div class="component-demo">
+        <div class="demo-preview">
+          <div style="width: 80px; height: 80px; background: var(--graphite-mind); border-radius: var(--radius-md);"></div>
+          <div style="width: 80px; height: 80px; background: var(--thought); border-radius: var(--radius-md);"></div>
+          <div style="width: 80px; height: 80px; background: var(--state-flow); border-radius: var(--radius-md);"></div>
+          <div style="width: 80px; height: 80px; background: var(--state-pulse); border-radius: var(--radius-md);"></div>
+          <div style="width: 80px; height: 80px; background: var(--state-break); border-radius: var(--radius-md);"></div>
+        </div>
+        <div class="demo-code">
+          <pre><code>/* Principais */
+--graphite-mind: #24292F
+--thought: #0969DA
+--state-flow: #1A7F37  /* success */
+--state-pulse: #D29922 /* warning */
+--state-break: #CF222E /* danger */</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography -->
+    <section id="typography">
+      <h2>Typography</h2>
+      <p>Tipografia clara e legível com escala modular.</p>
+
+      <div class="component-demo">
+        <div class="demo-preview" style="flex-direction: column; align-items: flex-start;">
+          <h1 style="margin: 0;">Heading 1</h1>
+          <h2 style="margin: 0;">Heading 2</h2>
+          <h3 style="margin: 0;">Heading 3</h3>
+          <p style="margin: 0;">Body text with comfortable line-height</p>
+          <small>Small text for captions</small>
+        </div>
+        <div class="demo-code">
+          <pre><code>&lt;h1&gt;Heading 1&lt;/h1&gt;
+&lt;h2&gt;Heading 2&lt;/h2&gt;
+&lt;h3&gt;Heading 3&lt;/h3&gt;
+&lt;p&gt;Body text&lt;/p&gt;
+&lt;small&gt;Small text&lt;/small&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spacing -->
+    <section id="spacing">
+      <h2>Spacing</h2>
+      <p>Sistema de espaçamento baseado em múltiplos de 4px.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Token</th>
+            <th>Value</th>
+            <th>Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>--space-2</code></td>
+            <td>8px</td>
+            <td>Padding interno pequeno</td>
+          </tr>
+          <tr>
+            <td><code>--space-4</code></td>
+            <td>16px</td>
+            <td>Padding padrão</td>
+          </tr>
+          <tr>
+            <td><code>--space-6</code></td>
+            <td>24px</td>
+            <td>Margem entre elementos</td>
+          </tr>
+          <tr>
+            <td><code>--space-8</code></td>
+            <td>40px</td>
+            <td>Margem entre seções</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Button -->
+    <section id="button">
+      <h2>Button</h2>
+      <p>Botões com variantes de cor e estados interativos.</p>
+
+      <div class="component-demo">
+        <div class="demo-preview">
+          <button class="graphite-core hoverable">Primary</button>
+          <button class="thought hoverable">Secondary</button>
+          <button class="state-flow hoverable">Success</button>
+          <button class="state-break hoverable">Danger</button>
+          <button class="outline hoverable">Outline</button>
+        </div>
+        <div class="demo-code">
+          <pre><code>&lt;button class="graphite-core hoverable"&gt;Primary&lt;/button&gt;
+&lt;button class="thought hoverable"&gt;Secondary&lt;/button&gt;
+&lt;button class="state-flow hoverable"&gt;Success&lt;/button&gt;
+&lt;button class="state-break hoverable"&gt;Danger&lt;/button&gt;
+&lt;button class="outline hoverable"&gt;Outline&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+
+      <h3>Props</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>.hoverable</code></td>
+            <td>Adiciona efeito hover (opt-in)</td>
+          </tr>
+          <tr>
+            <td><code>.outline</code></td>
+            <td>Botão com borda apenas</td>
+          </tr>
+          <tr>
+            <td><code>.ghost</code></td>
+            <td>Botão transparente</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Input -->
+    <section id="input">
+      <h2>Input</h2>
+      <p>Campos de entrada com validação visual.</p>
+
+      <div class="component-demo">
+        <div class="demo-preview" style="flex-direction: column; width: 100%; max-width: 24rem;">
+          <input type="text" placeholder="Nome completo" style="width: 100%; margin-bottom: var(--space-3);">
+          <input type="email" placeholder="seu@email.com" style="width: 100%; margin-bottom: var(--space-3);">
+          <textarea placeholder="Mensagem..." rows="3" style="width: 100%;"></textarea>
+        </div>
+        <div class="demo-code">
+          <pre><code>&lt;input type="text" placeholder="Nome completo"&gt;
+&lt;input type="email" placeholder="seu@email.com"&gt;
+&lt;textarea placeholder="Mensagem..." rows="3"&gt;&lt;/textarea&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Card -->
+    <section id="card">
+      <h2>Card</h2>
+      <p>Containers com bordas arredondadas e sombras sutis.</p>
+
+      <div class="component-demo">
+        <div class="demo-preview" style="width: 100%;">
+          <div class="card" style="max-width: 24rem;">
+            <h3>Card Title</h3>
+            <p>This is a card component with rounded corners and subtle shadow.</p>
+            <button class="thought hoverable">Action</button>
+          </div>
+        </div>
+        <div class="demo-code">
+          <pre><code>&lt;div class="card"&gt;
+  &lt;h3&gt;Card Title&lt;/h3&gt;
+  &lt;p&gt;Card content...&lt;/p&gt;
+  &lt;button class="thought hoverable"&gt;Action&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Badge -->
+    <section id="badge">
+      <h2>Badge</h2>
+      <p>Indicadores compactos de status ou contagem.</p>
+
+      <div class="component-demo">
+        <div class="demo-preview">
+          <span class="badge state-flow">New</span>
+          <span class="badge state-pulse">Beta</span>
+          <span class="badge state-break">Deprecated</span>
+          <span class="badge thought">v2.0</span>
+        </div>
+        <div class="demo-code">
+          <pre><code>&lt;span class="badge state-flow"&gt;New&lt;/span&gt;
+&lt;span class="badge state-pulse"&gt;Beta&lt;/span&gt;
+&lt;span class="badge state-break"&gt;Deprecated&lt;/span&gt;
+&lt;span class="badge thought"&gt;v2.0&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal -->
+    <section id="modal">
+      <h2>Modal <span class="badge-inline">Web Component</span></h2>
+      <p>Dialog overlay com controle completo via HTML.</p>
+
+      <div class="component-demo">
+        <div class="demo-preview">
+          <button data-modal-target="demo-modal" class="thought hoverable">Open Modal</button>
+        </div>
+        <div class="demo-code">
+          <pre><code>&lt;!-- Trigger --&gt;
+&lt;button data-modal-target="my-modal"&gt;Open&lt;/button&gt;
+
+&lt;!-- Modal --&gt;
+&lt;monad-modal id="my-modal" title="Confirm"&gt;
+  &lt;p&gt;Are you sure?&lt;/p&gt;
+  &lt;div slot="footer"&gt;
+    &lt;button data-modal-close&gt;Cancel&lt;/button&gt;
+    &lt;button data-modal-close class="state-break"&gt;Delete&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/monad-modal&gt;</code></pre>
+        </div>
+      </div>
+
+      <h3>Features</h3>
+      <ul>
+        <li>✅ Shadow DOM isolado</li>
+        <li>✅ Triggers via <code>data-modal-target</code></li>
+        <li>✅ ESC para fechar</li>
+        <li>✅ Clique fora para fechar</li>
+        <li>✅ Slots para header, body, footer</li>
+        <li>✅ Tamanhos: small, medium, large</li>
+      </ul>
+    </section>
+
+    <!-- Dropdown -->
+    <section id="dropdown">
+      <h2>Dropdown <span class="badge-inline">Web Component</span></h2>
+      <p>Menu suspenso com posicionamento automático.</p>
+
+      <div class="component-demo">
+        <div class="demo-preview">
+          <monad-dropdown>
+            <button class="graphite-core hoverable">Options ▾</button>
+            <ul>
+              <li><a href="#edit">Edit</a></li>
+              <li><a href="#duplicate">Duplicate</a></li>
+              <li><a href="#delete">Delete</a></li>
+            </ul>
+          </monad-dropdown>
+        </div>
+        <div class="demo-code">
+          <pre><code>&lt;monad-dropdown&gt;
+  &lt;button&gt;Options&lt;/button&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#edit"&gt;Edit&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#delete"&gt;Delete&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/monad-dropdown&gt;</code></pre>
+        </div>
+      </div>
+
+      <h3>Props</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Values</th>
+            <th>Default</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>position</code></td>
+            <td>bottom, top, left, right</td>
+            <td>bottom</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Tabs -->
+    <section id="tabs">
+      <h2>Tabs <span class="badge-inline">Web Component</span></h2>
+      <p>Navegação por abas com transições suaves.</p>
+
+      <div class="component-demo">
+        <div class="demo-preview" style="width: 100%;">
+          <monad-tabs>
+            <div>
+              <button active>Overview</button>
+              <button>Settings</button>
+              <button>History</button>
+            </div>
+            <div>Overview content</div>
+            <div>Settings content</div>
+            <div>History content</div>
+          </monad-tabs>
+        </div>
+        <div class="demo-code">
+          <pre><code>&lt;monad-tabs&gt;
+  &lt;div&gt;
+    &lt;button active&gt;Tab 1&lt;/button&gt;
+    &lt;button&gt;Tab 2&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div&gt;Content 1&lt;/div&gt;
+  &lt;div&gt;Content 2&lt;/div&gt;
+&lt;/monad-tabs&gt;</code></pre>
+        </div>
+      </div>
+
+      <h3>Features</h3>
+      <ul>
+        <li>✅ Navegação por teclado (Arrow, Home, End)</li>
+        <li>✅ Animação fade-in</li>
+        <li>✅ ARIA completo</li>
+        <li>✅ Estrutura flexível (div, ul, ol)</li>
+      </ul>
+    </section>
+
+    <!-- Toast -->
+    <section id="toast">
+      <h2>Toast <span class="badge-inline">Web Component</span></h2>
+      <p>Notificações temporárias não-intrusivas.</p>
+
+      <div class="component-demo">
+        <div class="demo-preview">
+          <button data-toast="Success!" data-toast-type="success" class="state-flow hoverable">Show Success</button>
+          <button data-toast="Error occurred" data-toast-type="error" class="state-break hoverable">Show Error</button>
+          <button onclick="window.monad.toast('Info message', 'info')" class="thought hoverable">Show Info (JS)</button>
+        </div>
+        <div class="demo-code">
+          <pre><code>&lt;!-- Via HTML --&gt;
+&lt;button data-toast="Saved!" data-toast-type="success"&gt;
+  Save
+&lt;/button&gt;
+
+&lt;!-- Via JavaScript --&gt;
+&lt;script&gt;
+  window.monad.toast('Message', 'success', 3000);
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+
+      <h3>Types</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Color</th>
+            <th>Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>success</code></td>
+            <td>Verde</td>
+            <td>Operação bem-sucedida</td>
+          </tr>
+          <tr>
+            <td><code>error</code></td>
+            <td>Vermelho</td>
+            <td>Erro ou falha</td>
+          </tr>
+          <tr>
+            <td><code>warning</code></td>
+            <td>Amarelo</td>
+            <td>Atenção necessária</td>
+          </tr>
+          <tr>
+            <td><code>info</code></td>
+            <td>Azul</td>
+            <td>Informação geral</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Themes -->
+    <section id="themes">
+      <h2>Themes</h2>
+      <p>4 temas profissionais inspirados em software de qualidade.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h4>☀️ Moonlight</h4>
+          <p>GitHub Light - Cores autênticas do GitHub.com</p>
+        </div>
+        <div class="feature-card">
+          <h4>🌙 Midnight</h4>
+          <p>GitHub Dark - Perfeito para ambientes escuros</p>
+        </div>
+        <div class="feature-card">
+          <h4>🌊 Ocean</h4>
+          <p>Vercel/Tailwind - Cyan e Sky modernos</p>
+        </div>
+        <div class="feature-card">
+          <h4>✨ Purple</h4>
+          <p>Linear/Stripe - Elegância violeta premium</p>
+        </div>
+      </div>
+
+      <div class="component-demo">
+        <div class="demo-code">
+          <pre><code>&lt;body theme="moonlight"&gt;...&lt;/body&gt;
+&lt;body theme="midnight"&gt;...&lt;/body&gt;
+&lt;body theme="ocean"&gt;...&lt;/body&gt;
+&lt;body theme="purple"&gt;...&lt;/body&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Utilities -->
+    <section id="utilities">
+      <h2>Utilities</h2>
+      <p>Classes utilitárias para layout rápido.</p>
+
+      <h3>Margin & Padding</h3>
+      <div class="component-demo">
+        <div class="demo-code">
+          <pre><code>/* Margin */
+.margin-top-4    /* margin-top: 16px */
+.margin-bottom-6 /* margin-bottom: 24px */
+.margin-x-4      /* margin left + right */
+.margin-y-6      /* margin top + bottom */
+
+/* Padding */
+.padding-4       /* padding: 16px */
+.padding-x-6     /* padding left + right */
+.padding-y-4     /* padding top + bottom */</code></pre>
+        </div>
+      </div>
+
+      <h3>Layout</h3>
+      <div class="component-demo">
+        <div class="demo-code">
+          <pre><code>/* Flexbox */
+.flex            /* display: flex */
+.flex-col        /* flex-direction: column */
+.items-center    /* align-items: center */
+.justify-between /* justify-content: space-between */
+
+/* Grid */
+.grid            /* display: grid */
+.grid-cols-2     /* 2 colunas */
+.gap-4           /* gap: 16px */</code></pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modals -->
+  <monad-modal id="demo-modal" title="Demo Modal">
+    <p>This is a demo modal to show the component in action.</p>
+    <p>Press ESC or click outside to close.</p>
+    <div slot="footer">
+      <button data-modal-close class="hoverable">Close</button>
+    </div>
+  </monad-modal>
+
+  <!-- Scripts -->
+  <script src="../dist/scripts/monad.min.js"></script>
+  <script>
+    // Theme switcher
+    function setTheme(theme) {
+      document.body.setAttribute('theme', theme);
+      document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === theme);
+      });
+      localStorage.setItem('monad-theme', theme);
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('monad-theme') || 'moonlight';
+    setTheme(savedTheme);
+  </script>
+</body>
+</html>
