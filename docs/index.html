@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Monad Design System</title>
     <meta name="description" content="A minimalist atomic design system built on principles of clarity, visual silence, and emotional precision.">
-    <link rel="stylesheet" href="../dist/styles/monad.css">
+    <!--link rel="stylesheet" href="../dist/styles/monad.css"-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/styles/monad.css">
 </head>
 
 <body class="manuscript">
@@ -155,15 +156,20 @@
             <p><strong>Semantic HTML</strong> — Accessibility built-in. SEO-friendly. Standards-compliant.</p>
             
             <h3>Getting Started</h3>
-            <div class="card">
-                <pre><code>npm install monad-design-system
+            <p>Monad is ready to use via CDN — no installation required.</p>
+            
+            <div class="card sage-calm">
+                <h4>📦 CDN (Recommended)</h4>
+                <pre><code>&lt;!-- CSS --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/styles/monad.css"&gt;
 
-# Import in your SCSS
-@use 'monad' as *;
-
-# Or link the compiled CSS
-&lt;link rel="stylesheet" href="dist/monad.css"&gt;
-&lt;script src="dist/monad.js"&gt;&lt;/script&gt;</code></pre>
+&lt;!-- JavaScript (Web Components) --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/scripts/monad.js" defer&gt;&lt;/script&gt;</code></pre>
+            </div>
+            
+            <div class="card aether-sky">
+                <h4>📚 That's it!</h4>
+                <p>Add these two lines to your HTML and start using Monad components immediately. No build step, no configuration.</p>
             </div>
             
             <h3>Philosophy</h3>
@@ -2946,7 +2952,7 @@ threshold: 0                    // Trigger at any visibility</code></pre>
         </section>
     </main>
 
-    <script src="../dist/scripts/monad.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/scripts/monad.js" defer></script>
     <script type="module">
        import {
     createIcons,
