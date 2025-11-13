@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Threshold Layout — Monad Design System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/styles/monad.css">
+</head>
+
+<body class="threshold">
+    <main>
+        <div class="text-center margin-bottom-6">
+            <a href="index.html" style="text-decoration: none; color: var(--color-on-surface);">
+                <i data-lucide="circle-dot" style="width: 40px; height: 40px; margin-bottom: 1rem;"></i>
+                <h1>Monad</h1>
+            </a>
+            <p class="text-muted">Welcome back — sign in to continue</p>
+        </div>
+
+        <div class="card iris-petal margin-bottom-6" style="text-align: center;">
+            <strong>Threshold Layout</strong>
+            <p style="margin: 0;"><small>Gateway — passage between states. For authentication and transitions.</small></p>
+        </div>
+
+        <form class="stack-4">
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="flex-between">
+                <label>
+                    <input type="checkbox" name="remember">
+                    <span>Remember me</span>
+                </label>
+                <a href="#" class="hoverable">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="thought hoverable full-width">
+                Sign In
+            </button>
+        </form>
+
+        <div class="divider margin-top-5 margin-bottom-5">or</div>
+
+        <div class="stack-3">
+            <button class="graphite-core outline hoverable full-width">
+                <i data-lucide="github"></i>
+                Continue with GitHub
+            </button>
+            <button class="graphite-core outline hoverable full-width">
+                <i data-lucide="mail"></i>
+                Continue with Google
+            </button>
+        </div>
+
+        <div class="text-center margin-top-6">
+            <small class="text-muted">
+                Don't have an account? <a href="#" class="hoverable">Sign up</a>
+            </small>
+        </div>
+
+        <div class="flex-group margin-top-8">
+            <a href="observatory.html" class="hoverable">
+                <button class="graphite-core outline hoverable small">← Observatory</button>
+            </a>
+            <a href="index.html" class="hoverable">
+                <button class="graphite-core outline hoverable small">Docs</button>
+            </a>
+            <a href="horizon.html" class="hoverable">
+                <button class="thought hoverable small">Horizon →</button>
+            </a>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/scripts/monad.js" defer></script>
+    <script type="module">
+        import { createIcons } from 'https://cdn.jsdelivr.net/npm/lucide@latest/dist/esm/lucide.js';
+        createIcons();
+    </script>
+</body>
+</html>

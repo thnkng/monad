@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manuscript Layout — Monad Design System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/styles/monad.css">
+</head>
+
+<body class="manuscript">
+    <aside class="sidebar">
+        <header>
+            <a href="index.html">
+                <i data-lucide="circle-dot"></i>
+                <h1>Monad</h1>
+            </a>
+            <button class="hoverable" onclick="document.body.classList.toggle('collapsed')">
+                <i data-lucide="chevron-left"></i>
+            </button>
+        </header>
+
+        <nav>
+            <div class="sidebar-label">Layout Docs</div>
+            <a href="#introduction" class="sidebar-link active hoverable">
+                <i data-lucide="book-open"></i>
+                <span class="sidebar-link-text">Introduction</span>
+            </a>
+            <a href="#structure" class="sidebar-link hoverable">
+                <i data-lucide="layers"></i>
+                <span class="sidebar-link-text">Structure</span>
+            </a>
+            <a href="#features" class="sidebar-link hoverable">
+                <i data-lucide="star"></i>
+                <span class="sidebar-link-text">Features</span>
+            </a>
+            <a href="#examples" class="sidebar-link hoverable">
+                <i data-lucide="code"></i>
+                <span class="sidebar-link-text">Examples</span>
+            </a>
+            
+            <div class="sidebar-label">Templates</div>
+            <a href="canvas.html" class="sidebar-link hoverable">
+                <i data-lucide="layout"></i>
+                <span class="sidebar-link-text">Canvas</span>
+            </a>
+            <a href="observatory.html" class="sidebar-link hoverable">
+                <i data-lucide="layout-dashboard"></i>
+                <span class="sidebar-link-text">Observatory</span>
+            </a>
+            <a href="threshold.html" class="sidebar-link hoverable">
+                <i data-lucide="door-open"></i>
+                <span class="sidebar-link-text">Threshold</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <small class="sidebar-version">Manuscript Layout</small>
+        </div>
+    </aside>
+
+    <header>
+        <h3>Manuscript — Documentation Layout</h3>
+        <div class="flex-group">
+            <span class="badge iris-petal">Docs Template</span>
+        </div>
+    </header>
+
+    <main>
+        <section id="introduction">
+            <div class="card iris-petal margin-bottom-6">
+                <h3>Manuscript Layout</h3>
+                <p><strong>Purpose:</strong> Structured knowledge — documentation canvas. Long-form content with navigation.</p>
+                <p><strong>Use case:</strong> Documentation sites, guides, articles, knowledge bases.</p>
+            </div>
+
+            <h2>Introduction</h2>
+            <p class="lead">The Manuscript layout is designed for structured documentation with sidebar navigation and long-form content.</p>
+            
+            <p>This layout provides a comfortable reading experience with proper typography rhythm, scroll behavior, and section anchors.</p>
+
+            <blockquote>
+                <p>"Technology disappears. Experience remains." — Manuscript embodies this principle through invisible structure.</p>
+            </blockquote>
+        </section>
+
+        <section id="structure">
+            <h2>Structure</h2>
+            <p>The layout uses a three-area grid:</p>
+
+            <div class="grid-auto-fit-250 gap-4 margin-bottom-5">
+                <div class="card sage-calm">
+                    <h4><i data-lucide="sidebar" style="width: 20px; height: 20px;"></i> Sidebar</h4>
+                    <p>Navigation panel with links, labels, and footer. Collapsible on mobile.</p>
+                </div>
+
+                <div class="card aether-sky">
+                    <h4><i data-lucide="layout-template" style="width: 20px; height: 20px;"></i> Header</h4>
+                    <p>Sticky top bar with title and actions. Stays visible during scroll.</p>
+                </div>
+
+                <div class="card rose-soft">
+                    <h4><i data-lucide="file-text" style="width: 20px; height: 20px;"></i> Main</h4>
+                    <p>Content area with max-width for readability. Proper spacing and rhythm.</p>
+                </div>
+            </div>
+
+            <h3>Grid Template</h3>
+            <pre><code>grid-template-areas:
+  "sidebar header"
+  "sidebar main";
+grid-template-columns: 280px 1fr;
+grid-template-rows: 64px calc(100vh - 64px);</code></pre>
+        </section>
+
+        <section id="features">
+            <h2>Features</h2>
+
+            <h3>Typography Rhythm</h3>
+            <p>Headings and paragraphs follow a consistent spacing scale:</p>
+            <ul>
+                <li><code>h2</code>: Top 0, bottom space-5</li>
+                <li><code>h3</code>: Top space-6, bottom space-4</li>
+                <li><code>h4</code>: Top space-5, bottom space-3</li>
+                <li><code>p, ul, ol</code>: Bottom space-4, line-height relaxed</li>
+            </ul>
+
+            <h3>Scroll Behavior</h3>
+            <p>Sections use <code>scroll-margin-top</code> to account for the sticky header when anchor links are clicked.</p>
+
+            <h3>Code Blocks</h3>
+            <p>Inline code like <code>button.hoverable</code> and block code are styled for readability:</p>
+            
+            <pre><code>.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+}</code></pre>
+
+            <h3>Blockquotes</h3>
+            <blockquote>
+                <p>Callouts and quotes stand out with left border and italic text. Perfect for highlighting key concepts.</p>
+            </blockquote>
+        </section>
+
+        <section id="examples">
+            <h2>Examples</h2>
+            
+            <h3>Basic Usage</h3>
+            <pre><code>&lt;body class="manuscript"&gt;
+  &lt;aside class="sidebar"&gt;...&lt;/aside&gt;
+  &lt;header&gt;...&lt;/header&gt;
+  &lt;main&gt;
+    &lt;section id="intro"&gt;...&lt;/section&gt;
+    &lt;section id="content"&gt;...&lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;</code></pre>
+
+            <h3>Navigation Links</h3>
+            <p>Use anchor links that match section IDs:</p>
+            <pre><code>&lt;a href="#introduction" class="sidebar-link hoverable"&gt;
+  &lt;i data-lucide="book-open"&gt;&lt;/i&gt;
+  &lt;span&gt;Introduction&lt;/span&gt;
+&lt;/a&gt;</code></pre>
+
+            <h3>Content Cards</h3>
+            <div class="card margin-top-4">
+                <h4>Example Card</h4>
+                <p>Cards in the Manuscript layout automatically get proper spacing. First heading has no top margin, last paragraph has no bottom margin.</p>
+            </div>
+        </section>
+
+        <div class="flex-group margin-top-8">
+            <a href="diptych.html" class="hoverable">
+                <button class="graphite-core outline hoverable">← Diptych</button>
+            </a>
+            <a href="index.html" class="hoverable">
+                <button class="graphite-core outline hoverable">Back to Docs</button>
+            </a>
+            <a href="canvas.html" class="hoverable">
+                <button class="thought hoverable">Canvas →</button>
+            </a>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/scripts/monad.js" defer></script>
+    <script type="module">
+        import { createIcons } from 'https://cdn.jsdelivr.net/npm/lucide@latest/dist/esm/lucide.js';
+        createIcons();
+    </script>
+</body>
+</html>

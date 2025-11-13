@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Canvas Layout — Monad Design System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/styles/monad.css">
+</head>
+
+<body class="canvas">
+    <aside class="sidebar">
+        <header>
+            <a href="index.html">
+                <i data-lucide="circle-dot"></i>
+                <h1>Monad</h1>
+            </a>
+            <button class="hoverable" onclick="document.body.classList.toggle('collapsed')">
+                <i data-lucide="chevron-left"></i>
+            </button>
+        </header>
+
+        <nav>
+            <div class="sidebar-label">Navigation</div>
+            <a href="#" class="sidebar-link active hoverable">
+                <i data-lucide="home"></i>
+                <span class="sidebar-link-text">Dashboard</span>
+            </a>
+            <a href="#" class="sidebar-link hoverable">
+                <i data-lucide="folder"></i>
+                <span class="sidebar-link-text">Projects</span>
+            </a>
+            <a href="#" class="sidebar-link hoverable">
+                <i data-lucide="users"></i>
+                <span class="sidebar-link-text">Team</span>
+            </a>
+            <a href="#" class="sidebar-link hoverable">
+                <i data-lucide="settings"></i>
+                <span class="sidebar-link-text">Settings</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <small class="sidebar-version">Canvas Layout</small>
+        </div>
+    </aside>
+
+    <header>
+        <div class="left">
+            <h2>Canvas — Workspace</h2>
+        </div>
+        <div class="right">
+            <button class="hoverable">
+                <i data-lucide="search"></i>
+            </button>
+            <button class="hoverable">
+                <i data-lucide="bell"></i>
+            </button>
+            <div class="avatar medium">
+                <img src="https://i.pravatar.cc/150?img=12" alt="User">
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="card sage-calm">
+            <h3>Canvas Layout</h3>
+            <p><strong>Purpose:</strong> Blank slate for creation. Grid-based workspace with collapsible sidebar navigation.</p>
+            <p><strong>Use case:</strong> Application interfaces, design tools, project workspaces.</p>
+        </div>
+
+        <div class="grid-auto-fit-300 gap-5 margin-top-6">
+            <div class="card hoverable">
+                <i data-lucide="layers" class="icon-large text-thought"></i>
+                <h4>Project Alpha</h4>
+                <p>Design system components and documentation.</p>
+                <span class="badge state-flow">Active</span>
+            </div>
+
+            <div class="card hoverable">
+                <i data-lucide="code" class="icon-large text-ember-energy"></i>
+                <h4>API Integration</h4>
+                <p>Backend services and microservices architecture.</p>
+                <span class="badge state-pulse">In Progress</span>
+            </div>
+
+            <div class="card hoverable">
+                <i data-lucide="palette" class="icon-large text-iris-petal"></i>
+                <h4>Brand Refresh</h4>
+                <p>New visual identity and brand guidelines.</p>
+                <span class="badge">Planning</span>
+            </div>
+
+            <div class="card hoverable">
+                <i data-lucide="file-text" class="icon-large text-sage-calm"></i>
+                <h4>Documentation</h4>
+                <p>User guides and API reference documentation.</p>
+                <span class="badge state-flow">Complete</span>
+            </div>
+
+            <div class="card hoverable">
+                <i data-lucide="users" class="icon-large text-rose-soft"></i>
+                <h4>Team Portal</h4>
+                <p>Internal collaboration and resource hub.</p>
+                <span class="badge">Upcoming</span>
+            </div>
+
+            <div class="card hoverable">
+                <i data-lucide="trending-up" class="icon-large text-aether-sky"></i>
+                <h4>Analytics Dashboard</h4>
+                <p>Data visualization and metrics tracking.</p>
+                <span class="badge state-pulse">In Progress</span>
+            </div>
+        </div>
+
+        <div class="card margin-top-6">
+            <h3>Layout Features</h3>
+            <ul>
+                <li><strong>Collapsible Sidebar:</strong> Click the chevron to collapse/expand</li>
+                <li><strong>Grid Layout:</strong> Responsive grid system with sidebar + header + main</li>
+                <li><strong>Mobile Ready:</strong> Sidebar converts to overlay on mobile</li>
+                <li><strong>Clean Structure:</strong> Perfect for application interfaces</li>
+            </ul>
+        </div>
+
+        <div class="flex-group margin-top-6">
+            <a href="index.html" class="hoverable">
+                <button class="graphite-core outline hoverable">← Back to Docs</button>
+            </a>
+            <a href="observatory.html" class="hoverable">
+                <button class="thought hoverable">Observatory Layout →</button>
+            </a>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/scripts/monad.js" defer></script>
+    <script type="module">
+        import { createIcons } from 'https://cdn.jsdelivr.net/npm/lucide@latest/dist/esm/lucide.js';
+        createIcons();
+    </script>
+</body>
+</html>
