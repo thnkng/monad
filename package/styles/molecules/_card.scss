@@ -1,74 +1,52 @@
+// ============================================
+// Card Molecule
+// ============================================
+
 @use "../mixins" as *;
 @use "../tokens/colors" as c;
 
-// Base card
+// Base card - neutro
 .card {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-surface);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-large);
-  box-shadow: var(--shadow-faint);
   @include base-transition;
-  @include hover-shadow;
+  
+  &.hoverable:hover {
+    box-shadow: var(--shadow-soft);
+  }
+  
+  // Variantes de padding
+  &.compact { padding: var(--space-small); }
+  &.spacious { padding: var(--space-xlarge); }
+  
+  // Variantes de interação
+  &.interactive {
+    cursor: pointer;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
+    }
+    
+    &:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-soft);
+    }
+  }
 }
 
-// Color variants with subtle background
+// Color variants - fundo sutil da cor
 @each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
     $class: if($name == default, ".#{$palette}", ".#{$palette}-#{$name}");
     
     .card#{$class} {
       border-color: $value;
-      background-color: color-mix(in srgb, $value 8%, var(--color-surface));
+      background: color-mix(in srgb, $value 8%, var(--color-surface));
     }
   }
-}
-
-// Padding variants
-.card.padding-none { padding: 0; }
-.card.padding-compact { padding: var(--space-small); }
-.card.padding-spacious { padding: var(--space-xlarge); }
-
-// Shadow variants
-.card.shadow-none { box-shadow: none; }
-.card.shadow-medium { box-shadow: var(--shadow-soft); }
-.card.shadow-large { box-shadow: var(--shadow-medium); }
-
-// Interactive variant
-.card.interactive {
-  @include interactive;
-}
-
-// Internal components
-.card-header {
-  padding: var(--space-medium);
-  border-bottom: 1px solid var(--color-border);
-  margin: calc(-1 * var(--space-large)) calc(-1 * var(--space-large)) var(--space-medium);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-}
-
-.card-body {
-  flex: 1;
-  padding: var(--space-medium);
-}
-
-.card-footer {
-  padding: var(--space-medium);
-  border-top: 1px solid var(--color-border);
-  margin: var(--space-medium) calc(-1 * var(--space-large)) calc(-1 * var(--space-large));
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-
-.card-image {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  margin: calc(-1 * var(--space-large)) calc(-1 * var(--space-large)) var(--space-medium);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }

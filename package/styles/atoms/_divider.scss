@@ -1,21 +1,18 @@
+// ============================================
+// Divider Atom
+// ============================================
+
 hr {
   border: 0;
   height: 1px;
-  background-color: var(--color-border);
-  margin: var(--space-large) 0;
-}
-
-/* Variantes de espessura */
-hr[data-weight="thin"] {
-  height: 1px;
-}
-
-hr[data-weight="medium"] {
-  height: 2px;
-}
-
-hr[data-weight="thick"] {
-  height: 3px;
+  background: var(--color-border);
+  margin: var(--space-6) 0;
+  
+  &[data-weight="medium"] { height: 2px; }
+  &[data-weight="thick"] { height: 3px; }
+  
+  &[data-spacing="compact"] { margin: var(--space-3) 0; }
+  &[data-spacing="spacious"] { margin: var(--space-8) 0; }
 }
 
 /* Variantes de cor */

@@ -1,73 +1,37 @@
-// Alert molecule - Notification/feedback component
+// ============================================
+// Alert Molecule
+// ============================================
+
+@use "sass:color";
+@use "../mixins" as *;
+@use "../tokens/colors" as c;
+
+// Base alert - neutro
 .alert {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-small);
-  padding: var(--space-medium) var(--space-large);
-  border-radius: var(--radius-sm);
-  border-left: 3px solid;
-  background: var(--cloud-silent);
-  color: var(--graphite-mind);
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
   font-size: var(--font-size-medium);
-  line-height: var(--line-height-normal);
-  margin-bottom: var(--space-medium);
-
+  line-height: var(--line-height-relaxed);
+  @include base-transition;
+  
   &:last-child { margin-bottom: 0; }
 }
 
-.alert-icon {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  margin-top: 2px;
-}
-
-.alert-content {
-  flex: 1;
-
-  strong {
-    display: block;
-    font-weight: var(--font-weight-medium);
-    margin-bottom: var(--space-xsmall);
+// Color variants
+@each $palette, $entries in c.$colors {
+  @each $name, $value in $entries {
+    $class: if($name == default, ".#{$palette}", ".#{$palette}-#{$name}");
+    
+    .alert#{$class} {
+      background: color-mix(in srgb, $value 10%, var(--color-surface));
+      border-left-color: $value;
+      color: color-mix(in srgb, $value 80%, var(--graphite-mind) 20%);
+    }
   }
-}
-
-.alert-close {
-  flex-shrink: 0;
-  background: none;
-  border: none;
-  color: inherit;
-  opacity: 0.6;
-  cursor: pointer;
-  padding: 0;
-  font-size: var(--font-size-large);
-  line-height: 1;
-  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
-
-  &.hoverable:hover { opacity: 1; }
-}
-
-// State variants
-.alert-info {
-  background: rgba(30, 58, 95, 0.1);
-  border-left-color: var(--thought);
-  color: var(--thought-depth);
-}
-
-.alert-success {
-  background: rgba(51, 212, 105, 0.1);
-  border-left-color: var(--state-flow);
-  color: #1a7a3e;
-}
-
-.alert-warning {
-  background: rgba(255, 193, 77, 0.1);
-  border-left-color: var(--state-pulse);
-  color: #8a5a00;
-}
-
-.alert-error {
-  background: rgba(255, 92, 92, 0.1);
-  border-left-color: var(--state-break);
-  color: #c41e3a;
 }

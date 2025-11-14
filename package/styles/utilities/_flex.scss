@@ -1,45 +1,50 @@
 // ============================================
 // Flex Utilities
 // ============================================
-// Flexbox helpers for quick layouts
+// Simple flexbox helpers
 
-// Flex groups (button groups, tag groups, etc.)
-.flex-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  align-items: center;
-}
-
-.flex-group-small {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  align-items: center;
-}
-
-// Flex stacks (vertical layouts)
-.flex-stack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.flex-stack-small {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-// Flex rows
-.flex-row {
+// Horizontal flex (default)
+.flex {
   display: flex;
   align-items: center;
   gap: var(--space-3);
 }
 
-.flex-row-small {
+// Vertical flex
+.flex-column {
   display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+// Wrapping flex
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+// Alignment helpers
+.flex-center {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: var(--space-2);
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }

@@ -1,3 +1,7 @@
+// ============================================
+// Checkbox Atom
+// ============================================
+
 @use "../mixins" as *;
 
 input[type="checkbox"] {
@@ -6,80 +10,60 @@ input[type="checkbox"] {
   height: 1.125rem;
   border: 2px solid var(--color-border);
   border-radius: var(--radius-sm);
-  background-color: var(--color-surface);
+  background: var(--color-surface);
   cursor: pointer;
   position: relative;
   flex-shrink: 0;
   margin: 0;
   @include base-transition;
   @include focus-ring;
+  @include disabled;
   
-  &.hoverable:hover { border-color: var(--color-primary); }
+  &.hoverable:hover { border-color: var(--graphite-core); }
   
   &:checked {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
+    background: var(--graphite-core);
+    border-color: var(--graphite-core);
     
     &::before {
       content: '';
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(45deg);
+      inset: 0;
+      margin: auto;
       width: 0.375rem;
       height: 0.625rem;
-      border: solid var(--cloud-pure);
+      border: solid white;
       border-width: 0 2px 2px 0;
+      transform: rotate(45deg) translateY(-10%);
     }
   }
   
   &:indeterminate {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
+    background: var(--graphite-core);
+    border-color: var(--graphite-core);
     
     &::before {
       content: '';
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      inset: 0;
+      margin: auto;
       width: 0.625rem;
       height: 2px;
-      background-color: var(--cloud-pure);
-      border: none;
+      background: white;
     }
   }
   
-  @include disabled;
-  
-  &:disabled {
-    background-color: var(--color-muted-weak);
-    border-color: var(--color-muted);
+  &[data-size="sm"] {
+    width: 0.875rem;
+    height: 0.875rem;
     
-    &:checked { background-color: var(--color-muted); }
+    &:checked::before { width: 0.25rem; height: 0.5rem; }
   }
-}
-
-// Size variants
-input[type="checkbox"][data-size="sm"] {
-  width: 0.875rem;
-  height: 0.875rem;
   
-  &:checked::before { width: 0.25rem; height: 0.5rem; }
-}
-
-input[type="checkbox"][data-size="lg"] {
-  width: 1.375rem;
-  height: 1.375rem;
-  
-  &:checked::before { width: 0.5rem; height: 0.75rem; }
-}
-
-// Error state
-input[type="checkbox"][aria-invalid="true"] {
-  border-color: var(--color-danger);
-  
-  &:focus {
-    box-shadow: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-danger) 15%, transparent);
+  &[data-size="lg"] {
+    width: 1.375rem;
+    height: 1.375rem;
+    
+    &:checked::before { width: 0.5rem; height: 0.75rem; }
   }
 }

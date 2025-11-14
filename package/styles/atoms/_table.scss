@@ -1,48 +1,49 @@
-@use "../tokens/colors" as *;
-@use "../tokens/spacing" as *;
+// ============================================
+// Table Atom
+// ============================================
 
-// Table atom - Clean minimal styling
+@use "sass:color";
+@use "../mixins" as *;
+@use "../tokens/colors" as c;
+
 table {
   width: 100%;
   border-collapse: collapse;
-  border-spacing: 0;
-
+  @include base-transition;
+  
   th, td {
-    padding: var(--space-small) var(--space-medium);
+    padding: var(--space-3) var(--space-4);
     text-align: left;
-    border-bottom: 1px solid var(--silver-line);
+    border-bottom: 1px solid var(--color-border);
   }
-
+  
   th {
-    font-weight: var(--font-weight-regular);
-    color: var(--silver-depth);
+    font-weight: var(--font-weight-medium);
     font-size: var(--font-size-small);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    background: var(--color-surface);
+    color: var(--color-on-surface);
   }
-
+  
   tbody tr {
-    transition: background-color var(--motion-duration-fast) var(--motion-ease-standard);
-
-    &:last-child td {
-      border-bottom: none;
+    &:last-child td { border-bottom: none; }
+    
+    &.hoverable:hover {
+      background: color-mix(in srgb, var(--color-border) 20%, var(--color-surface));
     }
   }
 }
 
-// Generate color variants for tables
-@each $palette, $entries in $colors {
+// Color variants
+@each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
-    @if $name == default {
-      table.#{"" + $palette} th {
-        background: #{$value};
-        color: color-contrast(#{$value});
-      }
-    } @else {
-      table.#{"" + $palette}-#{$name} th {
-        background: #{$value};
-        color: color-contrast(#{$value});
-      }
+    $class: if($name == default, ".#{$palette}", ".#{$palette}-#{$name}");
+    $l: color.channel($value, "lightness", hsl);
+    
+    table#{$class} th {
+      background: $value;
+      color: if($l > 60%, var(--graphite-mind), white);
     }
   }
 }

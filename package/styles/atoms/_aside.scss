@@ -1,102 +1,55 @@
 // ============================================
 // Aside Atom
 // ============================================
-// Semantic sidebar/complementary content
-// Style the <aside> element directly
-// Variants generated from color tokens
 
-@use "../tokens/colors" as *;
-@use "../tokens/spacing" as *;
-@use "../tokens/effects" as *;
+@use "sass:color";
+@use "../mixins" as *;
+@use "../tokens/colors" as c;
 
-// Base aside styling
+// Base aside - neutro
 aside {
   padding: var(--space-6);
   border-radius: var(--radius-md);
-  background: var(--cloud-silent);
-  border: 1px solid var(--silver-line);
-  color: var(--graphite-mind);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-on-surface);
+  @include base-transition;
   
-  // Smooth transitions
-  transition: 
-    background-color var(--motion-duration-fast) var(--motion-ease-standard),
-    border-color var(--motion-duration-fast) var(--motion-ease-standard),
-    box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
-
-  // Typography adjustments for aside content
-  h1, h2, h3, h4, h5, h6 {
-    margin-top: 0;
+  h1, h2, h3, h4, h5, h6 { margin-top: 0; }
+  p:last-child { margin-bottom: 0; }
+  
+  &.hoverable:hover {
+    box-shadow: var(--shadow-soft);
   }
-
-  p:last-child {
-    margin-bottom: 0;
+  
+  // Variantes de tamanho
+  &.small {
+    padding: var(--space-4);
+    font-size: var(--font-size-small);
   }
-
-  // Lists inside aside
-  ul, ol {
-    padding-left: var(--space-5);
+  
+  &.large {
+    padding: var(--space-8);
+    font-size: var(--font-size-large);
+  }
+  
+  // Variantes de posição
+  &.sticky {
+    position: sticky;
+    top: var(--space-6);
   }
 }
 
-// Generate color variants for all palettes
-@each $palette, $entries in $colors {
+// Color variants
+@each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
-    aside.#{"" + $palette}-#{$name} {
-      background: $value;
+    $class: if($name == default, ".#{$palette}", ".#{$palette}-#{$name}");
+    $l: color.channel($value, "lightness", hsl);
+    
+    aside#{$class} {
+      background: color-mix(in srgb, $value 12%, var(--color-surface));
       border-color: $value;
-      color: var(--white);
-      
-      // Ensure readable contrast on dark backgrounds
-      @if $name == "light" or $palette == "cloud" or $palette == "silver" {
-        color: var(--graphite-mind);
-      }
-
-      // Adjust link colors inside colored aside
-      a {
-        color: inherit;
-        text-decoration: underline;
-        opacity: 0.9;
-        
-        &.hoverable:hover {
-          opacity: 1;
-        }
-      }
+      color: if($l > 70%, var(--graphite-mind), var(--color-on-surface));
     }
   }
-}
-
-// Opt-in hover effect for interactive asides
-aside.hoverable:hover {
-  box-shadow: var(--shadow-soft);
-}
-
-// Size variants
-aside.small {
-  padding: var(--space-4);
-  font-size: var(--font-size-small);
-}
-
-aside.large {
-  padding: var(--space-8);
-  font-size: var(--font-size-large);
-}
-
-// Position variants for layout flexibility
-aside.aside-sticky {
-  position: sticky;
-  top: var(--space-6);
-}
-
-aside.aside-float-right {
-  float: right;
-  margin-left: var(--space-6);
-  margin-bottom: var(--space-6);
-  max-width: 320px;
-}
-
-aside.aside-float-left {
-  float: left;
-  margin-right: var(--space-6);
-  margin-bottom: var(--space-6);
-  max-width: 320px;
 }

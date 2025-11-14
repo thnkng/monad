@@ -1,80 +1,64 @@
-@use "../tokens/colors" as *;
+// ============================================
+// Header Atom
+// ============================================
+
+@use "sass:color";
+@use "../tokens/colors" as c;
 
 header {
-  --header-bg: var(--color-surface);
-  --header-fg: var(--color-on-surface);
-  --header-border: var(--color-border);
-  --header-gap: var(--space-3);
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--header-gap);
+  gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
-  background-color: var(--header-bg);
-  color: var(--header-fg);
-  border-bottom: 1px solid var(--header-border);
-  user-select: none; // Prevent text selection
-  pointer-events: auto; // But allow clicks on children
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  border-bottom: 1px solid var(--color-border);
+  user-select: none;
+  
+  &[data-sticky] {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  
+  :is(h1, h2, h3) {
+    margin: 0;
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+  }
+  
+  > .left,
+  > .right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  
+  > .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
 }
 
-header[sticky],
-header[data-sticky="true"],
-header[aria-sticky="true"] {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-header nav {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  user-select: none; // Prevent text selection when clicking between links
-}
-
-header :is(h1, h2) {
-  margin: 0;
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
-  user-select: none; // Prevent text selection on logo/title
-}
-
-// Polymorphic layout variants
-header > .left {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-header > .right {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-header > .center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-}
-
-// Generate color variants for headers
-@each $palette, $entries in $colors {
+// Color variants
+@each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
-    @if $name == default {
-      header.#{"" + $palette} {
-        --header-bg: #{$value};
-        --header-fg: #{color-contrast($value)};
-        --header-border: #{rgba($value, 0.3)};
-      }
-    } @else {
-      header.#{"" + $palette}-#{$name} {
-        --header-bg: #{$value};
-        --header-fg: #{color-contrast($value)};
-        --header-border: #{rgba($value, 0.3)};
-      }
+    $class: if($name == default, ".#{$palette}", ".#{$palette}-#{$name}");
+    $l: color.channel($value, "lightness", hsl);
+    
+    header#{$class} {
+      background: $value;
+      border-bottom-color: color-mix(in srgb, $value 80%, black 20%);
+      color: if($l > 60%, var(--graphite-mind), white);
     }
   }
 }

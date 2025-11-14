@@ -24,7 +24,7 @@
   }
   
   // Icon/emoji
-  .empty-state-icon {
+  .empty-state.icon {
     font-size: 4rem;
     line-height: 1;
     opacity: 0.5;
@@ -53,7 +53,7 @@
 }
 
 // Size variants
-.empty-state.empty-state-compact {
+.empty-state.compact {
   padding: var(--space-6);
   gap: var(--space-3);
   
@@ -62,7 +62,7 @@
     max-width: 160px;
   }
   
-  .empty-state-icon {
+  .empty-state.icon {
     font-size: 3rem;
   }
   

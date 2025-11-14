@@ -1,3 +1,7 @@
+// ============================================
+// Padding Utilities
+// ============================================
+
 @use "sass:map";
 @use "../tokens/spacing" as s;
 
@@ -16,7 +20,7 @@ $friendly-names: (
 @each $name, $value in s.$spacing {
   $friendly: map.get($friendly-names, $name);
   
-  // Shorthand utilities (mantidas para compatibilidade)
+  // Shorthand utilities
   .p-#{$name} { padding: var(--space-#{$name}); }
   .px-#{$name} { padding-inline: var(--space-#{$name}); }
   .py-#{$name} { padding-block: var(--space-#{$name}); }
@@ -25,7 +29,7 @@ $friendly-names: (
   .pb-#{$name} { padding-bottom: var(--space-#{$name}); }
   .pl-#{$name} { padding-left: var(--space-#{$name}); }
 
-  // Nomes amigáveis por extenso
+  // Nomes amigáveis
   .padding-#{$friendly} { padding: var(--space-#{$name}); }
   .padding-inline-#{$friendly} { padding-inline: var(--space-#{$name}); }
   .padding-block-#{$friendly} { padding-block: var(--space-#{$name}); }

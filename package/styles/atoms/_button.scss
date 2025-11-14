@@ -1,7 +1,12 @@
+// ============================================
+// Button Atom
+// ============================================
+
+@use "sass:color";
 @use "../mixins" as *;
 @use "../tokens/colors" as c;
 
-// Base button
+// Base button - neutro por padrão
 button {
   display: inline-flex;
   align-items: center;
@@ -13,43 +18,56 @@ button {
   font-weight: var(--font-weight-medium);
   border-radius: var(--radius-md);
   padding: var(--space-small) var(--space-medium);
-  border: 1px solid transparent;
+  border: 1px solid var(--color-border);
   cursor: pointer;
-  background: transparent;
-  color: inherit;
-  box-shadow: var(--shadow-faint);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
   @include base-transition;
   @include focus-ring;
   
   &:active {
-    transition-timing-function: var(--motion-ease-accelerate);
-    transform: translateY(0) scale(0.99);
-    box-shadow: var(--shadow-faint);
+    transform: scale(0.98);
   }
+  
+  @include disabled;
 }
 
-// Generate all color variants with outline and ghost
+// Color variants - adapta o botão quando tem classe de cor
 @each $palette, $entries in c.$colors {
   @each $name, $value in $entries {
     $class: if($name == default, ".#{$palette}", ".#{$palette}-#{$name}");
     
     button#{$class} {
-      @include color-variant($value);
-      @include hover-lift;
+      $l: color.channel($value, "lightness", hsl);
+      background: $value;
+      border-color: $value;
+      color: if($l > 60%, var(--graphite-mind), white);
       
+      &.hoverable:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-soft);
+      }
+      
+      // Outline variant - fundo claro, borda e texto da cor
       &.outline {
-        @include outline-variant($value);
+        background: color-mix(in srgb, $value 5%, var(--color-surface));
+        border-color: $value;
+        color: $value;
         
         &.hoverable:hover {
-          @include color-variant($value);
+          background: $value;
+          color: if($l > 60%, var(--graphite-mind), white);
         }
       }
       
+      // Ghost variant - transparente
       &.ghost {
-        @include ghost-variant($value);
+        background: transparent;
+        border-color: transparent;
+        color: $value;
         
         &.hoverable:hover {
-          @include soft-variant($value);
+          background: color-mix(in srgb, $value 8%, var(--color-surface));
         }
       }
     }
