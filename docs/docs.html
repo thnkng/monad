@@ -1,906 +1,3224 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monad Design System</title>
-  <link rel="stylesheet" href="../dist/styles/monad.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    /* Layout Principal */
-    body {
-      display: grid;
-      grid-template-columns: 16rem 1fr;
-      grid-template-rows: 4rem 1fr;
-      min-height: 100vh;
-      background: var(--color-surface);
-      color: var(--color-on-surface);
-      font-family: var(--font-family-sans);
-    }
-
-    /* Header Fixo */
-    .header {
-      grid-column: 1 / -1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 var(--space-6);
-      background: var(--cloud-pure);
-      border-bottom: 1px solid var(--color-border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-logo {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-      font-size: var(--font-size-large);
-      font-weight: var(--font-weight-bold);
-      color: var(--graphite-mind);
-      text-decoration: none;
-    }
-
-    .header-logo svg {
-      width: 24px;
-      height: 24px;
-      fill: var(--thought);
-    }
-
-    .theme-switcher {
-      display: flex;
-      gap: var(--space-2);
-    }
-
-    .theme-btn {
-      padding: var(--space-2) var(--space-3);
-      border: 1px solid var(--color-border);
-      background: transparent;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      font-size: var(--font-size-small);
-      transition: all var(--motion-duration-fast);
-    }
-
-    .theme-btn:hover {
-      background: var(--cloud-silent);
-    }
-
-    .theme-btn.active {
-      background: var(--thought);
-      color: white;
-      border-color: var(--thought);
-    }
-
-    /* Sidebar */
-    .sidebar {
-      grid-row: 2;
-      padding: var(--space-6);
-      background: var(--cloud-pure);
-      border-right: 1px solid var(--color-border);
-      overflow-y: auto;
-      position: sticky;
-      top: 4rem;
-      height: calc(100vh - 4rem);
-    }
-
-    .nav-section {
-      margin-bottom: var(--space-6);
-    }
-
-    .nav-label {
-      font-size: var(--font-size-small);
-      font-weight: var(--font-weight-semibold);
-      color: var(--silver-depth);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: var(--space-3);
-      display: block;
-    }
-
-    .nav-link {
-      display: block;
-      padding: var(--space-2) var(--space-3);
-      color: var(--graphite-mind);
-      text-decoration: none;
-      border-radius: var(--radius-sm);
-      transition: all var(--motion-duration-fast);
-      font-size: var(--font-size-medium);
-    }
-
-    .nav-link:hover {
-      background: var(--cloud-silent);
-    }
-
-    .nav-link.active {
-      color: var(--thought);
-      background: color-mix(in srgb, var(--thought) 10%, transparent);
-      font-weight: var(--font-weight-semibold);
-    }
-
-    /* Main Content */
-    main {
-      grid-row: 2;
-      padding: var(--space-8);
-      max-width: 56rem;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    section {
-      margin-bottom: var(--space-10);
-      scroll-margin-top: 5rem;
-    }
-
-    section h1 {
-      font-size: 2.5rem;
-      margin-bottom: var(--space-4);
-      color: var(--graphite-mind);
-    }
-
-    section h2 {
-      font-size: var(--font-size-xlarge);
-      margin: var(--space-8) 0 var(--space-4);
-      color: var(--graphite-mind);
-      padding-bottom: var(--space-3);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    section h3 {
-      font-size: var(--font-size-large);
-      margin: var(--space-6) 0 var(--space-3);
-      color: var(--thought);
-    }
-
-    section p {
-      line-height: 1.7;
-      margin-bottom: var(--space-4);
-      color: var(--graphite-core);
-    }
-
-    section ul, section ol {
-      padding-left: var(--space-6);
-      margin-bottom: var(--space-4);
-      line-height: 1.7;
-    }
-
-    section li {
-      margin-bottom: var(--space-2);
-    }
-
-    /* Component Demo */
-    .component-demo {
-      margin: var(--space-6) 0;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-
-    .demo-preview {
-      padding: var(--space-6);
-      background: var(--cloud-silent);
-      min-height: 8rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: var(--space-4);
-    }
-
-    .demo-code {
-      background: var(--graphite-mind);
-      color: var(--cloud-pure);
-      padding: var(--space-5);
-      overflow-x: auto;
-    }
-
-    .demo-code pre {
-      margin: 0;
-      font-family: 'Courier New', monospace;
-      font-size: 0.875rem;
-      line-height: 1.6;
-    }
-
-    /* Code Inline */
-    code {
-      background: var(--cloud-mist);
-      padding: 0.125rem 0.375rem;
-      border-radius: var(--radius-sm);
-      font-family: 'Courier New', monospace;
-      font-size: 0.875em;
-      color: var(--iris-void);
-    }
-
-    .demo-code code {
-      background: none;
-      padding: 0;
-      color: inherit;
-    }
-
-    /* Props Table */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: var(--space-4) 0;
-      font-size: var(--font-size-medium);
-    }
-
-    table th {
-      text-align: left;
-      padding: var(--space-3);
-      background: var(--cloud-silent);
-      border-bottom: 2px solid var(--color-border);
-      font-weight: var(--font-weight-semibold);
-    }
-
-    table td {
-      padding: var(--space-3);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    /* Feature Grid */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: var(--space-4);
-      margin: var(--space-5) 0;
-    }
-
-    .feature-card {
-      padding: var(--space-5);
-      background: var(--cloud-pure);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-    }
-
-    .feature-card h4 {
-      margin-bottom: var(--space-2);
-      color: var(--thought);
-      font-size: var(--font-size-medium);
-    }
-
-    .feature-card p {
-      margin: 0;
-      font-size: var(--font-size-small);
-      color: var(--silver-depth);
-    }
-
-    /* Badge */
-    .badge-inline {
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      background: var(--thought);
-      color: white;
-      border-radius: var(--radius-sm);
-      font-size: var(--font-size-small);
-      font-weight: var(--font-weight-medium);
-      margin-left: var(--space-2);
-    }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-      body {
-        grid-template-columns: 1fr;
-        grid-template-rows: 4rem auto 1fr;
-      }
-
-      .sidebar {
-        grid-row: 2;
-        position: static;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid var(--color-border);
-        padding: var(--space-4);
-      }
-
-      .nav-section {
-        display: inline-block;
-        margin-right: var(--space-4);
-        margin-bottom: 0;
-      }
-
-      .nav-label {
-        display: inline;
-        margin-right: var(--space-2);
-      }
-
-      .nav-link {
-        display: inline-block;
-        margin-right: var(--space-2);
-      }
-
-      main {
-        grid-row: 3;
-      }
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Documentation — Monad Design System</title>
+    <meta name="description" content="Complete documentation for Monad - minimalist atomic design system with emotional precision.">
+    <!--link rel="stylesheet" href="../dist/styles/monad.css"-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/styles/monad.css">
 </head>
-<body theme="moonlight">
-  
-  <!-- Header Fixo -->
-  <header class="header">
-    <a href="/" class="header-logo">
-      <svg viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" fill="currentColor"/>
-        <circle cx="12" cy="12" r="6" fill="white"/>
-      </svg>
-      <span>Monad</span>
-    </a>
 
-    <div class="theme-switcher">
-      <button class="theme-btn active" onclick="setTheme('moonlight')" data-theme="moonlight">☀️</button>
-      <button class="theme-btn" onclick="setTheme('midnight')" data-theme="midnight">🌙</button>
-      <button class="theme-btn" onclick="setTheme('ocean')" data-theme="ocean">🌊</button>
-      <button class="theme-btn" onclick="setTheme('purple')" data-theme="purple">✨</button>
-    </div>
-  </header>
-
-  <!-- Sidebar Navigation -->
-  <aside class="sidebar">
+<body class="manuscript">
+    <!-- Sidebar Navigation com Active Link automático -->
     <monad-active-nav>
-      <span class="nav-label">Getting Started</span>
-      <a href="#introduction" class="nav-link">Introduction</a>
-      <a href="#installation" class="nav-link">Installation</a>
+        <aside class="sidebar">
+            <header>
+                <a href="#">
+                    <i data-lucide="circle-dot"></i>
+                    <h1>Monad</h1>
+                </a>
+                <button class="hoverable" onclick="document.querySelector('.sidebar').classList.toggle('collapsed')">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+            </header>
 
-      <span class="nav-label">Foundation</span>
-      <a href="#colors" class="nav-link">Colors</a>
-      <a href="#typography" class="nav-link">Typography</a>
-      <a href="#spacing" class="nav-link">Spacing</a>
+            <nav>
+                <div class="sidebar-label">Getting Started</div>
+                <a href="#manifest" class="sidebar-link hoverable">
+                    <i data-lucide="file-text"></i>
+                    <span class="sidebar-link-text">Manifest</span>
+                </a>
+                <a href="#philosophy" class="sidebar-link hoverable">
+                    <i data-lucide="lightbulb"></i>
+                    <span class="sidebar-link-text">Philosophy</span>
+                </a>
 
-      <span class="nav-label">Components</span>
-      <a href="#button" class="nav-link">Button</a>
-      <a href="#input" class="nav-link">Input</a>
-      <a href="#card" class="nav-link">Card</a>
-      <a href="#badge" class="nav-link">Badge</a>
-      <a href="#modal" class="nav-link">Modal</a>
-      <a href="#dropdown" class="nav-link">Dropdown</a>
-      <a href="#tabs" class="nav-link">Tabs</a>
-      <a href="#toast" class="nav-link">Toast</a>
+                <div class="sidebar-label">Foundation</div>
+                <a href="#tokens" class="sidebar-link hoverable">
+                    <i data-lucide="palette"></i>
+                    <span class="sidebar-link-text">Tokens</span>
+                </a>
+                <a href="#base" class="sidebar-link hoverable">
+                    <i data-lucide="square"></i>
+                    <span class="sidebar-link-text">Base Styles</span>
+                </a>
 
-      <span class="nav-label">Resources</span>
-      <a href="#themes" class="nav-link">Themes</a>
-      <a href="#utilities" class="nav-link">Utilities</a>
-    </monad-active-nav>
-  </aside>
 
-  <!-- Main Content -->
-  <main>
-    
-    <!-- Introduction -->
-    <section id="introduction">
-      <h1>Monad Design System</h1>
-      <p>Um sistema de design minimalista construído em SCSS puro com Web Components para interatividade. Inspirado nos princípios de clareza, silêncio visual e precisão emocional.</p>
+                <div class="sidebar-label">Components</div>
+                <a href="#atoms" class="sidebar-link hoverable">
+                    <i data-lucide="circle"></i>
+                    <span class="sidebar-link-text">Atoms</span>
+                </a>
+                <a href="#molecules" class="sidebar-link hoverable">
+                    <i data-lucide="hexagon"></i>
+                    <span class="sidebar-link-text">Molecules</span>
+                </a>
+                <a href="#organisms" class="sidebar-link hoverable">
+                    <i data-lucide="layers"></i>
+                    <span class="sidebar-link-text">Organisms</span>
+                </a>
 
-      <div class="feature-grid">
-        <div class="feature-card">
-          <h4>🎨 SCSS Puro</h4>
-          <p>Sem frameworks. CSS semântico e limpo.</p>
-        </div>
-        <div class="feature-card">
-          <h4>⚡ 27.5kb Bundle</h4>
-          <p>Leve e performático para produção.</p>
-        </div>
-        <div class="feature-card">
-          <h4>🎭 Web Components</h4>
-          <p>Componentes autônomos e reutilizáveis.</p>
-        </div>
-        <div class="feature-card">
-          <h4>🌈 4 Temas</h4>
-          <p>GitHub Light/Dark, Ocean, Purple.</p>
-        </div>
-      </div>
-    </section>
+                <div class="sidebar-label">Patterns</div>
+                <a href="#templates" class="sidebar-link hoverable">
+                    <i data-lucide="layout"></i>
+                    <span class="sidebar-link-text">Templates</span>
+                </a>
+                <a href="#themes" class="sidebar-link hoverable">
+                    <i data-lucide="sun"></i>
+                    <span class="sidebar-link-text">Themes</span>
+                </a>
 
-    <!-- Installation -->
-    <section id="installation">
-      <h2>Installation</h2>
-      <p>Instale via npm ou use diretamente os arquivos compilados.</p>
 
-      <div class="component-demo">
-        <div class="demo-code">
-          <pre><code># Via NPM
-npm install monad-design-system
+                <div class="sidebar-label">Advanced</div>
+                <a href="#utilities" class="sidebar-link hoverable">
+                    <i data-lucide="wrench"></i>
+                    <span class="sidebar-link-text">Utilities</span>
+                </a>
+                <a href="#web-components" class="sidebar-link hoverable">
+                    <i data-lucide="code"></i>
+                    <span class="sidebar-link-text">Web Components</span>
+                </a>
+            </nav>
 
-# Ou use os arquivos compilados
-&lt;link rel="stylesheet" href="dist/styles/monad.css"&gt;
-&lt;script src="dist/scripts/monad.min.js"&gt;&lt;/script&gt;</code></pre>
-        </div>
-      </div>
-
-      <h3>Quick Start</h3>
-      <div class="component-demo">
-        <div class="demo-code">
-          <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;link rel="stylesheet" href="monad.css"&gt;
-&lt;/head&gt;
-&lt;body theme="moonlight"&gt;
-  &lt;button class="thought hoverable"&gt;Hello Monad&lt;/button&gt;
-  &lt;script src="monad.min.js"&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-        </div>
-      </div>
-    </section>
-
-    <!-- Colors -->
-    <section id="colors">
-      <h2>Colors</h2>
-      <p>Sistema de cores baseado em paletas semânticas inspiradas no GitHub.</p>
-
-      <div class="component-demo">
-        <div class="demo-preview">
-          <div style="width: 80px; height: 80px; background: var(--graphite-mind); border-radius: var(--radius-md);"></div>
-          <div style="width: 80px; height: 80px; background: var(--thought); border-radius: var(--radius-md);"></div>
-          <div style="width: 80px; height: 80px; background: var(--state-flow); border-radius: var(--radius-md);"></div>
-          <div style="width: 80px; height: 80px; background: var(--state-pulse); border-radius: var(--radius-md);"></div>
-          <div style="width: 80px; height: 80px; background: var(--state-break); border-radius: var(--radius-md);"></div>
-        </div>
-        <div class="demo-code">
-          <pre><code>/* Principais */
---graphite-mind: #24292F
---thought: #0969DA
---state-flow: #1A7F37  /* success */
---state-pulse: #D29922 /* warning */
---state-break: #CF222E /* danger */</code></pre>
-        </div>
-      </div>
-    </section>
-
-    <!-- Typography -->
-    <section id="typography">
-      <h2>Typography</h2>
-      <p>Tipografia clara e legível com escala modular.</p>
-
-      <div class="component-demo">
-        <div class="demo-preview" style="flex-direction: column; align-items: flex-start;">
-          <h1 style="margin: 0;">Heading 1</h1>
-          <h2 style="margin: 0;">Heading 2</h2>
-          <h3 style="margin: 0;">Heading 3</h3>
-          <p style="margin: 0;">Body text with comfortable line-height</p>
-          <small>Small text for captions</small>
-        </div>
-        <div class="demo-code">
-          <pre><code>&lt;h1&gt;Heading 1&lt;/h1&gt;
-&lt;h2&gt;Heading 2&lt;/h2&gt;
-&lt;h3&gt;Heading 3&lt;/h3&gt;
-&lt;p&gt;Body text&lt;/p&gt;
-&lt;small&gt;Small text&lt;/small&gt;</code></pre>
-        </div>
-      </div>
-    </section>
-
-    <!-- Spacing -->
-    <section id="spacing">
-      <h2>Spacing</h2>
-      <p>Sistema de espaçamento baseado em múltiplos de 4px.</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Value</th>
-            <th>Usage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>--space-2</code></td>
-            <td>8px</td>
-            <td>Padding interno pequeno</td>
-          </tr>
-          <tr>
-            <td><code>--space-4</code></td>
-            <td>16px</td>
-            <td>Padding padrão</td>
-          </tr>
-          <tr>
-            <td><code>--space-6</code></td>
-            <td>24px</td>
-            <td>Margem entre elementos</td>
-          </tr>
-          <tr>
-            <td><code>--space-8</code></td>
-            <td>40px</td>
-            <td>Margem entre seções</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- Button -->
-    <section id="button">
-      <h2>Button</h2>
-      <p>Botões com variantes de cor e estados interativos.</p>
-
-      <div class="component-demo">
-        <div class="demo-preview">
-          <button class="graphite-core hoverable">Primary</button>
-          <button class="thought hoverable">Secondary</button>
-          <button class="state-flow hoverable">Success</button>
-          <button class="state-break hoverable">Danger</button>
-          <button class="outline hoverable">Outline</button>
-        </div>
-        <div class="demo-code">
-          <pre><code>&lt;button class="graphite-core hoverable"&gt;Primary&lt;/button&gt;
-&lt;button class="thought hoverable"&gt;Secondary&lt;/button&gt;
-&lt;button class="state-flow hoverable"&gt;Success&lt;/button&gt;
-&lt;button class="state-break hoverable"&gt;Danger&lt;/button&gt;
-&lt;button class="outline hoverable"&gt;Outline&lt;/button&gt;</code></pre>
-        </div>
-      </div>
-
-      <h3>Props</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Class</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>.hoverable</code></td>
-            <td>Adiciona efeito hover (opt-in)</td>
-          </tr>
-          <tr>
-            <td><code>.outline</code></td>
-            <td>Botão com borda apenas</td>
-          </tr>
-          <tr>
-            <td><code>.ghost</code></td>
-            <td>Botão transparente</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- Input -->
-    <section id="input">
-      <h2>Input</h2>
-      <p>Campos de entrada com validação visual.</p>
-
-      <div class="component-demo">
-        <div class="demo-preview" style="flex-direction: column; width: 100%; max-width: 24rem;">
-          <input type="text" placeholder="Nome completo" style="width: 100%; margin-bottom: var(--space-3);">
-          <input type="email" placeholder="seu@email.com" style="width: 100%; margin-bottom: var(--space-3);">
-          <textarea placeholder="Mensagem..." rows="3" style="width: 100%;"></textarea>
-        </div>
-        <div class="demo-code">
-          <pre><code>&lt;input type="text" placeholder="Nome completo"&gt;
-&lt;input type="email" placeholder="seu@email.com"&gt;
-&lt;textarea placeholder="Mensagem..." rows="3"&gt;&lt;/textarea&gt;</code></pre>
-        </div>
-      </div>
-    </section>
-
-    <!-- Card -->
-    <section id="card">
-      <h2>Card</h2>
-      <p>Containers com bordas arredondadas e sombras sutis.</p>
-
-      <div class="component-demo">
-        <div class="demo-preview" style="width: 100%;">
-          <div class="card" style="max-width: 24rem;">
-            <h3>Card Title</h3>
-            <p>This is a card component with rounded corners and subtle shadow.</p>
-            <button class="thought hoverable">Action</button>
-          </div>
-        </div>
-        <div class="demo-code">
-          <pre><code>&lt;div class="card"&gt;
-  &lt;h3&gt;Card Title&lt;/h3&gt;
-  &lt;p&gt;Card content...&lt;/p&gt;
-  &lt;button class="thought hoverable"&gt;Action&lt;/button&gt;
-&lt;/div&gt;</code></pre>
-        </div>
-      </div>
-    </section>
-
-    <!-- Badge -->
-    <section id="badge">
-      <h2>Badge</h2>
-      <p>Indicadores compactos de status ou contagem.</p>
-
-      <div class="component-demo">
-        <div class="demo-preview">
-          <span class="badge state-flow">New</span>
-          <span class="badge state-pulse">Beta</span>
-          <span class="badge state-break">Deprecated</span>
-          <span class="badge thought">v2.0</span>
-        </div>
-        <div class="demo-code">
-          <pre><code>&lt;span class="badge state-flow"&gt;New&lt;/span&gt;
-&lt;span class="badge state-pulse"&gt;Beta&lt;/span&gt;
-&lt;span class="badge state-break"&gt;Deprecated&lt;/span&gt;
-&lt;span class="badge thought"&gt;v2.0&lt;/span&gt;</code></pre>
-        </div>
-      </div>
-    </section>
-
-    <!-- Modal -->
-    <section id="modal">
-      <h2>Modal <span class="badge-inline">Web Component</span></h2>
-      <p>Dialog overlay com controle completo via HTML.</p>
-
-      <div class="component-demo">
-        <div class="demo-preview">
-          <button data-modal-target="demo-modal" class="thought hoverable">Open Modal</button>
-        </div>
-        <div class="demo-code">
-          <pre><code>&lt;!-- Trigger --&gt;
-&lt;button data-modal-target="my-modal"&gt;Open&lt;/button&gt;
-
-&lt;!-- Modal --&gt;
-&lt;monad-modal id="my-modal" title="Confirm"&gt;
-  &lt;p&gt;Are you sure?&lt;/p&gt;
-  &lt;div slot="footer"&gt;
-    &lt;button data-modal-close&gt;Cancel&lt;/button&gt;
-    &lt;button data-modal-close class="state-break"&gt;Delete&lt;/button&gt;
-  &lt;/div&gt;
-&lt;/monad-modal&gt;</code></pre>
-        </div>
-      </div>
-
-      <h3>Features</h3>
-      <ul>
-        <li>✅ Shadow DOM isolado</li>
-        <li>✅ Triggers via <code>data-modal-target</code></li>
-        <li>✅ ESC para fechar</li>
-        <li>✅ Clique fora para fechar</li>
-        <li>✅ Slots para header, body, footer</li>
-        <li>✅ Tamanhos: small, medium, large</li>
-      </ul>
-    </section>
-
-    <!-- Dropdown -->
-    <section id="dropdown">
-      <h2>Dropdown <span class="badge-inline">Web Component</span></h2>
-      <p>Menu suspenso com posicionamento automático.</p>
-
-      <div class="component-demo">
-        <div class="demo-preview">
-          <monad-dropdown>
-            <button class="graphite-core hoverable">Options ▾</button>
-            <ul>
-              <li><a href="#edit">Edit</a></li>
-              <li><a href="#duplicate">Duplicate</a></li>
-              <li><a href="#delete">Delete</a></li>
-            </ul>
-          </monad-dropdown>
-        </div>
-        <div class="demo-code">
-          <pre><code>&lt;monad-dropdown&gt;
-  &lt;button&gt;Options&lt;/button&gt;
-  &lt;ul&gt;
-    &lt;li&gt;&lt;a href="#edit"&gt;Edit&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="#delete"&gt;Delete&lt;/a&gt;&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/monad-dropdown&gt;</code></pre>
-        </div>
-      </div>
-
-      <h3>Props</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Attribute</th>
-            <th>Values</th>
-            <th>Default</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>position</code></td>
-            <td>bottom, top, left, right</td>
-            <td>bottom</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- Tabs -->
-    <section id="tabs">
-      <h2>Tabs <span class="badge-inline">Web Component</span></h2>
-      <p>Navegação por abas com transições suaves.</p>
-
-      <div class="component-demo">
-        <div class="demo-preview" style="width: 100%;">
-          <monad-tabs>
-            <div>
-              <button active>Overview</button>
-              <button>Settings</button>
-              <button>History</button>
+            <div class="sidebar-footer">
+                <small class="sidebar-version">v1.0.0</small>
             </div>
-            <div>Overview content</div>
-            <div>Settings content</div>
-            <div>History content</div>
-          </monad-tabs>
+        </aside>
+    </monad-active-nav>
+
+    <!-- Main Header -->
+    <header>
+        <div class="left">
+            <h2>Design System</h2>
         </div>
-        <div class="demo-code">
-          <pre><code>&lt;monad-tabs&gt;
-  &lt;div&gt;
-    &lt;button active&gt;Tab 1&lt;/button&gt;
-    &lt;button&gt;Tab 2&lt;/button&gt;
+
+        <div class="right">
+            <a href="https://github.com/thnkng/monad" target="_blank" class="hoverable">
+                <i data-lucide="github"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section id="manifest">
+            <h2>Manifest</h2>
+            <p class="lead">A minimalist atomic design system built on principles of clarity, visual silence, and emotional precision.</p>
+            
+            <h3>What is Monad?</h3>
+            <p>Monad is a complete design system for building modern interfaces with semantic HTML at its core. Every component is crafted to disappear — to serve human experience without noise.</p>
+            <p>Born from frustration with bloated frameworks and decorative design, Monad strips everything to its essence. What remains is pure, intentional, and beautiful.</p>
+            
+            <h3>Architecture</h3>
+            <p>Monad follows the Atomic Design methodology with a semantic-first approach:</p>
+            
+            <div class="card iris-petal">
+                <h4>Tokens</h4>
+                <p>Foundation layer. Colors, typography, spacing, motion, effects. Every value is a token — no hard-coded pixels.</p>
+            </div>
+            
+            <div class="card aether-sky">
+                <h4>Base</h4>
+                <p>HTML resets and semantic typography. Clean slate for consistent rendering across browsers.</p>
+            </div>
+            
+            <div class="card sage-calm">
+                <h4>Atoms</h4>
+                <p>HTML tags styled directly: <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;section&gt;</code>. No wrapper divs required.</p>
+            </div>
+            
+            <div class="card sand-light">
+                <h4>Molecules</h4>
+                <p>Simple components with single responsibility: <code>.card</code>, <code>.badge</code>, <code>.avatar</code>, <code>.dropdown</code>. CSS classes for composite elements.</p>
+            </div>
+            
+            <div class="card rose-soft">
+                <h4>Organisms</h4>
+                <p>Complex components using semantic tags: <code>&lt;aside.sidebar&gt;</code>, <code>&lt;nav.breadcrumb&gt;</code>. Structure with meaning.</p>
+            </div>
+            
+            <div class="card ember-glow">
+                <h4>Templates</h4>
+                <p>Page layouts as body variants: <code>&lt;body.app-layout&gt;</code>, <code>&lt;body.dashboard-layout&gt;</code>, <code>&lt;body.auth-layout&gt;</code>. Complete layout systems.</p>
+            </div>
+            
+            <div class="card thought-default">
+                <h4>Utilities</h4>
+                <p>Layout helpers: margin, padding, grid, flexbox. When semantic HTML isn't enough.</p>
+            </div>
+            
+            <h3>Technology Stack</h3>
+            <p><strong>Pure SCSS</strong> — No preprocessor complexity. Clean, readable, maintainable.</p>
+            <p><strong>Web Components</strong> — Only for interactive elements (modal, dropdown, tabs, toast). Encapsulated, reusable, framework-agnostic.</p>
+            <p><strong>Zero Dependencies</strong> — Except Lucide icons for visual consistency. No jQuery. No Bootstrap. No bloat.</p>
+            <p><strong>Semantic HTML</strong> — Accessibility built-in. SEO-friendly. Standards-compliant.</p>
+            
+            <h3>Getting Started</h3>
+            <p>Monad is ready to use via CDN — no installation required.</p>
+            
+            <div class="card sage-calm">
+                <h4>📦 CDN (Recommended)</h4>
+                <pre><code>&lt;!-- CSS --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/styles/monad.css"&gt;
+
+&lt;!-- JavaScript (Web Components) --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/scripts/monad.js" defer&gt;&lt;/script&gt;</code></pre>
+            </div>
+            
+            <div class="card aether-sky">
+                <h4>📚 That's it!</h4>
+                <p>Add these two lines to your HTML and start using Monad components immediately. No build step, no configuration.</p>
+            </div>
+            
+            <h3>Philosophy</h3>
+            <p>Five principles guide every decision in Monad:</p>
+            <ul>
+                <li><strong>Clarity before form</strong> — Every element exists for a reason</li>
+                <li><strong>Visual silence</strong> — Space is as important as content</li>
+                <li><strong>Emotional precision</strong> — Colors and names evoke feeling</li>
+                <li><strong>Scalability without noise</strong> — Grow without losing harmony</li>
+                <li><strong>Humanity at the center</strong> — Technology serves people</li>
+            </ul>
+            
+            <blockquote>
+                <p>"Technology disappears. Experience remains."</p>
+            </blockquote>
+        </section>
+
+        <section id="philosophy">
+            <h2>Philosophy</h2>
+            <p class="lead">Monad is born from the idea that design should not merely decorate technology — it must reveal its essence. Every detail is an invitation to clarity, coherence, and visual silence.</p>
+            
+            <h3>The Five Principles</h3>
+            <p>These principles guide every decision in Monad — from naming conventions to color choices, from spacing tokens to interaction patterns.</p>
+            
+            <div class="card aether-sky">
+                <h4>1. Clarity before form</h4>
+                <p>Every element must exist for a reason. No pixel is decorative; everything communicates. Beauty lies in precision, not ornamentation.</p>
+                <p><strong>In practice:</strong> Semantic HTML tags styled directly. Minimal class dependencies. Every line of code serves a purpose.</p>
+            </div>
+            
+            <div class="card cloud-silent">
+                <h4>2. Visual silence</h4>
+                <p>Space is as important as content. Elements are silent by default — interactions require opt-in. Generous spacing allows the eye to breathe.</p>
+                <p><strong>In practice:</strong> <code>.hoverable</code> class required for hover effects. Never automatic. Silence is the default state.</p>
+            </div>
+            
+            <div class="card rose-soft">
+                <h4>3. Emotional precision</h4>
+                <p>Interfaces are never neutral — they evoke trust, lightness, calm. Every curve, color, and rhythm carries emotional intent. Naming is poetic.</p>
+                <p><strong>In practice:</strong> Colors named <code>graphite-mind</code>, <code>cloud-silent</code>, <code>ember-energy</code>. Motion curves evoke lightness or urgency.</p>
+            </div>
+            
+            <div class="card sage-calm">
+                <h4>4. Scalability without noise</h4>
+                <p>A system is only good if it can grow without losing harmony. We seek universal patterns, not fleeting conventions. Auto-generate variants via loops.</p>
+                <p><strong>In practice:</strong> SCSS loops generate all color variants automatically. No hard-coding. Tokens power everything.</p>
+            </div>
+            
+            <div class="card sand-light">
+                <h4>5. Humanity at the center</h4>
+                <p>Invisible technology — disappears so human experience prevails. In the end, everything is about people — not code. Developer experience (DX) is user experience.</p>
+                <p><strong>In practice:</strong> Clean API. Semantic naming. Comprehensive accessibility. Built for humans first, machines second.</p>
+            </div>
+            
+            <h3>Design Reveals, Not Decorates</h3>
+            <p>Modern interfaces are drowning in noise. Shadows stacked on shadows. Colors fighting for attention. Animations that distract rather than guide.</p>
+            <p>Monad takes a different path. We embrace silence. We give space to breathe. We design with intention, not trends.</p>
+            <p>Every shadow has a reason. Every color communicates. Every animation guides the eye. Nothing is decoration — everything is communication.</p>
+            
+            <h3>Technology That Disappears</h3>
+            <p>The best interface is one you don't notice. The best code is one that feels inevitable. The best design system is one that gets out of the way.</p>
+            <p>Monad is built to disappear. Pure SCSS. No frameworks. No dependencies beyond Lucide icons. Semantic HTML at its core. Web Components only when necessary.</p>
+            <p>Technology should serve humans, not the other way around. Monad serves.</p>
+            
+            <blockquote>
+                <p>"Design reveals, not decorates."</p>
+            </blockquote>
+        </section>
+
+        <section id="tokens">
+            <h2>Design Tokens <span class="badge iris-petal">Foundation</span></h2>
+            <p class="lead">Foundation of the Monad design system. Every value is a token — colors, spacing, typography, motion, and effects. No hard-coded values, ever.</p>
+            
+            <h3>Colors</h3>
+            <p><strong>Theme-aware palettes</strong> — colors change based on active theme. Moonlight uses GitHub Light colors, Midnight uses GitHub Dark colors.</p>
+            
+            <h4>Structural Colors (Moonlight Theme)</h4>
+            <div class="card margin-bottom-4">
+                <div class="grid-auto-fit-250 gap-3">
+                    <div style="padding: var(--space-3); background: var(--graphite-mind); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 14px;">graphite-mind</strong>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 4px;">#24292F</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 11px;">Main text</div>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--thought); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 14px;">thought</strong>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 4px;">#0969DA</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 11px;">Primary blue</div>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--cloud-pure); border: 1px solid var(--silver-line); border-radius: var(--radius-md);">
+                        <strong style="color: var(--graphite-mind); font-size: 14px;">cloud-pure</strong>
+                        <div style="color: var(--graphite-core); font-size: 12px; margin-top: 4px;">#FFFFFF</div>
+                        <div style="color: var(--silver-depth); font-size: 11px;">Surface</div>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--silver-line); border-radius: var(--radius-md);">
+                        <strong style="color: var(--graphite-mind); font-size: 14px;">silver-line</strong>
+                        <div style="color: var(--graphite-core); font-size: 12px; margin-top: 4px;">#D0D7DE</div>
+                        <div style="color: var(--silver-depth); font-size: 11px;">Borders</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>Semantic State Colors</h4>
+            <div class="card margin-bottom-4">
+                <div class="grid-auto-fit-250 gap-3">
+                    <div style="padding: var(--space-3); background: var(--state-flow); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 14px;">state-flow</strong>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 4px;">#1A7F37</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 11px;">Success</div>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--state-pulse); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 14px;">state-pulse</strong>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 4px;">#9A6700</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 11px;">Warning</div>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--state-break); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 14px;">state-break</strong>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 4px;">#CF222E</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 11px;">Error</div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Accent Palettes</h4>
+            <div class="card margin-bottom-4">
+                <div class="grid-auto-fit-200 gap-3">
+                    <div style="padding: var(--space-3); background: var(--sage-leaf); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 13px;">sage-leaf</strong>
+                        <small style="color: rgba(255,255,255,0.7); font-size: 11px; display: block;">#1A7F37</small>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--rose-depth); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 13px;">rose-depth</strong>
+                        <small style="color: rgba(255,255,255,0.7); font-size: 11px; display: block;">#CF222E</small>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--aether-light); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 13px;">aether-light</strong>
+                        <small style="color: rgba(255,255,255,0.7); font-size: 11px; display: block;">#0969DA</small>
+                    </div>
+                    <div style="padding: var(--space-3); background: var(--iris-void); border-radius: var(--radius-md);">
+                        <strong style="color: white; font-size: 13px;">iris-void</strong>
+                        <small style="color: rgba(255,255,255,0.7); font-size: 11px; display: block;">#8250DF</small>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>Usage</h4>
+            <pre><code>&lt;button class="thought hoverable"&gt;Primary&lt;/button&gt;
+&lt;button class="state-flow hoverable"&gt;Success&lt;/button&gt;
+&lt;div class="card iris-void"&gt;Purple card&lt;/div&gt;</code></pre>
+            
+            <h3>Spacing</h3>
+            <p>Base unit: <strong>4px</strong>. Scale: <code>--space-1</code> (4px) to <code>--space-8</code> (40px).</p>
+            <pre><code>padding: var(--space-4); /* 16px */</code></pre>
+            
+            <h3>Typography</h3>
+            <p>Font family: <strong>Inter</strong>. Sizes from <code>--font-size-xsmall</code> (12px) to <code>--font-size-5xlarge</code> (48px). Weights: 300-700.</p>
+            
+            <h3>Motion</h3>
+            <p>Durations: <code>fast</code> (150ms), <code>medium</code> (250ms), <code>slow</code> (400ms). Easing: <code>standard</code>, <code>decelerate</code>, <code>accelerate</code>.</p>
+            
+            <h3>Effects</h3>
+            <p>Radius: <code>--radius-sm/md/lg/pill</code>. Shadows: <code>--shadow-faint/soft/medium</code>. Focus ring: 2px with 40% opacity.</p>
+            
+            <blockquote>
+                <p>"Every value is intentional. No hard-coded pixels. Tokens are truth."</p>
+            </blockquote>
+        </section>
+
+        <section id="base">
+            <h2>Base Styles <span class="badge aether-sky">Semantic HTML</span></h2>
+            <p class="lead">Foundation layer that resets browser inconsistencies and establishes semantic HTML typography. No classes required — just write HTML.</p>
+            
+            <h3>Philosophy</h3>
+            <p>Base styles make HTML beautiful by default. Every semantic tag receives intentional styling. Headers, paragraphs, lists, code blocks — all work out of the box.</p>
+            <p>This is where "semantic-first" becomes real. Write <code>&lt;h1&gt;</code>, not <code>&lt;div class="title"&gt;</code>. Write <code>&lt;blockquote&gt;</code>, not <code>&lt;div class="quote"&gt;</code>.</p>
+            
+            <h3>Typography</h3>
+            <p>Six heading levels (<code>h1-h6</code>), semantic paragraph spacing, styled lists, inline <code>code</code> elements, and <code>&lt;blockquote&gt;</code> — all styled by default.</p>
+
+            
+            <div class="card">
+                <h4>Example Usage</h4>
+                <pre><code>&lt;article&gt;
+  &lt;h1&gt;Article Title&lt;/h1&gt;
+  &lt;p&gt;Just write semantic HTML.&lt;/p&gt;
+  
+  &lt;h2&gt;Section Heading&lt;/h2&gt;
+  &lt;p&gt;Paragraphs flow naturally.&lt;/p&gt;
+  
+  &lt;ul&gt;
+    &lt;li&gt;Lists are styled&lt;/li&gt;
+    &lt;li&gt;Without any classes&lt;/li&gt;
+  &lt;/ul&gt;
+  
+  &lt;blockquote&gt;
+    &lt;p&gt;Quotes stand out beautifully.&lt;/p&gt;
+  &lt;/blockquote&gt;
+  
+  &lt;pre&gt;&lt;code&gt;Code blocks just work.&lt;/code&gt;&lt;/pre&gt;
+&lt;/article&gt;</code></pre>
+            </div>
+            
+            <h3>Accessibility</h3>
+            <p>Focus states are visible on all interactive elements:</p>
+            <div class="card">
+                <p>Try tabbing through: <a href="#">Link</a>, <button>Button</button>, <input type="text" placeholder="Input field"></p>
+                <p>Focus rings use <code>--ring-width</code> and <code>--ring-color</code> tokens for consistency.</p>
+            </div>
+            
+            <blockquote>
+                <p>"Semantic HTML is accessible HTML. Base styles make it beautiful too."</p>
+            </blockquote>
+        </section>
+
+        <section id="atoms">
+            <h2>Atoms <span class="badge sage-calm">HTML Elements</span></h2>
+            <p class="lead">HTML tags styled directly. No wrapper divs, no utility classes — just semantic elements that work beautifully out of the box.</p>
+            
+            <h3>Button</h3>
+            <div class="card">
+                <div class="button-group">
+                    <button class="graphite-core hoverable">Default</button>
+                    <button class="thought outline hoverable">Outline</button>
+                    <button class="ember-energy ghost hoverable">Ghost</button>
+                    <button class="state-flow hoverable">Success</button>
+                </div>
+                <pre><code>&lt;button class="graphite-core hoverable"&gt;Button&lt;/button&gt;</code></pre>
+            </div>
+            
+            <h3>Input</h3>
+            <p>Text inputs, textareas, and selects are styled consistently with focus states and transitions.</p>
+            
+            <div class="card form-example">
+                <h4>Text Input</h4>
+                <input type="text" placeholder="Enter your name...">
+                <pre><code>&lt;input type="text" placeholder="Enter your name..."&gt;</code></pre>
+            </div>
+            
+            <div class="card form-example">
+                <h4>Textarea</h4>
+                <textarea placeholder="Write your message..."></textarea>
+                <pre><code>&lt;textarea placeholder="Write your message..."&gt;&lt;/textarea&gt;</code></pre>
+            </div>
+            
+            <div class="card form-example">
+                <h4>Sizes (data-size attribute)</h4>
+                <input type="text" data-size="sm" placeholder="Small input" class="form-example-input">
+                <input type="text" placeholder="Medium input (default)" class="form-example-input">
+                <input type="text" data-size="lg" placeholder="Large input">
+                <pre><code>&lt;input type="text" data-size="sm"&gt;
+&lt;input type="text"&gt;
+&lt;input type="text" data-size="lg"&gt;</code></pre>
+            </div>
+            
+            <h3>Select</h3>
+            <p>Custom-styled select dropdowns with native functionality.</p>
+            
+            <div class="card form-example">
+                <select>
+                    <option>Choose an option...</option>
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                    <option>Option 3</option>
+                </select>
+                <pre><code>&lt;select&gt;
+  &lt;option&gt;Choose an option...&lt;/option&gt;
+  &lt;option&gt;Option 1&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+            </div>
+            
+            <h3>Checkbox & Radio</h3>
+            <p>Enhanced native form controls with custom styling.</p>
+            
+            <div class="card form-example">
+                <h4>Checkboxes</h4>
+                <div class="flex-stack-small">
+                    <label class="flex-row-small">
+                        <input type="checkbox" checked>
+                        <span>Checked option</span>
+                    </label>
+                    <label class="flex-row-small">
+                        <input type="checkbox">
+                        <span>Unchecked option</span>
+                    </label>
+                </div>
+                <pre><code>&lt;label&gt;
+  &lt;input type="checkbox" checked&gt;
+  &lt;span&gt;Option&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+            </div>
+            
+            <div class="card form-example">
+                <h4>Radio Buttons</h4>
+                <div class="flex-stack-small">
+                    <label class="flex-row-small">
+                        <input type="radio" name="demo" checked>
+                        <span>Option A</span>
+                    </label>
+                    <label class="flex-row-small">
+                        <input type="radio" name="demo">
+                        <span>Option B</span>
+                    </label>
+                    <label class="flex-row-small">
+                        <input type="radio" name="demo">
+                        <span>Option C</span>
+                    </label>
+                </div>
+                <pre><code>&lt;label&gt;
+  &lt;input type="radio" name="group"&gt;
+  &lt;span&gt;Option&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+            </div>
+            
+            <h3>Link</h3>
+            <p>Links are styled with the <code>thought</code> color. Hover effects require <code>.hoverable</code> class.</p>
+            
+            <div class="card form-example">
+                <p><a href="#">Default link (no hover)</a></p>
+                <p><a href="#" class="hoverable">Hoverable link (underline on hover)</a></p>
+                <pre><code>&lt;a href="#"&gt;Default link&lt;/a&gt;
+&lt;a href="#" class="hoverable"&gt;Hoverable link&lt;/a&gt;</code></pre>
+            </div>
+            
+            <h3>Table</h3>
+            <p>Clean, readable tables with subtle borders and hover states.</p>
+            
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alice Johnson</td>
+                            <td>alice@example.com</td>
+                            <td>Designer</td>
+                        </tr>
+                        <tr>
+                            <td>Bob Smith</td>
+                            <td>bob@example.com</td>
+                            <td>Developer</td>
+                        </tr>
+                        <tr>
+                            <td>Carol White</td>
+                            <td>carol@example.com</td>
+                            <td>Manager</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Email&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Alice&lt;/td&gt;
+      &lt;td&gt;alice@example.com&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+            </div>
+            
+            <h3>Nav</h3>
+            <p>Navigation elements with semantic structure.</p>
+            
+            <div class="card form-example">
+                <nav class="nav-example">
+                    <a href="#" class="hoverable">Home</a>
+                    <a href="#" class="hoverable">About</a>
+                    <a href="#" class="hoverable">Services</a>
+                    <a href="#" class="hoverable">Contact</a>
+                </nav>
+                <pre><code>&lt;nav&gt;
+  &lt;a href="#" class="hoverable"&gt;Home&lt;/a&gt;
+  &lt;a href="#" class="hoverable"&gt;About&lt;/a&gt;
+  &lt;a href="#" class="hoverable"&gt;Services&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+            </div>
+            
+            <h3>Header & Section</h3>
+            <p>Layout primitives with polymorphic modifiers.</p>
+            
+            <div class="card form-example">
+                <h4>Header with .left and .right</h4>
+                <header class="header-example">
+                    <div class="left">
+                        <h3>Page Title</h3>
+                    </div>
+                    <div class="right">
+                        <button class="thought hoverable">Action</button>
+                    </div>
+                </header>
+                <pre><code>&lt;header&gt;
+  &lt;div class="left"&gt;
+    &lt;h3&gt;Page Title&lt;/h3&gt;
   &lt;/div&gt;
-  &lt;div&gt;Content 1&lt;/div&gt;
-  &lt;div&gt;Content 2&lt;/div&gt;
-&lt;/monad-tabs&gt;</code></pre>
-        </div>
-      </div>
+  &lt;div class="right"&gt;
+    &lt;button&gt;Action&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Section with data-accent</h4>
+                <p>Sections support color variants and density modifiers:</p>
+                <pre><code>&lt;section class="ember-energy"&gt;Colored section&lt;/section&gt;
+&lt;section data-density="compact"&gt;Compact spacing&lt;/section&gt;
+&lt;section data-accent="true"&gt;With accent bar&lt;/section&gt;</code></pre>
+            </div>
+            
+            <h3>Image & Video</h3>
+            <p>Media elements are responsive by default.</p>
+            
+            <div class="card form-example image-example">
+                <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=600&h=300&fit=crop" alt="Demo image">
+                <pre><code>&lt;img src="..." alt="Description"&gt;</code></pre>
+            </div>
+            
+            <h3>Form</h3>
+            <p>Complete form example using semantic atoms.</p>
+            
+            <div class="card form-example">
+                <form class="form-layout">
+                    <div>
+                        <label for="name" class="form-field-label">Name</label>
+                        <input type="text" id="name" placeholder="Your full name">
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="form-field-label">Email</label>
+                        <input type="email" id="email" placeholder="you@example.com">
+                    </div>
+                    
+                    <div>
+                        <label for="message" class="form-field-label">Message</label>
+                        <textarea id="message" placeholder="Your message..."></textarea>
+                    </div>
+                    
+                    <div class="flex-group">
+                        <button type="submit" class="thought hoverable">Submit</button>
+                        <button type="reset" class="graphite-core outline hoverable">Reset</button>
+                    </div>
+                </form>
+                <pre><code>&lt;form&gt;
+  &lt;div&gt;
+    &lt;label for="name"&gt;Name&lt;/label&gt;
+    &lt;input type="text" id="name"&gt;
+  &lt;/div&gt;
+  
+  &lt;button type="submit" class="thought hoverable"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+            
+            <h3>Key Principles</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>Semantic-first:</strong> Style HTML tags directly, not wrapper divs</li>
+                    <li><strong>Opt-in interactions:</strong> Hover effects require <code>.hoverable</code></li>
+                    <li><strong>Color variants:</strong> All components support full color palette</li>
+                    <li><strong>Data attributes:</strong> Size and behavior via <code>data-*</code> attributes</li>
+                    <li><strong>Accessibility:</strong> Focus states, ARIA support, keyboard navigation</li>
+                </ul>
+            </div>
+            
+            <blockquote>
+                <p>"Every HTML element should work beautifully without classes. Atoms make this real."</p>
+            </blockquote>
+        </section>
 
-      <h3>Features</h3>
-      <ul>
-        <li>✅ Navegação por teclado (Arrow, Home, End)</li>
-        <li>✅ Animação fade-in</li>
-        <li>✅ ARIA completo</li>
-        <li>✅ Estrutura flexível (div, ul, ol)</li>
-      </ul>
-    </section>
+        <section id="molecules">
+            <h2>Molecules <span class="badge sand-warm">CSS Components</span></h2>
+            <p class="lead">Simple components with single responsibility. CSS classes for composite elements that combine atoms into functional units.</p>
+            
+            <h3>Card</h3>
+            <p>Flexible container for grouping content. The foundation of many UI patterns.</p>
+            
+            <div class="card">
+                <h4>Basic Card</h4>
+                <p>Cards have padding, border, and subtle shadow by default.</p>
+                <pre><code>&lt;div class="card"&gt;
+  &lt;h4&gt;Card Title&lt;/h4&gt;
+  &lt;p&gt;Card content...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="grid-auto-fit-300 gap-4">
+                <div class="card interactive">
+                    <h4>Interactive Card</h4>
+                    <p>Hover to see effect</p>
+                    <small>Uses <code>.interactive</code> class</small>
+                </div>
+                
+                <div class="card hoverable">
+                    <h4>Hoverable Card</h4>
+                    <p>Subtle hover effect</p>
+                    <small>Uses <code>.hoverable</code> class</small>
+                </div>
+                
+                <div class="card bg-thought">
+                    <h4>Colored Card</h4>
+                    <p>With color variant</p>
+                    <small>Uses <code>.thought</code> class</small>
+                </div>
+            </div>
+            
+            <h3>Badge</h3>
+            <p>Small labels for status, tags, and counts.</p>
+            
+            <div class="card">
+                <h4>Variants</h4>
+                <div class="flex-group">
+                    <span class="badge">Default</span>
+                    <span class="badge thought">Thought</span>
+                    <span class="badge ember-energy">Ember</span>
+                    <span class="badge state-flow">Success</span>
+                    <span class="badge state-pulse">Warning</span>
+                    <span class="badge state-break">Error</span>
+                </div>
+                <pre><code>&lt;span class="badge"&gt;Default&lt;/span&gt;
+&lt;span class="badge thought"&gt;Thought&lt;/span&gt;
+&lt;span class="badge ember-energy"&gt;Ember&lt;/span&gt;
+&lt;span class="badge state-flow"&gt;Success&lt;/span&gt;
+&lt;span class="badge state-pulse"&gt;Warning&lt;/span&gt;
+&lt;span class="badge state-break"&gt;Error&lt;/span&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Outline</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span class="badge thought outline">Thought</span>
+                    <span class="badge ember-energy outline">Ember</span>
+                    <span class="badge state-flow outline">Success</span>
+                </div>
+                <pre><code>&lt;span class="badge thought outline"&gt;Thought&lt;/span&gt;
+&lt;span class="badge ember-energy outline"&gt;Ember&lt;/span&gt;
+&lt;span class="badge state-flow outline"&gt;Success&lt;/span&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>With Dot</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span class="badge state-flow dot">Active</span>
+                    <span class="badge state-pulse dot">Pending</span>
+                    <span class="badge state-break dot">Error</span>
+                </div>
+                <pre><code>&lt;span class="badge state-flow dot"&gt;Active&lt;/span&gt;
+&lt;span class="badge state-pulse dot"&gt;Pending&lt;/span&gt;
+&lt;span class="badge state-break dot"&gt;Error&lt;/span&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Sizes</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+                    <span class="badge small thought">Small</span>
+                    <span class="badge thought">Medium</span>
+                    <span class="badge large thought">Large</span>
+                </div>
+                <pre><code>&lt;span class="badge small thought"&gt;Small&lt;/span&gt;
+&lt;span class="badge thought"&gt;Medium&lt;/span&gt;
+&lt;span class="badge large thought"&gt;Large&lt;/span&gt;</code></pre>
+            </div>
+            
+            <h3>Avatar</h3>
+            <p>User profile images and initials with multiple variants.</p>
+            
+            <div class="card">
+                <h4>Sizes</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                    <div class="avatar extra-small graphite-core">XS</div>
+                    <div class="avatar small graphite-core">S</div>
+                    <div class="avatar medium graphite-core">M</div>
+                    <div class="avatar large graphite-core">L</div>
+                    <div class="avatar extra-large graphite-core">XL</div>
+                </div>
+                <pre><code>&lt;div class="avatar extra-small graphite-core"&gt;XS&lt;/div&gt;
+&lt;div class="avatar small graphite-core"&gt;S&lt;/div&gt;
+&lt;div class="avatar medium graphite-core"&gt;M&lt;/div&gt;
+&lt;div class="avatar large graphite-core"&gt;L&lt;/div&gt;
+&lt;div class="avatar extra-large graphite-core"&gt;XL&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>With Images</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="avatar">
+                        <img src="https://i.pravatar.cc/150?img=1" alt="User 1">
+                    </div>
+                    <div class="avatar large">
+                        <img src="https://i.pravatar.cc/150?img=2" alt="User 2">
+                    </div>
+                    <div class="avatar extra-large">
+                        <img src="https://i.pravatar.cc/150?img=3" alt="User 3">
+                    </div>
+                </div>
+                <pre><code>&lt;div class="avatar"&gt;
+  &lt;img src="https://i.pravatar.cc/150?img=1" alt="User 1"&gt;
+&lt;/div&gt;
+&lt;div class="avatar large"&gt;
+  &lt;img src="https://i.pravatar.cc/150?img=2" alt="User 2"&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Colors</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="avatar thought">T</div>
+                    <div class="avatar ember-energy">E</div>
+                    <div class="avatar sage-calm">S</div>
+                    <div class="avatar rose-soft">R</div>
+                    <div class="avatar iris-petal">I</div>
+                </div>
+                <pre><code>&lt;div class="avatar thought"&gt;T&lt;/div&gt;
+&lt;div class="avatar ember-energy"&gt;E&lt;/div&gt;
+&lt;div class="avatar sage-calm"&gt;S&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Shapes</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="avatar large thought">●</div>
+                    <div class="avatar large rounded thought">◆</div>
+                    <div class="avatar large square thought">■</div>
+                </div>
+                <pre><code>&lt;div class="avatar large thought"&gt;●&lt;/div&gt;
+&lt;div class="avatar large rounded thought"&gt;◆&lt;/div&gt;
+&lt;div class="avatar large square thought"&gt;■&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Status Indicators</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="avatar large status online">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="Online">
+                    </div>
+                    <div class="avatar large status busy">
+                        <img src="https://i.pravatar.cc/150?img=6" alt="Busy">
+                    </div>
+                    <div class="avatar large status away">
+                        <img src="https://i.pravatar.cc/150?img=7" alt="Away">
+                    </div>
+                    <div class="avatar large status offline">
+                        <img src="https://i.pravatar.cc/150?img=8" alt="Offline">
+                    </div>
+                </div>
+                <pre><code>&lt;div class="avatar large status online"&gt;
+  &lt;img src="..." alt="Online"&gt;
+&lt;/div&gt;
+&lt;div class="avatar large status busy"&gt;
+  &lt;img src="..." alt="Busy"&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Spinner</h3>
+            <p>Loading indicators with multiple styles.</p>
+            
+            <div class="card">
+                <h4>Default Spinner</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; margin-bottom: 1rem;">
+                    <div class="spinner small"></div>
+                    <div class="spinner"></div>
+                    <div class="spinner large"></div>
+                    <div class="spinner extra-large"></div>
+                </div>
+                <pre><code>&lt;div class="spinner small"&gt;&lt;/div&gt;
+&lt;div class="spinner"&gt;&lt;/div&gt;
+&lt;div class="spinner large"&gt;&lt;/div&gt;
+&lt;div class="spinner extra-large"&gt;&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Colors</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; margin-bottom: 1rem;">
+                    <div class="spinner thought"></div>
+                    <div class="spinner ember-energy"></div>
+                    <div class="spinner state-flow"></div>
+                </div>
+                <pre><code>&lt;div class="spinner thought"&gt;&lt;/div&gt;
+&lt;div class="spinner ember-energy"&gt;&lt;/div&gt;
+&lt;div class="spinner state-flow"&gt;&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Dots Variant</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; margin-bottom: 1rem;">
+                    <div class="spinner-dots small">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="spinner-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="spinner-dots large">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <pre><code>&lt;div class="spinner-dots small"&gt;
+  &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="spinner-dots"&gt;
+  &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="card">
+                <h4>Pulse Variant</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; margin-bottom: 1rem;">
+                    <div class="spinner-pulse small"></div>
+                    <div class="spinner-pulse"></div>
+                    <div class="spinner-pulse large"></div>
+                </div>
+                <pre><code>&lt;div class="spinner-pulse small"&gt;&lt;/div&gt;
+&lt;div class="spinner-pulse"&gt;&lt;/div&gt;
+&lt;div class="spinner-pulse large"&gt;&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Tag</h3>
+            <p>Dismissible labels for filters and selections.</p>
+            
+            <div class="card">
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <span class="tag">Design</span>
+                    <span class="tag">Development</span>
+                    <span class="tag">Marketing</span>
+                    <span class="tag thought">Featured</span>
+                    <span class="tag ember-energy">Hot</span>
+                </div>
+                <pre style="margin-top: 1rem;"><code>&lt;span class="tag"&gt;Design&lt;/span&gt;
+&lt;span class="tag thought"&gt;Featured&lt;/span&gt;</code></pre>
+            </div>
+            
+            <h3>Alert</h3>
+            <p>Message boxes for notifications and feedback.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+                <div class="alert state-flow">
+                    <strong>Success!</strong> Your changes have been saved.
+                </div>
+                
+                <div class="alert state-pulse">
+                    <strong>Warning:</strong> Your session will expire soon.
+                </div>
+                
+                <div class="alert state-break">
+                    <strong>Error:</strong> Something went wrong. Please try again.
+                </div>
+                
+                <div class="alert thought">
+                    <strong>Info:</strong> New features are available.
+                </div>
+            </div>
+            
+            <pre><code>&lt;div class="alert state-flow"&gt;
+  &lt;strong&gt;Success!&lt;/strong&gt; Message here.
+&lt;/div&gt;</code></pre>
+            
+            <h3>Progress</h3>
+            <p>Progress bars and indicators.</p>
+            
+            <div class="card">
+                <h4>Progress Bar</h4>
+                <div class="progress" style="margin-bottom: 1rem;">
+                    <div class="progress-bar thought" style="width: 60%;"></div>
+                </div>
+                
+                <div class="progress" style="margin-bottom: 1rem;">
+                    <div class="progress-bar state-flow" style="width: 100%;"></div>
+                </div>
+                
+                <div class="progress">
+                    <div class="progress-bar ember-energy" style="width: 35%;"></div>
+                </div>
+                
+                <pre style="margin-top: 1rem;"><code>&lt;div class="progress"&gt;
+  &lt;div class="progress-bar thought" style="width: 60%;"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Skeleton</h3>
+            <p>Loading placeholders that mimic content structure.</p>
+            
+            <div class="card">
+                <div class="skeleton" style="height: 2rem; margin-bottom: 1rem;"></div>
+                <div class="skeleton" style="height: 1rem; width: 80%; margin-bottom: 0.5rem;"></div>
+                <div class="skeleton" style="height: 1rem; width: 60%;"></div>
+                
+                <pre style="margin-top: 1rem;"><code>&lt;div class="skeleton" style="height: 2rem;"&gt;&lt;/div&gt;
+&lt;div class="skeleton" style="height: 1rem; width: 80%;"&gt;&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Breadcrumb</h3>
+            <p>Navigation trail showing current location.</p>
+            
+            <div class="card">
+                <nav class="breadcrumb">
+                    <a href="#" class="hoverable">Home</a>
+                    <a href="#" class="hoverable">Products</a>
+                    <a href="#" class="hoverable">Category</a>
+                    <span>Current Page</span>
+                </nav>
+                
+                <pre><code>&lt;nav class="breadcrumb"&gt;
+  &lt;a href="#" class="hoverable"&gt;Home&lt;/a&gt;
+  &lt;a href="#" class="hoverable"&gt;Products&lt;/a&gt;
+  &lt;span&gt;Current Page&lt;/span&gt;
+&lt;/nav&gt;</code></pre>
+            </div>
+            
+            <h3>Pagination</h3>
+            <p>Page navigation controls.</p>
+            
+            <div class="card">
+                <div class="pagination">
+                    <button class="graphite-core outline hoverable">Previous</button>
+                    <button class="graphite-core outline hoverable">1</button>
+                    <button class="thought hoverable">2</button>
+                    <button class="graphite-core outline hoverable">3</button>
+                    <button class="graphite-core outline hoverable">4</button>
+                    <button class="graphite-core outline hoverable">Next</button>
+                </div>
+                
+                <pre style="margin-top: 1rem;"><code>&lt;div class="pagination"&gt;
+  &lt;button class="graphite-core outline hoverable"&gt;Previous&lt;/button&gt;
+  &lt;button class="thought hoverable"&gt;2&lt;/button&gt;
+  &lt;button class="graphite-core outline hoverable"&gt;Next&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Key Features</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>Single responsibility:</strong> Each molecule does one thing well</li>
+                    <li><strong>Composable:</strong> Combine with atoms and other molecules</li>
+                    <li><strong>Color variants:</strong> Full palette support on all components</li>
+                    <li><strong>Size variants:</strong> small, medium, large, extra-large</li>
+                    <li><strong>Modifiers:</strong> outline, ghost, interactive, hoverable</li>
+                    <li><strong>Consistent API:</strong> Same patterns across all molecules</li>
+                </ul>
+            </div>
+            
+            <blockquote>
+                <p>"Molecules combine atoms into functional units. Simple, purposeful, reusable."</p>
+            </blockquote>
+        </section>
 
-    <!-- Toast -->
-    <section id="toast">
-      <h2>Toast <span class="badge-inline">Web Component</span></h2>
-      <p>Notificações temporárias não-intrusivas.</p>
+        <section id="organisms">
+            <h2>Organisms <span class="badge rose-soft">Complex Patterns</span></h2>
+            <p class="lead">Complex components composed of molecules and atoms using semantic HTML. Organisms define complete interface patterns like sidebars, navigation systems, and empty states.</p>
+            
+            <h3>Philosophy</h3>
+            <p>Organisms are where design systems come alive. They combine atoms and molecules into complete, functional interface sections. In Monad, organisms use semantic HTML tags (<code>&lt;aside&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>) as their foundation, not generic divs.</p>
+            
+            <h3>Sidebar</h3>
+            <p>Full-height collapsible navigation sidebar with semantic structure. Built with <code>&lt;aside&gt;</code> tag for proper semantics.</p>
+            
+            <h4>Basic Structure</h4>
+            <div class="card">
+                <pre><code>&lt;aside class="sidebar"&gt;
+  &lt;!-- Header with logo/brand --&gt;
+  &lt;header&gt;
+    &lt;a href="#"&gt;
+      &lt;svg&gt;...&lt;/svg&gt;
+      &lt;span&gt;Monad&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;button class="hoverable"&gt;
+      &lt;svg&gt;...&lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/header&gt;
+  
+  &lt;!-- Navigation content --&gt;
+  &lt;nav&gt;
+    &lt;div class="sidebar-nav"&gt;
+      &lt;span class="sidebar-label"&gt;Getting Started&lt;/span&gt;
+      &lt;a href="#" class="sidebar-link hoverable active"&gt;
+        &lt;i data-lucide="home"&gt;&lt;/i&gt;
+        &lt;span class="sidebar-link-text"&gt;Dashboard&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a href="#" class="sidebar-link hoverable"&gt;
+        &lt;i data-lucide="settings"&gt;&lt;/i&gt;
+        &lt;span class="sidebar-link-text"&gt;Settings&lt;/span&gt;
+        &lt;span class="sidebar-badge"&gt;3&lt;/span&gt;
+      &lt;/a&gt;
+      
+      &lt;div class="sidebar-divider"&gt;&lt;/div&gt;
+      
+      &lt;span class="sidebar-label"&gt;Section 2&lt;/span&gt;
+      &lt;a href="#" class="sidebar-link hoverable"&gt;
+        &lt;i data-lucide="file-text"&gt;&lt;/i&gt;
+        &lt;span class="sidebar-link-text"&gt;Documents&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+  
+  &lt;!-- Optional footer --&gt;
+  &lt;div class="sidebar-footer"&gt;
+    &lt;button class="graphite-core outline hoverable"&gt;Logout&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;</code></pre>
+            </div>
+            
+            <h4>Key Components</h4>
+            <div class="card">
+                <ul>
+                    <li><code>.sidebar-label</code> — Section headers with uppercase styling</li>
+                    <li><code>.sidebar-link</code> — Navigation links with icon, text, and optional badge</li>
+                    <li><code>.sidebar-link.active</code> — Current active page indicator</li>
+                    <li><code>.sidebar-badge</code> — Count or notification badge on links</li>
+                    <li><code>.sidebar-divider</code> — Horizontal separator between sections</li>
+                    <li><code>.sidebar-footer</code> — Fixed footer area for actions</li>
+                </ul>
+            </div>
+            
+            <h4>States</h4>
+            <div class="card">
+                <h5>Collapsed</h5>
+                <p>Add <code>.collapsed</code> class to minimize sidebar to icon-only width (72px):</p>
+                <pre><code>&lt;aside class="sidebar collapsed"&gt;...&lt;/aside&gt;</code></pre>
+                
+                <h5 style="margin-top: 1rem;">Mobile Open</h5>
+                <p>On mobile, sidebar is hidden by default. Add <code>.open</code> class to show:</p>
+                <pre><code>&lt;aside class="sidebar open"&gt;...&lt;/aside&gt;</code></pre>
+                
+                <p>Include overlay for mobile:</p>
+                <pre><code>&lt;div class="sidebar-overlay visible"&gt;&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h4>Color Variants</h4>
+            <div class="card">
+                <pre><code>&lt;aside class="sidebar thought"&gt;...&lt;/aside&gt;
+&lt;aside class="sidebar graphite-core"&gt;...&lt;/aside&gt;
+&lt;aside class="sidebar dark"&gt;...&lt;/aside&gt;</code></pre>
+                <p>All color tokens work. The <code>.dark</code> variant creates a high-contrast dark sidebar.</p>
+            </div>
+            
+            <h4>Responsive Behavior</h4>
+            <div class="card">
+                <ul>
+                    <li><strong>Desktop (>768px):</strong> Sidebar is visible, can be collapsed to 72px</li>
+                    <li><strong>Mobile (≤768px):</strong> Sidebar slides in from left with overlay backdrop</li>
+                    <li><strong>Scroll:</strong> Custom scrollbar styling with subtle track and thumb</li>
+                    <li><strong>Animation:</strong> Smooth transitions respect <code>prefers-reduced-motion</code></li>
+                </ul>
+            </div>
+            
+            <h3>Empty State</h3>
+            <p>Friendly message component for when content is unavailable or loading has completed with no results.</p>
+            
+            <h4>Basic Usage</h4>
+            <div class="card" style="min-height: 400px;">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <h3>No messages yet</h3>
+                    <p>Start a conversation by sending your first message to a friend.</p>
+                    <button class="thought hoverable">Compose Message</button>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 2rem;">
+                <pre><code>&lt;div class="empty-state"&gt;
+  &lt;div class="empty-state-icon"&gt;📭&lt;/div&gt;
+  &lt;h3&gt;No messages yet&lt;/h3&gt;
+  &lt;p&gt;Start a conversation by sending your first message.&lt;/p&gt;
+  &lt;button class="thought hoverable"&gt;Compose Message&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h4>Size Variants</h4>
+            <div class="grid-auto-fit-300 gap-4">
+                <div class="card">
+                    <div class="empty-state empty-state-compact">
+                        <div class="empty-state-icon">🔍</div>
+                        <h4>Compact</h4>
+                        <p>Smaller padding for sidebars or panels.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <h4>Default</h4>
+                        <p>Standard size for main content areas.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="empty-state empty-state-large">
+                        <div class="empty-state-icon">🔍</div>
+                        <h4>Large</h4>
+                        <p>Hero-sized for full-page empty states.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 1rem;">
+                <pre><code>&lt;div class="empty-state empty-state-compact"&gt;...&lt;/div&gt;
+&lt;div class="empty-state"&gt;...&lt;/div&gt;
+&lt;div class="empty-state empty-state-large"&gt;...&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h4>Semantic Variants</h4>
+            <div class="grid-auto-fit-300 gap-4">
+                <div class="card">
+                    <div class="empty-state empty-state-compact empty-state-error">
+                        <div class="empty-state-icon">⚠️</div>
+                        <h4>Error State</h4>
+                        <p>Something went wrong while loading data.</p>
+                        <button class="state-break outline hoverable">Try Again</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="empty-state empty-state-compact empty-state-info">
+                        <div class="empty-state-icon">ℹ️</div>
+                        <h4>Info State</h4>
+                        <p>Additional context for the user.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="empty-state empty-state-compact empty-state-success">
+                        <div class="empty-state-icon">✓</div>
+                        <h4>Success State</h4>
+                        <p>Operation completed successfully!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 1rem;">
+                <pre><code>&lt;div class="empty-state empty-state-error"&gt;...&lt;/div&gt;
+&lt;div class="empty-state empty-state-info"&gt;...&lt;/div&gt;
+&lt;div class="empty-state empty-state-success"&gt;...&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h4>Inline Variant</h4>
+            <div class="card">
+                <div class="empty-state empty-state-inline">
+                    <div class="empty-state-icon">📊</div>
+                    <div class="empty-state-content">
+                        <h4>No data to display</h4>
+                        <p>Connect your data source to see analytics and insights here.</p>
+                        <button class="thought outline hoverable">Connect Data</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 1rem;">
+                <pre><code>&lt;div class="empty-state empty-state-inline"&gt;
+  &lt;div class="empty-state-icon"&gt;📊&lt;/div&gt;
+  &lt;div class="empty-state-content"&gt;
+    &lt;h4&gt;No data to display&lt;/h4&gt;
+    &lt;p&gt;Connect your data source to see insights.&lt;/p&gt;
+    &lt;button&gt;Connect Data&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>Key Features</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>Semantic HTML:</strong> Organisms use proper tags (<code>&lt;aside&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>)</li>
+                    <li><strong>Accessibility:</strong> Keyboard navigation, focus states, ARIA labels where needed</li>
+                    <li><strong>Responsive:</strong> Mobile-first design with tablet/desktop adaptations</li>
+                    <li><strong>Themeable:</strong> All organisms accept color variants and themes</li>
+                    <li><strong>Performance:</strong> Smooth animations with <code>prefers-reduced-motion</code> support</li>
+                    <li><strong>Composable:</strong> Built from atoms and molecules, easy to customize</li>
+                </ul>
+            </div>
+            
+            <blockquote>
+                <p>"Organisms bring harmony to complexity. They prove that semantic HTML can be beautiful."</p>
+            </blockquote>
+        </section>
 
-      <div class="component-demo">
-        <div class="demo-preview">
-          <button data-toast="Success!" data-toast-type="success" class="state-flow hoverable">Show Success</button>
-          <button data-toast="Error occurred" data-toast-type="error" class="state-break hoverable">Show Error</button>
-          <button onclick="window.monad.toast('Info message', 'info')" class="thought hoverable">Show Info (JS)</button>
-        </div>
-        <div class="demo-code">
-          <pre><code>&lt;!-- Via HTML --&gt;
-&lt;button data-toast="Saved!" data-toast-type="success"&gt;
-  Save
+        <section id="templates">
+            <h2>Templates <span class="badge ember-glow">Page Layouts</span></h2>
+            <p class="lead">Full-page layouts applied as body classes. Each template embodies a specific mindset — workspace, observation, documentation, gateway, vast expanse, or duality.</p>
+
+            <div class="grid-auto-fit-300 gap-4 margin-bottom-6">
+                <a href="canvas.html" class="card sage-calm interactive">
+                    <div class="flex-between margin-bottom-3">
+                        <h4>Canvas</h4>
+                        <i data-lucide="layout"></i>
+                    </div>
+                    <p><strong>Workspace.</strong> Blank slate for creation with collapsible sidebar.</p>
+                    <span class="badge">View Demo →</span>
+                </a>
+
+                <a href="observatory.html" class="card aether-sky interactive">
+                    <div class="flex-between margin-bottom-3">
+                        <h4>Observatory</h4>
+                        <i data-lucide="layout-dashboard"></i>
+                    </div>
+                    <p><strong>Dashboard.</strong> Panoramic view of metrics and data.</p>
+                    <span class="badge">View Demo →</span>
+                </a>
+
+                <a href="manuscript.html" class="card iris-petal interactive">
+                    <div class="flex-between margin-bottom-3">
+                        <h4>Manuscript</h4>
+                        <i data-lucide="book-open"></i>
+                    </div>
+                    <p><strong>Documentation.</strong> Long-form content with typography rhythm.</p>
+                    <span class="badge">View Demo →</span>
+                </a>
+
+                <a href="threshold.html" class="card rose-soft interactive">
+                    <div class="flex-between margin-bottom-3">
+                        <h4>Threshold</h4>
+                        <i data-lucide="door-open"></i>
+                    </div>
+                    <p><strong>Gateway.</strong> Centered authentication and transitions.</p>
+                    <span class="badge">View Demo →</span>
+                </a>
+
+                <a href="horizon.html" class="card sand-light interactive">
+                    <div class="flex-between margin-bottom-3">
+                        <h4>Horizon</h4>
+                        <i data-lucide="sunrise"></i>
+                    </div>
+                    <p><strong>Landing.</strong> Vast expanse for first impressions.</p>
+                    <span class="badge">View Demo →</span>
+                </a>
+
+                <a href="diptych.html" class="card interactive">
+                    <div class="flex-between margin-bottom-3">
+                        <h4>Diptych</h4>
+                        <i data-lucide="columns"></i>
+                    </div>
+                    <p><strong>Split-screen.</strong> Editor and preview side-by-side.</p>
+                    <span class="badge">View Demo →</span>
+                </a>
+            </div>
+
+            <h3>Philosophy</h3>
+            <p><strong>Templates as body classes</strong> — architectural blueprints that shape entire pages, not isolated components. Each carries emotional intent through poetic naming.</p>
+
+            <!-- Canvas Template -->
+            <article>
+                <h3>Canvas — Workspace</h3>
+                <p><strong>Purpose:</strong> Blank slate for creation. Grid-based workspace with collapsible sidebar navigation.</p>
+                <p><strong>Mindset:</strong> Active work, focus, creation. Space to build without distraction.</p>
+                
+                <h4>Structure</h4>
+                <pre><code>&lt;body class="canvas"&gt;
+  &lt;aside class="sidebar"&gt;
+    &lt;!-- Navigation --&gt;
+  &lt;/aside&gt;
+  &lt;header&gt;
+    &lt;!-- Page title, actions --&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;!-- Primary workspace --&gt;
+  &lt;/main&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Grid Layout</h4>
+                <ul>
+                    <li><strong>Columns:</strong> 280px sidebar + 1fr main (collapsed: 72px)</li>
+                    <li><strong>Rows:</strong> 64px header + 1fr content</li>
+                    <li><strong>Areas:</strong> sidebar spans both rows</li>
+                </ul>
+
+                <h4>Variants</h4>
+                <pre><code>&lt;!-- Collapsed sidebar --&gt;
+&lt;body class="canvas collapsed"&gt;
+
+&lt;!-- No sidebar --&gt;
+&lt;body class="canvas open"&gt;</code></pre>
+
+                <h4>Responsive</h4>
+                <ul>
+                    <li><strong>≤1024px:</strong> Sidebar becomes overlay, grid becomes single column</li>
+                    <li><strong>≤768px:</strong> Mobile padding applied to main content</li>
+                </ul>
+
+                <h4>Use Cases</h4>
+                <p>Admin dashboards, project workspaces, content editors, application UIs.</p>
+            </article>
+
+            <!-- Observatory Template -->
+            <article>
+                <h3>Observatory — Dashboard</h3>
+                <p><strong>Purpose:</strong> Panoramic view of metrics and data. Nearly identical to Canvas but semantically distinct — this is for <em>observing</em>, not creating.</p>
+                <p><strong>Mindset:</strong> Analysis, monitoring, insight. See the whole picture at a glance.</p>
+                
+                <h4>Structure</h4>
+                <pre><code>&lt;body class="observatory"&gt;
+  &lt;aside&gt;
+    &lt;!-- Metric categories --&gt;
+  &lt;/aside&gt;
+  &lt;header&gt;
+    &lt;!-- Dashboard title, filters --&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;!-- Charts, cards, data --&gt;
+  &lt;/main&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Grid Layout</h4>
+                <ul>
+                    <li><strong>Columns:</strong> 280px sidebar + 1fr main (collapsed: 72px)</li>
+                    <li><strong>Rows:</strong> 64px header + 1fr content</li>
+                    <li><strong>Areas:</strong> sidebar | header / sidebar | main</li>
+                </ul>
+
+                <h4>Variants</h4>
+                <pre><code>&lt;body class="observatory collapsed"&gt;</code></pre>
+
+                <h4>Use Cases</h4>
+                <p>Analytics dashboards, monitoring tools, reporting interfaces, metric displays.</p>
+            </article>
+
+            <!-- Manuscript Template -->
+            <article>
+                <h3>Manuscript — Documentation</h3>
+                <p><strong>Purpose:</strong> Structured knowledge. Optimized for reading long-form content with smooth scrolling and typographic rhythm.</p>
+                <p><strong>Mindset:</strong> Learning, understanding, reference. Words matter here.</p>
+                
+                <h4>Structure</h4>
+                <pre><code>&lt;body class="manuscript"&gt;
+  &lt;aside class="sidebar"&gt;
+    &lt;!-- Table of contents --&gt;
+  &lt;/aside&gt;
+  &lt;header&gt;
+    &lt;!-- Document title --&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Chapter&lt;/h2&gt;
+      &lt;p class="lead"&gt;Introduction text&lt;/p&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Features</h4>
+                <ul>
+                    <li><strong>Smooth scrolling:</strong> scroll-behavior: smooth</li>
+                    <li><strong>Typography rhythm:</strong> Generous line-height (1.7), optimal measure (max-width 1200px)</li>
+                    <li><strong>Scroll anchoring:</strong> scroll-margin-top: 80px on headings</li>
+                    <li><strong>.lead class:</strong> Larger intro text (1.125rem, lighter weight)</li>
+                    <li><strong>Code blocks:</strong> Styled with background, border-radius, padding</li>
+                    <li><strong>Blockquotes:</strong> Border-left accent, italic text</li>
+                </ul>
+
+                <h4>Use Cases</h4>
+                <p>Documentation sites, knowledge bases, long-form articles, API references. <em>(This very page uses Manuscript!)</em></p>
+            </article>
+
+            <!-- Threshold Template -->
+            <article>
+                <h3>Threshold — Gateway</h3>
+                <p><strong>Purpose:</strong> Centered authentication/transition. Gateway between states — logged out to logged in, public to private.</p>
+                <p><strong>Mindset:</strong> Pause, decision, entry. Crossing a boundary.</p>
+                
+                <h4>Structure</h4>
+                <pre><code>&lt;body class="threshold"&gt;
+  &lt;main&gt;
+    &lt;div class="card"&gt;
+      &lt;h2&gt;Sign In&lt;/h2&gt;
+      &lt;form&gt;...&lt;/form&gt;
+    &lt;/div&gt;
+  &lt;/main&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Layout</h4>
+                <ul>
+                    <li><strong>Centering:</strong> Flexbox with justify-content/align-items center</li>
+                    <li><strong>Max-width:</strong> 420px for form content</li>
+                    <li><strong>Background:</strong> Radial gradient (graphite-deep → graphite-mind)</li>
+                    <li><strong>Full height:</strong> min-height: 100vh</li>
+                </ul>
+
+                <h4>Variants</h4>
+                <pre><code>&lt;!-- Split layout: 50% form + 50% image --&gt;
+&lt;body class="threshold split"&gt;
+  &lt;main&gt;
+    &lt;div class="card"&gt;...&lt;/div&gt;
+  &lt;/main&gt;
+  &lt;div class="threshold-visual"&gt;
+    &lt;img src="hero.jpg" alt=""&gt;
+  &lt;/div&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Use Cases</h4>
+                <p>Login pages, signup forms, password reset, onboarding steps, error pages.</p>
+            </article>
+
+            <!-- Horizon Template -->
+            <article>
+                <h3>Horizon — Landing</h3>
+                <p><strong>Purpose:</strong> Vast first impression. Marketing/landing pages with full-width sections and limitless scrolling.</p>
+                <p><strong>Mindset:</strong> Openness, possibility, invitation. The journey begins here.</p>
+                
+                <h4>Structure</h4>
+                <pre><code>&lt;body class="horizon"&gt;
+  &lt;header&gt;
+    &lt;!-- Logo, navigation --&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;section&gt;
+      &lt;!-- Hero --&gt;
+    &lt;/section&gt;
+    &lt;section&gt;
+      &lt;!-- Features --&gt;
+    &lt;/section&gt;
+    &lt;section&gt;
+      &lt;!-- Pricing --&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;
+    &lt;div class="footer-content"&gt;
+      &lt;!-- Links, copyright --&gt;
+    &lt;/div&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Features</h4>
+                <ul>
+                    <li><strong>Sticky header:</strong> backdrop-filter: blur(8px) for glass effect</li>
+                    <li><strong>Section spacing:</strong> padding: var(--space-8), max-width: 1200px</li>
+                    <li><strong>Dark footer:</strong> background: graphite-deep, color: cloud-pure</li>
+                    <li><strong>Feature grid:</strong> Auto-fit grid with 200px min columns</li>
+                </ul>
+
+                <h4>Use Cases</h4>
+                <p>Landing pages, marketing sites, product showcases, portfolio pages.</p>
+            </article>
+
+            <!-- Diptych Template -->
+            <article>
+                <h3>Diptych — Split</h3>
+                <p><strong>Purpose:</strong> Two faces of one work. Editor/preview, before/after, code/output — duality in perfect balance.</p>
+                <p><strong>Mindset:</strong> Comparison, reflection, creation + result. Two perspectives, one truth.</p>
+                
+                <h4>Structure</h4>
+                <pre><code>&lt;body class="diptych"&gt;
+  &lt;header&gt;
+    &lt;!-- Unified toolbar --&gt;
+  &lt;/header&gt;
+  &lt;div&gt;
+    &lt;!-- Left pane (editor) --&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;!-- Right pane (preview) --&gt;
+  &lt;/div&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Grid Layout</h4>
+                <ul>
+                    <li><strong>Columns:</strong> 1fr 1fr (equal split by default)</li>
+                    <li><strong>Rows:</strong> 64px header + 1fr content</li>
+                    <li><strong>Areas:</strong> header spans both columns</li>
+                    <li><strong>Visual distinction:</strong> Left: surface background, Right: cloud-pure</li>
+                </ul>
+
+                <h4>Variants</h4>
+                <pre><code>&lt;!-- Emphasize left pane (1.5x width) --&gt;
+&lt;body class="diptych left-large"&gt;
+
+&lt;!-- Emphasize right pane (1.5x width) --&gt;
+&lt;body class="diptych right-large"&gt;
+
+&lt;!-- Stack vertically instead of side-by-side --&gt;
+&lt;body class="diptych vertical"&gt;</code></pre>
+
+                <h4>Responsive</h4>
+                <ul>
+                    <li><strong>≤1024px:</strong> Automatically stacks vertically, left pane max-height: 50vh</li>
+                    <li><strong>≤768px:</strong> Mobile padding on both panes</li>
+                </ul>
+
+                <h4>Use Cases</h4>
+                <p>Code playgrounds, Markdown editors, design tools, before/after comparisons, translation interfaces.</p>
+            </article>
+
+            <h3>Choosing a Template</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Template</th>
+                        <th>Intent</th>
+                        <th>Key Feature</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Canvas</strong></td>
+                        <td>Creation</td>
+                        <td>Collapsible sidebar</td>
+                        <td>Work interfaces</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Observatory</strong></td>
+                        <td>Analysis</td>
+                        <td>Metric-focused layout</td>
+                        <td>Dashboards</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Manuscript</strong></td>
+                        <td>Reading</td>
+                        <td>Typography rhythm</td>
+                        <td>Documentation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Threshold</strong></td>
+                        <td>Transition</td>
+                        <td>Centered card</td>
+                        <td>Auth pages</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Horizon</strong></td>
+                        <td>Discovery</td>
+                        <td>Full-width sections</td>
+                        <td>Landing pages</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Diptych</strong></td>
+                        <td>Duality</td>
+                        <td>50/50 split</td>
+                        <td>Editors</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Template Mixins</h3>
+            <p>All templates use shared mixins from <code>templates/_mixins.scss</code> for consistency:</p>
+            <ul>
+                <li><strong>base-layout($cols, $rows):</strong> Grid foundation</li>
+                <li><strong>sidebar-base:</strong> Sticky sidebar behavior</li>
+                <li><strong>sticky-header:</strong> Fixed header with shadow on scroll</li>
+                <li><strong>main-content:</strong> Scrollable main area with padding</li>
+                <li><strong>mobile-sidebar-collapse:</strong> Responsive sidebar → overlay</li>
+                <li><strong>mobile-padding:</strong> Reduced spacing on small screens</li>
+                <li><strong>section-header:</strong> Consistent section title styling</li>
+                <li><strong>feature-grid($min-width):</strong> Auto-fit grid for features</li>
+                <li><strong>action-buttons:</strong> CTA button group alignment</li>
+            </ul>
+
+            <h3>Migration Between Templates</h3>
+            <p>Switching templates is as simple as changing the body class:</p>
+            <pre><code>&lt;!-- From --&gt;
+&lt;body class="canvas"&gt;
+
+&lt;!-- To --&gt;
+&lt;body class="observatory"&gt;</code></pre>
+            <p><strong>Note:</strong> Some templates expect specific structure (e.g., Threshold expects centered card, Horizon expects sections). Review structure requirements above.</p>
+        </section>
+
+        <section id="themes">
+            <h2>Themes <span class="badge iris-petal">Emotional Palettes</span></h2>
+            <p class="lead">Four emotional atmospheres — each theme is a complete transformation of the design system.</p>
+
+            <div class="card margin-bottom-6" style="background: linear-gradient(135deg, var(--cloud-pure), var(--aether-sky)); border: none;">
+                <h3>
+                    <i data-lucide="palette" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle; margin-right: 8px;"></i>
+                    Explore All Themes
+                </h3>
+                <p>Visit the <a href="themes.html" class="hoverable"><strong>Themes Gallery</strong></a> to see all 4 professional themes inspired by the best software:</p>
+                <div class="flex-group margin-top-4">
+                    <a href="theme-moonlight.html" class="hoverable">
+                        <button class="thought outline hoverable">
+                            <i data-lucide="sun"></i>
+                            Moonlight (GitHub)
+                        </button>
+                    </a>
+                    <a href="theme-midnight.html" class="hoverable">
+                        <button class="graphite-mind hoverable">
+                            <i data-lucide="moon"></i>
+                            Midnight (GitHub Dark)
+                        </button>
+                    </a>
+                    <a href="theme-ocean.html" class="hoverable">
+                        <button class="thought hoverable">
+                            <i data-lucide="waves"></i>
+                            Ocean (Vercel)
+                        </button>
+                    </a>
+                    <a href="theme-purple.html" class="hoverable">
+                        <button class="iris-void hoverable">
+                            <i data-lucide="sparkles"></i>
+                            Purple (Linear)
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+            <h3>Philosophy</h3>
+            <p><strong>Themes are not decoration</strong> — they are emotional atmospheres inspired by the best software. Each theme embodies proven design systems: Moonlight and Midnight follow GitHub's exact palette, while Ocean brings Vercel/Tailwind aesthetics and Purple channels Linear/Stripe elegance.</p>
+
+            <!-- Moonlight Theme -->
+            <article>
+                <h3>Moonlight — GitHub Light (Default)</h3>
+                <p><strong>Authentic GitHub.com light theme</strong> — the exact colors millions of developers trust daily.</p>
+                <p><strong>Active by default</strong> — no theme attribute needed.</p>
+
+                <h4>GitHub Color System</h4>
+                <ul>
+                    <li><strong>Surface:</strong> #FFFFFF (canvas.default) — pure white GitHub background</li>
+                    <li><strong>Text:</strong> #24292F (fg.default) — GitHub's main text color</li>
+                    <li><strong>Primary:</strong> #0969DA (accent.fg) — GitHub blue for links and actions</li>
+                    <li><strong>Borders:</strong> #D0D7DE (border.default) — GitHub's subtle borders</li>
+                </ul>
+
+                <h4>Semantic Colors</h4>
+                <ul>
+                    <li><strong>Success:</strong> #1A7F37 (success.fg) — GitHub green</li>
+                    <li><strong>Warning:</strong> #9A6700 (attention.fg) — GitHub amber</li>
+                    <li><strong>Danger:</strong> #CF222E (danger.fg) — GitHub red</li>
+                    <li><strong>Info:</strong> #0969DA (accent.fg) — GitHub blue</li>
+                </ul>
+
+                <h4>Usage</h4>
+                <pre><code>&lt;!-- Default (no attribute needed) --&gt;
+&lt;body&gt;
+  &lt;!-- Moonlight/GitHub Light is active --&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Best For</h4>
+                <p>Professional development, daytime coding, familiarity for GitHub users, maximum readability, WCAG AAA compliance.</p>
+            </article>
+
+            <!-- Midnight Theme -->
+            <article>
+                <h3>Midnight — GitHub Dark</h3>
+                <p><strong>Authentic GitHub.com dark theme</strong> — trusted by millions for late-night coding sessions.</p>
+                <p><strong>Purpose:</strong> Reduce eye strain in low-light environments with GitHub's proven dark palette.</p>
+
+                <h4>GitHub Dark Color System</h4>
+                <ul>
+                    <li><strong>Surface:</strong> #0D1117 (canvas.default) — GitHub dark main background</li>
+                    <li><strong>Deepest:</strong> #010409 (canvas.inset) — GitHub's deepest dark</li>
+                    <li><strong>Text:</strong> #E6EDF3 (fg.default) — GitHub's main light text</li>
+                    <li><strong>Primary:</strong> #58A6FF (accent.fg) — GitHub blue for dark mode</li>
+                    <li><strong>Borders:</strong> #21262D (border.default) — GitHub's subtle dark borders</li>
+                </ul>
+
+                <h4>Semantic Colors (Dark Mode)</h4>
+                <ul>
+                    <li><strong>Success:</strong> #3FB950 (success.fg) — GitHub green for dark</li>
+                    <li><strong>Warning:</strong> #D29922 (attention.fg) — GitHub amber for dark</li>
+                    <li><strong>Danger:</strong> #F85149 (danger.fg) — GitHub red for dark</li>
+                    <li><strong>Info:</strong> #58A6FF (accent.fg) — GitHub blue for dark</li>
+                </ul>
+
+                <h4>Design Principles</h4>
+                <ul>
+                    <li><strong>Never pure black:</strong> #0D1117 provides depth and reduces eye strain</li>
+                    <li><strong>Adjusted contrast:</strong> ~12:1 prevents harsh glare on dark backgrounds</li>
+                    <li><strong>Vibrant accents:</strong> Colors are brighter in dark mode for visibility</li>
+                    <li><strong>OLED friendly:</strong> Deep blacks save power on OLED displays</li>
+                </ul>
+
+                <h4>Usage</h4>
+                <pre><code>&lt;body theme="midnight"&gt;
+  &lt;!-- Midnight/GitHub Dark is active --&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Best For</h4>
+                <p>Night coding, low-light environments, extended sessions, OLED displays, GitHub users, reducing blue light exposure.</p>
+            </article>
+
+            <!-- Ocean Theme -->
+            <article>
+                <h3>Ocean — Modern Tech Aesthetic</h3>
+                <p><strong>Inspired by Vercel, Tailwind CSS, and Stripe</strong> — the look of modern web applications.</p>
+                <p><strong>Purpose:</strong> Create innovation-focused interfaces with cool blues and teals.</p>
+
+                <h4>Color Philosophy</h4>
+                <ul>
+                    <li><strong>Surface:</strong> #F0F9FF (Sky 50) — light sky-tinted background</li>
+                    <li><strong>Text:</strong> #0C4A6E (Sky 900) — deep ocean text</li>
+                    <li><strong>Primary:</strong> #06B6D4 (Cyan 500) — modern cyan for actions</li>
+                    <li><strong>Accent:</strong> #0EA5E9 (Sky 500) — vibrant sky blue</li>
+                    <li><strong>Borders:</strong> #CBD5E1 (Slate 300) — cool neutral borders</li>
+                </ul>
+
+                <h4>Palette Characteristics</h4>
+                <ul>
+                    <li><strong>Ocean blues:</strong> Cyan and Sky from Tailwind palette</li>
+                    <li><strong>Success:</strong> #14B8A6 (Teal 500) — teal success state</li>
+                    <li><strong>Modern feel:</strong> Crisp, clean, tech-forward aesthetic</li>
+                    <li><strong>Versatile:</strong> Works for SaaS, dashboards, modern apps</li>
+                </ul>
+
+                <h4>Usage</h4>
+                <pre><code>&lt;body theme="ocean"&gt;
+  &lt;!-- Ocean is active --&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Best For</h4>
+                <p>Modern web apps, SaaS products, dashboards, tech startups, innovation-focused projects, Tailwind CSS users.</p>
+            </article>
+
+            <!-- Purple Theme -->
+            <article>
+                <h3>Purple — Creative Elegance</h3>
+                <p><strong>Inspired by Linear, Stripe, and Notion</strong> — premium, sophisticated design for creative products.</p>
+                <p><strong>Purpose:</strong> Convey quality, creativity, and elegance through refined purples.</p>
+
+                <h4>Color Philosophy</h4>
+                <ul>
+                    <li><strong>Surface:</strong> #FAFAF9 (Stone 50) — warm neutral background</li>
+                    <li><strong>Text:</strong> #1C1917 (Stone 900) — deep warm text</li>
+                    <li><strong>Primary:</strong> #8B5CF6 (Violet 500) — rich violet for actions</li>
+                    <li><strong>Secondary:</strong> #7C3AED (Violet 600) — deep purple</li>
+                    <li><strong>Borders:</strong> #D6D3D1 (Stone 300) — warm gray borders</li>
+                </ul>
+
+                <h4>Palette Characteristics</h4>
+                <ul>
+                    <li><strong>Violet primary:</strong> Rich, sophisticated purple from Tailwind</li>
+                    <li><strong>Warm neutrals:</strong> Stone palette creates premium feel</li>
+                    <li><strong>Pink accents:</strong> #EC4899 for creative highlights</li>
+                    <li><strong>Premium feel:</strong> Linear/Stripe aesthetic for quality products</li>
+                </ul>
+
+                <h4>Usage</h4>
+                <pre><code>&lt;body theme="purple"&gt;
+  &lt;!-- Purple is active --&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Best For</h4>
+                <p>Creative tools, premium products, design apps, Notion-like interfaces, elegant dashboards, sophisticated brands.</p>
+            </article>
+
+            <!-- Theme Switching -->
+            <article>
+                <h3>Theme Switching</h3>
+                <p>Themes are applied via the <code>theme</code> attribute on the <code>&lt;body&gt;</code> element. <strong>No JavaScript required</strong> — simply change the HTML.</p>
+
+                <h4>Static Switching (No JavaScript)</h4>
+                <pre><code>&lt;!-- Moonlight (default) --&gt;
+&lt;body&gt;
+  &lt;!-- Light theme active --&gt;
+&lt;/body&gt;
+
+&lt;!-- Midnight (dark) --&gt;
+&lt;body theme="midnight"&gt;
+  &lt;!-- Dark theme active --&gt;
+&lt;/body&gt;
+
+&lt;!-- Ocean (modern) --&gt;
+&lt;body theme="ocean"&gt;
+  &lt;!-- Modern theme active --&gt;
+&lt;/body&gt;
+
+&lt;!-- Purple (elegant) --&gt;
+&lt;body theme="purple"&gt;
+  &lt;!-- Elegant theme active --&gt;
+&lt;/body&gt;</code></pre>
+
+                <h4>Server-Side Rendering</h4>
+                <pre><code>&lt;!-- Django/Jinja example --&gt;
+&lt;body{% if user.theme %} theme="{{ user.theme }}"{% endif %}&gt;
+
+&lt;!-- PHP example --&gt;
+&lt;body&lt;?php if ($user['theme']) echo ' theme="' . $user['theme'] . '"'; ?&gt;&gt;
+
+&lt;!-- Rails/ERB example --&gt;
+&lt;body&lt;%= " theme=\"#{current_user.theme}\"" if current_user.theme.present? %&gt;&gt;</code></pre>
+
+                <h4>CSS Media Query (No JavaScript)</h4>
+                <pre><code>&lt;!-- Respect system preference without JS --&gt;
+&lt;style&gt;
+@media (prefers-color-scheme: dark) {
+  body:not([theme]) {
+    /* Override Moonlight with Midnight (GitHub Dark) */
+    --graphite-mind: #E6EDF3;
+    --cloud-pure: #0D1117;
+    --thought: #58A6FF;
+    /* ... etc ... */
+  }
+}
+&lt;/style&gt;</code></pre>
+
+                <h4>CSS Transitions (Optional)</h4>
+                <pre><code>&lt;!-- Smooth theme transitions --&gt;
+&lt;style&gt;
+body {
+  transition: 
+    background-color 300ms ease,
+    color 300ms ease;
+}
+
+* {
+  transition: 
+    background-color 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease;
+}
+&lt;/style&gt;</code></pre>
+            </article>
+
+            <!-- Technical Details -->
+            <article>
+                <h3>Technical Implementation</h3>
+                
+                <h4>File Structure</h4>
+                <pre><code>package/styles/themes/
+├── _index.scss          # Theme exports
+├── _moonlight.scss      # Light theme colors
+└── _midnight.scss       # Dark theme colors</code></pre>
+
+                <h4>How It Works</h4>
+                <ol>
+                    <li><strong>CSS Custom Properties:</strong> All colors defined as <code>--variable-name</code> in theme files</li>
+                    <li><strong>Selector Specificity:</strong> <code>body[theme="midnight"]</code> overrides <code>:root</code> defaults</li>
+                    <li><strong>Token References:</strong> <code>tokens/_colors.scss</code> now references <code>var(--color-name)</code></li>
+                    <li><strong>Component Agnostic:</strong> All components automatically adapt via CSS custom properties</li>
+                    <li><strong>No JavaScript:</strong> Pure CSS solution — change theme by modifying HTML attribute</li>
+                </ol>
+
+                <h4>Color Token Structure</h4>
+                <pre><code>/* Moonlight (default) */
+:root,
+body:not([theme]) {
+  --graphite-mind: #0D1117;
+  --cloud-pure: #F1F1F1;
+  /* ... */
+}
+
+/* Midnight overrides */
+body[theme="midnight"] {
+  --graphite-mind: #E8EAED;
+  --cloud-pure: #0D1117;
+  /* ... */
+}
+
+/* Components reference tokens */
+button {
+  background: var(--color-primary);
+  color: var(--color-on-surface);
+}</code></pre>
+
+                <h4>Semantic Aliases</h4>
+                <p>Both themes provide the same semantic aliases for component usage:</p>
+                <ul>
+                    <li><code>--color-surface</code> — background color</li>
+                    <li><code>--color-on-surface</code> — text color</li>
+                    <li><code>--color-border</code> — borders and dividers</li>
+                    <li><code>--color-primary</code> — primary actions</li>
+                    <li><code>--color-secondary</code> — secondary actions</li>
+                    <li><code>--color-danger</code> — error states</li>
+                    <li><code>--color-success</code> — success states</li>
+                    <li><code>--color-warning</code> — warning states</li>
+                </ul>
+            </article>
+
+            <!-- Customization -->
+            <article>
+                <h3>Creating Custom Themes</h3>
+                <p>Extend Monad with your own themes by following the established pattern.</p>
+
+                <h4>Example: Twilight Theme</h4>
+                <pre><code>/* themes/_twilight.scss */
+[data-theme="twilight"] {
+  // Redefine all color tokens
+  --graphite-mind: #2A1B3D;
+  --cloud-pure: #F5E6FF;
+  --thought: #6B46C1;
+  /* ... all other tokens */
+  
+  // Semantic aliases
+  --color-surface: var(--cloud-pure);
+  --color-on-surface: var(--graphite-mind);
+  /* ... */
+}
+
+/* themes/_index.scss */
+@forward "moonlight";
+@forward "midnight";
+@forward "twilight"; // Add your theme</code></pre>
+
+                <h4>Theme Requirements</h4>
+                <p>Every theme must define these token categories:</p>
+                <ul>
+                    <li><strong>Graphite palette:</strong> mind, deep, core, light</li>
+                    <li><strong>Cloud palette:</strong> pure, silent, mist</li>
+                    <li><strong>Thought palette:</strong> default, focus, depth</li>
+                    <li><strong>Ember palette:</strong> energy, glow, burn</li>
+                    <li><strong>Silver palette:</strong> line, balance, depth</li>
+                    <li><strong>Sage palette:</strong> calm, leaf, shadow</li>
+                    <li><strong>Rose palette:</strong> soft, bloom, depth</li>
+                    <li><strong>Sand palette:</strong> light, warm, earth</li>
+                    <li><strong>Aether palette:</strong> sky, air, light</li>
+                    <li><strong>Iris palette:</strong> petal, dream, void</li>
+                    <li><strong>State palette:</strong> flow, pulse, break</li>
+                    <li><strong>Semantic aliases:</strong> All 10 listed above</li>
+                </ul>
+            </article>
+
+            <!-- Accessibility -->
+            <article>
+                <h3>Accessibility Considerations</h3>
+                
+                <h4>Contrast Ratios</h4>
+                <ul>
+                    <li><strong>Moonlight:</strong> 21:1 text contrast (WCAG AAA)</li>
+                    <li><strong>Midnight:</strong> 12:1 text contrast (WCAG AAA, reduced for comfort)</li>
+                    <li><strong>Interactive elements:</strong> Minimum 4.5:1 in both themes</li>
+                    <li><strong>State colors:</strong> Tested against backgrounds for visibility</li>
+                </ul>
+
+                <h4>Theme Toggle Best Practices</h4>
+                <ul>
+                    <li><strong>Icon clarity:</strong> Use sun/moon icons for recognition</li>
+                    <li><strong>ARIA labels:</strong> <code>aria-label="Switch to dark theme"</code></li>
+                    <li><strong>Keyboard access:</strong> Toggle must be keyboard-accessible</li>
+                    <li><strong>Visual feedback:</strong> Show current theme state</li>
+                </ul>
+
+                <h4>Reduced Motion</h4>
+                <pre><code>/* Disable theme transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html, * {
+    transition: none !important;
+  }
+}</code></pre>
+            </article>
+
+            <!-- Comparison -->
+            <article>
+                <h3>Theme Comparison</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Moonlight</th>
+                            <th>Midnight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Surface</strong></td>
+                            <td>#F1F1F1 (light gray)</td>
+                            <td>#0D1117 (near black)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Text</strong></td>
+                            <td>#0D1117 (near black)</td>
+                            <td>#E8EAED (light gray)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Contrast</strong></td>
+                            <td>21:1 (maximum)</td>
+                            <td>12:1 (comfortable)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Brightness</strong></td>
+                            <td>High (~240 avg)</td>
+                            <td>Low (~30 avg)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Best Time</strong></td>
+                            <td>Daytime, bright rooms</td>
+                            <td>Night, dim lighting</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Eye Strain</strong></td>
+                            <td>Low (soft backgrounds)</td>
+                            <td>Minimal (reduced contrast)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OLED Friendly</strong></td>
+                            <td>No (light surfaces)</td>
+                            <td>Yes (true blacks)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Accessibility</strong></td>
+                            <td>WCAG AAA</td>
+                            <td>WCAG AAA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+
+            <h3>When to Use Each Theme</h3>
+            
+            <h4>Choose Moonlight when:</h4>
+            <ul>
+                <li>Working in well-lit environments</li>
+                <li>Reading dense documentation or long-form content</li>
+                <li>Maximum contrast is needed for accessibility</li>
+                <li>Creating or editing visual content</li>
+                <li>Using non-OLED displays</li>
+            </ul>
+
+            <h4>Choose Midnight when:</h4>
+            <ul>
+                <li>Working late at night or in dark rooms</li>
+                <li>Coding for extended periods</li>
+                <li>Using OLED displays (battery savings)</li>
+                <li>Reducing blue light exposure before sleep</li>
+                <li>Minimizing screen glare in cinematic environments</li>
+            </ul>
+
+            <blockquote>
+                <p><strong>Design Philosophy:</strong> Themes are not arbitrary skins. Moonlight and Midnight represent different <em>states of mind</em> — active clarity versus restful focus. Choose the theme that matches your context, not just your preference.</p>
+            </blockquote>
+        </section>
+
+        <section id="utilities">
+            <h2>Utilities <span class="badge aether-sky">Helper Classes</span></h2>
+            <p class="lead">Atomic helper classes for rapid prototyping and common patterns. Utilities follow a clear naming convention with both shorthand and descriptive variants.</p>
+
+            <h3>Philosophy</h3>
+            <p><strong>Utilities are escape hatches</strong> — use them sparingly for one-off adjustments, not as primary styling method. Components should handle most use cases.</p>
+
+            <!-- Spacing Utilities -->
+            <article>
+                <h3>Spacing — Margin & Padding</h3>
+                <p>Consistent spacing based on <code>--space-*</code> tokens (4px base unit).</p>
+
+                <h4>Naming Patterns</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Example</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>.margin-{size}</code></td>
+                            <td><code>.margin-medium</code></td>
+                            <td>All sides (descriptive)</td>
+                        </tr>
+                        <tr>
+                            <td><code>.margin-{1-8}</code></td>
+                            <td><code>.margin-4</code></td>
+                            <td>All sides (numeric)</td>
+                        </tr>
+                        <tr>
+                            <td><code>.margin-top-{size}</code></td>
+                            <td><code>.margin-top-large</code></td>
+                            <td>Single side</td>
+                        </tr>
+                        <tr>
+                            <td><code>.margin-inline-{size}</code></td>
+                            <td><code>.margin-inline-small</code></td>
+                            <td>Horizontal (left + right)</td>
+                        </tr>
+                        <tr>
+                            <td><code>.margin-block-{size}</code></td>
+                            <td><code>.margin-block-medium</code></td>
+                            <td>Vertical (top + bottom)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Size Scale</h4>
+                <ul>
+                    <li><code>extra-small</code> (1) → 4px</li>
+                    <li><code>small</code> (2) → 8px</li>
+                    <li><code>medium</code> (3) → 12px</li>
+                    <li><code>large</code> (4) → 16px</li>
+                    <li><code>extra-large</code> (6) → 24px</li>
+                    <li><code>double-extra-large</code> (7) → 32px</li>
+                    <li><code>triple-extra-large</code> (8) → 40px</li>
+                </ul>
+
+                <h4>Examples</h4>
+                <pre><code>&lt;!-- Descriptive names --&gt;
+&lt;div class="margin-large"&gt;16px all sides&lt;/div&gt;
+&lt;div class="padding-medium"&gt;12px all sides&lt;/div&gt;
+&lt;div class="margin-top-extra-large"&gt;24px top&lt;/div&gt;
+
+&lt;!-- Numeric shorthand --&gt;
+&lt;div class="margin-4"&gt;Same as margin-large&lt;/div&gt;
+&lt;div class="padding-3"&gt;Same as padding-medium&lt;/div&gt;
+
+&lt;!-- Directional --&gt;
+&lt;div class="margin-inline-4"&gt;Horizontal 16px&lt;/div&gt;
+&lt;div class="margin-block-6"&gt;Vertical 24px&lt;/div&gt;
+
+&lt;!-- Auto centering --&gt;
+&lt;div class="margin-inline-auto"&gt;Centered&lt;/div&gt;</code></pre>
+
+                <h4>Shorthand (Legacy)</h4>
+                <p>Still available for compatibility:</p>
+                <ul>
+                    <li><code>.m-large</code> → margin all sides</li>
+                    <li><code>.mx-medium</code> → margin-inline</li>
+                    <li><code>.my-small</code> → margin-block</li>
+                    <li><code>.mt-4</code> → margin-top</li>
+                    <li><code>.p-3</code> → padding all sides</li>
+                </ul>
+            </article>
+
+            <!-- Layout Utilities -->
+            <article>
+                <h3>Layout — Containers & Sections</h3>
+                
+                <h4>Containers</h4>
+                <pre><code>&lt;!-- Standard container (max 1200px) --&gt;
+&lt;div class="container"&gt;...&lt;/div&gt;
+
+&lt;!-- Narrow (768px) --&gt;
+&lt;div class="container-narrow"&gt;...&lt;/div&gt;
+
+&lt;!-- Wide (1440px) --&gt;
+&lt;div class="container-wide"&gt;...&lt;/div&gt;
+
+&lt;!-- Full width with padding --&gt;
+&lt;div class="container-full"&gt;...&lt;/div&gt;</code></pre>
+
+                <h4>Section Spacing</h4>
+                <pre><code>&lt;section class="section-compact"&gt;16px vertical padding&lt;/section&gt;
+&lt;section class="section-comfortable"&gt;24px vertical padding&lt;/section&gt;
+&lt;section class="section-spacious"&gt;32px vertical padding&lt;/section&gt;</code></pre>
+
+                <h4>Stack (Vertical Spacing)</h4>
+                <p>Automatically spaces child elements vertically using margin-top.</p>
+                <pre><code>&lt;div class="stack-medium"&gt;
+  &lt;p&gt;First item&lt;/p&gt;
+  &lt;p&gt;12px margin-top&lt;/p&gt;
+  &lt;p&gt;Between each item&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Sizes: extra-small, small, medium, large, extra-large --&gt;</code></pre>
+
+                <h4>Cluster (Horizontal Spacing)</h4>
+                <p>Flex wrapper with gap for button groups, tags, etc.</p>
+                <pre><code>&lt;div class="cluster"&gt;
+  &lt;button&gt;Button 1&lt;/button&gt;
+  &lt;button&gt;Button 2&lt;/button&gt;
+  &lt;button&gt;Button 3&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Sizes: extra-small, small, medium, large, extra-large --&gt;</code></pre>
+            </article>
+
+            <!-- Flexbox Utilities -->
+            <article>
+                <h3>Flexbox Utilities</h3>
+
+                <h4>Basic Flex</h4>
+                <pre><code>&lt;div class="flex"&gt;Flex container&lt;/div&gt;
+&lt;div class="flex-column"&gt;Vertical flex&lt;/div&gt;
+&lt;div class="flex-row"&gt;Horizontal flex&lt;/div&gt;
+&lt;div class="flex-wrap"&gt;Allow wrapping&lt;/div&gt;</code></pre>
+
+                <h4>Alignment</h4>
+                <pre><code>&lt;!-- Justify content --&gt;
+&lt;div class="flex-center"&gt;Center both axes&lt;/div&gt;
+&lt;div class="flex-between"&gt;Space between&lt;/div&gt;
+&lt;div class="flex-around"&gt;Space around&lt;/div&gt;
+&lt;div class="flex-start"&gt;Align start&lt;/div&gt;
+&lt;div class="flex-end"&gt;Align end&lt;/div&gt;
+
+&lt;!-- Align items --&gt;
+&lt;div class="items-center"&gt;Center cross-axis&lt;/div&gt;
+&lt;div class="items-start"&gt;Start cross-axis&lt;/div&gt;
+&lt;div class="items-end"&gt;End cross-axis&lt;/div&gt;
+&lt;div class="items-stretch"&gt;Stretch cross-axis&lt;/div&gt;</code></pre>
+
+                <h4>Semantic Patterns</h4>
+                <pre><code>&lt;!-- Button/tag group --&gt;
+&lt;div class="flex-group"&gt;
+  &lt;button&gt;Action 1&lt;/button&gt;
+  &lt;button&gt;Action 2&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Vertical stack --&gt;
+&lt;div class="flex-stack"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Horizontal row --&gt;
+&lt;div class="flex-row"&gt;
+  &lt;span&gt;Label&lt;/span&gt;
+  &lt;span&gt;Value&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+
+                <h4>Gap Utilities</h4>
+                <pre><code>&lt;div class="flex gap-small"&gt;8px gap&lt;/div&gt;
+&lt;div class="flex gap-medium"&gt;12px gap&lt;/div&gt;
+&lt;div class="flex gap-large"&gt;16px gap&lt;/div&gt;
+&lt;div class="flex gap-extra-large"&gt;24px gap&lt;/div&gt;</code></pre>
+            </article>
+
+            <!-- Grid Utilities -->
+            <article>
+                <h3>Grid Utilities</h3>
+
+                <h4>Fixed Columns</h4>
+                <pre><code>&lt;div class="grid-2"&gt;2 equal columns&lt;/div&gt;
+&lt;div class="grid-3"&gt;3 equal columns&lt;/div&gt;
+&lt;div class="grid-4"&gt;4 equal columns&lt;/div&gt;</code></pre>
+
+                <h4>Auto-Fit (Responsive)</h4>
+                <p>Automatically creates columns based on minimum width.</p>
+                <pre><code>&lt;!-- Min 200px per column --&gt;
+&lt;div class="grid-auto-fit-200"&gt;
+  &lt;div&gt;Card 1&lt;/div&gt;
+  &lt;div&gt;Card 2&lt;/div&gt;
+  &lt;div&gt;Card 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Other sizes: 250, 300 --&gt;</code></pre>
+
+                <h4>Gap Control</h4>
+                <pre><code>&lt;div class="grid-3 gap-2"&gt;8px gap&lt;/div&gt;
+&lt;div class="grid-4 gap-4"&gt;16px gap&lt;/div&gt;
+&lt;div class="grid-2 gap-6"&gt;24px gap&lt;/div&gt;</code></pre>
+            </article>
+
+            <!-- Width & Height -->
+            <article>
+                <h3>Sizing Utilities</h3>
+
+                <h4>Width</h4>
+                <pre><code>&lt;div class="width-full"&gt;100%&lt;/div&gt;
+&lt;div class="width-half"&gt;50%&lt;/div&gt;
+&lt;div class="width-third"&gt;33.333%&lt;/div&gt;
+&lt;div class="width-quarter"&gt;25%&lt;/div&gt;
+&lt;div class="width-auto"&gt;auto&lt;/div&gt;</code></pre>
+
+                <h4>Max Width</h4>
+                <pre><code>&lt;div class="max-width-small"&gt;30rem (480px)&lt;/div&gt;
+&lt;div class="max-width-medium"&gt;48rem (768px)&lt;/div&gt;
+&lt;div class="max-width-large"&gt;64rem (1024px)&lt;/div&gt;
+&lt;div class="max-width-extra-large"&gt;80rem (1280px)&lt;/div&gt;</code></pre>
+
+                <h4>Height</h4>
+                <pre><code>&lt;div class="height-full"&gt;100%&lt;/div&gt;
+&lt;div class="height-screen"&gt;100vh&lt;/div&gt;
+&lt;div class="min-height-screen"&gt;min-height: 100vh&lt;/div&gt;</code></pre>
+            </article>
+
+            <!-- Display & Position -->
+            <article>
+                <h3>Display & Position</h3>
+
+                <h4>Display</h4>
+                <pre><code>&lt;div class="display-block"&gt;block&lt;/div&gt;
+&lt;div class="display-inline"&gt;inline&lt;/div&gt;
+&lt;div class="display-inline-block"&gt;inline-block&lt;/div&gt;
+&lt;div class="display-flex"&gt;flex&lt;/div&gt;
+&lt;div class="display-grid"&gt;grid&lt;/div&gt;
+&lt;div class="display-none"&gt;none (hidden)&lt;/div&gt;</code></pre>
+
+                <h4>Position</h4>
+                <pre><code>&lt;div class="position-relative"&gt;relative&lt;/div&gt;
+&lt;div class="position-absolute"&gt;absolute&lt;/div&gt;
+&lt;div class="position-fixed"&gt;fixed&lt;/div&gt;
+&lt;div class="position-sticky"&gt;sticky&lt;/div&gt;</code></pre>
+
+                <h4>Text Alignment</h4>
+                <pre><code>&lt;p class="text-left"&gt;Left aligned&lt;/p&gt;
+&lt;p class="text-center"&gt;Center aligned&lt;/p&gt;
+&lt;p class="text-right"&gt;Right aligned&lt;/p&gt;
+&lt;p class="text-justify"&gt;Justified&lt;/p&gt;</code></pre>
+            </article>
+
+            <!-- Interactive Utilities -->
+            <article>
+                <h3>Interactive Utilities</h3>
+                <p>Opt-in hover and press effects for non-button elements.</p>
+
+                <h4>Hoverable</h4>
+                <pre><code>&lt;!-- Basic hover --&gt;
+&lt;div class="hoverable"&gt;Basic transition&lt;/div&gt;
+
+&lt;!-- Lift effect --&gt;
+&lt;div class="hoverable hoverable-lift"&gt;Lifts on hover&lt;/div&gt;
+
+&lt;!-- Scale effect --&gt;
+&lt;div class="hoverable hoverable-scale"&gt;Scales on hover&lt;/div&gt;
+
+&lt;!-- Glow effect --&gt;
+&lt;div class="hoverable hoverable-glow"&gt;Glows on hover&lt;/div&gt;
+
+&lt;!-- Fade effect --&gt;
+&lt;div class="hoverable hoverable-fade"&gt;Fades on hover&lt;/div&gt;</code></pre>
+
+                <h4>Pressable</h4>
+                <pre><code>&lt;!-- Scale down on click --&gt;
+&lt;div class="pressable"&gt;Shrinks on click&lt;/div&gt;
+
+&lt;!-- Lift down on click --&gt;
+&lt;div class="pressable pressable-lift"&gt;Pushes down&lt;/div&gt;
+
+&lt;!-- More dramatic shrink --&gt;
+&lt;div class="pressable pressable-shrink"&gt;Stronger shrink&lt;/div&gt;</code></pre>
+
+                <h4>Interactive (Combined)</h4>
+                <pre><code>&lt;!-- Hover + press together --&gt;
+&lt;div class="interactive"&gt;
+  Lifts on hover, returns on click
+&lt;/div&gt;</code></pre>
+            </article>
+
+            <!-- Icon Utilities -->
+            <article>
+                <h3>Icon System (Lucide)</h3>
+                <p>Monad integrates <a href="https://lucide.dev" target="_blank">Lucide Icons</a> with automatic styling.</p>
+
+                <h4>Basic Usage</h4>
+                <pre><code>&lt;!-- Include Lucide (CDN or npm) --&gt;
+&lt;script src="https://unpkg.com/lucide@latest"&gt;&lt;/script&gt;
+
+&lt;!-- Use icons with data-lucide --&gt;
+&lt;i data-lucide="heart"&gt;&lt;/i&gt;
+&lt;i data-lucide="star"&gt;&lt;/i&gt;
+&lt;i data-lucide="menu"&gt;&lt;/i&gt;
+
+&lt;!-- Initialize --&gt;
+&lt;script&gt;
+  lucide.createIcons();
+&lt;/script&gt;</code></pre>
+
+                <h4>Icon Sizes</h4>
+                <pre><code>&lt;i data-lucide="heart" class="monad-icon-xsmall"&gt;&lt;/i&gt; &lt;!-- 12px --&gt;
+&lt;i data-lucide="heart" class="monad-icon-small"&gt;&lt;/i&gt;  &lt;!-- 16px --&gt;
+&lt;i data-lucide="heart" class="monad-icon-medium"&gt;&lt;/i&gt; &lt;!-- 20px default --&gt;
+&lt;i data-lucide="heart" class="monad-icon-large"&gt;&lt;/i&gt;  &lt;!-- 24px --&gt;
+&lt;i data-lucide="heart" class="monad-icon-xlarge"&gt;&lt;/i&gt; &lt;!-- 32px --&gt;</code></pre>
+
+                <h4>Icons in Components</h4>
+                <pre><code>&lt;!-- Button with icon --&gt;
+&lt;button class="graphite-core hoverable"&gt;
+  &lt;i data-lucide="send"&gt;&lt;/i&gt;
+  Send Message
 &lt;/button&gt;
 
-&lt;!-- Via JavaScript --&gt;
-&lt;script&gt;
-  window.monad.toast('Message', 'success', 3000);
-&lt;/script&gt;</code></pre>
-        </div>
-      </div>
+&lt;!-- Icon-only button --&gt;
+&lt;button class="icon-only graphite-core hoverable"&gt;
+  &lt;i data-lucide="settings"&gt;&lt;/i&gt;
+&lt;/button&gt;
 
-      <h3>Types</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Color</th>
-            <th>Usage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>success</code></td>
-            <td>Verde</td>
-            <td>Operação bem-sucedida</td>
-          </tr>
-          <tr>
-            <td><code>error</code></td>
-            <td>Vermelho</td>
-            <td>Erro ou falha</td>
-          </tr>
-          <tr>
-            <td><code>warning</code></td>
-            <td>Amarelo</td>
-            <td>Atenção necessária</td>
-          </tr>
-          <tr>
-            <td><code>info</code></td>
-            <td>Azul</td>
-            <td>Informação geral</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+&lt;!-- Badge with icon --&gt;
+&lt;span class="badge state-flow"&gt;
+  &lt;i data-lucide="check"&gt;&lt;/i&gt;
+  Success
+&lt;/span&gt;</code></pre>
 
-    <!-- Themes -->
-    <section id="themes">
-      <h2>Themes</h2>
-      <p>4 temas profissionais inspirados em software de qualidade.</p>
+                <h4>Icon Animations</h4>
+                <pre><code>&lt;!-- Spinning (for loading) --&gt;
+&lt;i data-lucide="loader" class="icon-spin"&gt;&lt;/i&gt;
 
-      <div class="feature-grid">
-        <div class="feature-card">
-          <h4>☀️ Moonlight</h4>
-          <p>GitHub Light - Cores autênticas do GitHub.com</p>
-        </div>
-        <div class="feature-card">
-          <h4>🌙 Midnight</h4>
-          <p>GitHub Dark - Perfeito para ambientes escuros</p>
-        </div>
-        <div class="feature-card">
-          <h4>🌊 Ocean</h4>
-          <p>Vercel/Tailwind - Cyan e Sky modernos</p>
-        </div>
-        <div class="feature-card">
-          <h4>✨ Purple</h4>
-          <p>Linear/Stripe - Elegância violeta premium</p>
-        </div>
-      </div>
+&lt;!-- Pulsing (for status) --&gt;
+&lt;i data-lucide="activity" class="icon-pulse"&gt;&lt;/i&gt;
 
-      <div class="component-demo">
-        <div class="demo-code">
-          <pre><code>&lt;body theme="moonlight"&gt;...&lt;/body&gt;
-&lt;body theme="midnight"&gt;...&lt;/body&gt;
-&lt;body theme="ocean"&gt;...&lt;/body&gt;
-&lt;body theme="purple"&gt;...&lt;/body&gt;</code></pre>
-        </div>
-      </div>
-    </section>
+&lt;!-- Interactive --&gt;
+&lt;i data-lucide="heart" class="hoverable"&gt;&lt;/i&gt;
+&lt;i data-lucide="star" class="pressable"&gt;&lt;/i&gt;</code></pre>
 
-    <!-- Utilities -->
-    <section id="utilities">
-      <h2>Utilities</h2>
-      <p>Classes utilitárias para layout rápido.</p>
+                <h4>Icon Colors</h4>
+                <pre><code>&lt;i data-lucide="heart" class="state-break"&gt;&lt;/i&gt;
+&lt;i data-lucide="check" class="state-flow"&gt;&lt;/i&gt;
+&lt;i data-lucide="alert-triangle" class="state-pulse"&gt;&lt;/i&gt;
+&lt;i data-lucide="star" class="ember-energy"&gt;&lt;/i&gt;</code></pre>
+            </article>
 
-      <h3>Margin & Padding</h3>
-      <div class="component-demo">
-        <div class="demo-code">
-          <pre><code>/* Margin */
-.margin-top-4    /* margin-top: 16px */
-.margin-bottom-6 /* margin-bottom: 24px */
-.margin-x-4      /* margin left + right */
-.margin-y-6      /* margin top + bottom */
+            <!-- Color Utilities -->
+            <article>
+                <h3>Color Utilities</h3>
+                <p>Apply colors directly without creating components.</p>
 
-/* Padding */
-.padding-4       /* padding: 16px */
-.padding-x-6     /* padding left + right */
-.padding-y-4     /* padding top + bottom */</code></pre>
-        </div>
-      </div>
+                <h4>Background Colors</h4>
+                <pre><code>&lt;div class="bg-graphite-core"&gt;Background color&lt;/div&gt;
+&lt;div class="bg-thought"&gt;Thought background&lt;/div&gt;
+&lt;div class="bg-ember-energy"&gt;Ember background&lt;/div&gt;</code></pre>
 
-      <h3>Layout</h3>
-      <div class="component-demo">
-        <div class="demo-code">
-          <pre><code>/* Flexbox */
-.flex            /* display: flex */
-.flex-col        /* flex-direction: column */
-.items-center    /* align-items: center */
-.justify-between /* justify-content: space-between */
+                <h4>Text Colors</h4>
+                <pre><code>&lt;p class="text-graphite-mind"&gt;Dark text&lt;/p&gt;
+&lt;p class="text-thought"&gt;Thought color&lt;/p&gt;
+&lt;p class="text-state-break"&gt;Error color&lt;/p&gt;</code></pre>
 
-/* Grid */
-.grid            /* display: grid */
-.grid-cols-2     /* 2 colunas */
-.gap-4           /* gap: 16px */</code></pre>
-        </div>
-      </div>
-    </section>
+                <h4>Border Colors</h4>
+                <pre><code>&lt;div class="border-graphite-core"&gt;Border color&lt;/div&gt;
+&lt;div class="border-silver-line"&gt;Silver border&lt;/div&gt;</code></pre>
 
-  </main>
+                <p><strong>Note:</strong> Color utilities work with all palette colors from tokens.</p>
+            </article>
 
-  <!-- Modals -->
-  <monad-modal id="demo-modal" title="Demo Modal">
-    <p>This is a demo modal to show the component in action.</p>
-    <p>Press ESC or click outside to close.</p>
-    <div slot="footer">
-      <button data-modal-close class="hoverable">Close</button>
-    </div>
-  </monad-modal>
+            <!-- Typography Utilities -->
+            <article>
+                <h3>Typography Extras</h3>
+                <p>Additional typography helpers beyond base styles.</p>
 
-  <!-- Scripts -->
-  <script src="../dist/scripts/monad.min.js"></script>
-  <script>
-    // Theme switcher
-    function setTheme(theme) {
-      document.body.setAttribute('theme', theme);
-      document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.theme === theme);
-      });
-      localStorage.setItem('monad-theme', theme);
+                <h4>Lead Paragraph</h4>
+                <pre><code>&lt;p class="lead"&gt;
+  Larger introductory text with lighter weight.
+&lt;/p&gt;</code></pre>
+
+                <h4>Inline Code</h4>
+                <pre><code>&lt;p&gt;Use &lt;code&gt;var(--space-4)&lt;/code&gt; for spacing.&lt;/p&gt;</code></pre>
+
+                <h4>Code Blocks</h4>
+                <pre><code>&lt;pre&gt;&lt;code&gt;
+function example() {
+  return 'Styled automatically';
+}
+&lt;/code&gt;&lt;/pre&gt;</code></pre>
+
+                <h4>Blockquotes</h4>
+                <pre><code>&lt;blockquote&gt;
+  &lt;p&gt;Quoted text with left border accent.&lt;/p&gt;
+&lt;/blockquote&gt;</code></pre>
+
+                <h4>Keyboard Shortcuts</h4>
+                <pre><code>&lt;p&gt;Press &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;S&lt;/kbd&gt; to save.&lt;/p&gt;</code></pre>
+
+                <h4>Highlighted Text</h4>
+                <pre><code>&lt;p&gt;This is &lt;mark&gt;highlighted&lt;/mark&gt; text.&lt;/p&gt;</code></pre>
+            </article>
+
+            <!-- Best Practices -->
+            <article>
+                <h3>Best Practices</h3>
+
+                <div class="card sage-calm">
+                    <h4>✅ DO</h4>
+                    <ul>
+                        <li>Use utilities for quick prototyping</li>
+                        <li>Combine 2-3 utilities for one-off layouts</li>
+                        <li>Use descriptive names (margin-large) over shorthand (m-4)</li>
+                        <li>Prefer semantic components over utility soup</li>
+                        <li>Use stack/cluster for consistent spacing</li>
+                    </ul>
+                </div>
+
+                <div class="card rose-soft margin-top-3">
+                    <h4>❌ DON'T</h4>
+                    <ul>
+                        <li>Stack 10+ utilities on a single element</li>
+                        <li>Use utilities as primary styling method</li>
+                        <li>Duplicate utility patterns — create a component</li>
+                        <li>Override utilities with !important</li>
+                        <li>Mix margin utilities with component spacing</li>
+                    </ul>
+                </div>
+
+                <h4>When to Use Utilities vs Components</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Use Utilities When</th>
+                            <th>Use Components When</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>One-off spacing adjustment</td>
+                            <td>Pattern repeats 3+ times</td>
+                        </tr>
+                        <tr>
+                            <td>Quick layout experiment</td>
+                            <td>Consistent styling needed</td>
+                        </tr>
+                        <tr>
+                            <td>Overriding component spacing</td>
+                            <td>Semantic meaning exists</td>
+                        </tr>
+                        <tr>
+                            <td>Responsive grid layout</td>
+                            <td>Interactive behavior needed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+
+            <h3>Complete Utility Reference</h3>
+            <p>All utilities are documented in their respective files:</p>
+            <ul>
+                <li><code>utilities/_margin.scss</code> — Margin classes</li>
+                <li><code>utilities/_padding.scss</code> — Padding classes</li>
+                <li><code>utilities/_layout.scss</code> — Layout helpers</li>
+                <li><code>utilities/_flex.scss</code> — Flexbox utilities</li>
+                <li><code>utilities/_grid.scss</code> — Grid utilities</li>
+                <li><code>utilities/_typography.scss</code> — Typography helpers</li>
+                <li><code>utilities/_icons.scss</code> — Icon styling</li>
+                <li><code>utilities/_color.scss</code> — Color utilities</li>
+            </ul>
+        </section>
+
+        <section id="web-components">
+            <h2>Web Components <span class="badge thought-default">JavaScript</span></h2>
+            <p>Interactive JavaScript-powered components for behaviors that pure CSS cannot achieve. Framework-agnostic, encapsulated, semantic.</p>
+
+            <div class="card thought-default margin-top-6">
+                <h3>📖 Exemplos Interativos</h3>
+                <p>Veja todos os componentes em ação com exemplos de código e demos ao vivo:</p>
+                <a href="components.html" class="thought hoverable" style="font-weight: var(--font-weight-semibold);">
+                    → Ver página de exemplos completos
+                </a>
+            </div>
+
+            <div class="card margin-top-6">
+                <h3>Philosophy: JavaScript Only When Necessary</h3>
+                <p>Monad uses Web Components <strong>exclusively</strong> for interactions that require dynamic behavior:</p>
+                <ul>
+                    <li><strong>Focus management</strong> (modal focus trap, dropdown keyboard nav)</li>
+                    <li><strong>Dynamic positioning</strong> (tooltips, dropdowns)</li>
+                    <li><strong>State synchronization</strong> (tabs, sidebar collapse state)</li>
+                    <li><strong>Event coordination</strong> (toast queue, click-outside detection)</li>
+                    <li><strong>Scroll tracking</strong> (active navigation highlighting)</li>
+                </ul>
+                <p>Everything else uses pure CSS. No JavaScript for hover, animations, or static layouts.</p>
+            </div>
+
+            <h3 class="margin-top-7">Component Registry</h3>
+            <p>7 Web Components available, each solving a specific interaction pattern:</p>
+
+            <!-- MonadModal -->
+            <div class="card iris-petal margin-top-5">
+                <h4><code>&lt;monad-modal&gt;</code> — Overlay Dialogs</h4>
+                <p>Modal dialogs with backdrop, ESC key handling, focus trapping, and body scroll lock.</p>
+
+                <h5 class="margin-top-4">Basic Usage</h5>
+                <div class="code-block">
+                    <pre><code>&lt;monad-modal id="example-modal"&gt;
+  &lt;div slot="header"&gt;
+    &lt;h3&gt;Confirm Action&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div slot="body"&gt;
+    &lt;p&gt;Are you sure you want to proceed?&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div slot="footer"&gt;
+    &lt;button class="ghost hoverable" onclick="this.closest('monad-modal').close()"&gt;Cancel&lt;/button&gt;
+    &lt;button class="state-flow hoverable" onclick="confirmAction()"&gt;Confirm&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/monad-modal&gt;
+
+&lt;button class="graphite-core hoverable" onclick="document.getElementById('example-modal').open()"&gt;
+  Open Modal
+&lt;/button&gt;</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">Attributes</h5>
+                <table class="margin-top-3">
+                    <thead>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Values</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>open</code></td>
+                            <td>boolean</td>
+                            <td>Controlled open state</td>
+                        </tr>
+                        <tr>
+                            <td><code>size</code></td>
+                            <td>small, medium, large</td>
+                            <td>Modal width variant</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h5 class="margin-top-4">JavaScript API</h5>
+                <div class="code-block">
+                    <pre><code>const modal = document.getElementById('example-modal');
+
+// Methods
+modal.open();          // Show modal
+modal.close();         // Hide modal
+modal.toggle();        // Toggle state
+
+// Properties
+modal.isOpen;          // Boolean: current state
+
+// Events
+modal.addEventListener('open', () =&gt; console.log('Modal opened'));
+modal.addEventListener('close', () =&gt; console.log('Modal closed'));</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">Accessibility</h5>
+                <ul>
+                    <li>Traps focus inside modal when open</li>
+                    <li>Closes on ESC key press</li>
+                    <li>Locks body scroll to prevent background scrolling</li>
+                    <li>Backdrop click closes modal</li>
+                    <li>Proper ARIA attributes automatically applied</li>
+                </ul>
+            </div>
+
+            <!-- MonadDropdown -->
+            <div class="card aether-sky margin-top-5">
+                <h4><code>&lt;monad-dropdown&gt;</code> — Dropdown Menus</h4>
+                <p>Context menus with click-outside detection, keyboard navigation, and automatic positioning.</p>
+
+                <h5 class="margin-top-4">Basic Usage</h5>
+                <div class="code-block">
+                    <pre><code>&lt;monad-dropdown position="bottom"&gt;
+  &lt;button class="hoverable"&gt;
+    Options
+    &lt;i data-lucide="chevron-down"&gt;&lt;/i&gt;
+  &lt;/button&gt;
+  &lt;menu class="dropdown"&gt;
+    &lt;li&gt;&lt;button class="hoverable"&gt;&lt;i data-lucide="edit"&gt;&lt;/i&gt; Edit&lt;/button&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;button class="hoverable"&gt;&lt;i data-lucide="copy"&gt;&lt;/i&gt; Duplicate&lt;/button&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;hr class="divider"&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;button class="state-break hoverable"&gt;&lt;i data-lucide="trash"&gt;&lt;/i&gt; Delete&lt;/button&gt;&lt;/li&gt;
+  &lt;/menu&gt;
+&lt;/monad-dropdown&gt;</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">Attributes</h5>
+                <table class="margin-top-3">
+                    <thead>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Values</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>position</code></td>
+                            <td>top, bottom, left, right</td>
+                            <td>Menu position relative to trigger</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h5 class="margin-top-4">JavaScript API</h5>
+                <div class="code-block">
+                    <pre><code>const dropdown = document.querySelector('monad-dropdown');
+
+// Methods
+dropdown.open();       // Show menu
+dropdown.close();      // Hide menu
+dropdown.toggle();     // Toggle state
+
+// Properties
+dropdown.isOpen;       // Boolean: current state
+
+// Events
+dropdown.addEventListener('dropdown-open', () =&gt; console.log('Opened'));
+dropdown.addEventListener('dropdown-close', () =&gt; console.log('Closed'));</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">Accessibility</h5>
+                <ul>
+                    <li>Arrow keys navigate menu items</li>
+                    <li>ESC closes menu and returns focus to trigger</li>
+                    <li>Click outside closes menu</li>
+                    <li>Home/End keys jump to first/last item</li>
+                    <li>Proper ARIA attributes (haspopup, expanded)</li>
+                </ul>
+            </div>
+
+            <!-- MonadTabs -->
+            <div class="card sage-calm margin-top-5">
+                <h4><code>&lt;monad-tabs&gt;</code> — Tabbed Navigation</h4>
+                <p>Tab panels with keyboard navigation, ARIA support, and smooth content switching.</p>
+
+                <h5 class="margin-top-4">Basic Usage</h5>
+                <div class="code-block">
+                    <pre><code>&lt;monad-tabs&gt;
+  &lt;ul role="tablist"&gt;
+    &lt;li role="tab" class="active"&gt;Overview&lt;/li&gt;
+    &lt;li role="tab"&gt;Features&lt;/li&gt;
+    &lt;li role="tab"&gt;Settings&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;div role="tabpanel"&gt;
+    &lt;h3&gt;Overview Content&lt;/h3&gt;
+    &lt;p&gt;Main information goes here.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div role="tabpanel"&gt;
+    &lt;h3&gt;Features Content&lt;/h3&gt;
+    &lt;p&gt;Feature details here.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div role="tabpanel"&gt;
+    &lt;h3&gt;Settings Content&lt;/h3&gt;
+    &lt;p&gt;Settings options here.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/monad-tabs&gt;</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">JavaScript API</h5>
+                <div class="code-block">
+                    <pre><code>const tabs = document.querySelector('monad-tabs');
+
+// Methods
+tabs.setActiveTab(1);  // Activate tab by index (0-based)
+tabs.next();           // Move to next tab
+tabs.previous();       // Move to previous tab
+
+// Properties
+tabs.activeIndex;      // Get/set active tab index (0-based)
+
+// Events
+tabs.addEventListener('tab-change', (e) =&gt; {
+  console.log('Active tab:', e.detail.index);
+  console.log('Tab element:', e.detail.tab);
+  console.log('Panel element:', e.detail.panel);
+});</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">Accessibility</h5>
+                <ul>
+                    <li>Arrow Left/Right navigate between tabs</li>
+                    <li>Home/End jump to first/last tab</li>
+                    <li>Proper ARIA roles (tablist, tab, tabpanel)</li>
+                    <li>aria-selected and aria-controls properly linked</li>
+                    <li>Keyboard focus management with tabindex</li>
+                </ul>
+            </div>
+
+            <!-- MonadToast -->
+            <div class="card sand-light margin-top-5">
+                <h4><code>&lt;monad-toast&gt;</code> — Notifications</h4>
+                <p>Non-intrusive toast notifications with auto-dismiss, queue management, and positioning.</p>
+
+                <h5 class="margin-top-4">Quick Usage (Recommended)</h5>
+                <div class="code-block">
+                    <pre><code>// Static helper method
+MonadToast.show('Operation successful!', 'success', 3000);
+MonadToast.show('Something went wrong', 'error', 5000);
+MonadToast.show('Please review this', 'warning', 4000);
+MonadToast.show('New message received', 'info', 3000);</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">Manual Usage</h5>
+                <div class="code-block">
+                    <pre><code>const toast = document.createElement('monad-toast');
+toast.type = 'success';
+toast.message = 'Profile updated successfully!';
+toast.duration = 3000;
+toast.icon = '✓';
+
+document.body.appendChild(toast);
+toast.show();</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">Attributes</h5>
+                <table class="margin-top-3">
+                    <thead>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Values</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>type</code></td>
+                            <td>success, error, warning, info</td>
+                            <td>Visual variant with semantic color</td>
+                        </tr>
+                        <tr>
+                            <td><code>message</code></td>
+                            <td>string</td>
+                            <td>Notification text content</td>
+                        </tr>
+                        <tr>
+                            <td><code>duration</code></td>
+                            <td>number (ms)</td>
+                            <td>Auto-dismiss delay (0 = manual)</td>
+                        </tr>
+                        <tr>
+                            <td><code>icon</code></td>
+                            <td>string</td>
+                            <td>Custom icon (defaults by type)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h5 class="margin-top-4">JavaScript API</h5>
+                <div class="code-block">
+                    <pre><code>const toast = document.createElement('monad-toast');
+
+// Methods
+toast.show();          // Display toast
+toast.hide();          // Dismiss toast
+
+// Properties
+toast.type = 'success';
+toast.message = 'Saved!';
+toast.duration = 3000;
+toast.icon = '✓';
+
+// Events
+toast.addEventListener('toast-show', (e) =&gt; console.log('Shown:', e.detail));
+toast.addEventListener('toast-hide', (e) =&gt; console.log('Hidden:', e.detail));</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">Positioning</h5>
+                <p>Toasts appear in a <code>.toast-container</code> (auto-created). Position with utility classes:</p>
+                <div class="code-block">
+                    <pre><code>&lt;div class="toast-container toast-top-right"&gt;&lt;/div&gt;     &lt;!-- Default --&gt;
+&lt;div class="toast-container toast-top-left"&gt;&lt;/div&gt;
+&lt;div class="toast-container toast-bottom-right"&gt;&lt;/div&gt;
+&lt;div class="toast-container toast-bottom-left"&gt;&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+
+            <!-- MonadTooltip -->
+            <div class="card rose-soft margin-top-5">
+                <h4><code>&lt;monad-tooltip&gt;</code> — Contextual Hints</h4>
+                <p>Hover/focus tooltips with smart positioning, delay control, and viewport awareness.</p>
+
+                <h5 class="margin-top-4">Basic Usage</h5>
+                <div class="code-block">
+                    <pre><code>&lt;monad-tooltip content="Edit this item" position="top"&gt;
+  &lt;button class="hoverable"&gt;
+    &lt;i data-lucide="edit"&gt;&lt;/i&gt;
+  &lt;/button&gt;
+&lt;/monad-tooltip&gt;
+
+&lt;monad-tooltip content="Delete permanently" position="top" variant="danger"&gt;
+  &lt;button class="state-break hoverable"&gt;
+    &lt;i data-lucide="trash"&gt;&lt;/i&gt;
+  &lt;/button&gt;
+&lt;/monad-tooltip&gt;</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">Attributes</h5>
+                <table class="margin-top-3">
+                    <thead>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Values</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>content</code></td>
+                            <td>string</td>
+                            <td>Tooltip text to display</td>
+                        </tr>
+                        <tr>
+                            <td><code>position</code></td>
+                            <td>top, bottom, left, right</td>
+                            <td>Preferred position (auto-adjusts)</td>
+                        </tr>
+                        <tr>
+                            <td><code>variant</code></td>
+                            <td>danger, success, warning</td>
+                            <td>Semantic color variant</td>
+                        </tr>
+                        <tr>
+                            <td><code>delay</code></td>
+                            <td>number (ms)</td>
+                            <td>Show delay (default: 200ms)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h5 class="margin-top-4">JavaScript API</h5>
+                <div class="code-block">
+                    <pre><code>const tooltip = document.querySelector('monad-tooltip');
+
+// Methods
+tooltip.show();        // Force show tooltip
+tooltip.hide();        // Force hide tooltip
+
+// Properties
+tooltip.content = 'New text';
+tooltip.position = 'bottom';
+tooltip.variant = 'success';
+tooltip.delay = 500;</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">Behavior</h5>
+                <ul>
+                    <li>Shows on mouseenter and focus</li>
+                    <li>Hides on mouseleave and blur</li>
+                    <li>Automatically repositions if near viewport edge</li>
+                    <li>Configurable show delay (default 200ms)</li>
+                    <li>Smooth fade in/out animations</li>
+                </ul>
+            </div>
+
+            <!-- MonadSidebar -->
+            <div class="card ember-glow margin-top-5">
+                <h4><code>&lt;monad-sidebar&gt;</code> — Collapsible Navigation</h4>
+                <p>Responsive sidebar with collapse state, localStorage persistence, and mobile overlay.</p>
+
+                <h5 class="margin-top-4">Basic Usage</h5>
+                <div class="code-block">
+                    <pre><code>&lt;monad-sidebar&gt;
+  &lt;div class="sidebar-header"&gt;
+    &lt;h2&gt;Navigation&lt;/h2&gt;
+  &lt;/div&gt;
+  &lt;nav class="sidebar-content"&gt;
+    &lt;a href="#" class="sidebar-link active"&gt;
+      &lt;i data-lucide="home"&gt;&lt;/i&gt;
+      &lt;span&gt;Home&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="sidebar-link"&gt;
+      &lt;i data-lucide="settings"&gt;&lt;/i&gt;
+      &lt;span&gt;Settings&lt;/span&gt;
+    &lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/monad-sidebar&gt;</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">JavaScript API</h5>
+                <div class="code-block">
+                    <pre><code>const sidebar = document.querySelector('monad-sidebar');
+
+// Methods (Desktop)
+sidebar.collapse();    // Collapse to icon-only
+sidebar.expand();      // Expand to full width
+sidebar.toggle();      // Toggle collapse state
+
+// Methods (Mobile)
+sidebar.open();        // Show sidebar with overlay
+sidebar.close();       // Hide sidebar
+
+// Properties
+sidebar.isOpen();              // Boolean: mobile open state
+sidebar.isCollapsedState();    // Boolean: desktop collapse state
+
+// Events
+sidebar.addEventListener('sidebar-collapse', () =&gt; console.log('Collapsed'));
+sidebar.addEventListener('sidebar-expand', () =&gt; console.log('Expanded'));
+sidebar.addEventListener('sidebar-open', () =&gt; console.log('Mobile opened'));
+sidebar.addEventListener('sidebar-close', () =&gt; console.log('Mobile closed'));</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">Responsive Behavior</h5>
+                <ul>
+                    <li><strong>Desktop (>768px):</strong> Collapsible with toggle button, state persisted to localStorage</li>
+                    <li><strong>Mobile (≤768px):</strong> Hidden by default, opens as overlay with backdrop</li>
+                    <li><strong>Keyboard Shortcut:</strong> Ctrl+B (or Cmd+B) toggles sidebar</li>
+                    <li><strong>ESC Key:</strong> Closes mobile sidebar</li>
+                    <li><strong>Click Outside:</strong> Closes mobile sidebar</li>
+                </ul>
+
+                <h5 class="margin-top-4">Active Link Tracking</h5>
+                <p>Automatically highlights links matching current URL path and closes on navigation (mobile).</p>
+            </div>
+
+            <!-- MonadActiveNav -->
+            <div class="card thought-default margin-top-5">
+                <h4><code>&lt;monad-active-nav&gt;</code> — Scroll-Based Highlighting</h4>
+                <p>Automatically highlights navigation links based on scroll position. Uses Intersection Observer for performance.</p>
+
+                <h5 class="margin-top-4">Basic Usage</h5>
+                <div class="code-block">
+                    <pre><code>&lt;monad-active-nav&gt;
+  &lt;nav&gt;
+    &lt;a href="#section-1" class="sidebar-link"&gt;Section 1&lt;/a&gt;
+    &lt;a href="#section-2" class="sidebar-link"&gt;Section 2&lt;/a&gt;
+    &lt;a href="#section-3" class="sidebar-link"&gt;Section 3&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/monad-active-nav&gt;
+
+&lt;!-- In your main content --&gt;
+&lt;main&gt;
+  &lt;section id="section-1"&gt;&lt;h2&gt;Section 1&lt;/h2&gt;&lt;/section&gt;
+  &lt;section id="section-2"&gt;&lt;h2&gt;Section 2&lt;/h2&gt;&lt;/section&gt;
+  &lt;section id="section-3"&gt;&lt;h2&gt;Section 3&lt;/h2&gt;&lt;/section&gt;
+&lt;/main&gt;</code></pre>
+                </div>
+
+                <h5 class="margin-top-4">How It Works</h5>
+                <ul>
+                    <li>Finds all <code>&lt;section&gt;</code> elements with <code>id</code> attributes</li>
+                    <li>Finds all <code>.sidebar-link</code> elements within the component</li>
+                    <li>Uses Intersection Observer to detect visible sections</li>
+                    <li>Automatically adds <code>.active</code> class to matching links</li>
+                    <li>Performance-optimized with rootMargin and threshold tuning</li>
+                </ul>
+
+                <h5 class="margin-top-4">Configuration</h5>
+                <p>Observer settings (customizable in code):</p>
+                <div class="code-block">
+                    <pre><code>rootMargin: '-100px 0px -66%'  // Top offset, bottom percentage
+threshold: 0                    // Trigger at any visibility</code></pre>
+                </div>
+
+                <p>No attributes needed — works automatically once placed in DOM.</p>
+            </div>
+
+            <h3 class="margin-top-7">Installation</h3>
+            <p>All Web Components are bundled in the compiled JavaScript:</p>
+            <div class="code-block">
+                <pre><code>&lt;script src="dist/scripts/monad.js" type="module" defer&gt;&lt;/script&gt;</code></pre>
+            </div>
+
+            <h3 class="margin-top-5">Browser Support</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Chrome/Edge</th>
+                        <th>Firefox</th>
+                        <th>Safari</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Custom Elements</td>
+                        <td>67+</td>
+                        <td>63+</td>
+                        <td>10.1+</td>
+                    </tr>
+                    <tr>
+                        <td>Shadow DOM</td>
+                        <td>53+</td>
+                        <td>63+</td>
+                        <td>10.1+</td>
+                    </tr>
+                    <tr>
+                        <td>Intersection Observer</td>
+                        <td>51+</td>
+                        <td>55+</td>
+                        <td>12.1+</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="margin-top-5">Events Reference</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Events</th>
+                        <th>Detail Payload</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>&lt;monad-modal&gt;</code></td>
+                        <td><code>open</code>, <code>close</code></td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;monad-dropdown&gt;</code></td>
+                        <td><code>dropdown-open</code>, <code>dropdown-close</code></td>
+                        <td><code>{ menu }</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;monad-tabs&gt;</code></td>
+                        <td><code>tab-change</code></td>
+                        <td><code>{ index, tab, panel }</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;monad-toast&gt;</code></td>
+                        <td><code>toast-show</code>, <code>toast-hide</code></td>
+                        <td><code>{ type, message }</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;monad-sidebar&gt;</code></td>
+                        <td><code>sidebar-collapse</code>, <code>sidebar-expand</code>, <code>sidebar-open</code>, <code>sidebar-close</code></td>
+                        <td><code>{ collapsed }</code> (collapse/expand only)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="margin-top-5">Best Practices</h3>
+            <div class="card graphite-core margin-top-3">
+                <h4>✅ Do</h4>
+                <ul>
+                    <li>Use Web Components for interactions requiring JavaScript</li>
+                    <li>Combine with CSS classes for styling (e.g., <code>.hoverable</code>)</li>
+                    <li>Listen to custom events for integration with your app</li>
+                    <li>Use semantic HTML inside slots (proper headings, buttons)</li>
+                    <li>Test keyboard navigation and screen readers</li>
+                </ul>
+            </div>
+
+            <div class="card rose-soft margin-top-3">
+                <h4>❌ Don't</h4>
+                <ul>
+                    <li>Don't use Web Components for static content (use CSS molecules)</li>
+                    <li>Don't override internal Shadow DOM styles (use CSS parts if needed)</li>
+                    <li>Don't nest modals or tooltips inside each other</li>
+                    <li>Don't forget to clean up event listeners in SPA contexts</li>
+                    <li>Don't rely on JavaScript when CSS can achieve the same result</li>
+                </ul>
+            </div>
+
+            <h3 class="margin-top-5">Performance Notes</h3>
+            <ul>
+                <li><strong>Lazy Loading:</strong> Components register only when first used</li>
+                <li><strong>Intersection Observer:</strong> ActiveNav uses efficient scroll tracking</li>
+                <li><strong>Event Delegation:</strong> Minimal event listeners per component</li>
+                <li><strong>No Dependencies:</strong> Pure vanilla JavaScript, no framework overhead</li>
+                <li><strong>Tree-Shakeable:</strong> Import only components you need</li>
+            </ul>
+
+            <div class="card sage-calm margin-top-5">
+                <h4>Framework Integration</h4>
+                <p>Monad Web Components work in any framework:</p>
+                <ul>
+                    <li><strong>React:</strong> Use <code>ref</code> to access component methods</li>
+                    <li><strong>Vue:</strong> Use <code>@open</code> syntax for events</li>
+                    <li><strong>Angular:</strong> Import in <code>CUSTOM_ELEMENTS_SCHEMA</code></li>
+                    <li><strong>Svelte:</strong> Use <code>bind:this</code> for references</li>
+                    <li><strong>Vanilla:</strong> Direct DOM API usage</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/scripts/monad.js" defer></script>
+    <script type="module">
+       import {
+    createIcons,
+    CircleDot,
+    ChevronLeft,
+    FileText,
+    Lightbulb,
+    Palette,
+    Square,
+    Circle,
+    Hexagon,
+    Grid2X2,
+    Layout,
+    Sun,
+    Wrench,
+    Code2,
+    Code,
+    Menu,
+    Github,
+    Layers
+} from 'https://cdn.jsdelivr.net/npm/lucide@latest/dist/esm/lucide.js';
+
+createIcons({
+    icons: {
+        CircleDot,
+        ChevronLeft,
+        FileText,
+        Lightbulb,
+        Palette,
+        Square,
+        Circle,
+        Hexagon,
+        Grid2X2,
+        Layout,
+        Sun,
+        Wrench,
+        Code2,
+        Code,
+        Menu,
+        Github,
+        Layers
     }
+});
 
-    // Load saved theme
-    const savedTheme = localStorage.getItem('monad-theme') || 'moonlight';
-    setTheme(savedTheme);
-  </script>
+    </script>
 </body>
 </html>
