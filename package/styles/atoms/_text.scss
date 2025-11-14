@@ -1,9 +1,0 @@
-/* Variações de cor e peso via atributo (sem classes) */
-[data-text="muted"] { color: var(--color-muted); }
-[data-text="danger"] { color: var(--color-danger); }
-[data-text="success"] { color: var(--color-success); }
-[data-text="warning"] { color: var(--color-warning); }
-
-[data-text="bold"] { font-weight: var(--font-weight-bold); }
-[data-text="semibold"] { font-weight: var(--font-weight-semi-bold); }
-[data-text="medium"] { font-weight: var(--font-weight-medium); }
