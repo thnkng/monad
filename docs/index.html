@@ -1,11 +1,68 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Monad — Minimalist Design System</title>
     <meta name="description" content="A minimalist atomic design system built on principles of clarity, visual silence, and emotional precision.">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thnkng/monad@main/dist/styles/monad.css">
+    <style>
+        .hero-badge {
+            background: linear-gradient(135deg, var(--iris-petal) 0%, var(--aether-sky) 100%);
+            color: var(--graphite-mind);
+            padding: var(--space-2) var(--space-5);
+            border-radius: var(--radius-pill);
+            font-weight: var(--font-weight-semibold);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: var(--font-weight-bold);
+            background: linear-gradient(135deg, var(--thought) 0%, var(--iris-dream) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-5);
+        }
+        
+        .hero-buttons a {
+            text-decoration: none;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--cloud-pure) 0%, var(--aether-sky) 20%);
+            border: 2px solid var(--aether-air);
+            transition: all var(--motion-duration-medium);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--thought);
+        }
+        
+        .feature-card {
+            transition: all var(--motion-duration-medium);
+            border: 2px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .feature-card.sage-calm:hover { border-color: var(--sage-leaf); }
+        .feature-card.aether-sky:hover { border-color: var(--aether-air); }
+        .feature-card.rose-soft:hover { border-color: var(--rose-bloom); }
+        .feature-card.sand-light:hover { border-color: var(--sand-warm); }
+        .feature-card.iris-petal:hover { border-color: var(--iris-dream); }
+        .feature-card:last-child:hover { border-color: var(--silver-balance); }
+        
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+        }
+    </style>
 </head>
 
 <body class="horizon">
@@ -23,148 +80,156 @@
 
     <main>
         <section class="text-center padding-8">
-            <div class="badge thought margin-bottom-4">
+            <div class="hero-badge margin-bottom-4">
                 <i data-lucide="sparkles"></i>
-                v1.0.0
+                v1.0.0 — Production Ready
             </div>
             
-            <h1 class="margin-bottom-4">Minimalist Design System</h1>
+            <h1 class="hero-title">Beautiful Design System</h1>
             
-            <p class="text-large text-muted margin-bottom-8" style="max-width: 600px; margin-left: auto; margin-right: auto;">
-                Um sistema de design construído sobre princípios de <strong>clareza</strong>, 
-                <strong>silêncio visual</strong> e <strong>precisão emocional</strong>. 
-                Onde cada linha de código serve um propósito.
+            <p class="text-large margin-bottom-8 hero-description">
+                A minimalist design system built on principles of <strong class="text-thought">clarity</strong>, 
+                <strong class="text-iris">visual silence</strong>, and 
+                <strong class="text-sage">emotional precision</strong>. 
+                Where every line of code serves a purpose.
             </p>
 
-            <div class="flex-group margin-bottom-10" style="justify-content: center;">
+            <div class="hero-buttons flex-group margin-bottom-10">
                 <a href="docs.html">
                     <button class="thought hoverable large">
                         <i data-lucide="book-open"></i>
-                        Ver Documentação
+                        Read Documentation
                     </button>
                 </a>
                 <a href="https://github.com/thnkng/monad" target="_blank">
-                    <button class="graphite-core outline hoverable large">
+                    <button class="iris-dream hoverable large">
                         <i data-lucide="github"></i>
-                        GitHub
+                        View on GitHub
                     </button>
                 </a>
             </div>
 
             <div class="grid-auto-fit-200 gap-4 margin-bottom-10">
-                <div class="card text-center">
-                    <i data-lucide="package" style="width: 32px; height: 32px; margin-bottom: var(--space-3);"></i>
-                    <h2 class="margin-bottom-2">27.5kb</h2>
-                    <small class="text-muted">Bundle minificado</small>
+                <div class="card stat-card text-center hoverable">
+                    <i data-lucide="package" class="stat-icon text-thought"></i>
+                    <h2 class="margin-bottom-2 text-thought">27.5kb</h2>
+                    <small class="text-muted">Minified Bundle</small>
                 </div>
-                <div class="card text-center">
-                    <i data-lucide="layers" style="width: 32px; height: 32px; margin-bottom: var(--space-3);"></i>
-                    <h2 class="margin-bottom-2">60+</h2>
-                    <small class="text-muted">Componentes</small>
+                <div class="card stat-card text-center hoverable">
+                    <i data-lucide="layers" class="stat-icon text-iris"></i>
+                    <h2 class="margin-bottom-2 text-iris">60+</h2>
+                    <small class="text-muted">Components</small>
                 </div>
-                <div class="card text-center">
-                    <i data-lucide="palette" style="width: 32px; height: 32px; margin-bottom: var(--space-3);"></i>
-                    <h2 class="margin-bottom-2">4</h2>
-                    <small class="text-muted">Temas prontos</small>
+                <div class="card stat-card text-center hoverable">
+                    <i data-lucide="palette" class="stat-icon text-sage"></i>
+                    <h2 class="margin-bottom-2 text-sage">4</h2>
+                    <small class="text-muted">Premium Themes</small>
                 </div>
-                <div class="card text-center">
-                    <i data-lucide="layout" style="width: 32px; height: 32px; margin-bottom: var(--space-3);"></i>
-                    <h2 class="margin-bottom-2">6</h2>
-                    <small class="text-muted">Layout templates</small>
+                <div class="card stat-card text-center hoverable">
+                    <i data-lucide="layout" class="stat-icon text-rose"></i>
+                    <h2 class="margin-bottom-2 text-rose">6</h2>
+                    <small class="text-muted">Layout Templates</small>
                 </div>
             </div>
         </section>
 
-        <section class="padding-8" style="background: var(--cloud-silent);">
+        <section class="padding-8 features-section">
             <div class="text-center margin-bottom-8">
-                <h2 class="margin-bottom-3">Características Principais</h2>
-                <p class="text-muted">Tudo que você precisa para construir interfaces elegantes</p>
+                <h2 class="margin-bottom-3 section-title">Key Features</h2>
+                <p class="text-large">Everything you need to build elegant interfaces</p>
             </div>
             
             <div class="grid-auto-fit-300 gap-6">
-                <div class="card sage-calm">
-                    <i data-lucide="atom" style="width: 40px; height: 40px; margin-bottom: var(--space-4);"></i>
-                    <h3 class="margin-bottom-2">Atomic Design</h3>
-                    <p>Abordagem sistemática de tokens até templates. Construa UIs consistentes com componentes reutilizáveis.</p>
+                <div class="card feature-card sage-calm">
+                    <i data-lucide="atom" style="width: 48px; height: 48px; margin-bottom: var(--space-4); color: var(--sage-shadow);"></i>
+                    <h3 class="margin-bottom-2" style="color: var(--sage-shadow);">Atomic Design</h3>
+                    <p>Systematic approach from tokens to templates. Build consistent UIs with reusable components.</p>
                 </div>
 
-                <div class="card aether-sky">
-                    <i data-lucide="heart" style="width: 40px; height: 40px; margin-bottom: var(--space-4);"></i>
-                    <h3 class="margin-bottom-2">Paleta Emocional</h3>
-                    <p>Cores com significado — graphite-mind, cloud-silent, ember-energy. Nomes poéticos que guiam a intenção.</p>
+                <div class="card feature-card aether-sky">
+                    <i data-lucide="heart" style="width: 48px; height: 48px; margin-bottom: var(--space-4); color: var(--aether-light);"></i>
+                    <h3 class="margin-bottom-2" style="color: var(--aether-light);">Emotional Palette</h3>
+                    <p>Colors with meaning — graphite-mind, cloud-silent, ember-energy. Poetic names that guide intent.</p>
                 </div>
 
-                <div class="card rose-soft">
-                    <i data-lucide="smartphone" style="width: 40px; height: 40px; margin-bottom: var(--space-4);"></i>
-                    <h3 class="margin-bottom-2">Grid Responsivo</h3>
-                    <p>Layouts fluidos que se adaptam graciosamente. Utilitários mobile-first para todos os tamanhos de tela.</p>
+                <div class="card feature-card rose-soft">
+                    <i data-lucide="smartphone" style="width: 48px; height: 48px; margin-bottom: var(--space-4); color: var(--rose-depth);"></i>
+                    <h3 class="margin-bottom-2" style="color: var(--rose-depth);">Responsive Grid</h3>
+                    <p>Fluid layouts that adapt gracefully. Mobile-first utilities for every screen size.</p>
                 </div>
 
-                <div class="card sand-light">
-                    <i data-lucide="zap" style="width: 40px; height: 40px; margin-bottom: var(--space-4);"></i>
-                    <h3 class="margin-bottom-2">Web Components</h3>
-                    <p>Elementos interativos com lógica encapsulada. Modals, dropdowns, tabs — prontos para usar.</p>
+                <div class="card feature-card sand-light">
+                    <i data-lucide="zap" style="width: 48px; height: 48px; margin-bottom: var(--space-4); color: var(--sand-earth);"></i>
+                    <h3 class="margin-bottom-2" style="color: var(--sand-earth);">Web Components</h3>
+                    <p>Interactive elements with encapsulated logic. Modals, dropdowns, tabs — ready to use.</p>
                 </div>
 
-                <div class="card iris-petal">
-                    <i data-lucide="eye-off" style="width: 40px; height: 40px; margin-bottom: var(--space-4);"></i>
-                    <h3 class="margin-bottom-2">Silêncio Visual</h3>
-                    <p>Elementos são silenciosos por padrão. Interações requerem opt-in com classe .hoverable.</p>
+                <div class="card feature-card iris-petal">
+                    <i data-lucide="eye-off" style="width: 48px; height: 48px; margin-bottom: var(--space-4); color: var(--iris-void);"></i>
+                    <h3 class="margin-bottom-2" style="color: var(--iris-void);">Visual Silence</h3>
+                    <p>Elements are silent by default. Interactions require opt-in with .hoverable class.</p>
                 </div>
 
-                <div class="card">
-                    <i data-lucide="cloud" style="width: 40px; height: 40px; margin-bottom: var(--space-4);"></i>
-                    <h3 class="margin-bottom-2">CDN Ready</h3>
-                    <p>Adicione duas linhas de código e comece a construir. Sem configuração complexa necessária.</p>
+                <div class="card feature-card">
+                    <i data-lucide="cloud" style="width: 48px; height: 48px; margin-bottom: var(--space-4); color: var(--thought);"></i>
+                    <h3 class="margin-bottom-2" style="color: var(--thought);">CDN Ready</h3>
+                    <p>Drop in two lines of code and start building. No complex setup required.</p>
                 </div>
             </div>
         </section>
 
-        <section class="padding-8 text-center">
-            <h2 class="margin-bottom-3">Filosofia</h2>
-            <p class="text-muted margin-bottom-6" style="max-width: 700px; margin-left: auto; margin-right: auto;">
-                <strong>Clareza antes da forma.</strong> Cada elemento existe por uma razão. 
-                <strong>Silêncio visual.</strong> O espaço é tão importante quanto o conteúdo. 
-                <strong>Precisão emocional.</strong> Interfaces evocam confiança, leveza, calma.
+        <section class="padding-8 text-center" style="background: linear-gradient(135deg, var(--iris-petal) 0%, var(--aether-sky) 100%); color: var(--graphite-mind);">
+            <h2 class="margin-bottom-4" style="font-size: 2.5rem;">Philosophy</h2>
+            <p class="text-large margin-bottom-8" style="max-width: 750px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+                <strong>Clarity before form.</strong> Every element exists for a reason. 
+                <strong>Visual silence.</strong> Space is as important as content. 
+                <strong>Emotional precision.</strong> Interfaces evoke trust, lightness, calm.
             </p>
 
             <div class="flex-group" style="justify-content: center;">
                 <a href="docs.html">
-                    <button class="thought hoverable">
+                    <button class="graphite-mind hoverable large" style="box-shadow: var(--shadow-medium);">
                         <i data-lucide="arrow-right"></i>
-                        Explorar Documentação
+                        Explore Documentation
                     </button>
                 </a>
                 <a href="themes.html">
-                    <button class="graphite-core outline hoverable">
+                    <button class="hoverable large" style="background: white; color: var(--thought); box-shadow: var(--shadow-medium);">
                         <i data-lucide="palette"></i>
-                        Ver Temas
+                        View Themes
                     </button>
                 </a>
             </div>
         </section>
     </main>
 
-    <footer>
+    <footer style="background: var(--graphite-deep); color: var(--cloud-pure);">
         <div class="footer-content">
             <div>
-                <h4>Monad</h4>
-                <p>Minimalist atomic design system.</p>
+                <h4 style="color: var(--cloud-pure); margin-bottom: var(--space-3);">
+                    <i data-lucide="circle-dot" style="width: 20px; height: 20px; vertical-align: middle; color: var(--iris-petal);"></i>
+                    Monad
+                </h4>
+                <p style="color: var(--silver-balance);">Minimalist atomic design system.</p>
+                <p style="color: var(--silver-balance); margin-top: var(--space-2);">
+                    <strong style="color: var(--aether-sky);">v1.0.0</strong> — Production Ready
+                </p>
             </div>
             <div>
-                <h4>Recursos</h4>
+                <h4 style="color: var(--cloud-pure); margin-bottom: var(--space-3);">Resources</h4>
                 <div class="stack-2">
-                    <a href="docs.html">Documentação</a>
-                    <a href="themes.html">Temas</a>
-                    <a href="https://github.com/thnkng/monad">GitHub</a>
+                    <a href="docs.html" class="hoverable" style="color: var(--aether-sky); text-decoration: none; font-weight: 500;">Documentation</a>
+                    <a href="themes.html" class="hoverable" style="color: var(--iris-petal); text-decoration: none; font-weight: 500;">Themes</a>
+                    <a href="https://github.com/thnkng/monad" class="hoverable" style="color: var(--sage-calm); text-decoration: none; font-weight: 500;">GitHub</a>
                 </div>
             </div>
             <div>
-                <h4>Layouts</h4>
+                <h4 style="color: var(--cloud-pure); margin-bottom: var(--space-3);">Templates</h4>
                 <div class="stack-2">
-                    <a href="canvas.html">Canvas</a>
-                    <a href="manuscript.html">Manuscript</a>
-                    <a href="horizon.html">Horizon</a>
+                    <a href="canvas.html" class="hoverable" style="color: var(--silver-balance); text-decoration: none;">Canvas</a>
+                    <a href="manuscript.html" class="hoverable" style="color: var(--silver-balance); text-decoration: none;">Manuscript</a>
+                    <a href="horizon.html" class="hoverable" style="color: var(--silver-balance); text-decoration: none;">Horizon</a>
+                    <a href="threshold.html" class="hoverable" style="color: var(--silver-balance); text-decoration: none;">Threshold</a>
                 </div>
             </div>
         </div>
